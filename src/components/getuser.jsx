@@ -19,7 +19,6 @@ function App() {
 
   return (
     <div>
-      <h1>Data from Django REST Framework API</h1>
       <ul>
         {data.map(item => (
           <li key={item.name}>{item.name} {item.mail}</li>
