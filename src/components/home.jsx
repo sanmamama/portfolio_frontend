@@ -1,31 +1,27 @@
 import React, { useState, useEffect } from 'react';
+import BlogListContent from './BlogListContent';
+import SidebarContent from './SidebarContent';
 
 function App() {
-  const [data, setData] = useState([]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch('http://127.0.0.1:8000/api/blog/');
-        const jsonData = await response.json();
-        setData(jsonData);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    };
-
-    fetchData();
-  }, []);
-
-  return (
-    <div>
-      <ul>
-        {data.map(item => (
-          <li key={item.title}>{item.title}　{item.content}</li>
-        ))}
-      </ul>
-    </div>
-  );
+    return (
+	<>
+		<div class="col-sm-9">
+			<div class="container container-m">
+				<div class="row">
+					<BlogListContent />
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-3">
+			<SidebarContent />
+		</div>
+	</>
+    );
 }
 
 export default App;
+
+
+
+
+

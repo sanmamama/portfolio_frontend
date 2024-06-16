@@ -25,10 +25,10 @@
   <div class="collapse navbar-collapse" id="navbarsExampleDefault">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
-        <a class="nav-link" href="">ホーム<span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="/">ホーム<span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="">プロフィール</a>
+        <a class="nav-link" href="/profile">プロフィール</a>
       </li>
 	    <li class="nav-item dropdown">
 
@@ -36,8 +36,8 @@
 		ポートフォリオ
 		</a>
 		<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-			 <a class="dropdown-item" href="">概要</a>
-			 <a class="dropdown-item" href="">Postter</a>
+			 <a class="dropdown-item" href="/user">概要</a>
+			 <a class="dropdown-item" href="/user">Postter</a>
 		</div>
    		</li>
       <li class="nav-item">
@@ -62,39 +62,27 @@
 
 
 <main role="main">
-
 	<div class="jumbotron">
 	  <div class="container">
 		<h1 class="display-3"><a class="text-dark text-decoration-none" href="">myblog</a></h1>
 		<p>ポートフォリオサイトです。</p>
 	  </div>
 	</div>
-	
-	<div class="container">
-		<div class="row">
-			<div class="col-sm-9">
-        <noscript>You need to enable JavaScript to run this app.</noscript>
-        <div id="root"></div>
-			</div>
-			<div class="col-sm-3">
-  
-			</div>
-		</div>
-		
-		<hr>
-		
-	</div>
-	
 
+  <noscript>You need to enable JavaScript to run this app.</noscript>
+	
+  <div class="container">
+    <div class="row">
+      <div id="root"></div>
+    </div>
+  </div>
+	
 </main>
 
 
-
-
-
-
 <footer class="container">
-  <p>&copy; myblog 2024</p>
+  <hr>
+  <p class="text-center">&copy; myblog 2024</p>
 </footer>
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
