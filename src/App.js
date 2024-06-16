@@ -1,13 +1,22 @@
 
 import './App.css';
-import GetUserComponent from './components/getuser';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Home from './components/home';
+import Profile from './components/profile';
+import GetUser from './components/getuser';
 
 function App() {
   return (
-    <div>
-      <h1>My App Test</h1>
-      <GetUserComponent />
-    </div>
+    <Router>
+      <div>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/getuser" element={<GetUser />} />
+          <Route path="/profile" element={<Profile />} />
+        </Routes>
+      </div>
+    </Router>
   );
 }
 
