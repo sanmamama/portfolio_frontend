@@ -37,3 +37,8 @@
   }
 }
 
+.jumbotron {
+  background-image: url("../public/header.png");
+  background-size: cover;
+  background-position: center 60%;
+}
