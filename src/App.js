@@ -2,7 +2,6 @@
 import './App.css';
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import GetUser from './components/getuser';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Home from './components/Home';
@@ -20,7 +19,6 @@ const MainContent = () => (
       <div className="row">
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/user" element={<GetUser />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/portfolio" element={<Portfolio />} />
           <Route path="/privacypolicy" element={<PrivacyPolicy />} />
@@ -36,7 +34,6 @@ const Sidebar = () => (
   <div className="col-sm-3">
     <Routes>
       <Route path="/" element={<SidebarContent />} />
-      <Route path="/user" element={<SidebarContent />} />
       <Route path="/profile" element={<SidebarContent />} />
       <Route path="/portfolio" element={<SidebarContent />} />
       <Route path="/privacypolicy" element={<SidebarContent />} />
