@@ -12,9 +12,9 @@ function Header() {
 
 			<div class="collapse navbar-collapse" id="navbarsExampleDefault">
 			<ul className="navbar-nav mr-auto">
-          		<li className="nav-item">
-            		<NavLink exact className="nav-link" to="/" activeClassName="active">ホーム</NavLink>
-          		</li>
+				<li className="nav-item">
+					<NavLink exact className="nav-link" to="/" activeClassName="active">ホーム</NavLink>
+				</li>
 				<li className="nav-item">
 				<NavLink className="nav-link" to="/profile" activeClassName="active">プロフィール</NavLink>
 				</li>
@@ -33,7 +33,7 @@ function Header() {
 
 		<div class="jumbotron">
 				<div class="container">
-					<h1 class="display-3"><a class="text-dark text-decoration-none" href="">myblog</a></h1>
+					<h1 class="display-3"><a class="text-dark text-decoration-none" href="/">myblog</a></h1>
 					<p>ポートフォリオサイトです。</p>
 				</div>
 		</div>
