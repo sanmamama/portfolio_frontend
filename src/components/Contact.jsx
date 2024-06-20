@@ -4,8 +4,11 @@ import SidebarContent from './SidebarContent';
 function Contact() {
     return (
 		<div>
-        <h1>コンタクト</h1>
-        <p>コンタクト</p>
+        <h1>お問い合わせ</h1>
+    				<form method="post">
+
+        			<button class="btn btn-outline-primary btn-block" type="submit">送信</button>
+    				</form>
       </div>
     );
 }
