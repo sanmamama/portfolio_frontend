@@ -32,6 +32,11 @@ function App() {
 	const query = useQuery();
 	const selectedCategory = query.get('category') || 'all';
 	const selectedTag = query.get('tag') || 'all';
+	const selectedMonth = query.get('month') || 'all';
+
+	//月別アーカイブ取得のため
+	const year = parseInt(selectedMonth.slice(0, 4), 10);
+	const monthNum = parseInt(selectedMonth.slice(4), 10);
 
 	useEffect(() => {
 		// ブログ記事一覧を取得
@@ -50,7 +55,10 @@ function App() {
 	const filteredblog = blog.filter(item => {
 		const categoryMatch = selectedCategory === 'all' || item.category.id === parseInt(selectedCategory);
 		const tagMatch = selectedTag === 'all' || item.tag.some(tag => tag.id === parseInt(selectedTag));
-		return categoryMatch && tagMatch;
+		
+        const postDate = new Date(item.created_at);
+        const monthMatch = selectedMonth === 'all' || postDate.getFullYear() === year && (postDate.getMonth() + 1) === monthNum;
+		return categoryMatch && tagMatch && monthMatch;
 	});
 
 	return (

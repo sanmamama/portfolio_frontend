@@ -1,51 +1,101 @@
-import React, { useState, useEffect } from 'react';
+// src/components/Sidebar.js
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
-function SidebarContent() {
+const SidebarContent = () => {
+    const [posts, setPosts] = useState([]);
+    const [categories, setCategories] = useState([]);
+    const [tags, setTags] = useState([]);
+    const [archives, setArchives] = useState([]);
 
-    const [category, setCategory] = useState(null);
-	const [tag, setTag] = useState(null);
-	const [error, setError] = useState(null);
+    useEffect(() => {
+        fetch('http://localhost:8000/api/blog/')
+            .then(response => response.json())
+            .then(data => {
+                setPosts(data);
+                calculateCategories(data);
+                calculateTags(data);
+                calculateArchives(data);
+            })
+            .catch(error => console.error('Error fetching posts:', error));
+    }, []);
 
-	useEffect(() => {
-		// カテゴリ一覧を取得
-		fetch('http://127.0.0.1:8000/api/category/')
-			.then(response => response.json())
-			.then(data => setCategory(data))
-			.catch(error => setError(error));
+    const calculateCategories = (posts) => {
+        const categoryCount = {};
+        posts.forEach(post => {
+            const category = post.category;
+            if (categoryCount[category.id]) {
+                categoryCount[category.id].count++;
+            } else {
+                categoryCount[category.id] = { name: category.name, count: 1 };
+            }
+        });
+        setCategories(Object.entries(categoryCount));
+    };
 
-		// タグ一覧を取得
-		fetch('http://127.0.0.1:8000/api/tag/')
-			.then(response => response.json())
-			.then(data => setTag(data))
-			.catch(error => setError(error));
-	}, []);
+    const calculateTags = (posts) => {
+        const tagCount = {};
+        posts.forEach(post => {
+            post.tag.forEach(tag => {
+                if (tagCount[tag.id]) {
+                    tagCount[tag.id].count++;
+                } else {
+                    tagCount[tag.id] = { name: tag.name, count: 1 };
+                }
+            });
+        });
+        setTags(Object.entries(tagCount));
+    };
 
-    if(!category)
-        return <div>Loading...</div>;
+    const calculateArchives = (posts) => {
+        const archiveCount = {};
+        posts.forEach(post => {
+            //const month = new Date(post.created_at).toISOString().slice(0, 7); // "2024-06" の形式
+            const month = new Date(post.created_at);
+            const formattedMonth = month.getFullYear().toString() + ('0' + (month.getMonth() + 1)).slice(-2); // "202406" の形式
+            if (archiveCount[formattedMonth]) {
+                archiveCount[formattedMonth]++;
+            } else {
+                archiveCount[formattedMonth] = 1;
+            }
+        });
+        setArchives(Object.entries(archiveCount));
+    };
 
-    if(!tag)
-        return <div>Loading...</div>;
-    
+    const formatMonth = (month) => {
+        const date = new Date(month);
+        return date.toLocaleString('default', { year: 'numeric', month: 'long' });
+    };
+
     return (
         <div>
-            <h3>カテゴリー</h3>
-            {category.map(item => (
-                <p key={item.id}>
-                <Link to={`/?category=${item.id}`}>{item.name}</Link>
-                </p>
-            ))}
-
-            <h3 class="mt-4">タグ</h3>
-            {tag.map(item => (
-                <p key={item.id}>
-                <Link to={`/?tag=${item.id}`}>{item.name}</Link>
-                </p>
-            ))}
-
-            
+            <h2>カテゴリー</h2>
+            <ul>
+                {categories.map(([id, { name, count }]) => (
+                    <li key={id}>
+                        <Link to={`/?category=${id}`}>{name} ({count})</Link>
+                    </li>
+                ))}
+            </ul>
+            <h2>タグ</h2>
+            <ul>
+                {tags.map(([id, { name, count }]) => (
+                    <li key={id}>
+                        <Link to={`/?tag=${id}`}>{name} ({count})</Link>
+                    </li>
+                ))}
+            </ul>
+            <h2>アーカイブ</h2>
+            <ul>
+                {archives.map(([month, count]) => (
+                    <li key={month}>
+                        <Link to={`/?month=${month}`}>{formatMonth(month)} ({count})</Link>
+                    </li>
+                ))}
+            </ul>
         </div>
     );
-}
+};
+
 
 export default SidebarContent;
