@@ -7,18 +7,37 @@ const ContactForm = () => {
         email: '',
         message: ''
     });
+    const [errors, setErrors] = useState({});
+
+    const validateForm = () => {
+        let formErrors = {};
+        if (!formData.name) formErrors.name = '名前を入力してください';
+        if (!formData.email) formErrors.email = 'メールアドレスを入力してください';
+        if (!formData.message) formErrors.message = 'メッセージを入力してください';
+        return formErrors;
+    };
 
     const handleChange = (e) => {
         setFormData({
             ...formData,
             [e.target.name]: e.target.value
         });
+        setErrors({
+            ...errors,
+            [e.target.name]: ''  // Clear the error message for this field
+        });
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        fetch('http://localhost:8000/api/contact/', {
+        const formErrors = validateForm();
+        if (Object.keys(formErrors).length > 0) {
+            setErrors(formErrors);
+            return;
+        }
+
+        fetch('http://localhost:8000/api/contact/create/', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -34,7 +53,7 @@ const ContactForm = () => {
         .then(data => {
             console.log('Success:', data);
             alert('Message sent successfully!');
-			setFormData({
+            setFormData({
                 name: '',
                 email: '',
                 message: ''
@@ -48,14 +67,15 @@ const ContactForm = () => {
     return (
         <form onSubmit={handleSubmit}>
             <div>
-                <label>お名前</label>
+                <label>お名前</label> {errors.name && <span class="ml-3" style={{ color: 'red' }}>{errors.name}</span>}
                 <input class="form-control" type="text" name="name" value={formData.name} onChange={handleChange} />
 
-                <label>メールアドレス</label>
+                <label>メールアドレス</label> {errors.email && <span class="ml-3" style={{ color: 'red' }}>{errors.email}</span>}
                 <input class="form-control" type="email" name="email" value={formData.email} onChange={handleChange} />
-
-                <label>メッセージ</label>
+				
+                <label>メッセージ</label> {errors.message && <span class="ml-3" style={{ color: 'red' }}>{errors.message}</span>}
                 <textarea class="form-control" name="message" value={formData.message} onChange={handleChange}></textarea>
+				
             </div>
             <button class="mt-2 btn btn-outline-primary btn-block" type="submit">送信</button>
         </form>
