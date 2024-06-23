@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import DOMPurify from 'dompurify';
+import { Link } from 'react-router-dom';
 
 function sanitizeHtml(html) {
 	return DOMPurify.sanitize(html);
@@ -43,9 +44,18 @@ const BlogDetail = () => {
 	return (
 		<div className="blog-detail-container">
 			{data.detail}
-			{formatDateToJapanese(data.created_at)}
-			<h4>{data.title}</h4>
-			<div dangerouslySetInnerHTML={{ __html: sanitizedContent }} />
+			<span class="mt-0 mb-0 text-secondary">投稿日 {formatDateToJapanese(data.created_at)}　編集日 {formatDateToJapanese(data.updated_at)}</span>
+					<span class="ml-2 text-secondary mark small"><Link to={`/?category=${data.category.id}`}>{data.category.name}</Link></span>
+					{data.tag.map(
+						tag => (
+							<span class="ml-2 text-secondary small" key={tag.id}><Link to={`/?tag=${tag.id}`}>{tag.name}</Link></span>
+							))}
+					<h4 class="mt-3 mb-3">
+						<img class="mr-2" src = {data.img} width="50" height="50"></img>
+						<span class="align-text-bottom">{data.title}</span>
+					</h4>
+
+					<div dangerouslySetInnerHTML={{ __html: sanitizedContent }} />
 		</div>
 	);
 	};

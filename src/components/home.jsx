@@ -71,23 +71,32 @@ function App() {
 		return `${year}年${month}月${day}日`;
 	};
 
+	console.log(filteredblog)
+
 	return (
 	<>
 	{filteredblog.map(item => (
 		<div class="col-md-6">
 			<div class="d-flex flex-column bd-highlight mb-5">
 				<div key={item.id}>
-				<Link to={`/detail/${item.id}`}>{item.title}</Link>
-				<p>{truncateTo100Chars(item.content)}</p>
-				<p>{item.category.name}</p>
-				{item.tag.map(
-					tag => (
-						<span class="mr-3" key={tag.id}>
-							{tag.name}
-						</span>
-						))}
-				<p>投稿日：{formatDateToJapanese(item.created_at)}</p>
-				<p>更新日：{formatDateToJapanese(item.updated_at)}</p>
+					<span class="mt-0 mb-0 text-secondary">{formatDateToJapanese(item.created_at)}</span>
+					<span class="ml-2 text-secondary mark small"><Link to={`/?category=${item.category.id}`}>{item.category.name}</Link></span>
+					{item.tag.map(
+						tag => (
+							<span class="ml-2 text-secondary small" key={tag.id}><Link to={`/?tag=${tag.id}`}>{tag.name}</Link></span>
+							))}
+					<h5>
+						<img class="mr-2" src = {item.img} width="50" height="50"></img>
+						<span class="align-text-bottom"><Link to={`/detail/${item.id}`}>{item.title}</Link></span>
+					</h5>
+					<span>
+					{truncateTo100Chars(item.content)}
+					</span>
+					<span class="ml-3">
+						<Link to={`/detail/${item.id}`}>続きを見る
+						</Link>
+					</span>
+					
 				</div>
 			</div>
 		</div>	

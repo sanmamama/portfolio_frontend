@@ -92,7 +92,7 @@ const SidebarContent = () => {
                     <li key={month}>
                         <Link to={`/?month=${month}`}>{formatMonth(month)} ({count})</Link>
                     </li>
-                ))}
+                )).reverse()}
             </ul>
         </div>
     );
