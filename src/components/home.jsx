@@ -60,6 +60,16 @@ function App() {
         const monthMatch = selectedMonth === 'all' || postDate.getFullYear() === year && (postDate.getMonth() + 1) === monthNum;
 		return categoryMatch && tagMatch && monthMatch;
 	});
+	
+	// 日付表記yyyy年mm月へ
+	const formatDateToJapanese = (dateString) => {
+		const date = new Date(dateString);
+		const year = date.getFullYear();
+		const month = date.getMonth() + 1; // getMonth() は0から11までの値を返すため、+1する必要があります
+		const day = date.getDate();
+	
+		return `${year}年${month}月${day}日`;
+	};
 
 	return (
 	<>
@@ -76,7 +86,8 @@ function App() {
 							{tag.name}
 						</span>
 						))}
-				<p>{item.created_at}</p>
+				<p>投稿日：{formatDateToJapanese(item.created_at)}</p>
+				<p>更新日：{formatDateToJapanese(item.updated_at)}</p>
 				</div>
 			</div>
 		</div>	

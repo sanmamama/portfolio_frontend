@@ -31,11 +31,20 @@ const BlogDetail = () => {
 	}
 
 	const sanitizedContent = sanitizeHtml(data.content);
+	const formatDateToJapanese = (dateString) => {
+		const date = new Date(dateString);
+		const year = date.getFullYear();
+		const month = date.getMonth() + 1; // getMonth() は0から11までの値を返すため、+1する必要があります
+		const day = date.getDate();
+	
+		return `${year}年${month}月${day}日`;
+	};
 
 	return (
 		<div className="blog-detail-container">
 			{data.detail}
-			{data.title}
+			{formatDateToJapanese(data.created_at)}
+			<h4>{data.title}</h4>
 			<div dangerouslySetInnerHTML={{ __html: sanitizedContent }} />
 		</div>
 	);

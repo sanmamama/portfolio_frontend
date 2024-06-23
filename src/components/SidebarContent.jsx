@@ -63,8 +63,9 @@ const SidebarContent = () => {
     };
 
     const formatMonth = (month) => {
-        const date = new Date(month);
-        return date.toLocaleString('default', { year: 'numeric', month: 'long' });
+        const year = month.slice(0, 4);
+        const monthNumber = month.slice(4, 6);
+        return `${year}年${parseInt(monthNumber)}月`;
     };
 
     return (
