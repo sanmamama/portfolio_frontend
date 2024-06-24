@@ -3,7 +3,7 @@ import SidebarContent from './SidebarContent';
 
 function Profile() {
     return (
-      <>
+      <div className="row">
         <div class="row">
 			    <div class="col">
             <h1>プロフィール</h1>
@@ -75,7 +75,7 @@ function Profile() {
 
         </div>
       </div>
-    </>
+    </div>
     );
 }
 

@@ -16,7 +16,7 @@ import BlogDetailSide from './components/\BlogDetailSide';
 const MainContent = () => (
   <div className="col-sm-9">
     <div className="container container-m">
-      <div className="row">
+      
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/profile" element={<Profile />} />
@@ -25,7 +25,7 @@ const MainContent = () => (
           <Route path="/contact" element={<Contact />} />
           <Route path="/detail/:id" element={<BlogDetail />} />
         </Routes>
-      </div>
+
     </div>
   </div>
 );

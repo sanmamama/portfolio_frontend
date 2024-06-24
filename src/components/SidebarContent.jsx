@@ -9,7 +9,7 @@ const SidebarContent = () => {
     const [archives, setArchives] = useState([]);
 
     useEffect(() => {
-        fetch('http://localhost:8000/api/blog/')
+        fetch('http://localhost:8000/api/blog/all/')
             .then(response => response.json())
             .then(data => {
                 setPosts(data);
@@ -90,7 +90,7 @@ const SidebarContent = () => {
             <ul>
                 {archives.map(([month, count]) => (
                     <li key={month}>
-                        <Link to={`/?month=${month}`}>{formatMonth(month)} ({count})</Link>
+                        <Link to={`/?date=${month}`}>{formatMonth(month)} ({count})</Link>
                     </li>
                 )).reverse()}
             </ul>

@@ -42,6 +42,7 @@ const BlogDetail = () => {
 	};
 
 	return (
+		<div className="row">
 		<div className="blog-detail-container">
 			{data.detail}
 			<span class="mt-0 mb-0 text-secondary">投稿日 {formatDateToJapanese(data.created_at)}　編集日 {formatDateToJapanese(data.updated_at)}</span>
@@ -56,6 +57,7 @@ const BlogDetail = () => {
 					</h4>
 
 					<div dangerouslySetInnerHTML={{ __html: sanitizedContent }} />
+		</div>
 		</div>
 	);
 	};

@@ -3,7 +3,7 @@ import SidebarContent from './SidebarContent';
 
 function PrivacyPolicy() {
     return (
-		<>
+		<div className="row">
         <div class="row">
 			<div class="col">
 				<h1>プライバシーポリシー</h1>
@@ -53,7 +53,7 @@ function PrivacyPolicy() {
 				</p>
 			</div>
 		</div>
-      </>
+      </div>
     );
 }
 

@@ -13,7 +13,7 @@ function Header() {
 			<div class="collapse navbar-collapse" id="navbarsExampleDefault">
 			<ul className="navbar-nav mr-auto">
 				<li className="nav-item">
-					<NavLink exact className="nav-link" to="/" activeClassName="active">ホーム</NavLink>
+				<NavLink className="nav-link" to="/" activeClassName="active">ホーム</NavLink>
 				</li>
 				<li className="nav-item">
 				<NavLink className="nav-link" to="/profile" activeClassName="active">プロフィール</NavLink>
