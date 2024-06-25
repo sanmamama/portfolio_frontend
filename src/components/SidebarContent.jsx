@@ -70,7 +70,7 @@ const SidebarContent = () => {
 
     return (
         <div>
-            <h2>カテゴリー</h2>
+            <h4>カテゴリー</h4>
             <ul>
                 {categories.map(([id, { name, count }]) => (
                     <li key={id}>
@@ -78,7 +78,7 @@ const SidebarContent = () => {
                     </li>
                 ))}
             </ul>
-            <h2>タグ</h2>
+            <h4>タグ</h4>
             <ul>
                 {tags.map(([id, { name, count }]) => (
                     <li key={id}>
@@ -86,7 +86,7 @@ const SidebarContent = () => {
                     </li>
                 ))}
             </ul>
-            <h2>アーカイブ</h2>
+            <h4>アーカイブ</h4>
             <ul>
                 {archives.map(([month, count]) => (
                     <li key={month}>

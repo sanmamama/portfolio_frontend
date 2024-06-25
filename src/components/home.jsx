@@ -2,7 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Route, Switch, useLocation, useHistory } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
-	// 日付表記yyyy年mm月へ
+
+
+// 日付表記yyyy年mm月へ
 function formatDateToJapanese(dateString){
 		const date = new Date(dateString);
 		const year = date.getFullYear();
@@ -65,9 +67,17 @@ const App = () => {
 		return <div>Loading...</div>;
 	}
 
-
-
-
+	//ページネーション用add URL作成
+	let addUrl = []
+	if (selectedCategory) {
+        addUrl += `&category=${selectedCategory}`
+	}
+	if (selectedTag) {
+        addUrl += `&tag=${selectedTag}`
+	}
+	if (selectedYearMonth) {
+        addUrl += `&date=${selectedYearMonth}`
+	}
 
     return (
 		<>
@@ -103,20 +113,20 @@ const App = () => {
 			<div class="text-center">
 				
 				{currentPage > 1 ?
-				<span className="ml-2"><Link to={`/?page=${currentPage - 1}&category=${selectedCategory}&tag=${selectedTag}&date=${selectedYearMonth}`}>prev</Link></span>
+				<span className="ml-2"><Link to={`/?page=${currentPage - 1}${addUrl}`}>prev</Link></span>
 				:
 				<span className="ml-2">prev</span>
 				}
 
 				{Array.from({ length: pageCount }).map((_, i) => (
 					currentPage != i+1 ?
-					<span className="ml-2" key={i}><Link to={`/?page=${i + 1}&category=${selectedCategory}&tag=${selectedTag}&date=${selectedYearMonth}`}>{i + 1}</Link></span>
+					<span className="ml-2" key={i}><Link to={`/?page=${i + 1}${addUrl}`}>{i + 1}</Link></span>
 					:
 					<span className="ml-2" key={i}>{i + 1}</span>
 				))}
 
 				{currentPage < pageCount ? 
-				<span className="ml-2"><Link to={`/?page=${currentPage + 1}&category=${selectedCategory}&tag=${selectedTag}&date=${selectedYearMonth}`}>next</Link></span>
+				<span className="ml-2"><Link to={`/?page=${currentPage + 1}${addUrl}`}>next</Link></span>
 				:
 				<span className="ml-2">next</span>
 				}
