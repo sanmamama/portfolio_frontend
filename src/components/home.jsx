@@ -50,10 +50,10 @@ const App = () => {
         const data = await response.json();
         setBlog(data.results);
 		setCurrentPage(selectedPage)
-		setPageCount(Math.ceil(data.count / 6))
+		setPageCount(Math.ceil(data.count / 2))
 		//console.log(`http://127.0.0.1:8000/api/blog/?page=${selectedPage}&category=${selectedCategory}&tag=${selectedTag}&date=${selectedYearMonth}`)
-		console.log(currentPage)
-		console.log(pageCount)
+		//console.log(currentPage)
+		//console.log(pageCount)
     };
 
     useEffect(() => {
@@ -102,19 +102,24 @@ const App = () => {
 
 			<div class="text-center">
 				
-				{currentPage > 1 && (
-					<span className="ml-2"><Link to={`/?page=${currentPage - 1}&category=${selectedCategory}&tag=${selectedTag}&date=${selectedYearMonth}`}>prev</Link></span>
-				)}
+				{currentPage > 1 ?
+				<span className="ml-2"><Link to={`/?page=${currentPage - 1}&category=${selectedCategory}&tag=${selectedTag}&date=${selectedYearMonth}`}>prev</Link></span>
+				:
+				<span className="ml-2">prev</span>
+				}
 
 				{Array.from({ length: pageCount }).map((_, i) => (
-					currentPage != i+1 && (
+					currentPage != i+1 ?
 					<span className="ml-2" key={i}><Link to={`/?page=${i + 1}&category=${selectedCategory}&tag=${selectedTag}&date=${selectedYearMonth}`}>{i + 1}</Link></span>
-					)
+					:
+					<span className="ml-2" key={i}>{i + 1}</span>
 				))}
 
-				{currentPage < pageCount && (
-					<span className="ml-2"><Link to={`/?page=${currentPage + 1}&category=${selectedCategory}&tag=${selectedTag}&date=${selectedYearMonth}`}>next</Link></span>
-				)}
+				{currentPage < pageCount ? 
+				<span className="ml-2"><Link to={`/?page=${currentPage + 1}&category=${selectedCategory}&tag=${selectedTag}&date=${selectedYearMonth}`}>next</Link></span>
+				:
+				<span className="ml-2">next</span>
+				}
 			
 			</div>
 	</>
