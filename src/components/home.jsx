@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import ReactPaginate from 'react-paginate';
 import { BrowserRouter as Router, Route, Switch, useLocation, useHistory } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
@@ -35,39 +34,37 @@ function useQuery() {
 
 const App = () => {
     const [blog, setBlog] = useState(null);
-    const [pageCount, setPageCount] = useState(0);
-    const [currentPage, setCurrentPage] = useState(0);
+	const [pageCount, setPageCount] = useState(null);
+    const [currentPage, setCurrentPage] = useState(null);
 
     // URLパラメータからフィルタ状態を取得
 	const query = useQuery();
+	const selectedPage = parseInt(query.get('page') || 1,10)
 	const selectedCategory = query.get('category') || '';
 	const selectedTag = query.get('tag') || '';
 	const selectedYearMonth = query.get('date') || '';
 
-	//月別アーカイブ取得のため
-	const year = parseInt(selectedYearMonth.slice(0, 4), 10);
-	const monthNum = parseInt(selectedYearMonth.slice(4), 10);
-
     
     const fetchItems = async (currentPage) => {
-        const response = await fetch(`http://127.0.0.1:8000/api/blog/?page=${currentPage + 1}&category=${selectedCategory}&tag=${selectedTag}&date=${selectedYearMonth}`);
-        
+        const response = await fetch(`http://127.0.0.1:8000/api/blog/?page=${selectedPage}&category=${selectedCategory}&tag=${selectedTag}&date=${selectedYearMonth}`);
         const data = await response.json();
         setBlog(data.results);
-        setPageCount(Math.ceil(data.count / 6)); // Adjust according to the page size
+		setCurrentPage(selectedPage)
+		setPageCount(Math.ceil(data.count / 6))
+		//console.log(`http://127.0.0.1:8000/api/blog/?page=${selectedPage}&category=${selectedCategory}&tag=${selectedTag}&date=${selectedYearMonth}`)
+		console.log(currentPage)
+		console.log(pageCount)
     };
 
     useEffect(() => {
         fetchItems(currentPage);
-    }, [currentPage, selectedCategory, selectedTag, selectedYearMonth]);
+    }, [selectedPage, selectedCategory, selectedTag, selectedYearMonth]);
 
-    const handlePageClick = (event) => {
-        setCurrentPage(event.selected);
-    };
 
     if (!blog) {
 		return <div>Loading...</div>;
 	}
+
 
 
 
@@ -102,28 +99,23 @@ const App = () => {
 				</div>	
 			))}	
 			</div>
-			<div>
-			<ReactPaginate
-						previousLabel={'previous'}
-						nextLabel={'next'}
-						breakLabel={'...'}
-						breakClassName={'break-me'}
-						pageCount={pageCount}
-						marginPagesDisplayed={2}
-						pageRangeDisplayed={5}
-						onPageChange={handlePageClick}
-						containerClassName={'pagination'}
-						subContainerClassName={'pages pagination'}
-						activeClassName={'active'}
-						pageClassName='page-item'
-						pageLinkClassName='page-link'
-						previousClassName='page-item'
-						nextClassName='page-item'
-						previousLinkClassName='page-link'
-						nextLinkClassName='page-link'
-						disabledClassName='disabled'
-						breakLinkClassName='page-link'
-					/>
+
+			<div class="text-center">
+				
+				{currentPage > 1 && (
+					<span className="ml-2"><Link to={`/?page=${currentPage - 1}&category=${selectedCategory}&tag=${selectedTag}&date=${selectedYearMonth}`}>prev</Link></span>
+				)}
+
+				{Array.from({ length: pageCount }).map((_, i) => (
+					currentPage != i+1 && (
+					<span className="ml-2" key={i}><Link to={`/?page=${i + 1}&category=${selectedCategory}&tag=${selectedTag}&date=${selectedYearMonth}`}>{i + 1}</Link></span>
+					)
+				))}
+
+				{currentPage < pageCount && (
+					<span className="ml-2"><Link to={`/?page=${currentPage + 1}&category=${selectedCategory}&tag=${selectedTag}&date=${selectedYearMonth}`}>next</Link></span>
+				)}
+			
 			</div>
 	</>
     );
