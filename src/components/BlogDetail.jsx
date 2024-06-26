@@ -8,9 +8,7 @@ function sanitizeHtml(html) {
 	return DOMPurify.sanitize(html);
 }
 
-
-
-function replaceH1Tag(content) {
+function replaceHTag(content) {
     let idCounter = 1;
     let toc = '';
 
@@ -42,6 +40,14 @@ const BlogDetail = () => {
 		};
 		fetchData();
 	}, []);
+
+	const handleLike = async () => {
+        const response = await fetch(`http://127.0.0.1:8000/api/blog/${id}/like/`, {
+            method: 'PATCH'
+        });
+        const res = await response.json();
+        setData({ ...data, likes: res.likes });
+    };
 	
 
 
@@ -49,7 +55,7 @@ const BlogDetail = () => {
 		return <div>Loading...</div>;
 	}
 
-	const {updatedContent,toc} = replaceH1Tag(data.content);
+	const {updatedContent,toc} = replaceHTag(data.content);
 	const sanitizedContent = sanitizeHtml(updatedContent);
 	
 	const formatDateToJapanese = (dateString) => {
@@ -76,8 +82,8 @@ const BlogDetail = () => {
 						<img class="mr-2" src = {data.img} width="50" height="50"></img>
 						<span class="align-text-bottom">{data.title}</span>
 						</h4>
-
 					<div dangerouslySetInnerHTML={{ __html: sanitizedContent }} />
+					<button class="btn btn-outline-primary" onClick={handleLike}>いいね！ ({data.likes})</button>
 			</div>
 		</div>
 		

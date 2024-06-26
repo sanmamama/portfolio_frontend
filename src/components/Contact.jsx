@@ -23,6 +23,7 @@ const ContactForm = () => {
         message: ''
     });
     const [errors, setErrors] = useState({});
+    const [messages, setMessages] = useState("");
 
     const validateForm = () => {
         let formErrors = {};
@@ -52,7 +53,7 @@ const ContactForm = () => {
             return;
         }
 
-        fetch('http://localhost:8000/api/contact/create/', {
+        fetch('http://localhost:8000/api/contact/', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -66,8 +67,9 @@ const ContactForm = () => {
             return response.json();
         })
         .then(data => {
-            console.log('Success:', data);
-            alert('Message sent successfully!');
+            //console.log('Success:', data);
+            //alert('Message sent successfully!');
+            setMessages('送信しました')
             setFormData({
                 name: '',
                 email: '',
@@ -80,6 +82,7 @@ const ContactForm = () => {
     };
 
     return (
+        <>
         <form onSubmit={handleSubmit}>
             <div>
                 <label>お名前</label> {errors.name && <span class="ml-3" style={{ color: 'red' }}>{errors.name}</span>}
@@ -94,6 +97,8 @@ const ContactForm = () => {
             </div>
             <button class="mt-2 btn btn-outline-primary btn-block" type="submit">送信</button>
         </form>
+        <p>{messages}</p>
+        </>
     );
 };
 
