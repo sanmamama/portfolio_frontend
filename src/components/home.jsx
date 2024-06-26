@@ -52,7 +52,7 @@ const App = () => {
         const data = await response.json();
         setBlog(data.results);
 		setCurrentPage(selectedPage)
-		setPageCount(Math.ceil(data.count / 2))
+		setPageCount(Math.ceil(data.count / 6))
 		//console.log(`http://127.0.0.1:8000/api/blog/?page=${selectedPage}&category=${selectedCategory}&tag=${selectedTag}&date=${selectedYearMonth}`)
 		//console.log(currentPage)
 		//console.log(pageCount)
