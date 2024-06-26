@@ -81,6 +81,8 @@ const App = () => {
 
     return (
 		<>
+		<div className="col-sm-9">
+		<div className="container container-m">
 			<div className="row">
 			{blog.map(item => (
 				<div class="col-md-6">
@@ -131,6 +133,8 @@ const App = () => {
 				<span className="ml-2">next</span>
 				}
 			
+			</div>
+			</div>
 			</div>
 	</>
     );

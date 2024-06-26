@@ -8,6 +8,23 @@ function sanitizeHtml(html) {
 	return DOMPurify.sanitize(html);
 }
 
+
+
+function replaceH1Tag(content) {
+    let idCounter = 1;
+    let toc = '';
+
+    const updatedContent = content.replace(/<(h[4-6])>(.*?)<\/\1>/g, (match, p1, p2) => {
+        const tocEntry = `<p class="ml-${p1.charAt(1)-5}"><a href="#${idCounter}">${p2}</a></p>`;
+        toc += tocEntry;
+        return `<a style="display: block; margin-top: -70px; padding-top: 70px;" id="${idCounter++}"><${p1}>${p2}</${p1}></a>`;
+
+
+    });
+
+    return { updatedContent, toc };
+}
+
 const BlogDetail = () => {
 	const { id } = useParams();
 	const [data, setData] = useState(null);
@@ -25,40 +42,53 @@ const BlogDetail = () => {
 		};
 		fetchData();
 	}, []);
+	
 
 
 	if (!data) {
 		return <div>Loading...</div>;
 	}
 
-	const sanitizedContent = sanitizeHtml(data.content);
+	const {updatedContent,toc} = replaceH1Tag(data.content);
+	const sanitizedContent = sanitizeHtml(updatedContent);
+	
 	const formatDateToJapanese = (dateString) => {
 		const date = new Date(dateString);
 		const year = date.getFullYear();
-		const month = date.getMonth() + 1; // getMonth() は0から11までの値を返すため、+1する必要があります
+		const month = date.getMonth() + 1;
 		const day = date.getDate();
 	
 		return `${year}年${month}月${day}日`;
 	};
 
 	return (
-		<div className="row">
-		<div className="blog-detail-container">
-			{data.detail}
-			<span class="mt-0 mb-0 text-secondary">投稿日 {formatDateToJapanese(data.created_at)}　編集日 {formatDateToJapanese(data.updated_at)}</span>
-					<span class="ml-2 text-secondary mark small"><Link to={`/?category=${data.category.id}`}>{data.category.name}</Link></span>
-					{data.tag.map(
+		<>
+		<div className="col-sm-9">
+			<div className="container container-m">
+						{data.detail}
+						<span class="mt-0 mb-0 text-secondary">投稿日 {formatDateToJapanese(data.created_at)}　編集日 {formatDateToJapanese(data.updated_at)}</span>
+						<span class="ml-2 text-secondary mark small"><Link to={`/?category=${data.category.id}`}>{data.category.name}</Link></span>
+						{data.tag.map(
 						tag => (
 							<span class="ml-2 text-secondary small" key={tag.id}><Link to={`/?tag=${tag.id}`}>{tag.name}</Link></span>
 							))}
-					<h4 class="mt-3 mb-3">
+						<h4 class="mt-3 mb-3">
 						<img class="mr-2" src = {data.img} width="50" height="50"></img>
 						<span class="align-text-bottom">{data.title}</span>
-					</h4>
+						</h4>
 
 					<div dangerouslySetInnerHTML={{ __html: sanitizedContent }} />
+			</div>
 		</div>
+		
+
+		<div className="col-sm-3">
+			<div>
+				<h3>目次</h3>
+				<div dangerouslySetInnerHTML={{ __html: toc }} />
+			</div>
 		</div>
+		</>
 	);
 	};
 	

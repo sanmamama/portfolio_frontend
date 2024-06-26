@@ -69,6 +69,7 @@ const SidebarContent = () => {
     };
 
     return (
+        <div className="col-sm-3">
         <div>
             <h4>カテゴリー</h4>
             <ul>
@@ -94,6 +95,7 @@ const SidebarContent = () => {
                     </li>
                 )).reverse()}
             </ul>
+        </div>
         </div>
     );
 };

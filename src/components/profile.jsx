@@ -3,6 +3,8 @@ import SidebarContent from './SidebarContent';
 
 function Profile() {
     return (
+      <div className="col-sm-9">
+              <div className="container container-m">
       <div className="row">
         <div class="row">
 			    <div class="col">
@@ -75,6 +77,8 @@ function Profile() {
 
         </div>
       </div>
+    </div>
+    </div>
     </div>
     );
 }
