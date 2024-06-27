@@ -15,7 +15,7 @@ function replaceHTag(content) {
     const updatedContent = content.replace(/<(h[4-6])>(.*?)<\/\1>/g, (match, p1, p2) => {
         const tocEntry = `<p class="ml-${p1.charAt(1)-5}"><a href="#${idCounter}">${p2}</a></p>`;
         toc += tocEntry;
-        return `<a style="display: block; margin-top: -70px; padding-top: 70px;" id="${idCounter++}"><${p1}>${p2}</${p1}></a>`;
+        return `<a style="display: block; margin-top: -60px; padding-top: 60px;" id="${idCounter++}"><${p1}>${p2}</${p1}></a>`;
 
 
     });
@@ -78,7 +78,7 @@ const BlogDetail = () => {
 						tag => (
 							<span class="ml-2 text-secondary small" key={tag.id}><Link to={`/?tag=${tag.id}`}>{tag.name}</Link></span>
 							))}
-						<h4 class="mt-3 mb-3">
+						<h4 class="mt-1 mb-4">
 						<img class="mr-2" src = {data.img} width="50" height="50"></img>
 						<span class="align-text-bottom">{data.title}</span>
 						</h4>

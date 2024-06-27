@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import SidebarContent from './SidebarContent';
+import SidebarContent from './HomeSidebar';
 
 function Portfolio() {
     return (
@@ -7,9 +7,8 @@ function Portfolio() {
               <div className="container container-m">
       <div className="row">
         <div>
-				<h1>ポートフォリオ</h1>
-
-				<p>作成日：2024年5月18日　最終更新日：2024年5月18日</p>
+        <span class="mt-0 mb-0 text-secondary">作成日：2024年5月18日　最終更新日：2024年5月18日</span>
+				<h4 class="mt-1 mb-4">ポートフォリオ</h4>
 
 				<p><a href="/">Myblog</a></p>
 				<p>このブログです。</p>

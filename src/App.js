@@ -9,7 +9,6 @@ import Profile from './components/Profile';
 import Portfolio from './components/Portfolio';
 import PrivacyPolicy from './components/PrivacyPolicy';
 import Contact from './components/Contact';
-import SidebarContent from './components/SidebarContent';
 import BlogDetail from './components/\BlogDetail';
 
 
@@ -27,13 +26,6 @@ function App() {
               <Route path="/privacypolicy" element={<PrivacyPolicy />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/detail/:id" element={<BlogDetail />} />
-            </Routes>
-            <Routes>
-              <Route path="/" element={<SidebarContent />} />
-              <Route path="/profile" element={<SidebarContent />} />
-              <Route path="/portfolio" element={<SidebarContent />} />
-              <Route path="/privacypolicy" element={<SidebarContent />} />
-              <Route path="/contact" element={<SidebarContent />} />
             </Routes>
           </div>
         </div>

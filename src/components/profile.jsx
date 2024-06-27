@@ -1,18 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import SidebarContent from './SidebarContent';
+import SidebarContent from './HomeSidebar';
 
 function Profile() {
     return (
+      <>
       <div className="col-sm-9">
               <div className="container container-m">
       <div className="row">
         <div class="row">
 			    <div class="col">
-            <h1>プロフィール</h1>
-            <p>作成日：2024年5月18日　最終更新日：2024年5月28日</p>
+            <span class="mt-0 mb-0 text-secondary">作成日：2024年5月18日　最終更新日：2024年5月28日</span>
+            <h4 class="mt-1 mb-4">プロフィール</h4>
 
-            <a id="1"></a>
-            <h4 class="mb-3 mt-3"><b>自己紹介</b></h4>
+            <a style={{ display: 'block', marginTop: '-40px', paddingTop: '40px' }} id="1"></a>
+            <h5 class="mb-3 mt-3"><b>自己紹介</b></h5>
             <p>こんにちは！あじと申します。</p>
 
               <p>
@@ -32,8 +33,8 @@ function Profile() {
               </p>
 
 
-            <a id="2"></a>
-            <h4 class="mb-3 mt-3"><b>自己PR</b></h4>
+            <a style={{ display: 'block', marginTop: '-40px', paddingTop: '40px' }} id="2"></a>
+            <h5 class="mb-3 mt-3"><b>自己PR</b></h5>
               <p>
                 私は10年間にわたり地方公務員として住民対応や行政手続きのサポートを行い、多岐にわたる業務を通じて高い対人スキルと問題解決能力を身につけました。この経験を活かし、システム開発の分野で新しい価値を提供したいと考えています。
               </p>
@@ -50,8 +51,8 @@ function Profile() {
                 これまでの公務員としての経験と、現在進行中のエンジニアとしての学びを融合させ、ユーザーのニーズに応えるための革新的なソリューションを提供できるエンジニアを目指しています。
               </p>
 
-            <a id="3"></a>
-            <h4 class="mb-3 mt-3"><b>経歴</b></h4>
+            <a style={{ display: 'block', marginTop: '-40px', paddingTop: '40px' }} id="3"></a>
+            <h5 class="mb-3 mt-3"><b>経歴</b></h5>
             <p>
               <div class="wp-block-columns is-layout-flex wp-container-core-columns-is-layout-1 wp-block-columns-is-layout-flex">
                 <div class="wp-block-column is-layout-flow wp-block-column-is-layout-flow">
@@ -71,8 +72,8 @@ function Profile() {
                 </div>
                 </div>
             </p>
-            <a id="4"></a>
-            <h4 class="mb-3 mt-3"><b>資格・スキル</b></h4>
+            <a style={{ display: 'block', marginTop: '-40px', paddingTop: '40px' }} id="4"></a>
+            <h5 class="mb-3 mt-3"><b>資格・スキル</b></h5>
             <p>応用情報技術者試験合格、司書、普通自動車免許</p>
 
         </div>
@@ -80,6 +81,16 @@ function Profile() {
     </div>
     </div>
     </div>
+    <div className="col-sm-3">
+      <div>
+        <h4>目次</h4>
+        <p class="mt-3"><a href="#1">自己紹介</a></p>
+        <p class="mt-3"><a href="#2">自己PR</a></p>
+        <p class="mt-3"><a href="#3">経歴</a></p>
+        <p class="mt-3"><a href="#4">資格・スキル</a></p>
+      </div>
+    </div>
+    </>
     );
 }
 

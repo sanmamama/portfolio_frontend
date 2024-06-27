@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Route, Switch, useLocation, useHistory } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import SidebarContent from './HomeSidebar';
 
 
 
@@ -53,9 +54,6 @@ const App = () => {
         setBlog(data.results);
 		setCurrentPage(selectedPage)
 		setPageCount(Math.ceil(data.count / 6))
-		//console.log(`http://127.0.0.1:8000/api/blog/?page=${selectedPage}&category=${selectedCategory}&tag=${selectedTag}&date=${selectedYearMonth}`)
-		//console.log(currentPage)
-		//console.log(pageCount)
     };
 
     useEffect(() => {
@@ -102,10 +100,9 @@ const App = () => {
 							{truncateTo100Chars(item.content)}
 							</span>
 							<span class="ml-3">
-								<Link to={`/detail/${item.id}`}>続きを見る
-								</Link>
+								<Link to={`/detail/${item.id}`}>続きを見る</Link>
 							</span>
-							
+							<p>{item.likes}いいね！</p>
 						</div>
 					</div>
 				</div>	
@@ -136,6 +133,7 @@ const App = () => {
 			</div>
 			</div>
 			</div>
+			<SidebarContent />
 	</>
     );
 };
