@@ -11,6 +11,7 @@ import PrivacyPolicy from './components/PrivacyPolicy';
 import Contact from './components/Contact';
 import BlogDetail from './components/\BlogDetail';
 import Signup from './components/postter/Signup';
+import Confirm from './components/postter/Confirm';
 
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
               <Route path="/contact" element={<Contact />} />
               <Route path="/detail/:id" element={<BlogDetail />} />
               <Route path="/postter/signup" element={<Signup />} />
+              <Route path="/postter/confirm" element={<Confirm />} />
             </Routes>
           </div>
         </div>
