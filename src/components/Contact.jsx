@@ -1,6 +1,8 @@
 
 import React, { useState } from 'react';
 
+
+
 function Contact() {
     return (
         <div className="col-sm-9">
@@ -15,6 +17,11 @@ function Contact() {
         </div>
     );
 }
+
+
+
+
+
 
 const ContactForm = () => {
     const [formData, setFormData] = useState({

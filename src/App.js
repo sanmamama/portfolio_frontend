@@ -10,6 +10,7 @@ import Portfolio from './components/Portfolio';
 import PrivacyPolicy from './components/PrivacyPolicy';
 import Contact from './components/Contact';
 import BlogDetail from './components/\BlogDetail';
+import Signup from './components/postter/Signup';
 
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
               <Route path="/privacypolicy" element={<PrivacyPolicy />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/detail/:id" element={<BlogDetail />} />
+              <Route path="/postter/signup" element={<Signup />} />
             </Routes>
           </div>
         </div>
