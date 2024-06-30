@@ -17,13 +17,13 @@ function Contact() {
     );
 }
 
-// カスタムフック: URLクエリパラメータを取得
 function useQuery() {
 	return new URLSearchParams(useLocation().search);
 }
 
 const ContactForm = () => {
     const [messages, setMessages] = useState("");
+    const [responseData, setResponseData] = useState([]);
     const [errors, setErrors] = useState("");
     const query = useQuery();
 	const key = query.get('key')
@@ -38,11 +38,17 @@ const ContactForm = () => {
             body: JSON.stringify({key}),
         })
         .then(response => {
-
+            if(response.ok){
+                setMessages("認証完了")
+            }
+            else{
+                setMessages("認証失敗")
+            }
             return response.json();
         })
         .then(data => {
-            setMessages(data);
+            setMessages(data.detail)
+            setResponseData(data);
         })
         .catch(error => {
             setErrors(error);
@@ -52,8 +58,9 @@ const ContactForm = () => {
 
     return (
         <>
-        <p>{JSON.stringify(messages)}</p>
+        <p>{messages}</p>
         <p>{JSON.stringify(errors)}</p>
+        <p>{JSON.stringify(responseData)}</p>
         </>
     );
 };

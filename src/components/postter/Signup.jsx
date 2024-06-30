@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 
 
 
+
 function Contact() {
     return (
         <div className="col-sm-9">
@@ -28,6 +29,8 @@ const ContactForm = () => {
         password2: ''
     });
     const [messages, setMessages] = useState("");
+    const [responseData, setResponseData] = useState([]);
+    const [errors, setErrors] = useState("");
 
 
     const handleChange = (e) => {
@@ -49,13 +52,18 @@ const ContactForm = () => {
             body: JSON.stringify(formData),
         })
         .then(response => {
+            if(response.ok){
+                setMessages("入力されたメールアドレス宛に認証メールを送りましたのでご確認ください")
+            }else{
+                setMessages("入力されたパラメータが不正です")
+            }
             return response.json();
         })
         .then(data => {
-            setMessages(data);
+            setResponseData(data);
         })
         .catch(error => {
-            setMessages(error);
+            setErrors(error);
         });
     };
 
@@ -77,7 +85,9 @@ const ContactForm = () => {
             </div>
             <button class="mt-2 btn btn-outline-primary btn-block" type="submit">送信</button>
         </form>
-        <p>{JSON.stringify(messages)}</p>
+        <p>{messages}</p>
+        <p>{JSON.stringify(errors)}</p>
+        <p>{JSON.stringify(responseData)}</p>
         </>
     );
 };
