@@ -11,35 +11,40 @@ export const UpdateForm = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const handleSetFormData = async () => {
-		try{
-			const token = document.cookie.split('; ').find(row => row.startsWith('token=')).split('=')[1];
-			const response = await fetch('http://localhost:8000/api/auth/user/', {
+			const token = document.cookie.split('; ').reduce((acc, row) => {
+				const [key, value] = row.split('=');
+				if (key === 'token') {
+				acc = value;
+				}
+				return acc;
+			}, null);
+			fetch('http://localhost:8000/api/auth/user/',
+				{
 				method: 'GET',
 				headers: {
-				  'Authorization': `Token ${token}`,
-				},
-			  });
-			  if(!response.ok){
-				//ここはトークンのセッション切れ
-				throw new Error();
-			  }
-			  const data = await response.json();
-			  setMessages(data);
-			  setFormData({
-				  ...formData,
-				  pk: data.pk,
-				  email: data.email,
+					'Authorization': `Token ${token}`,
+					},
+				})
+			.then(response => {
+				if(!response.ok){
+					//ここはトークンのセッション切れ
+					throw new Error();
+				}
+				return response.json()
+				})
+			.then(data => {
+				setMessages(data);
+				setFormData({
+					...formData,
+					pk: data.pk,
+					email: data.email,
 				});
-				
-		}catch(e){
-			//クッキーからトークン取得失敗時とトークンのセッション切れはここに来る
-			navigate("/postter/login")
-		}
-        
-	
-	}
-	handleSetFormData()
+				})
+			.catch(error => {
+				navigate("/postter/login")
+			});
+
+
 
 	}, []);
 
