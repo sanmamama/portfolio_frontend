@@ -27,12 +27,13 @@ export const UpdateForm = () => {
 				})
 			.then(response => {
 				if(!response.ok){
-					//ここはトークンのセッション切れ
+					//トークンのセッション切れ
 					throw new Error();
 				}
 				return response.json()
 				})
 			.then(data => {
+				//ログインしているとき
 				setMessages(data);
 				setFormData({
 					...formData,
@@ -41,7 +42,8 @@ export const UpdateForm = () => {
 				});
 				})
 			.catch(error => {
-				navigate("/postter/login")
+				//ログインしていないとき
+				navigate("/postter/logout")
 			});
 
 
@@ -65,7 +67,7 @@ export const UpdateForm = () => {
 							<div class="card mb-1">
                 				<div class="card-body pt-3 pb-3 pl-3 pr-3">
                   					<h4>プロフィール</h4>
-									<p class="mt-0 mb-0"><b><a href="">user.avatar_name</a></b></p>
+									<p class="mt-0 mb-0"><b><a href="">{formData.email}</a></b></p>
 									<p class="mt-0 mb-0 text-secondary">@user.uid</p>
 									<p class="mt-0 mb-3"> user.profile_statement </p>
 									<p class="mt-0 mb-1"><a href=""><b>posts_count</b>ポスト</a></p>
@@ -80,7 +82,6 @@ export const UpdateForm = () => {
 						<div class="col-sm-6 pl-0 pr-0">
 							<div class="card">
 								<div class="card-body pt-3 pb-3 pl-3 pr-3">
-									<p>{JSON.stringify(formData)}</p>
 									<p>{JSON.stringify(messages)}</p>
 									<p><Link to="/postter/logout">ログアウト</Link></p>
 								</div>

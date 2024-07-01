@@ -1,7 +1,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Route, Switch, useLocation, useHistory } from 'react-router-dom';
-
+import { useNavigate } from "react-router-dom";
 
 function Contact() {
     return (
@@ -27,6 +27,7 @@ const ContactForm = () => {
     const [errors, setErrors] = useState("");
     const query = useQuery();
 	const key = query.get('key')
+    const navigate = useNavigate();
 
 
     useEffect(() => {
@@ -40,6 +41,7 @@ const ContactForm = () => {
         .then(response => {
             if(response.ok){
                 setMessages("認証完了")
+                navigate("/postter/login/")
             }
             else{
                 setMessages("認証失敗")

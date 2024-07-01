@@ -1,7 +1,10 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useContext } from 'react';
+import { UserDataContext } from "./providers/UserDataProvider"
 
 const Logout = () => {
+  const {email,setEmail} = useContext(UserDataContext)
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -18,16 +21,19 @@ const Logout = () => {
 
         // トークンをクッキーから削除
         document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+		
+		//ヘッダの名前をリセット
+		setEmail("")
 
         // ログインページにリダイレクト
         navigate('/postter/login');
       } catch (error) {
-        console.error('ログアウト時にエラーが発生しました:', error);
+		navigate('/postter/login')
       }
     };
 
     handleLogout();
-  }, [navigate]);
+  }, []);
 
   return null;
 };
