@@ -1,16 +1,23 @@
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from "react-router-dom";
+import { useContext } from 'react';
+import { UserDataContext } from "./providers/UserDataProvider"
 
 
 
 const SignupForm = () => {
+    const {myUserDataGlobal,setMyUserDataGlobal} = useContext(UserDataContext)
+    const navigate = useNavigate();
     const [formData, setFormData] = useState({
         email: '',
+        username: '',
         password1: '',
         password2: ''
     });
     const [formError, setFormError] = useState({
         email: '',
+        username: '',
         password1: '',
         password2: '',
         non_field_errors:''
@@ -18,6 +25,13 @@ const SignupForm = () => {
     const [messages, setMessages] = useState("");
     const [responseData, setResponseData] = useState([]);
     const [errors, setErrors] = useState("");
+
+    // useEffect(() => {
+    //     if(email != ""){
+    //         //ログイン中の場合はホームへリダイレクト
+    //         navigate("/postter/");
+    //     }
+    // },[]);
 
 
     const handleChange = (e) => {
@@ -51,6 +65,7 @@ const SignupForm = () => {
             
             setFormError(() => ({
                 'email':'',
+                'username':'',
                 'password1':'',
                 'password2':'',
                 'non_field_errors':''
@@ -60,6 +75,12 @@ const SignupForm = () => {
                 setFormError((prev) => ({
                     ...prev,
                     email: data.email[0]
+                }));
+            }
+            if(data.username?.[0]){
+                setFormError((prev) => ({
+                    ...prev,
+                    username: data.username[0]
                 }));
             }
             if(data.password1?.[0]){
@@ -94,6 +115,9 @@ const SignupForm = () => {
                 <form onSubmit={handleSubmit}>
                     <label>メールアドレス</label><span class="ml-3 text-danger">{formError.email}</span>
                     <input class="form-control" type="email" name="email" value={formData.email} onChange={handleChange}/>
+
+                    <label>ユーザー名</label><span class="ml-3 text-danger">{formError.username}</span>
+                    <input class="form-control" type="username" name="username" value={formData.username} onChange={handleChange}/>
                     
                     <label>パスワード</label><span class="ml-3 text-danger">{formError.password1}</span>
                     <input class="form-control" type="password" name="password1" value={formData.password1} onChange={handleChange}/>

@@ -4,12 +4,14 @@ export const UserDataContext = createContext({});
 
 export const UserDataProvider = (props) =>{
 	const {children} = props;
-	const [email,setEmail] = useState("");
+	const [myUserDataGlobal,setMyUserDataGlobal] = useState({
+
+	});
 
 	
 	
 	return(
-		<UserDataContext.Provider value={{email,setEmail}}>
+		<UserDataContext.Provider value={{myUserDataGlobal,setMyUserDataGlobal}}>
 			{children}
 		</UserDataContext.Provider>
 	)

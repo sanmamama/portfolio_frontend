@@ -1,54 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState ,useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
+import {UserDataContext} from "./providers/UserDataProvider"
+import { getUserData } from "./GetUserData"
 
-export const UpdateForm = () => {
-  const [formData, setFormData] = useState({
-    pk: '',
-    email: '',
-  });
-  const [messages, setMessages] = useState("");
+const UpdateForm = () => {
   const navigate = useNavigate();
-
-  useEffect(() => {
-			const token = document.cookie.split('; ').reduce((acc, row) => {
-				const [key, value] = row.split('=');
-				if (key === 'token') {
-				acc = value;
-				}
-				return acc;
-			}, null);
-			fetch('http://localhost:8000/api/auth/user/',
-				{
-				method: 'GET',
-				headers: {
-					'Authorization': `Token ${token}`,
-					},
-				})
-			.then(response => {
-				if(!response.ok){
-					//トークンのセッション切れ
-					throw new Error();
-				}
-				return response.json()
-				})
-			.then(data => {
-				//ログインしているとき
-				setMessages(data);
-				setFormData({
-					...formData,
-					pk: data.pk,
-					email: data.email,
-				});
-				})
-			.catch(error => {
-				//ログインしていないとき
-				navigate("/postter/logout")
-			});
+  const {myUserDataGlobal,setMyUserDataGlobal} = useContext(UserDataContext)
+  
+	// if(email==""){
+	// 	//未ログインの場合はloginへリダイレクト
+	// 	navigate("/postter/login");
+	// }
 
 
-
-	}, []);
 
 	return (
 		<div class="container mt-3">
@@ -67,8 +32,8 @@ export const UpdateForm = () => {
 							<div class="card mb-1">
                 				<div class="card-body pt-3 pb-3 pl-3 pr-3">
                   					<h4>プロフィール</h4>
-									<p class="mt-0 mb-0"><b><a href="">{formData.email}</a></b></p>
-									<p class="mt-0 mb-0 text-secondary">@user.uid</p>
+									<p class="mt-0 mb-0"><b><a href="">{myUserDataGlobal.username}</a></b></p>
+									<p class="mt-0 mb-0 text-secondary">@{myUserDataGlobal.uid}</p>
 									<p class="mt-0 mb-3"> user.profile_statement </p>
 									<p class="mt-0 mb-1"><a href=""><b>posts_count</b>ポスト</a></p>
 									<p class="mt-0 mb-1"><a href=""><b>following</b>フォロー</a></p>
@@ -82,8 +47,11 @@ export const UpdateForm = () => {
 						<div class="col-sm-6 pl-0 pr-0">
 							<div class="card">
 								<div class="card-body pt-3 pb-3 pl-3 pr-3">
-									<p>{JSON.stringify(messages)}</p>
+									<p>{JSON.stringify(myUserDataGlobal)}</p>
+
 									<p><Link to="/postter/logout">ログアウト</Link></p>
+									<p><Link to="/postter/signup">会員登録</Link></p>
+									<p><Link to="/postter/login">ログイン</Link></p>
 								</div>
 							</div>
 						</div>

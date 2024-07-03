@@ -4,7 +4,7 @@ import { useContext } from 'react';
 import { UserDataContext } from "./providers/UserDataProvider"
 
 const Logout = () => {
-  const {email,setEmail} = useContext(UserDataContext)
+  const {myUserDataGlobal,setMyUserDataGlobal} = useContext(UserDataContext)
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -23,11 +23,10 @@ const Logout = () => {
         document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
 		
 		//ヘッダの名前をリセット
-		setEmail("")
-
-        // ログインページにリダイレクト
+		setMyUserDataGlobal("")
         navigate('/postter/login');
       } catch (error) {
+		setMyUserDataGlobal("")
 		navigate('/postter/login')
       }
     };

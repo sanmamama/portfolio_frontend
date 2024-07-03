@@ -3,40 +3,12 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import { useContext } from 'react';
 import { UserDataContext } from "./providers/UserDataProvider"
+import { getUserData } from "./GetUserData"
 
-const getUserData = (setEmail) => {
-    const token = document.cookie.split('; ').reduce((acc, row) => {
-		const [key, value] = row.split('=');
-		if (key === 'token') {
-		acc = value;
-		}
-		return acc;
-	}, null);
-	fetch('http://localhost:8000/api/auth/user/',
-		{
-		method: 'GET',
-		headers: {
-			'Authorization': `Token ${token}`,
-			},
-		})
-	.then(response => {
-		if(!response.ok){
-			//トークンのセッション切れ
-			throw new Error();
-		}
-		return response.json()
-		})
-	.then(data => {
-		//ログインしているとき
-		setEmail(data.email)
-		})
-	.catch(error => {
-		//ログインしていないとき
-	});
-}
+
 
 const LoginForm = () => {
-    const {email,setEmail} = useContext(UserDataContext)
+    const {myUserDataGlobal,setMyUserDataGlobal} = useContext(UserDataContext)
     const [formData, setFormData] = useState({
         email: '',
         password: '',
@@ -51,28 +23,14 @@ const LoginForm = () => {
     const [errors, setErrors] = useState("");
     const navigate = useNavigate();
 
-    useEffect(() => {
-        const handleSetFormData = async () => {
-            try{
-                const token = document.cookie.split('; ').find(row => row.startsWith('token=')).split('=')[1];
-                const response = await fetch('http://localhost:8000/api/auth/user/', {
-                    method: 'GET',
-                    headers: {
-                        'Authorization': `Token ${token}`,
-                    },
-                    });
+    // useEffect(() => {
+    //     if(email != ""){
+    //         //ログイン中の場合はホームへリダイレクト
+    //         navigate("/postter/");
+    //     }
+    // },[]);
 
-                if(response.ok){
-                    navigate("/postter/")
-                }
-            }catch(e){
-                //クッキーからトークン取得失敗時とトークンのセッション切れはここに来る
-            }
-        }
-        handleSetFormData()
-    
-        }, []);
-
+    //メソッド達
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData((prevFormData) => ({
@@ -83,7 +41,6 @@ const LoginForm = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-    
         fetch('http://localhost:8000/api/auth/login/', {
             method: 'POST',
             headers: {
@@ -131,9 +88,9 @@ const LoginForm = () => {
             if(data.key){
                 const token = data.key
                 document.cookie = `token=${token}; path=/; secure; samesite=strict`;
-                navigate("/postter/")
             
-            getUserData(setEmail)
+            getUserData(setMyUserDataGlobal)
+            navigate("/postter/")
 
             }else{
                 navigate("/postter/login")
@@ -142,9 +99,9 @@ const LoginForm = () => {
         })
         .catch(error => {
             setErrors(error);
+            navigate("/postter/login")
         });
     };
-
 
     return (
         <div class="row justify-content-center">
