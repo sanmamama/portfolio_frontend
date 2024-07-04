@@ -10,12 +10,14 @@ import PrivacyPolicy from './components/blog/PrivacyPolicy';
 import Contact from './components/blog/Contact';
 import BlogDetail from './components/blog/BlogDetail';
 
-import PostterBase from './components/postter/PostterBase';
+import AuthBase from './components/postter/AuthBase';
+import MainBase from './components/postter/MainBase';
 import Login from './components/postter/Login';
 import Logout from './components/postter/Logout';
 import Signup from './components/postter/Signup';
 import Confirm from './components/postter/Confirm';
-import PostterHome from './components/postter/PostterHome';
+import PostterHome from './components/postter/Home';
+import EditProfile from './components/postter/EditProfile';
 
 
 
@@ -26,16 +28,21 @@ function App() {
               {/* Routes for the blog app */}
               <Route path="/" element={<BlogBase />} >
                 <Route index element={<Home />} />
-                <Route path="/profile" element={<Profile />} />
-                <Route path="/portfolio" element={<Portfolio />} />
-                <Route path="/privacypolicy" element={<PrivacyPolicy />} />
-                <Route path="/contact" element={<Contact />} />
-                <Route path="/detail/:id" element={<BlogDetail />} />
+                <Route path="profile" element={<Profile />} />
+                <Route path="portfolio" element={<Portfolio />} />
+                <Route path="privacypolicy" element={<PrivacyPolicy />} />
+                <Route path="contact" element={<Contact />} />
+                <Route path="detail/:id" element={<BlogDetail />} />
               </Route>
 
-              {/* Routes for the postter app */}
-              <Route path="/postter" element={<PostterBase />} >
+              {/* Routes for the main postter app */}
+              <Route path="/postter" element={<MainBase />} >
                 <Route index element={<PostterHome />} />
+                <Route path="editprofile" element={<EditProfile />} />
+              </Route>
+
+              {/* Routes for the auth postter app */}
+              <Route path="/postter" element={<AuthBase />} >
                 <Route path="login" element={<Login />} />
                 <Route path="logout" element={<Logout />} />
                 <Route path="signup" element={<Signup />} />
