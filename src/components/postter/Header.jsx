@@ -10,16 +10,40 @@ function Header() {
 	const {myUserDataGlobal,setMyUserDataGlobal} = useContext(UserDataContext)
 	const {myFollowDataGlobal,setMyFollowDataGlobal} = useContext(FollowDataContext)
 
-	if(myUserDataGlobal==null){
-		//グローバルステートが破棄されている場合、再セットします
-		getUserData(setMyUserDataGlobal)
-		return("loading")
+	useEffect(()=>{
+		const getUser = () =>{
+			getUserData(setMyUserDataGlobal)
+		}
+		
+			getUser()
+
+	},[])
+
+	useEffect(()=>{
+		const getFollow = () =>{
+			getFollowData(setMyFollowDataGlobal)
+		}
+
+		getFollow()
+
+	},[])
+
+	if(!myUserDataGlobal || !myFollowDataGlobal){
+		return("loading...")
 	}
-	if(myFollowDataGlobal==null){
-		//グローバルステートが破棄されている場合、再セットします
-		getFollowData(setMyFollowDataGlobal)
-		return("loading")
-	}
+	
+
+	// if(myUserDataGlobal==null){
+	// 	//グローバルステートが破棄されている場合、再セットします
+	// 	getUserData(setMyUserDataGlobal)
+	// 	return("loading")
+	// }
+	
+	// if(myFollowDataGlobal==null){
+	// 	//グローバルステートが破棄されている場合、再セットします
+	// 	getFollowData(setMyFollowDataGlobal)
+	// 	return("loading")
+	// }
 
 
 	return (

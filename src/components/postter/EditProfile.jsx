@@ -1,25 +1,13 @@
 import React, { useEffect, useState ,useContext } from 'react';
 import { Link } from 'react-router-dom';
 import {UserDataContext} from "./providers/UserDataProvider"
+import { getUserData } from "./GetUserData"
 
 const EditProfile = () => {
 	const {myUserDataGlobal,setMyUserDataGlobal} = useContext(UserDataContext);
 	const [messages, setMessages] = useState("");
-	const [formData, setFormData] = useState({
-        email: myUserDataGlobal.email,
-        uid: myUserDataGlobal.uid,
-        username: myUserDataGlobal.username,
-        avatar: null,
-		profile_statement:myUserDataGlobal.profile_statement,
-    });
-	const [formError, setFormError] = useState({
-        email: "",
-        uid: "",
-        username: "",
-        avatar: "",
-		profile_statement:"",
-		non_field_error:""
-    });
+	const [formData, setFormData] = useState({});
+	const [formError, setFormError] = useState({});
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -135,8 +123,18 @@ const EditProfile = () => {
     };
 	
 
-	
-	
+	useEffect(() => {
+		const reload = () =>{
+			setFormData({
+					email: myUserDataGlobal?myUserDataGlobal.email:"",
+					uid: myUserDataGlobal?myUserDataGlobal.uid:"",
+					username: myUserDataGlobal?myUserDataGlobal.username:"",
+					avatar: null,
+					profile_statement:myUserDataGlobal?myUserDataGlobal.profile_statement:"",
+			});
+		}
+		reload()
+	},[myUserDataGlobal])
 
 	return (
 		<div class="col-sm-6 pl-0 pr-0">

@@ -20,7 +20,7 @@ const LeftSideContent = () => {
 					<p><Link to="/postter/signup">会員登録</Link></p>
 					<p><Link to="/postter/login">ログイン</Link></p>
 					<p><Link to="/postter/">ホーム</Link></p>
-					<p><Link to="/postter/editprofile/">プロフィール変更</Link></p>
+					<p><Link to="/postter/editprofile/">プロフィール編集</Link></p>
 				</div>
 			</div>
 			<div class="card mb-1">

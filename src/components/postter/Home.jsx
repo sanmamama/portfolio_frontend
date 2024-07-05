@@ -37,11 +37,8 @@ const Home = () => {
 		const res = await response.json();
 		if(response.ok){
         	setMessages(res.message);
-
 			getFollowData(setMyFollowDataGlobal)
 			
-
-
 		}else{
 			setMessages(res);
 		}
@@ -131,11 +128,8 @@ const Home = () => {
 	},[messages])
 	
 
-	if(myUserDataGlobal==null){
-		return("loading")
-	}
-	if(myFollowDataGlobal==null){
-		return("loading")
+	if(!myUserDataGlobal || !myFollowDataGlobal){
+		return("loading...")
 	}
 
 	return (
