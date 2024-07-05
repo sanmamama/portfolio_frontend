@@ -5,6 +5,10 @@ import {UserDataContext} from "./providers/UserDataProvider"
 const LeftSideContent = () => {
 	const {myUserDataGlobal,setMyUserDataGlobal} = useContext(UserDataContext);
 
+	if(myUserDataGlobal==null){
+		return("loading")
+	}
+
 	return (
 		<div class="col-sm-3 pl-1 pr-1">
 			<div class="card mb-1">

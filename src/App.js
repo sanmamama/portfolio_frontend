@@ -18,13 +18,19 @@ import Signup from './components/postter/Signup';
 import Confirm from './components/postter/Confirm';
 import PostterHome from './components/postter/Home';
 import EditProfile from './components/postter/EditProfile';
+import Header from './components/postter/Header';
+import Footer from './components/postter/Footer';
 
+import {UserDataProvider} from "./components/postter/providers/UserDataProvider"
+import {FollowDataProvider} from "./components/postter/providers/FollowDataProvider"
 
 
 function App() {
   return (
     <Router>
-            <Routes>
+      <UserDataProvider>
+      <FollowDataProvider>
+          <Routes>
               {/* Routes for the blog app */}
               <Route path="/" element={<BlogBase />} >
                 <Route index element={<Home />} />
@@ -35,6 +41,7 @@ function App() {
                 <Route path="detail/:id" element={<BlogDetail />} />
               </Route>
 
+              
               {/* Routes for the main postter app */}
               <Route path="/postter" element={<MainBase />} >
                 <Route index element={<PostterHome />} />
@@ -49,7 +56,9 @@ function App() {
                 <Route path="confirm" element={<Confirm />} />
               </Route>
               
-            </Routes>
+          </Routes>
+          </FollowDataProvider>
+      </UserDataProvider>
           
     </Router>
   );

@@ -1,9 +1,12 @@
 import React, { useEffect, useState ,useContext } from 'react';
 import { Link } from 'react-router-dom';
 import {UserDataContext} from "./providers/UserDataProvider"
+import {FollowDataContext} from "./providers/FollowDataProvider"
+import { getFollowData } from "./GetFollowData"
 
 const Home = () => {
 	const {myUserDataGlobal,setMyUserDataGlobal} = useContext(UserDataContext);
+	const {myFollowDataGlobal,setMyFollowDataGlobal} = useContext(FollowDataContext);
 	const [postData,setPostData] = useState([]);
 	const [formData, setFormData] = useState({
         content: ''
@@ -11,6 +14,39 @@ const Home = () => {
 	const [messages, setMessages] = useState("");
 	const [responseMessages, setResponseMessages] = useState("");
     const [errors, setErrors] = useState("");
+
+
+
+	//フォローハンドル
+	const handleFollow = async (following_id) => {
+		const token = document.cookie.split('; ').reduce((acc, row) => {
+			const [key, value] = row.split('=');
+			if (key === 'token') {
+			acc = value;
+			}
+			return acc;
+		}, null);
+        const response = await fetch(`http://127.0.0.1:8000/api/postter/follow/`, {
+            method: 'POST',
+			headers: {
+                'Content-Type': 'application/json',
+				'Authorization': `Token ${token}`,
+            },
+			body: JSON.stringify({"following":following_id}),
+        });
+		const res = await response.json();
+		if(response.ok){
+        	setMessages(res.message);
+
+			getFollowData(setMyFollowDataGlobal)
+			
+
+
+		}else{
+			setMessages(res);
+		}
+        
+    };
 
 	const handleChange = (e) => {
         const { name, value } = e.target;
@@ -49,7 +85,7 @@ const Home = () => {
             setFormData(() => ({
                 'content':''
             }));
-			setResponseMessages(data.id)
+			//setResponseMessages(data.id)
         })
         .catch(error => {
             setErrors(error);
@@ -58,14 +94,15 @@ const Home = () => {
 	
 
 	useEffect(() => {
-		const getPostData = () => {
-			const token = document.cookie.split('; ').reduce((acc, row) => {
-				const [key, value] = row.split('=');
-				if (key === 'token') {
-				acc = value;
-				}
-				return acc;
-			}, null);
+		const token = document.cookie.split('; ').reduce((acc, row) => {
+			const [key, value] = row.split('=');
+			if (key === 'token') {
+			acc = value;
+			}
+			return acc;
+		}, null);
+
+		const getPostData = (token) => {
 			fetch('http://localhost:8000/api/postter/post/',
 				{
 				method: 'GET',
@@ -89,15 +126,24 @@ const Home = () => {
 				//ログインしていないとき
 			});
 		}
-		getPostData()
-	},[responseMessages])
+
+		getPostData(token)
+	},[messages])
 	
+
+	if(myUserDataGlobal==null){
+		return("loading")
+	}
+	if(myFollowDataGlobal==null){
+		return("loading")
+	}
 
 	return (
 		<div class="col-sm-6 pl-0 pr-0">
 			<div class="card">
 				<div class="card-body pt-3 pb-3 pl-3 pr-3">
 					{messages}
+					{myFollowDataGlobal}
 					<form method="post" onSubmit={handleSubmit}>
 						<textarea class="form-control" type="textarea" name="content" value={formData.content} onChange={handleChange}/>
 						<button type="submit" class="mb-2 mt-2 btn btn-outline-primary btn-block">投稿する</button>
@@ -128,7 +174,11 @@ const Home = () => {
 										<button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">︙</button>
 										<div class="dropdown-menu">
 											<a class="dropdown-item" href="">このユーザーをリストに追加/削除</a>
+											<a class="dropdown-item" onClick={() => handleFollow(postData.owner.id)}>{myFollowDataGlobal.includes(postData.owner.id) ? "このユーザーのフォローを解除する":"このユーザーをフォローする"}</a>
+										
 										</div>
+										
+
 									</div>
 								</td>
 							</tr>
