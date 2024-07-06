@@ -35,9 +35,6 @@ const EditProfile = () => {
 		}, null);
 
 		const formDataObj = new FormData();
-		if(formData.email != myUserDataGlobal.email){
-        	formDataObj.append('email', formData.email);
-		}
 
 		if(formData.uid != myUserDataGlobal.uid){
         	formDataObj.append('uid', formData.uid);
@@ -72,7 +69,6 @@ const EditProfile = () => {
         })
         .then(data => {
 			setFormError(() => ({
-                email: "",
 				uid: "",
 				username: "",
 				avatar: "",
@@ -80,12 +76,6 @@ const EditProfile = () => {
 				non_field_error:""
             }));
 
-            if(data.email?.[0]){
-                setFormError((prev) => ({
-                    ...prev,
-                    email: data.email[0]
-                }));
-            }
             if(data.uid?.[0]){
                 setFormError((prev) => ({
                     ...prev,
@@ -117,6 +107,9 @@ const EditProfile = () => {
                     non_field_errors: data.non_field_errors[0]
                 }));
             }
+
+			getUserData(setMyUserDataGlobal)
+
         })
         .catch(error => {
         });
@@ -126,7 +119,6 @@ const EditProfile = () => {
 	useEffect(() => {
 		const reload = () =>{
 			setFormData({
-					email: myUserDataGlobal?myUserDataGlobal.email:"",
 					uid: myUserDataGlobal?myUserDataGlobal.uid:"",
 					username: myUserDataGlobal?myUserDataGlobal.username:"",
 					avatar: null,
@@ -142,8 +134,6 @@ const EditProfile = () => {
 				<div class="card-body pt-3 pb-3 pl-3 pr-3">
 					{messages}
 					<form method="post" onSubmit={handleSubmit}>
-						<label>メールアドレス</label><span class="ml-3 text-danger">{formError.email}</span>
-						<input class="form-control" type="text" name="email" value={formData.email} onChange={handleChange}/>
 						<label>ユーザーID</label><span class="ml-3 text-danger">{formError.uid}</span>
 						<input class="form-control" type="text" name="uid" value={formData.uid} onChange={handleChange}/>
 						<label>ユーザー名</label><span class="ml-3 text-danger">{formError.username}</span>

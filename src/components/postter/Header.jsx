@@ -74,16 +74,16 @@ function Header() {
         </ul>
 		<ul class="navbar-nav">
 			<li>
-				<Link class="nav-item nav-link" to="">{myUserDataGlobal.email ? myUserDataGlobal.username + "としてログイン中":""}</Link>
+				<Link class="nav-item nav-link" to="">{myUserDataGlobal ? myUserDataGlobal.username + "としてログイン中":""}</Link>
 			</li>
 			<li>
-				<Link class="nav-item nav-link" to="/postter/logout">{myUserDataGlobal.email ? "ログアウト":""}</Link>
+				<Link class="nav-item nav-link" to="/postter/logout">{myUserDataGlobal ? "ログアウト":""}</Link>
 			</li>
 			<li class="nav-item">
-				<Link class="nav-item nav-link" to="/postter/login">{myUserDataGlobal.email ? "":"ログイン"}</Link>
+				<Link class="nav-item nav-link" to="/postter/login">{myUserDataGlobal ? "":"ログイン"}</Link>
 			</li>
 			<li class="nav-item">
-				<Link class="nav-item nav-link" to="/postter/signup">{myUserDataGlobal.email ? "":"会員登録"}</Link>
+				<Link class="nav-item nav-link" to="/postter/signup">{myUserDataGlobal ? "":"会員登録"}</Link>
 			</li>
 
 	  </ul>

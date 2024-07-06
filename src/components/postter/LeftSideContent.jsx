@@ -29,10 +29,10 @@ const LeftSideContent = () => {
 					<img src={myUserDataGlobal.avatar_imgurl} width="100%" height="100%"/>
 					<p class="mt-0 mb-0"><b><a href="">{myUserDataGlobal.username}</a></b></p>
 					<p class="mt-0 mb-0 text-secondary">@{myUserDataGlobal.uid}</p>
-					<p class="mt-0 mb-3"> {myUserDataGlobal.profile_statement} </p>
-					<p class="mt-0 mb-1"><a href=""><b>posts_count</b>ポスト</a></p>
-					<p class="mt-0 mb-1"><a href=""><b>following</b>フォロー</a></p>
-					<p class="mt-0 mb-1"><a href=""><b>follower </b>フォロワー</a></p>
+					<p class="mt-0 mb-3"> {myUserDataGlobal.profile_statement}</p>
+					<p class="mt-0 mb-1"><a href=""><b>{myUserDataGlobal.post_count}</b>ポスト</a></p>
+					<p class="mt-0 mb-1"><a href=""><b>{myUserDataGlobal.following_count}</b>フォロー</a></p>
+					<p class="mt-0 mb-1"><a href=""><b>{myUserDataGlobal.follower_count}</b>フォロワー</a></p>
 				</div>
 			</div>
 		</div>

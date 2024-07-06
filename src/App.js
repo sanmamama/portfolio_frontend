@@ -18,6 +18,7 @@ import Signup from './components/postter/Signup';
 import Confirm from './components/postter/Confirm';
 import PostterHome from './components/postter/Home';
 import EditProfile from './components/postter/EditProfile';
+import ViewProfile from './components/postter/ViewProfile';
 import Header from './components/postter/Header';
 import Footer from './components/postter/Footer';
 
@@ -46,6 +47,7 @@ function App() {
               <Route path="/postter" element={<MainBase />} >
                 <Route index element={<PostterHome />} />
                 <Route path="editprofile" element={<EditProfile />} />
+                <Route path=":uid" element={<ViewProfile />} />
               </Route>
 
               {/* Routes for the auth postter app */}
