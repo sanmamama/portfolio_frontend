@@ -27,6 +27,6 @@ export const getFollowData = (setMyFollowDataGlobal) => {
 		})
 	.catch(error => {
 		//ログインしていないとき
-		setMyFollowDataGlobal([])
+		setMyFollowDataGlobal("")
 	});
 }

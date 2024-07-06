@@ -28,9 +28,7 @@ function Header() {
 
 	},[])
 
-	if(!myUserDataGlobal || !myFollowDataGlobal){
-		return("loading...")
-	}
+
 	
 
 	// if(myUserDataGlobal==null){
