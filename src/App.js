@@ -1,7 +1,7 @@
 
 import './App.css';
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import BlogBase from './components/blog/BlogBase';
 import Home from './components/blog/Home';
 import Profile from './components/blog/Profile';
@@ -19,51 +19,65 @@ import Confirm from './components/postter/Confirm';
 import PostterHome from './components/postter/Home';
 import EditProfile from './components/postter/EditProfile';
 import ViewProfile from './components/postter/ViewProfile';
+import Following from './components/postter/Following';
+import Follower from './components/postter/Follower';
 import Header from './components/postter/Header';
 import Footer from './components/postter/Footer';
 
 import {UserDataProvider} from "./components/postter/providers/UserDataProvider"
 import {FollowDataProvider} from "./components/postter/providers/FollowDataProvider"
 
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <BlogBase />,
+    children: [
+      { index: true, element: <Home /> },
+      { path: "profile", element: <Profile /> },
+      { path: "portfolio", element: <Portfolio /> },
+      { path: "privacypolicy", element: <PrivacyPolicy /> },
+      { path: "contact", element: <Contact /> },
+      { path: "detail/:id", element: <BlogDetail /> },
+    ],
+  },
+  {
+    path: "/postter",
+    element: <MainBase />,
+    children: [
+      { index: true, element: <PostterHome /> },
+      { path: "editprofile", element: <EditProfile /> },
+      { path: ":uid", element: <ViewProfile /> },
+      { path: ":uid/following", element: <Following /> },
+      { path: ":uid/follower", element: <Follower /> },
+    ],
+  },
+  {
+    path: "/postter",
+    element: <AuthBase />,
+    children: [
+      { path: "login", element: <Login /> },
+      { path: "logout", element: <Logout /> },
+      { path: "signup", element: <Signup /> },
+      { path: "confirm", element: <Confirm /> },
+    ],
+  },
+]);
 
-function App() {
+const App = () => {
   return (
-    <Router>
-      <UserDataProvider>
-      <FollowDataProvider>
-          <Routes>
-              {/* Routes for the blog app */}
-              <Route path="/" element={<BlogBase />} >
-                <Route index element={<Home />} />
-                <Route path="profile" element={<Profile />} />
-                <Route path="portfolio" element={<Portfolio />} />
-                <Route path="privacypolicy" element={<PrivacyPolicy />} />
-                <Route path="contact" element={<Contact />} />
-                <Route path="detail/:id" element={<BlogDetail />} />
-              </Route>
-
-              
-              {/* Routes for the main postter app */}
-              <Route path="/postter" element={<MainBase />} >
-                <Route index element={<PostterHome />} />
-                <Route path="editprofile" element={<EditProfile />} />
-                <Route path=":uid" element={<ViewProfile />} />
-              </Route>
-
-              {/* Routes for the auth postter app */}
-              <Route path="/postter" element={<AuthBase />} >
-                <Route path="login" element={<Login />} />
-                <Route path="logout" element={<Logout />} />
-                <Route path="signup" element={<Signup />} />
-                <Route path="confirm" element={<Confirm />} />
-              </Route>
-              
-          </Routes>
-          </FollowDataProvider>
-      </UserDataProvider>
+    <>
+    <UserDataProvider>
+        <FollowDataProvider>
+    <RouterProvider router={router}>
+      
           
-    </Router>
+          {/* The RouterProvider will render the current route */}
+        
+    </RouterProvider>
+    </FollowDataProvider>
+      </UserDataProvider>
+    </>
   );
-}
+};
 
 export default App;

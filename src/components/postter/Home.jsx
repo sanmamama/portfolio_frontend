@@ -4,17 +4,19 @@ import {UserDataContext} from "./providers/UserDataProvider"
 import {FollowDataContext} from "./providers/FollowDataProvider"
 import { getFollowData } from "./GetFollowData"
 import { getUserData } from "./GetUserData"
+import InfiniteScroll from 'react-infinite-scroller';
 
 const Home = () => {
 	const {myUserDataGlobal,setMyUserDataGlobal} = useContext(UserDataContext);
 	const {myFollowDataGlobal,setMyFollowDataGlobal} = useContext(FollowDataContext);
-	const [postData,setPostData] = useState([]);
 	const [formData, setFormData] = useState({
         content: ''
     });
 	const [messages, setMessages] = useState("");
-	const [responseMessages, setResponseMessages] = useState("");
     const [errors, setErrors] = useState("");
+	const [posts, setPosts] = useState([]);
+	const [pageCount, setPageCount] = useState(1);
+	const [hasMore, setHasMore] = useState(true);
 
 
 
@@ -111,6 +113,7 @@ const Home = () => {
             }));
 			if(data.id){
 				setMessages(`postId:${data.id}投稿しました`)
+				refreshPost()
 			}
         })
         .catch(error => {
@@ -119,7 +122,7 @@ const Home = () => {
     };
 	
 
-	useEffect(() => {
+	const refreshPost = async() => {
 		const token = document.cookie.split('; ').reduce((acc, row) => {
 			const [key, value] = row.split('=');
 			if (key === 'token') {
@@ -128,36 +131,53 @@ const Home = () => {
 			return acc;
 		}, null);
 
-		const getPostData = (token) => {
-			fetch('http://localhost:8000/api/postter/post/',
-				{
+		const response = await fetch(`http://localhost:8000/api/postter/post/?page=1`,
+			{
 				method: 'GET',
 				headers: {
 					'Authorization': `Token ${token}`,
-					},
-				})
-			.then(response => {
-				
-				if(!response.ok){
-					//トークンのセッション切れ
-					throw new Error();
-				}
-				return response.json()
-				})
-			.then(data => {
-				//ログインしているとき
-				setPostData(data.results)
-				})
-			.catch(error => {
-				//ログインしていないとき
-			});
+				},
+			}
+		)
+		const data = await response.json()
+		
+		if(response.ok){
+			setPosts(data.results)
+			console.log(data.results)
+			setHasMore(data.next)
+			setPageCount(2)
 		}
+	}
 
-		getPostData(token)
-	},[messages])
+	const loadPost = async(page) => {
+		const token = document.cookie.split('; ').reduce((acc, row) => {
+			const [key, value] = row.split('=');
+			if (key === 'token') {
+			acc = value;
+			}
+			return acc;
+		}, null);
+		
+
+		const response = await fetch(`http://localhost:8000/api/postter/post/?page=${pageCount}`,
+			{
+				method: 'GET',
+				headers: {
+					'Authorization': `Token ${token}`,
+				},
+			}
+		)
+		const data = await response.json()
+		
+		if(response.ok){
+			setPosts([...posts, ...data.results])
+			setHasMore(data.next)
+			setPageCount(pageCount+1)
+		}
+	}
 	
 
-	if(!myUserDataGlobal || !myFollowDataGlobal){
+	if(!myUserDataGlobal || !myFollowDataGlobal || !posts){
 		return("loading...")
 	}
 
@@ -171,16 +191,22 @@ const Home = () => {
 						<button type="submit" class="mb-2 mt-2 btn btn-outline-primary btn-block">投稿する</button>
 					</form>
 				<div class="table table-responsive">
-					<table id='post_list' class="table-sm">
+					<table id='post_list' class="table-sm" style={{width: "100%"}}>
 						<tbody>
-							{postData.map((postData) => (
-								<tr class="text">
+							<InfiniteScroll
+								
+								loadMore={loadPost}
+								loader={<div key={0}>Loading ...</div>}
+								hasMore={hasMore}
+								threshold={5} >
+								{posts.map((postData,ix) => (
+								<tr class="text" key={ix}>
 								<td class="text" style={{width: "15%"}}>
 									<img class="rounded img-fluid mx-auto d-block" src={postData.owner.avatar_imgurl} id="avatar-image" width="40" height="40"/>
 								</td>
 								<td class="text" style={{width: "80%"}}>
 									<h6>
-										<Link to={`${postData.owner.uid}/`}><b>{postData.owner.username}</b></Link>
+										<Link to={`/postter/${postData.owner.uid}/`}><b>{postData.owner.username}</b></Link>
 										<span class="ml-1 text-secondary">@{postData.owner.uid}</span>
 										<span class="ml-1 text-secondary">{postData.created_at.split('.')[0].replace('T',' ')}</span>
 									</h6>
@@ -202,8 +228,8 @@ const Home = () => {
 										)}
 										{postData.owner.id !== myUserDataGlobal.id && (
 											<>
-												<a class="dropdown-item" href="">このユーザーをリストに追加/削除</a>
-												<a class="dropdown-item" onClick={() => handleFollow(postData.owner.id)}>
+												<a class="dropdown-item" style={{cursor:"pointer"}}>このユーザーをリストに追加/削除</a>
+												<a class="dropdown-item" style={{cursor:"pointer"}} onClick={() => handleFollow(postData.owner.id)}>
 													{myFollowDataGlobal.includes(postData.owner.id) ? "このユーザーのフォローを解除する" : "このユーザーをフォローする"}
 												</a>
 											</>
@@ -215,9 +241,9 @@ const Home = () => {
 									</div>
 								</td>
 							</tr>
-
+							
 							))}
-						
+							</InfiniteScroll>
 						</tbody>
 					</table>
 				</div>

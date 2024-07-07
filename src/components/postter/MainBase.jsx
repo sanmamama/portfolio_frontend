@@ -1,13 +1,14 @@
 import { Outlet } from 'react-router-dom';
-import {FollowDataProvider} from "./providers/FollowDataProvider"
 import Header from './Header';
 import Footer from './Footer';
 import LeftSideContent from './LeftSideContent';
 import RightSideContent from './RightSideContent';
+import {ScrollRestoration } from 'react-router-dom';
 
 const PostterBase = () => {
 		return(
 		<div>
+			<ScrollRestoration/>
 				<Header />
 				<br/><br/><br/>
 				<div class="container mt-3">

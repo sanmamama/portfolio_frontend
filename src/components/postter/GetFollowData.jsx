@@ -6,7 +6,7 @@ export const getFollowData = (setMyFollowDataGlobal) => {
 		}
 		return acc;
 	}, null);
-	fetch('http://localhost:8000/api/postter/follow/following/',
+	fetch('http://localhost:8000/api/postter/follow/me/',
 		{
 		method: 'GET',
 		headers: {

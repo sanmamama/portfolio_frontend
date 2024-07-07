@@ -25,31 +25,6 @@ const Home = () => {
 	const [hasMore, setHasMore] = useState(true);
 
 
-
-	//ポスト消すハンドル
-	const handlePostDelete = async (postId) => {
-		const token = document.cookie.split('; ').reduce((acc, row) => {
-			const [key, value] = row.split('=');
-			if (key === 'token') {
-			acc = value;
-			}
-			return acc;
-		}, null);
-        const response = await fetch(`http://127.0.0.1:8000/api/postter/post/${postId}/`, {
-            method: 'DELETE',
-			headers: {
-                'Content-Type': 'application/json',
-				'Authorization': `Token ${token}`,
-            }
-        });
-		if(response.ok){
-			setMessages(`id:${postId}ポストを削除しました`);
-			
-		}else{
-			setMessages(`id:${postId}ポストの削除に失敗しました`);
-		}
-	};
-
 	//フォローハンドル
 	const handleFollow = async (following_id) => {
 		const token = document.cookie.split('; ').reduce((acc, row) => {
@@ -72,14 +47,14 @@ const Home = () => {
         	setMessages(res.message);
 			getFollowData(setMyFollowDataGlobal)
 			getUserData(setMyUserDataGlobal)
-			
+			refreshFollow()
 		}else{
 			setMessages(res);
 		}
         
     };
 
-	const loadPost = async(page) => {
+	const loadFollow = async(page) => {
 		const token = document.cookie.split('; ').reduce((acc, row) => {
 			const [key, value] = row.split('=');
 			if (key === 'token') {
@@ -89,7 +64,7 @@ const Home = () => {
 		}, null);
 		
 
-		const response = await fetch(`http://localhost:8000/api/postter/post/user/${uid}/?page=${pageCount}`,
+		const response = await fetch(`http://localhost:8000/api/postter/follow/${uid}/follower/?page=${pageCount}`,
 			{
 				method: 'GET',
 				headers: {
@@ -106,7 +81,7 @@ const Home = () => {
 		}
 	}
 
-	const refreshPost = async() => {
+	const refreshFollow = async() => {
 		const token = document.cookie.split('; ').reduce((acc, row) => {
 			const [key, value] = row.split('=');
 			if (key === 'token') {
@@ -115,7 +90,7 @@ const Home = () => {
 			return acc;
 		}, null);
 
-		const response = await fetch(`http://localhost:8000/api/postter/post/user/${uid}/?page=1`,
+		const response = await fetch(`http://localhost:8000/api/postter/follow/${uid}/follower/?page=1`,
 			{
 				method: 'GET',
 				headers: {
@@ -127,13 +102,12 @@ const Home = () => {
 		
 		if(response.ok){
 			setPosts(data.results)
-			console.log(data.results)
 			setHasMore(data.next)
 			setPageCount(2)
 		}
 	}
 
-	const getMyUserData = () => {
+	const getUidUserData = () => {
 		const token = document.cookie.split('; ').reduce((acc, row) => {
 			const [key, value] = row.split('=');
 			if (key === 'token') {
@@ -167,8 +141,8 @@ const Home = () => {
 
 	useEffect(() => {
 		setMessages("")
-		getMyUserData()
-		refreshPost()
+		getUidUserData()
+		refreshFollow()
 		},[location.pathname])
 
 	
@@ -182,67 +156,46 @@ const Home = () => {
 			<div class="card">
 				<div class="card-body pt-3 pb-3 pl-3 pr-3">
 					{messages}
-					<img class="rounded img-fluid mx-auto d-block" src={`http://localhost:8000${userData.avatar_imgurl}`} id="avatar-image" width="150" height="150"/>
+					
 					
 					<p class="mb-0"><b>{userData.username}</b></p>
 					<p class="text-secondary">@{userData.uid}</p>
-					<p> {userData.profile_statement} </p>
-					<p>
-					<span class="mr-3"><b>{ userData.post_count }</b>ポスト</span>
-					<span class="mr-3"><Link to={`/postter/${userData.uid}/following/`}><b>{ userData.following_count }</b>フォロー</Link></span>
-					<span class="mr-3"><Link to={`/postter/${userData.uid}/follower/`}><b>{ userData.follower_count }</b>フォロワー</Link></span>
-					</p>
 
-					{userData.id !== myUserDataGlobal.id && (
-						<p class="mt-3 mb-3"><a class="btn btn-outline-success btn-sm" role="button" style={{cursor:"pointer"}} onClick={() => handleFollow(userData.id)}>
-						{myFollowDataGlobal.includes(userData.id) ? "フォローを解除" : "フォローする"}
-						</a></p>
-					)}
-					{userData.id == myUserDataGlobal.id && (
-					<h3><Link class="btn btn-outline-success btn-sm" to="/postter/editprofile" role="button">プロフィールを編集する</Link></h3>
-					)}
-
-					<p class="mt-3 mb-3"><a class="btn btn-outline-success btn-sm" href="">リスト操作</a></p>
+					<p class="mt-3 mb-3">フォロワー</p>
 				<div class="table table-responsive">
 					<table id='post_list' class="table-sm" style={{width: "100%"}}>
 						<tbody>
 						<InfiniteScroll
-								loadMore={loadPost}
+								loadMore={loadFollow}
 								loader={<div key={0}>Loading ...</div>}
 								hasMore={hasMore}
 								threshold={5} >
 								{posts.map((postData,ix) => (
 								<tr class="text" key={ix}>
 								<td class="text" style={{width: "15%"}}>
-									<img class="rounded img-fluid mx-auto d-block" src={`http://localhost:8000${userData.avatar_imgurl}`} id="avatar-image" width="40" height="40"/>
+									<img class="rounded img-fluid mx-auto d-block" src={`http://localhost:8000${postData.follower.avatar_imgurl}`} id="avatar-image" width="40" height="40"/>
 								</td>
 								<td class="text" style={{width: "80%"}}>
 									<h6>
-										<Link to={`/postter/${postData.owner.uid}/`}><b>{postData.owner.username}</b></Link>
-										<span class="ml-1 text-secondary">@{postData.owner.uid}</span>
-										<span class="ml-1 text-secondary">{postData.created_at.split('.')[0].replace('T',' ')}</span>
+										<Link to={`/postter/${postData.follower.uid}/`}><b>{postData.follower.username}</b></Link>
+										<span class="ml-1 text-secondary">@{postData.follower.uid}</span>
 									</h6>
-									<p>{postData.content}</p>
-									<form action="" method="post">
-										<button class="btn btn-outline-primary btn-sm" type="submit">
-											♥
-										</button>
-									</form>
+									<p>{postData.follower.profile_statement}</p>
 								</td>
 								<td class='text' style={{width: "5%"}}>
 									<div class="dropdown">
 										<button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">︙</button>
 										<div class="dropdown-menu">
-										{postData.owner.id == myUserDataGlobal.id && (
+										{postData.follower.id == myUserDataGlobal.id && (
 											<>
-												<a class="dropdown-item" onClick={() => handlePostDelete(postData.id)}>このポストを削除する</a>
+
 											</>
 										)}
-										{postData.owner.id !== myUserDataGlobal.id && (
+										{postData.follower.id !== myUserDataGlobal.id && (
 											<>
 												<a class="dropdown-item" style={{cursor:"pointer"}}>このユーザーをリストに追加/削除</a>
-												<a class="dropdown-item" style={{cursor:"pointer"}} onClick={() => handleFollow(postData.owner.id)}>
-													{myFollowDataGlobal.includes(postData.owner.id) ? "このユーザーのフォローを解除する" : "このユーザーをフォローする"}
+												<a class="dropdown-item" style={{cursor:"pointer"}} onClick={() => handleFollow(postData.follower.id)}>
+													{myFollowDataGlobal.includes(postData.follower.id) ? "このユーザーのフォローを解除する" : "このユーザーをフォローする"}
 												</a>
 											</>
 										)}
