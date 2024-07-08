@@ -241,9 +241,18 @@ const Home = () => {
 										<span class="ml-1 text-secondary">{postData.created_at.split('.')[0].replace('T',' ')}</span>
 									</h6>
 									<p>{postData.content}</p>
-									<button class="btn btn-outline-primary btn-sm" onClick={() => handleLike(postData.id,ix,myUserDataGlobal.like.includes(postData.id))}>
-									{myUserDataGlobal.like.includes(postData.id) ? "♥" : "♡"}({postData.like_count})
-									</button>
+
+									{postData.owner.id == myUserDataGlobal.id && (
+										<>
+										{myUserDataGlobal.like.includes(postData.id) ? "♥" : "♡"}({postData.like_count})
+										</>
+									)}
+									{postData.owner.id !== myUserDataGlobal.id && (
+										<button class="btn btn-outline-primary btn-sm" onClick={() => handleLike(postData.id,ix,myUserDataGlobal.like.includes(postData.id))}>
+										{myUserDataGlobal.like.includes(postData.id) ? "♥" : "♡"}({postData.like_count})
+										</button>
+									)}
+									
 								</td>
 								<td class='text' style={{width: "5%"}}>
 									<div class="dropdown">
