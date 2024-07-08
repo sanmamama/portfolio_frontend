@@ -1,7 +1,6 @@
 import React, { useEffect, useState ,useContext } from 'react';
 import { Link,useLocation } from 'react-router-dom';
 import {UserDataContext} from "./providers/UserDataProvider"
-import {FollowDataContext} from "./providers/FollowDataProvider"
 import { getFollowData } from "./GetFollowData"
 import { getUserData } from "./GetUserData"
 import { useParams } from 'react-router-dom';
@@ -13,7 +12,7 @@ const Home = () => {
 	const location = useLocation();
 	const { uid } = useParams();
 	const {myUserDataGlobal,setMyUserDataGlobal} = useContext(UserDataContext);
-	const {myFollowDataGlobal,setMyFollowDataGlobal} = useContext(FollowDataContext);
+
 	const [userData,setUserData] = useState(null);
 
 	const [messages, setMessages] = useState("");
@@ -25,6 +24,40 @@ const Home = () => {
 	const [hasMore, setHasMore] = useState(true);
 
 
+
+	//いいねハンドル
+	const handleLike = async (post_id,post_ix,post_liked) => {
+		const token = document.cookie.split('; ').reduce((acc, row) => {
+			const [key, value] = row.split('=');
+			if (key === 'token') {
+			acc = value;
+			}
+			return acc;
+		}, null);
+        const response = await fetch(`http://127.0.0.1:8000/api/postter/like/`, {
+            method: 'POST',
+			headers: {
+                'Content-Type': 'application/json',
+				'Authorization': `Token ${token}`,
+            },
+			body: JSON.stringify({"post":post_id}),
+        });
+		const res = await response.json();
+		if(response.ok){
+			//dtrictModeのせいで2回コールされて+-2されるけど気にしないよう。
+			if(post_liked){
+				setPosts(()=>{posts[post_ix].like_count-=1;return posts;})
+			}else{
+				setPosts(()=>{posts[post_ix].like_count+=1;return posts;})
+			}
+			getUserData(setMyUserDataGlobal)
+			setMessages(`postId:${post_id}${res.message}`);
+			
+		}else{
+			setMessages(`postId:${post_id}${res}`);
+		}
+        
+    };
 
 	//ポスト消すハンドル
 	const handlePostDelete = async (postId) => {
@@ -69,8 +102,7 @@ const Home = () => {
         });
 		const res = await response.json();
 		if(response.ok){
-        	setMessages(res.message);
-			getFollowData(setMyFollowDataGlobal)
+			setMessages(res.message);
 			getUserData(setMyUserDataGlobal)
 			
 		}else{
@@ -173,7 +205,7 @@ const Home = () => {
 
 	
 
-	if(!myUserDataGlobal || !myFollowDataGlobal || !userData || !posts){
+	if(!myUserDataGlobal || !userData || !posts){
 		return("loading...")
 	}
 
@@ -195,7 +227,7 @@ const Home = () => {
 
 					{userData.id !== myUserDataGlobal.id && (
 						<p class="mt-3 mb-3"><a class="btn btn-outline-success btn-sm" role="button" style={{cursor:"pointer"}} onClick={() => handleFollow(userData.id)}>
-						{myFollowDataGlobal.includes(userData.id) ? "フォローを解除" : "フォローする"}
+						{myUserDataGlobal.following.includes(userData.id) ? "フォローを解除" : "フォローする"}
 						</a></p>
 					)}
 					{userData.id == myUserDataGlobal.id && (
@@ -223,11 +255,9 @@ const Home = () => {
 										<span class="ml-1 text-secondary">{postData.created_at.split('.')[0].replace('T',' ')}</span>
 									</h6>
 									<p>{postData.content}</p>
-									<form action="" method="post">
-										<button class="btn btn-outline-primary btn-sm" type="submit">
-											♥
-										</button>
-									</form>
+									<button class="btn btn-outline-primary btn-sm" onClick={() => handleLike(postData.id,ix,myUserDataGlobal.like.includes(postData.id))}>
+									{myUserDataGlobal.like.includes(postData.id) ? "♥" : "♡"}({postData.like_count})
+									</button>
 								</td>
 								<td class='text' style={{width: "5%"}}>
 									<div class="dropdown">
@@ -242,7 +272,7 @@ const Home = () => {
 											<>
 												<a class="dropdown-item" style={{cursor:"pointer"}}>このユーザーをリストに追加/削除</a>
 												<a class="dropdown-item" style={{cursor:"pointer"}} onClick={() => handleFollow(postData.owner.id)}>
-													{myFollowDataGlobal.includes(postData.owner.id) ? "このユーザーのフォローを解除する" : "このユーザーをフォローする"}
+													{myUserDataGlobal.following.includes(postData.owner.id) ? "このユーザーのフォローを解除する" : "このユーザーをフォローする"}
 												</a>
 											</>
 										)}

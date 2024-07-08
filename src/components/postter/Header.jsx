@@ -8,7 +8,6 @@ import { getFollowData } from "./GetFollowData"
 
 function Header() {
 	const {myUserDataGlobal,setMyUserDataGlobal} = useContext(UserDataContext)
-	const {myFollowDataGlobal,setMyFollowDataGlobal} = useContext(FollowDataContext)
 
 	useEffect(()=>{
 		const getUser = () =>{
@@ -16,15 +15,6 @@ function Header() {
 		}
 		
 			getUser()
-
-	},[])
-
-	useEffect(()=>{
-		const getFollow = () =>{
-			getFollowData(setMyFollowDataGlobal)
-		}
-
-		getFollow()
 
 	},[])
 
@@ -36,12 +26,7 @@ function Header() {
 	// 	getUserData(setMyUserDataGlobal)
 	// 	return("loading")
 	// }
-	
-	// if(myFollowDataGlobal==null){
-	// 	//グローバルステートが破棄されている場合、再セットします
-	// 	getFollowData(setMyFollowDataGlobal)
-	// 	return("loading")
-	// }
+
 
 
 	return (

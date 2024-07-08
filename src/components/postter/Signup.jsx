@@ -1,13 +1,11 @@
 
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
-import { useContext } from 'react';
-import { UserDataContext } from "./providers/UserDataProvider"
 
 
 
 const SignupForm = () => {
-    const {myUserDataGlobal,setMyUserDataGlobal} = useContext(UserDataContext)
+
     const navigate = useNavigate();
     const [formData, setFormData] = useState({
         email: '',
@@ -25,13 +23,6 @@ const SignupForm = () => {
     const [messages, setMessages] = useState("");
     const [responseData, setResponseData] = useState([]);
     const [errors, setErrors] = useState("");
-
-    // useEffect(() => {
-    //     if(email != ""){
-    //         //ログイン中の場合はホームへリダイレクト
-    //         navigate("/postter/");
-    //     }
-    // },[]);
 
 
     const handleChange = (e) => {

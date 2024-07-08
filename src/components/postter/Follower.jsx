@@ -1,7 +1,6 @@
 import React, { useEffect, useState ,useContext } from 'react';
 import { Link,useLocation } from 'react-router-dom';
 import {UserDataContext} from "./providers/UserDataProvider"
-import {FollowDataContext} from "./providers/FollowDataProvider"
 import { getFollowData } from "./GetFollowData"
 import { getUserData } from "./GetUserData"
 import { useParams } from 'react-router-dom';
@@ -13,7 +12,6 @@ const Home = () => {
 	const location = useLocation();
 	const { uid } = useParams();
 	const {myUserDataGlobal,setMyUserDataGlobal} = useContext(UserDataContext);
-	const {myFollowDataGlobal,setMyFollowDataGlobal} = useContext(FollowDataContext);
 	const [userData,setUserData] = useState(null);
 
 	const [messages, setMessages] = useState("");
@@ -45,7 +43,6 @@ const Home = () => {
 		const res = await response.json();
 		if(response.ok){
         	setMessages(res.message);
-			getFollowData(setMyFollowDataGlobal)
 			getUserData(setMyUserDataGlobal)
 			refreshFollow()
 		}else{
@@ -147,7 +144,7 @@ const Home = () => {
 
 	
 
-	if(!myUserDataGlobal || !myFollowDataGlobal || !userData || !posts){
+	if(!myUserDataGlobal || !userData || !posts){
 		return("loading...")
 	}
 
@@ -195,7 +192,7 @@ const Home = () => {
 											<>
 												<a class="dropdown-item" style={{cursor:"pointer"}}>このユーザーをリストに追加/削除</a>
 												<a class="dropdown-item" style={{cursor:"pointer"}} onClick={() => handleFollow(postData.follower.id)}>
-													{myFollowDataGlobal.includes(postData.follower.id) ? "このユーザーのフォローを解除する" : "このユーザーをフォローする"}
+													{myUserDataGlobal.following.includes(postData.follower.id) ? "このユーザーのフォローを解除する" : "このユーザーをフォローする"}
 												</a>
 											</>
 										)}

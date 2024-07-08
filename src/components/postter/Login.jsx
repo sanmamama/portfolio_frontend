@@ -6,7 +6,6 @@ import { UserDataContext } from "./providers/UserDataProvider"
 import { getUserData } from "./GetUserData"
 
 
-
 const LoginForm = () => {
     const {myUserDataGlobal,setMyUserDataGlobal} = useContext(UserDataContext)
     const [formData, setFormData] = useState({
@@ -23,12 +22,6 @@ const LoginForm = () => {
     const [errors, setErrors] = useState("");
     const navigate = useNavigate();
 
-    // useEffect(() => {
-    //     if(email != ""){
-    //         //ログイン中の場合はホームへリダイレクト
-    //         navigate("/postter/");
-    //     }
-    // },[]);
 
     //メソッド達
     const handleChange = (e) => {
