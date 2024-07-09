@@ -5,7 +5,7 @@ import { getUserData } from "./GetUserData"
 import InfiniteScroll from 'react-infinite-scroller';
 import PostContent from './PostContent';
 
-const Home = () => {
+const MemberList = () => {
 	const {myUserDataGlobal,setMyUserDataGlobal} = useContext(UserDataContext);
 	const [formData, setFormData] = useState({
         content: ''
@@ -291,4 +291,4 @@ const Home = () => {
 	  );
 }
 
-export default Home;
+export default MemberList;

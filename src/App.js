@@ -23,6 +23,8 @@ import Following from './components/postter/Following';
 import Follower from './components/postter/Follower';
 import Header from './components/postter/Header';
 import Footer from './components/postter/Footer';
+import Message from './components/postter/Message';
+import MemberList from './components/postter/MemberList';
 
 import {UserDataProvider} from "./components/postter/providers/UserDataProvider"
 import {FollowDataProvider} from "./components/postter/providers/FollowDataProvider"
@@ -49,6 +51,8 @@ const router = createBrowserRouter([
       { path: ":uid", element: <ViewProfile /> },
       { path: ":uid/following", element: <Following /> },
       { path: ":uid/follower", element: <Follower /> },
+      { path: "message", element: <Message /> },
+      { path: "memberlist", element: <MemberList /> },
     ],
   },
   {

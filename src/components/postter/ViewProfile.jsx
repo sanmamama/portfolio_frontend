@@ -5,6 +5,7 @@ import { getFollowData } from "./GetFollowData"
 import { getUserData } from "./GetUserData"
 import { useParams } from 'react-router-dom';
 import InfiniteScroll from 'react-infinite-scroller';
+import PostContent from './PostContent';
 
 
 
@@ -254,7 +255,7 @@ const Home = () => {
 										<span class="ml-1 text-secondary">@{postData.owner.uid}</span>
 										<span class="ml-1 text-secondary">{postData.created_at.split('.')[0].replace('T',' ')}</span>
 									</h6>
-									<p>{postData.content}</p>
+									<p><PostContent content={postData.content}/></p>
 
 									{postData.owner.id == myUserDataGlobal.id && (
 										<>
