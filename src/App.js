@@ -24,6 +24,7 @@ import Follower from './components/postter/Follower';
 import Header from './components/postter/Header';
 import Footer from './components/postter/Footer';
 import Message from './components/postter/Message';
+import MessageDetail from './components/postter/MessageDetail';
 import MemberList from './components/postter/MemberList';
 
 import {UserDataProvider} from "./components/postter/providers/UserDataProvider"
@@ -52,6 +53,7 @@ const router = createBrowserRouter([
       { path: ":uid/following", element: <Following /> },
       { path: ":uid/follower", element: <Follower /> },
       { path: "message", element: <Message /> },
+      { path: "message/:ids/", element: <MessageDetail /> },
       { path: "memberlist", element: <MemberList /> },
     ],
   },

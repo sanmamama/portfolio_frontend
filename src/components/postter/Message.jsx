@@ -91,40 +91,56 @@ const Message = () => {
 								hasMore={hasMore}
 								threshold={5} >
 								{userList.map((MessageData,ix) => (
-								<tr class="text" key={ix}>
+								<tr class="text" key={ix} style={{width: "100%"}}>
 									{MessageData.user_from.id == myUserDataGlobal.id && (
 									<>
+	
+										
 										<td class="text" style={{width: "15%"}}>
 											<img class="rounded img-fluid mx-auto d-block" src={`${MessageData.user_to.avatar_imgurl}`} id="avatar-image" width="40" height="40"/>
 										</td>
 										<td class="text" style={{width: "80%"}}>
+										<Link to={`/postter/message/${myUserDataGlobal.id}-${MessageData.user_to.id}/`}>
+											<div>
 											<h6>
-												<Link to={`/postter/${MessageData.user_to.uid}/`}><b>{MessageData.user_to.username}</b></Link>
+												<b>{MessageData.user_to.username}</b>
 												<span class="ml-1 text-secondary">@{MessageData.user_to.uid}</span>
-												<span class="ml-1 text-secondary">{MessageData.content}</span>
+												<p class="mt-2 text-secondary">{MessageData.content}</p>
 											</h6>
+											</div>
+											</Link>
 										</td>
 										<td class='text' style={{width: "5%"}}>
 
 										</td>
+										
+										
 									</>
 									)}
 									
 									{MessageData.user_to.id == myUserDataGlobal.id && (
 									<>
+										
+										
 										<td class="text" style={{width: "15%"}}>
 											<img class="rounded img-fluid mx-auto d-block" src={`${MessageData.user_from.avatar_imgurl}`} id="avatar-image" width="40" height="40"/>
 										</td>
 										<td class="text" style={{width: "80%"}}>
+										<Link to={`/postter/message/${myUserDataGlobal.id}-${MessageData.user_from.id}/`}>
+										<div>
 											<h6>
-												<Link to={`/postter/${MessageData.user_from.uid}/`}><b>{MessageData.user_from.username}</b></Link>
+												<b>{MessageData.user_from.username}</b>
 												<span class="ml-1 text-secondary">@{MessageData.user_from.uid}</span>
-												<span class="ml-1 text-secondary">{MessageData.content}</span>
+												<p class="mt-2 text-secondary">{MessageData.content}</p>
 											</h6>
+											</div>
+											</Link>
 										</td>
 										<td class='text' style={{width: "5%"}}>
 
 										</td>
+										
+										
 									</>
 									)}
 								</tr>

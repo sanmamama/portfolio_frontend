@@ -12,6 +12,7 @@ import PostContent from './PostContent';
 const Home = () => {
 	const location = useLocation();
 	const { uid } = useParams();
+	
 	const {myUserDataGlobal,setMyUserDataGlobal} = useContext(UserDataContext);
 
 	const [userData,setUserData] = useState(null);
