@@ -4,8 +4,10 @@ import {UserDataContext} from "./providers/UserDataProvider"
 import { getUserData } from "./GetUserData"
 import InfiniteScroll from 'react-infinite-scroller';
 import PostContent from './PostContent';
+import { useParams } from 'react-router-dom';
 
 const Message = () => {
+	const { id } = useParams();
 	const {myUserDataGlobal,setMyUserDataGlobal} = useContext(UserDataContext);
 	const [formData, setFormData] = useState({
         content: ''
@@ -26,7 +28,7 @@ const Message = () => {
 			return acc;
 		}, null);
 
-		const response = await fetch(`http://localhost:8000/api/postter/memberlist/?page=1`,
+		const response = await fetch(`http://localhost:8000/api/postter/listdetail/${id}/`,
 			{
 				method: 'GET',
 				headers: {
@@ -54,7 +56,7 @@ const Message = () => {
 		}, null);
 		
 
-		const response = await fetch(`http://localhost:8000/api/postter/memberlist/?page=${pageCount}`,
+		const response = await fetch(`http://localhost:8000/api/postter/listdetail/${id}/`,
 			{
 				method: 'GET',
 				headers: {
@@ -96,8 +98,8 @@ const Message = () => {
 										<td class="text">
 											<div>
 											<h6>
-												<p><b><Link to={`/postter/memberlist/${ListData.id}/`}>{ListData.name}</Link></b></p>
-												<span class="ml-1 text-secondary">{ListData.description}</span>
+												<p><b>{ListData.user.username}</b></p>
+												<span class="ml-1 text-secondary">{ListData.list}</span>
 												<p class="mt-2 text-secondary">{}</p>
 											</h6>
 											</div>
