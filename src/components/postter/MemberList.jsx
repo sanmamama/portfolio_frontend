@@ -96,8 +96,8 @@ const Message = () => {
 										<td class="text">
 											<div>
 											<h6>
-												<p><b><Link to={`/postter/memberlist/${ListData.id}/`}>{ListData.name}</Link></b></p>
-												<span class="ml-1 text-secondary">{ListData.description}</span>
+												<p><span><b><Link to={`/postter/memberlist/${ListData.id}/`}>{ListData.name}</Link></b></span><span class="ml-3 text-secondary">{ListData.user_count}人のメンバー</span></p>
+												<p><span class="ml-1 text-secondary">{ListData.description}</span></p>
 												<p class="mt-2 text-secondary">{}</p>
 											</h6>
 											</div>
