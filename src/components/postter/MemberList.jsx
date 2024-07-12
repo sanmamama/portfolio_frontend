@@ -81,9 +81,10 @@ const Message = () => {
 			<div class="card">
 				<div class="card-body pt-3 pb-3 pl-3 pr-3">
 					{messages}
-					
+					<h4>リスト</h4>
+				<p><Link class="btn btn-sm btn-outline-primary" to="/postter/memberlist/create">新しいリストを作成</Link></p>					
 				<div class="table table-responsive">
-					<table id='post_list' class="table-sm" style={{width: "100%"}}>
+					<table class="table">
 						<tbody>
 							<InfiniteScroll
 								loadMore={loadMessageList}
@@ -91,8 +92,7 @@ const Message = () => {
 								hasMore={hasMore}
 								threshold={5} >
 								{userList.map((ListData,ix) => (
-								<tr class="text" key={ix} style={{width: "100%"}}>
-
+								<tr class="text" key={ix}>
 										<td class="text">
 											<div>
 											<h6>
@@ -102,9 +102,7 @@ const Message = () => {
 											</h6>
 											</div>
 										</td>						
-
 								</tr>
-							
 							))}
 							</InfiniteScroll>
 						</tbody>

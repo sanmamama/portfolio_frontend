@@ -14,6 +14,7 @@ const Message = () => {
 		user_to: toId,
         content: ''
     });
+	const [targetUserData, setTargetUserData] = useState(null);
 	const [messages, setMessages] = useState("");
     const [errors, setErrors] = useState("");
 	const [userList, setUserList] = useState([]);
@@ -123,9 +124,41 @@ const Message = () => {
 		}
 	}
 
+	useEffect(()=>{
+		const getTargetUserData = () => {
+			const token = document.cookie.split('; ').reduce((acc, row) => {
+				const [key, value] = row.split('=');
+				if (key === 'token') {
+				acc = value;
+				}
+				return acc;
+			}, null);
+			fetch(`http://localhost:8000/api/postter/user/?id=${toId}`,
+				{
+				method: 'GET',
+				headers: {
+					'Authorization': `Token ${token}`,
+					},
+				})
+			.then(response => {
+				if(!response.ok){
+					//トークンのセッション切れ
+					throw new Error();
+				}
+				return response.json()
+				})
+			.then(data => {
+				setTargetUserData(data[0])
+				})
+			.catch(error => {
+			});
+		}
+		getTargetUserData()
+	},[])
 
+	
 
-	if(!myUserDataGlobal || !userList){
+	if(!myUserDataGlobal || !userList || !targetUserData){
 		return("loading...")
 	}
 
@@ -134,20 +167,12 @@ const Message = () => {
 			<div class="card">
 				<div class="card-body pt-3 pb-3 pl-3 pr-3">
 					{messages}
-					{userList.length && userList[0].user_to.id == myUserDataGlobal.id && (
-						<>
-						<img class="rounded img-fluid mx-auto d-block" src={`${userList[0].user_from.avatar_imgurl}`} id="avatar-image" width="100" height="100"/>
-						<p class="text-center">{userList[0].user_from.username} @{userList[0].user_from.uid}</p>
-						<p class="text-center">{userList[0].user_from.profile_statement}</p>
-						</>
-					)}
-					{userList.length && userList[0].user_from.id == myUserDataGlobal.id && (
-						<>
-						<img class="rounded img-fluid mx-auto d-block" src={`${userList[0].user_to.avatar_imgurl}`} id="avatar-image" width="100" height="100"/>
-						<p class="text-center">{userList[0].user_to.username} @{userList[0].user_to.uid}</p>
-						<p class="text-center">{userList[0].user_to.profile_statement}</p>
-						</>
-					)}
+					
+					<img class="rounded img-fluid mx-auto d-block" src={`${targetUserData.avatar_imgurl}`} id="avatar-image" width="100" height="100"/>
+					<p class="text-center">{targetUserData.username} @{targetUserData.uid}</p>
+					<p class="text-center">{targetUserData.profile_statement}</p>
+
+					
 				<form method="post" onSubmit={handleMessageSubmit}>
 					<textarea class="form-control" type="textarea" name="content" value={formData.content} onChange={handleMessageChange} placeholder="メッセージを入力"/>   
                     <button type="submit" class="mb-2 mt-2 btn btn-outline-primary btn-block">

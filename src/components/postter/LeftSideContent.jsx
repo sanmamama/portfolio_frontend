@@ -16,10 +16,6 @@ const LeftSideContent = () => {
 					<h5 class="mb-4"><Link to="/postter/">ホーム</Link></h5>
 					<h5 class="mb-4"><Link to="/postter/message/">メッセージ</Link></h5>
 					<h5 class="mb-4"><Link to="/postter/memberlist/">リスト</Link></h5>
-					<p><Link to="/postter/logout">ログアウト</Link></p>
-					<p><Link to="/postter/signup">会員登録</Link></p>
-					<p><Link to="/postter/login">ログイン</Link></p>
-					<p><Link to="/postter/editprofile/">プロフィール編集</Link></p>
 				</div>
 			</div>
 			<div class="card mb-1">
