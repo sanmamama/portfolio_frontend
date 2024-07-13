@@ -5,17 +5,31 @@ import {UserDataContext} from "./providers/UserDataProvider"
 export const RightSideContent = () => {
 	const {myUserDataGlobal,setMyUserDataGlobal} = useContext(UserDataContext);
 
+	// //ポストフォームチェンジ
+	// const handlePostChange = (e) => {
+    //     const { name, value } = e.target;
+    //     setFormData((prevFormData) => ({
+    //         ...prevFormData,
+    //         [name]: value
+    //     }));
+    // };
 
 	return (
 		<div class="col-sm-3 pl-1 pr-1">
-			<div class="card">
+			<div class="mb-1 card">
 				<div class="card-body pt-3 pb-3 pl-3 pr-3">
-					<form action="" method="GET">
+					<form action="/postter/search" method="GET">
 						<div class="form-group">
-							<input type="text" class="form-control" name="q" placeholder="検索" value=""/>
+							<input type="text" class="form-control" name="q" placeholder="検索"/>
 						</div>
 						<button type="submit" class="btn btn-primary">検索</button>
 					</form>
+				</div>
+			</div>
+			<div class="mb-1 card">
+				<div class="card-body pt-3 pb-3 pl-3 pr-3">
+					<h4>おすすめのユーザー</h4>
+						<p>あああああ</p>
 				</div>
 			</div>
 		</div>
