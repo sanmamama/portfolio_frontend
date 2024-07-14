@@ -147,6 +147,7 @@ const Message = () => {
 				
 					<p>{targetListData.name}</p>
 					<p>{targetListData.description}</p>
+					<p><Link class="btn btn-sm btn-outline-primary" to={`/postter/memberlist/${id}/edit`}>このリストを編集</Link></p>
 				<div class="table table-responsive">
 					<table id='post_list' class="table-sm" style={{width: "100%"}}>
 						<tbody>
