@@ -25,6 +25,8 @@ const Home = () => {
 	const [pageCount, setPageCount] = useState(1);
 	const [hasMore, setHasMore] = useState(true);
 
+	
+
 
 	//いいねハンドル
 	const handleLike = async (post_id,post_ix,post_liked) => {
@@ -135,7 +137,6 @@ const Home = () => {
 		
 		if(response.ok){
 			setPosts(data.results)
-			console.log(data.results)
 			setHasMore(data.next)
 			setPageCount(2)
 		}
@@ -167,6 +168,10 @@ const Home = () => {
 			setPageCount(pageCount+1)
 		}
 	}
+
+	useEffect(()=>{
+		refreshPost()
+	},[q])
 	
 
 	if(!myUserDataGlobal || !posts){
@@ -177,7 +182,7 @@ const Home = () => {
 		<div class="col-sm-6 pl-0 pr-0">
 			<div class="card">
 				<div class="card-body pt-3 pb-3 pl-3 pr-3">
-					{q}
+					<p>「{q}」で検索中</p>
 					{messages}
 				<div class="table table-responsive">
 					<table id='post_list' class="table-sm" style={{width: "100%"}}>
