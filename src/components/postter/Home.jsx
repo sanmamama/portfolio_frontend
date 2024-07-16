@@ -16,6 +16,51 @@ const Home = () => {
 	const [pageCount, setPageCount] = useState(1);
 	const [hasMore, setHasMore] = useState(true);
 
+	//リツイートハンドル
+	const handleRepost = async (postId,post_ix,post_reposted) => {
+		const token = document.cookie.split('; ').reduce((acc, row) => {
+			const [key, value] = row.split('=');
+			if (key === 'token') {
+			acc = value;
+			}
+			return acc;
+		}, null);
+        try {
+            const response = await fetch('http://127.0.0.1:8000/api/postter/repost/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Token ${token}`,
+                },
+                body: JSON.stringify({ post: postId })
+            });
+
+            if (response.ok) {
+				const data = await response.json();
+				//dtrictModeのせいで2回コールされて+-2されるけど気にしないよう。
+				if(post_reposted){
+					setPosts(()=>{posts[post_ix].repost_count-=1;return posts;})
+				}else{
+					setPosts(()=>{posts[post_ix].repost_count+=1;return posts;})
+				}
+				getUserData(setMyUserDataGlobal)
+				refreshPost()
+                setMessages(data.detail);
+            } else {
+                const data = await response.json();
+				if(post_reposted){
+					setPosts(()=>{posts[post_ix].repost_count-=1;return posts;})
+				}else{
+					setPosts(()=>{posts[post_ix].repost_count+=1;return posts;})
+				}
+				getUserData(setMyUserDataGlobal)
+				refreshPost()
+                setMessages(data.detail);
+            }
+        } catch (error) {
+            setMessages('An error occurred.');
+        }
+    };
 
 	//いいねハンドル
 	const handleLike = async (post_id,post_ix,post_liked) => {
@@ -174,7 +219,7 @@ const Home = () => {
 		
 		if(response.ok){
 			setPosts(data.results)
-			console.log(data.results)
+			//console.log(data.results)
 			setHasMore(data.next)
 			setPageCount(2)
 		}
@@ -225,17 +270,22 @@ const Home = () => {
 					<table id='post_list' class="table-sm" style={{width: "100%"}}>
 						<tbody>
 							<InfiniteScroll
-								
 								loadMore={loadPost}
 								loader={<div key={0}>Loading ...</div>}
 								hasMore={hasMore}
 								threshold={5} >
 								{posts.map((postData,ix) => (
+								<>				
 								<tr class="text" key={ix}>
 								<td class="text" style={{width: "15%"}}>
 									<img class="rounded img-fluid mx-auto d-block" src={postData.owner.avatar_imgurl} id="avatar-image" width="40" height="40"/>
 								</td>
 								<td class="text" style={{width: "80%"}}>
+									{postData.repost_user && (
+										<>
+										<p><img class="mr-2" src={`http://127.0.0.1:8000/icon/repost_active.svg`} width="16" height="16"/><Link to={`/postter/${postData.repost_user.uid}/`}>{postData.repost_user.username}</Link>がリポストしました</p>
+										</>
+									)}
 									<h6>
 										<Link to={`/postter/${postData.owner.uid}/`}><b>{postData.owner.username}</b></Link>
 										<span class="ml-1 text-secondary">@{postData.owner.uid}</span>
@@ -243,16 +293,15 @@ const Home = () => {
 									</h6>
 									<p><PostContent content={postData.content}/></p>
 
-									{postData.owner.id == myUserDataGlobal.id && (
-										<>
-										{myUserDataGlobal.like.includes(postData.id) ? "♥" : "♡"}({postData.like_count})
-										</>
-									)}
-									{postData.owner.id !== myUserDataGlobal.id && (
-										<button class="btn btn-outline-primary btn-sm" onClick={() => handleLike(postData.id,ix,myUserDataGlobal.like.includes(postData.id))}>
-										{myUserDataGlobal.like.includes(postData.id) ? "♥" : "♡"}({postData.like_count})
-										</button>
-									)}
+									
+									<a class="mr-4" style={{cursor:"pointer"}} onClick={() => handleLike(postData.id,ix,myUserDataGlobal.like.includes(postData.id))}>
+									{myUserDataGlobal.like.includes(postData.id) ? <img src={`http://127.0.0.1:8000/icon/heart_active.svg`} width="16" height="16"/> : <img src={`http://127.0.0.1:8000/icon/heart_no_active.svg`} width="16" height="16"/>}{postData.like_count}
+									</a>
+									
+									
+									<a class="mr-4" style={{cursor:"pointer"}} onClick={() => handleRepost(postData.id,ix,myUserDataGlobal.repost.includes(postData.id))}>
+									{myUserDataGlobal.repost.includes(postData.id) ? <img src={`http://127.0.0.1:8000/icon/repost_active.svg`} width="16" height="16"/> : <img src={`http://127.0.0.1:8000/icon/repost_no_active.svg`} width="16" height="16"/>}{postData.repost_count}
+									</a>
 									
 								</td>
 								<td class='text' style={{width: "5%"}}>
@@ -279,7 +328,7 @@ const Home = () => {
 									</div>
 								</td>
 							</tr>
-							
+							</>
 							))}
 							</InfiniteScroll>
 						</tbody>

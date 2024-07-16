@@ -25,7 +25,51 @@ const Home = () => {
 	const [pageCount, setPageCount] = useState(1);
 	const [hasMore, setHasMore] = useState(true);
 
+	//リツイートハンドル
+	const handleRepost = async (postId,post_ix,post_reposted) => {
+		const token = document.cookie.split('; ').reduce((acc, row) => {
+			const [key, value] = row.split('=');
+			if (key === 'token') {
+			acc = value;
+			}
+			return acc;
+		}, null);
+        try {
+            const response = await fetch('http://127.0.0.1:8000/api/postter/repost/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Token ${token}`,
+                },
+                body: JSON.stringify({ post: postId })
+            });
 
+            if (response.ok) {
+				const data = await response.json();
+				//dtrictModeのせいで2回コールされて+-2されるけど気にしないよう。
+				if(post_reposted){
+					setPosts(()=>{posts[post_ix].repost_count-=1;return posts;})
+				}else{
+					setPosts(()=>{posts[post_ix].repost_count+=1;return posts;})
+				}
+				getUserData(setMyUserDataGlobal)
+				//refreshPost()
+                setMessages(data.detail);
+            } else {
+                const data = await response.json();
+				if(post_reposted){
+					setPosts(()=>{posts[post_ix].repost_count-=1;return posts;})
+				}else{
+					setPosts(()=>{posts[post_ix].repost_count+=1;return posts;})
+				}
+				getUserData(setMyUserDataGlobal)
+				//refreshPost()
+                setMessages(data.detail);
+            }
+        } catch (error) {
+            setMessages('An error occurred.');
+        }
+    };
 
 	//いいねハンドル
 	const handleLike = async (post_id,post_ix,post_liked) => {
@@ -200,10 +244,10 @@ const Home = () => {
 
 
 	useEffect(() => {
-		setMessages("")
+		//setMessages("")
 		getMyUserData()
 		refreshPost()
-		},[location.pathname])
+		},[location.pathname,messages])
 
 	
 
@@ -246,53 +290,59 @@ const Home = () => {
 								hasMore={hasMore}
 								threshold={5} >
 								{posts.map((postData,ix) => (
-								<tr class="text" key={ix}>
-								<td class="text" style={{width: "15%"}}>
-									<img class="rounded img-fluid mx-auto d-block" src={`http://localhost:8000${userData.avatar_imgurl}`} id="avatar-image" width="40" height="40"/>
-								</td>
-								<td class="text" style={{width: "80%"}}>
-									<h6>
-										<Link to={`/postter/${postData.owner.uid}/`}><b>{postData.owner.username}</b></Link>
-										<span class="ml-1 text-secondary">@{postData.owner.uid}</span>
-										<span class="ml-1 text-secondary">{postData.created_at.split('.')[0].replace('T',' ')}</span>
-									</h6>
-									<p><PostContent content={postData.content}/></p>
-
-									{postData.owner.id == myUserDataGlobal.id && (
-										<>
-										{myUserDataGlobal.like.includes(postData.id) ? "♥" : "♡"}({postData.like_count})
-										</>
-									)}
-									{postData.owner.id !== myUserDataGlobal.id && (
-										<button class="btn btn-outline-primary btn-sm" onClick={() => handleLike(postData.id,ix,myUserDataGlobal.like.includes(postData.id))}>
-										{myUserDataGlobal.like.includes(postData.id) ? "♥" : "♡"}({postData.like_count})
-										</button>
-									)}
-								</td>
-								<td class='text' style={{width: "5%"}}>
-									<div class="dropdown">
-										<button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">︙</button>
-										<div class="dropdown-menu">
-										{postData.owner.id == myUserDataGlobal.id && (
+									<>
+										<tr class="text" key={ix}>
+										<td class="text" style={{width: "15%"}}>
+											<img class="rounded img-fluid mx-auto d-block" src={`http://localhost:8000${userData.avatar_imgurl}`} id="avatar-image" width="40" height="40"/>
+										</td>
+										<td class="text" style={{width: "80%"}}>
+											{postData.repost_user && (
 											<>
-												<a class="dropdown-item" onClick={() => handlePostDelete(postData.id)}>このポストを削除する</a>
+											<p><img class="mr-2" src={`http://127.0.0.1:8000/icon/repost_active.svg`} width="16" height="16"/><Link to={`/postter/${postData.repost_user.uid}/`}>{postData.repost_user.username}</Link>がリポストしました</p>
 											</>
-										)}
-										{postData.owner.id !== myUserDataGlobal.id && (
-											<>
-												<a class="dropdown-item" style={{cursor:"pointer"}}>このユーザーをリストに追加/削除</a>
-												<a class="dropdown-item" style={{cursor:"pointer"}} onClick={() => handleFollow(postData.owner.id)}>
-													{myUserDataGlobal.following.includes(postData.owner.id) ? "このユーザーのフォローを解除する" : "このユーザーをフォローする"}
-												</a>
-											</>
-										)}
+											)}
+											<h6>
+												<Link to={`/postter/${postData.owner.uid}/`}><b>{postData.owner.username}</b></Link>
+												<span class="ml-1 text-secondary">@{postData.owner.uid}</span>
+												<span class="ml-1 text-secondary">{postData.created_at.split('.')[0].replace('T',' ')}</span>
+											</h6>
+											<p><PostContent content={postData.content}/></p>
 
-										</div>
-										
+											<a class="mr-4" style={{cursor:"pointer"}} onClick={() => handleLike(postData.id,ix,myUserDataGlobal.like.includes(postData.id))}>
+											{myUserDataGlobal.like.includes(postData.id) ? <img src={`http://127.0.0.1:8000/icon/heart_active.svg`} width="16" height="16"/> : <img src={`http://127.0.0.1:8000/icon/heart_no_active.svg`} width="16" height="16"/>}{postData.like_count}
+											</a>
+											
+											
+											<a class="mr-4" style={{cursor:"pointer"}} onClick={() => handleRepost(postData.id,ix,myUserDataGlobal.repost.includes(postData.id))}>
+											{myUserDataGlobal.repost.includes(postData.id) ? <img src={`http://127.0.0.1:8000/icon/repost_active.svg`} width="16" height="16"/> : <img src={`http://127.0.0.1:8000/icon/repost_no_active.svg`} width="16" height="16"/>}{postData.repost_count}
+											</a>
 
-									</div>
-								</td>
-							</tr>
+										</td>
+										<td class='text' style={{width: "5%"}}>
+											<div class="dropdown">
+												<button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">︙</button>
+												<div class="dropdown-menu">
+												{postData.owner.id == myUserDataGlobal.id && (
+													<>
+														<a class="dropdown-item" onClick={() => handlePostDelete(postData.id)}>このポストを削除する</a>
+													</>
+												)}
+												{postData.owner.id !== myUserDataGlobal.id && (
+													<>
+														<a class="dropdown-item" style={{cursor:"pointer"}}>このユーザーをリストに追加/削除</a>
+														<a class="dropdown-item" style={{cursor:"pointer"}} onClick={() => handleFollow(postData.owner.id)}>
+															{myUserDataGlobal.following.includes(postData.owner.id) ? "このユーザーのフォローを解除する" : "このユーザーをフォローする"}
+														</a>
+													</>
+												)}
+
+												</div>
+												
+
+											</div>
+										</td>
+									</tr>
+							</>
 							
 							))}
 							</InfiniteScroll>
