@@ -2,9 +2,12 @@ import React, { useEffect, useState ,useContext } from 'react';
 import { Link } from 'react-router-dom';
 import {UserDataContext} from "./providers/UserDataProvider"
 import InfiniteScroll from 'react-infinite-scroller';
+import { useParams } from 'react-router-dom';
 const apiUrl = process.env.REACT_APP_API_URL;
 
 const Message = () => {
+	const id = parseInt(useParams().id, 10);
+
 	const {myUserDataGlobal,setMyUserDataGlobal} = useContext(UserDataContext);
 	const [formData, setFormData] = useState({
         content: ''
@@ -15,6 +18,37 @@ const Message = () => {
 	const [pageCount, setPageCount] = useState(1);
 	const [hasMore, setHasMore] = useState(true);
 	
+	const handleAddMember = async (user_id,list_id) => {
+		const token = document.cookie.split('; ').reduce((acc, row) => {
+			const [key, value] = row.split('=');
+			if (key === 'token') {
+			acc = value;
+			}
+			return acc;
+		}, null);
+        const response = await fetch(`${apiUrl}/postter/addmember/`, {
+            method: 'POST',
+			headers: {
+                'Content-Type': 'application/json',
+				'Authorization': `Token ${token}`,
+            },
+			body: JSON.stringify({
+				"user":user_id,
+				"list":list_id,
+			}),
+        });
+		const res = await response.json();
+		if(response.ok){
+			setMessages(`ok`);
+			refreshMessageList()
+			
+		}else{
+			setMessages(`ng`);
+			refreshMessageList()
+		}
+        
+    };
+
 
 	const refreshMessageList = async() => {
 		const token = document.cookie.split('; ').reduce((acc, row) => {
@@ -80,7 +114,7 @@ const Message = () => {
 			<div class="card">
 				<div class="card-body pt-3 pb-3 pl-3 pr-3">
 					{messages}
-					<h4>リスト</h4>
+					<h4>リストを選択</h4>
 				<p><Link class="btn btn-sm btn-outline-primary" to="/postter/memberlist/create">新しいリストを作成</Link></p>					
 				<div class="table table-responsive">
 					<table class="table">
@@ -92,7 +126,7 @@ const Message = () => {
 								threshold={5} >
 								{userList.map((ListData,ix) => (
 								<tr class="text" key={ix}>
-										<td class="text">
+										<td>
 											<div>
 											<h6>
 												<p><span><b><Link to={`/postter/memberlist/${ListData.id}/`}>{ListData.name}</Link></b></span><span class="ml-3 text-secondary">{ListData.user_ids.length}人のメンバー</span></p>
@@ -100,7 +134,13 @@ const Message = () => {
 												<p class="mt-2 text-secondary">{}</p>
 											</h6>
 											</div>
-										</td>						
+										</td>
+										<td>
+												<a class="" style={{cursor:"pointer"}} onClick={() => handleAddMember(id,ListData.id)}>
+													{ListData.user_ids.includes(id) ? "登録を外す" : "登録する"}
+													
+												</a>
+										</td>					
 								</tr>
 							))}
 							</InfiniteScroll>

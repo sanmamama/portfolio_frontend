@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 import {UserDataContext} from "./providers/UserDataProvider"
 import { getUserData } from "./GetUserData"
 import InfiniteScroll from 'react-infinite-scroller';
-import PostContent from './PostContent';
 import { useParams } from 'react-router-dom';
+const apiUrl = process.env.REACT_APP_API_URL;
 
 const Message = () => {
 	const { id } = useParams();
@@ -28,7 +28,7 @@ const Message = () => {
 			}
 			return acc;
 		}, null);
-        const response = await fetch(`http://127.0.0.1:8000/api/postter/follow/`, {
+        const response = await fetch(`${apiUrl}/postter/follow/`, {
             method: 'POST',
 			headers: {
                 'Content-Type': 'application/json',
@@ -57,7 +57,7 @@ const Message = () => {
 			return acc;
 		}, null);
 
-		const response = await fetch(`http://localhost:8000/api/postter/listdetail/${id}/`,
+		const response = await fetch(`${apiUrl}/postter/listdetail/${id}/`,
 			{
 				method: 'GET',
 				headers: {
@@ -85,7 +85,7 @@ const Message = () => {
 		}, null);
 		
 
-		const response = await fetch(`http://localhost:8000/api/postter/listdetail/${id}/`,
+		const response = await fetch(`${apiUrl}/postter/listdetail/${id}/`,
 			{
 				method: 'GET',
 				headers: {
@@ -111,7 +111,7 @@ const Message = () => {
 				}
 				return acc;
 			}, null);
-			fetch(`http://localhost:8000/api/postter/memberlist/?id=${id}`,
+			fetch(`${apiUrl}/postter/memberlist/?id=${id}`,
 				{
 				method: 'GET',
 				headers: {

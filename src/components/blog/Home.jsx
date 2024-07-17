@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Route, Switch, useLocation, useHistory } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import SidebarContent from './HomeSidebar';
+const apiUrl = process.env.REACT_APP_API_URL;
 
 
 
@@ -36,6 +37,7 @@ function useQuery() {
 }
 
 const App = () => {
+	
     const [blog, setBlog] = useState(null);
 	const [pageCount, setPageCount] = useState(null);
     const [currentPage, setCurrentPage] = useState(null);
@@ -49,7 +51,8 @@ const App = () => {
 
     
     const fetchItems = async (currentPage) => {
-        const response = await fetch(`http://127.0.0.1:8000/api/blog/?page=${selectedPage}&category=${selectedCategory}&tag=${selectedTag}&date=${selectedYearMonth}`);
+
+        const response = await fetch(`${apiUrl}/blog/?page=${selectedPage}&category=${selectedCategory}&tag=${selectedTag}&date=${selectedYearMonth}`);
         const data = await response.json();
         setBlog(data.results);
 		setCurrentPage(selectedPage)

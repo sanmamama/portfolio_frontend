@@ -1,9 +1,8 @@
 import React, { useEffect, useState ,useContext, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import {UserDataContext} from "./providers/UserDataProvider"
-import { getUserData } from "./GetUserData"
 import InfiniteScroll from 'react-infinite-scroller';
-import PostContent from './PostContent';
+const apiUrl = process.env.REACT_APP_API_URL;
 
 const Message = () => {
 	const {myUserDataGlobal,setMyUserDataGlobal} = useContext(UserDataContext);
@@ -28,7 +27,7 @@ const Message = () => {
 		}, null);
 
 		try {
-		const response = await fetch(`http://localhost:8000/api/postter/user/?q=${searchQuery}`,
+		const response = await fetch(`${apiUrl}/postter/user/?q=${searchQuery}`,
 			{
 			method: 'GET',
 			headers: {
@@ -66,7 +65,7 @@ const Message = () => {
 			return acc;
 		}, null);
 
-		const response = await fetch(`http://localhost:8000/api/postter/message/?page=1`,
+		const response = await fetch(`${apiUrl}/postter/message/?page=1`,
 			{
 				method: 'GET',
 				headers: {
@@ -94,7 +93,7 @@ const Message = () => {
 		}, null);
 		
 
-		const response = await fetch(`http://localhost:8000/api/postter/message/?page=${pageCount}`,
+		const response = await fetch(`${apiUrl}/postter/message/?page=${pageCount}`,
 			{
 				method: 'GET',
 				headers: {

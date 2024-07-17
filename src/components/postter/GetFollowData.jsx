@@ -1,3 +1,5 @@
+const apiUrl = process.env.REACT_APP_API_URL;
+
 export const getFollowData = (setMyFollowDataGlobal) => {
     const token = document.cookie.split('; ').reduce((acc, row) => {
 		const [key, value] = row.split('=');
@@ -6,7 +8,7 @@ export const getFollowData = (setMyFollowDataGlobal) => {
 		}
 		return acc;
 	}, null);
-	fetch('http://localhost:8000/api/postter/follow/me/',
+	fetch(`${apiUrl}/postter/follow/me/`,
 		{
 		method: 'GET',
 		headers: {

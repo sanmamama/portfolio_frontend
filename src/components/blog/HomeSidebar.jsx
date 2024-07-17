@@ -1,6 +1,7 @@
 // src/components/Sidebar.js
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+const apiUrl = process.env.REACT_APP_API_URL;
 
 const SidebarContent = () => {
     const [posts, setPosts] = useState([]);
@@ -9,7 +10,7 @@ const SidebarContent = () => {
     const [archives, setArchives] = useState([]);
 
     useEffect(() => {
-        fetch('http://localhost:8000/api/blog/all/')
+        fetch(`${apiUrl}/blog/all/`)
             .then(response => response.json())
             .then(data => {
                 setPosts(data);

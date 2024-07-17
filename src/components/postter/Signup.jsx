@@ -1,7 +1,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
-
+const apiUrl = process.env.REACT_APP_API_URL;
 
 
 const SignupForm = () => {
@@ -36,7 +36,7 @@ const SignupForm = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
     
-        fetch('http://localhost:8000/api/auth/registration/', {
+        fetch(`${apiUrl}/auth/registration/`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

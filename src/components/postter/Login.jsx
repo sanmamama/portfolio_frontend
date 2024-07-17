@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useContext } from 'react';
 import { UserDataContext } from "./providers/UserDataProvider"
 import { getUserData } from "./GetUserData"
-
+const apiUrl = process.env.REACT_APP_API_URL;
 
 const LoginForm = () => {
     const {myUserDataGlobal,setMyUserDataGlobal} = useContext(UserDataContext)
@@ -34,7 +34,7 @@ const LoginForm = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        fetch('http://localhost:8000/api/auth/login/', {
+        fetch(`${apiUrl}/auth/login/`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

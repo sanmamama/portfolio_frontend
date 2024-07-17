@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import DOMPurify from 'dompurify';
 import { Link } from 'react-router-dom';
+const apiUrl = process.env.REACT_APP_API_URL;
 
 function sanitizeHtml(html) {
 	return DOMPurify.sanitize(html);
@@ -30,7 +31,7 @@ const BlogDetail = () => {
 	useEffect(() => {
 		const fetchData = async () => {
 		try {
-			const url = `http://127.0.0.1:8000/api/blog/${id}/`;
+			const url = `${apiUrl}/blog/${id}/`;
 			const response = await fetch(url);
 			const jsonData = await response.json();
 			setData(jsonData);
@@ -42,7 +43,7 @@ const BlogDetail = () => {
 	}, []);
 
 	const handleLike = async () => {
-        const response = await fetch(`http://127.0.0.1:8000/api/blog/${id}/like/`, {
+        const response = await fetch(`${apiUrl}/blog/${id}/like/`, {
             method: 'PATCH'
         });
         const res = await response.json();

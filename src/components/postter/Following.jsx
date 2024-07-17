@@ -5,8 +5,8 @@ import { getFollowData } from "./GetFollowData"
 import { getUserData } from "./GetUserData"
 import { useParams } from 'react-router-dom';
 import InfiniteScroll from 'react-infinite-scroller';
-
-
+const apiUrl = process.env.REACT_APP_API_URL;
+const baseUrl = process.env.REACT_APP_BASE_URL;
 
 const Home = () => {
 	const location = useLocation();
@@ -33,7 +33,7 @@ const Home = () => {
 			}
 			return acc;
 		}, null);
-        const response = await fetch(`http://127.0.0.1:8000/api/postter/follow/`, {
+        const response = await fetch(`${apiUrl}/postter/follow/`, {
             method: 'POST',
 			headers: {
                 'Content-Type': 'application/json',
@@ -63,7 +63,7 @@ const Home = () => {
 		}, null);
 		
 
-		const response = await fetch(`http://localhost:8000/api/postter/follow/${uid}/following/?page=${pageCount}`,
+		const response = await fetch(`${apiUrl}/postter/follow/${uid}/following/?page=${pageCount}`,
 			{
 				method: 'GET',
 				headers: {
@@ -89,7 +89,7 @@ const Home = () => {
 			return acc;
 		}, null);
 
-		const response = await fetch(`http://localhost:8000/api/postter/follow/${uid}/following/?page=1`,
+		const response = await fetch(`${apiUrl}/postter/follow/${uid}/following/?page=1`,
 			{
 				method: 'GET',
 				headers: {
@@ -115,7 +115,7 @@ const Home = () => {
 			}
 			return acc;
 		})
-		fetch('http://localhost:8000/api/postter/user/'+uid+'/',
+		fetch(`${apiUrl}/postter/user/${uid}/`,
 			{
 			method: 'GET',
 			headers: {
@@ -173,7 +173,7 @@ const Home = () => {
 								{posts.map((postData,ix) => (
 								<tr class="text" key={ix}>
 								<td class="text" style={{width: "15%"}}>
-									<img class="rounded img-fluid mx-auto d-block" src={`http://localhost:8000${postData.following.avatar_imgurl}`} id="avatar-image" width="40" height="40"/>
+									<img class="rounded img-fluid mx-auto d-block" src={`${baseUrl}${postData.following.avatar_imgurl}`} id="avatar-image" width="40" height="40"/>
 								</td>
 								<td class="text" style={{width: "80%"}}>
 									<h6>

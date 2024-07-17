@@ -5,6 +5,7 @@ import { getUserData } from "./GetUserData"
 import InfiniteScroll from 'react-infinite-scroller';
 import PostContent from './PostContent';
 import { useParams } from 'react-router-dom';
+const apiUrl = process.env.REACT_APP_API_URL;
 
 const Message = () => {
 	const { ids } = useParams();
@@ -40,7 +41,7 @@ const Message = () => {
 			}
 			return acc;
 		}, null);
-        fetch('http://localhost:8000/api/postter/message/', {
+        fetch(`${apiUrl}/postter/message/`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -79,7 +80,7 @@ const Message = () => {
 			return acc;
 		}, null);
 
-		const response = await fetch(`http://localhost:8000/api/postter/message/${toId}/?page=1`,
+		const response = await fetch(`${apiUrl}/postter/message/${toId}/?page=1`,
 			{
 				method: 'GET',
 				headers: {
@@ -106,7 +107,7 @@ const Message = () => {
 			return acc;
 		}, null);
 
-		const response = await fetch(`http://localhost:8000/api/postter/message/${toId}/?page=${pageCount}`,
+		const response = await fetch(`${apiUrl}/postter/message/${toId}/?page=${pageCount}`,
 			{
 				method: 'GET',
 				headers: {
@@ -133,7 +134,7 @@ const Message = () => {
 				}
 				return acc;
 			}, null);
-			fetch(`http://localhost:8000/api/postter/user/?id=${toId}`,
+			fetch(`${apiUrl}/postter/user/?id=${toId}`,
 				{
 				method: 'GET',
 				headers: {

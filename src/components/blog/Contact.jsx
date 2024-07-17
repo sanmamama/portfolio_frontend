@@ -1,5 +1,6 @@
 
 import React, { useState } from 'react';
+const apiUrl = process.env.REACT_APP_API_URL;
 
 
 
@@ -60,7 +61,7 @@ const ContactForm = () => {
             return;
         }
 
-        fetch('http://localhost:8000/api/contact/', {
+        fetch(`${apiUrl}/contact/`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

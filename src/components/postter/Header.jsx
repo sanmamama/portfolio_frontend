@@ -3,8 +3,7 @@ import { NavLink,Link } from 'react-router-dom';
 import {useContext,useEffect } from 'react';
 import {UserDataContext} from "./providers/UserDataProvider"
 import { getUserData } from "./GetUserData"
-import {FollowDataContext} from "./providers/FollowDataProvider"
-import { getFollowData } from "./GetFollowData"
+const apiUrl = process.env.REACT_APP_API_URL;
 
 function Header() {
 	const {myUserDataGlobal,setMyUserDataGlobal} = useContext(UserDataContext)

@@ -4,6 +4,8 @@ import {UserDataContext} from "./providers/UserDataProvider"
 import { getUserData } from "./GetUserData"
 import InfiniteScroll from 'react-infinite-scroller';
 import PostContent from './PostContent';
+const apiUrl = process.env.REACT_APP_API_URL;
+const baseUrl = process.env.REACT_APP_BASE_URL;
 
 const Home = () => {
 	const {myUserDataGlobal,setMyUserDataGlobal} = useContext(UserDataContext);
@@ -26,7 +28,7 @@ const Home = () => {
 			return acc;
 		}, null);
         try {
-            const response = await fetch('http://127.0.0.1:8000/api/postter/repost/', {
+            const response = await fetch(`${apiUrl}/postter/repost/`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -71,7 +73,7 @@ const Home = () => {
 			}
 			return acc;
 		}, null);
-        const response = await fetch(`http://127.0.0.1:8000/api/postter/like/`, {
+        const response = await fetch(`${apiUrl}/postter/like/`, {
             method: 'POST',
 			headers: {
                 'Content-Type': 'application/json',
@@ -105,7 +107,7 @@ const Home = () => {
 			}
 			return acc;
 		}, null);
-        const response = await fetch(`http://127.0.0.1:8000/api/postter/follow/`, {
+        const response = await fetch(`${apiUrl}/postter/follow/`, {
             method: 'POST',
 			headers: {
                 'Content-Type': 'application/json',
@@ -142,7 +144,7 @@ const Home = () => {
 			}
 			return acc;
 		}, null);
-        const response = await fetch(`http://127.0.0.1:8000/api/postter/post/${postId}/`, {
+        const response = await fetch(`${apiUrl}/postter/post/${postId}/`, {
             method: 'DELETE',
 			headers: {
                 'Content-Type': 'application/json',
@@ -167,7 +169,7 @@ const Home = () => {
 			}
 			return acc;
 		}, null);
-        fetch('http://localhost:8000/api/postter/post/', {
+        fetch(`${apiUrl}/postter/post/`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -207,7 +209,7 @@ const Home = () => {
 			return acc;
 		}, null);
 
-		const response = await fetch(`http://localhost:8000/api/postter/post/?page=1`,
+		const response = await fetch(`${apiUrl}/postter/post/?page=1`,
 			{
 				method: 'GET',
 				headers: {
@@ -235,7 +237,7 @@ const Home = () => {
 		}, null);
 		
 
-		const response = await fetch(`http://localhost:8000/api/postter/post/?page=${pageCount}`,
+		const response = await fetch(`${apiUrl}/postter/post/?page=${pageCount}`,
 			{
 				method: 'GET',
 				headers: {
@@ -283,7 +285,7 @@ const Home = () => {
 								<td class="text" style={{width: "80%"}}>
 									{postData.repost_user && (
 										<>
-										<p><img class="mr-2" src={`http://127.0.0.1:8000/icon/repost_active.svg`} width="16" height="16"/><Link to={`/postter/${postData.repost_user.uid}/`}>{postData.repost_user.username}</Link>がリポストしました</p>
+										<p><img class="mr-2" src={`${baseUrl}/icon/repost_active.svg`} width="16" height="16"/><Link to={`/postter/${postData.repost_user.uid}/`}>{postData.repost_user.username}</Link>がリポストしました</p>
 										</>
 									)}
 									<h6>
@@ -295,12 +297,12 @@ const Home = () => {
 
 									
 									<a class="mr-4" style={{cursor:"pointer"}} onClick={() => handleLike(postData.id,ix,myUserDataGlobal.like.includes(postData.id))}>
-									{myUserDataGlobal.like.includes(postData.id) ? <img src={`http://127.0.0.1:8000/icon/heart_active.svg`} width="16" height="16"/> : <img src={`http://127.0.0.1:8000/icon/heart_no_active.svg`} width="16" height="16"/>}{postData.like_count}
+									{myUserDataGlobal.like.includes(postData.id) ? <img src={`${baseUrl}/icon/heart_active.svg`} width="16" height="16"/> : <img src={`${baseUrl}/icon/heart_no_active.svg`} width="16" height="16"/>}{postData.like_count}
 									</a>
 									
 									
 									<a class="mr-4" style={{cursor:"pointer"}} onClick={() => handleRepost(postData.id,ix,myUserDataGlobal.repost.includes(postData.id))}>
-									{myUserDataGlobal.repost.includes(postData.id) ? <img src={`http://127.0.0.1:8000/icon/repost_active.svg`} width="16" height="16"/> : <img src={`http://127.0.0.1:8000/icon/repost_no_active.svg`} width="16" height="16"/>}{postData.repost_count}
+									{myUserDataGlobal.repost.includes(postData.id) ? <img src={`${baseUrl}/icon/repost_active.svg`} width="16" height="16"/> : <img src={`${baseUrl}/icon/repost_no_active.svg`} width="16" height="16"/>}{postData.repost_count}
 									</a>
 									
 								</td>
@@ -315,7 +317,7 @@ const Home = () => {
 										)}
 										{postData.owner.id !== myUserDataGlobal.id && (
 											<>
-												<a class="dropdown-item" style={{cursor:"pointer"}}>このユーザーをリストに追加/削除</a>
+												<a class="dropdown-item" style={{cursor:"pointer"}} href={`/postter/add_member/${postData.owner.id}/`}>このユーザーをリストに追加/削除</a>
 												<a class="dropdown-item" style={{cursor:"pointer"}} onClick={() => handleFollow(postData.owner.id,ix)}>
 													{myUserDataGlobal.following.includes(postData.owner.id) ? "このユーザーのフォローを解除する" : "このユーザーをフォローする"}
 												</a>

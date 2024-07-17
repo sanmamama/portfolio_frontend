@@ -1,9 +1,7 @@
 import React, { useEffect, useState ,useContext } from 'react';
 import { Link } from 'react-router-dom';
 import {UserDataContext} from "./providers/UserDataProvider"
-import { getUserData } from "./GetUserData"
-import InfiniteScroll from 'react-infinite-scroller';
-import PostContent from './PostContent';
+const apiUrl = process.env.REACT_APP_API_URL;
 
 const Message = () => {
 	const {myUserDataGlobal,setMyUserDataGlobal} = useContext(UserDataContext);
@@ -37,7 +35,7 @@ const Message = () => {
         formDataObj.append('name', formData.name);
         formDataObj.append('description', formData.description);
 
-        fetch('http://localhost:8000/api/postter/memberlist/', {
+        fetch(`${apiUrl}/postter/memberlist/`, {
             method: 'POST',
             headers: {
 				'Authorization': `Token ${token}`,

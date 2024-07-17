@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Route, Switch, useLocation, useHistory } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
+const apiUrl = process.env.REACT_APP_API_URL;
 
 function Contact() {
     return (
@@ -31,7 +32,7 @@ const ContactForm = () => {
 
 
     useEffect(() => {
-        fetch('http://localhost:8000/api/auth/registration/verify-email/', {
+        fetch(`${apiUrl}/auth/registration/verify-email/`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

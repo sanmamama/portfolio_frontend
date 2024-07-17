@@ -1,10 +1,8 @@
 import React, { useEffect, useState ,useContext } from 'react';
 import { Link } from 'react-router-dom';
 import {UserDataContext} from "./providers/UserDataProvider"
-import { getUserData } from "./GetUserData"
-import InfiniteScroll from 'react-infinite-scroller';
-import PostContent from './PostContent';
 import { useParams } from 'react-router-dom';
+const apiUrl = process.env.REACT_APP_API_URL;
 
 const Message = () => {
     const { id } = useParams();
@@ -40,7 +38,7 @@ const Message = () => {
         formDataObj.append('name', formData.name);
         formDataObj.append('description', formData.description);
 
-        fetch(`http://localhost:8000/api/postter/memberlist/${id}/`, {
+        fetch(`${apiUrl}/postter/memberlist/${id}/`, {
             method: 'PATCH',
             headers: {
 				'Authorization': `Token ${token}`,
@@ -88,7 +86,7 @@ const Message = () => {
 				}
 				return acc;
 			}, null);
-			fetch(`http://localhost:8000/api/postter/memberlist/?id=${id}`,
+			fetch(`${apiUrl}/postter/memberlist/?id=${id}`,
 				{
 				method: 'GET',
 				headers: {

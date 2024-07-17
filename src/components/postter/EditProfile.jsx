@@ -2,6 +2,7 @@ import React, { useEffect, useState ,useContext } from 'react';
 import { Link } from 'react-router-dom';
 import {UserDataContext} from "./providers/UserDataProvider"
 import { getUserData } from "./GetUserData"
+const apiUrl = process.env.REACT_APP_API_URL;
 
 const EditProfile = () => {
 	const {myUserDataGlobal,setMyUserDataGlobal} = useContext(UserDataContext);
@@ -52,7 +53,7 @@ const EditProfile = () => {
 			formDataObj.append('profile_statement', formData.profile_statement);
 		}
 
-        fetch('http://localhost:8000/api/postter/user/', {
+        fetch(`${apiUrl}/postter/user/`, {
             method: 'PATCH',
             headers: {
 				'Authorization': `Token ${token}`,

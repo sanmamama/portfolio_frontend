@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
 import { UserDataContext } from "./providers/UserDataProvider"
+const apiUrl = process.env.REACT_APP_API_URL;
 
 const Logout = () => {
   const {myUserDataGlobal,setMyUserDataGlobal} = useContext(UserDataContext)
@@ -11,7 +12,7 @@ const Logout = () => {
     const handleLogout = async () => {
       try {
 		const token = document.cookie.split('; ').find(row => row.startsWith('token=')).split('=')[1];
-        await fetch('http://localhost:8000/api/auth/logout/', {
+        await fetch(`${apiUrl}/auth/logout/`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

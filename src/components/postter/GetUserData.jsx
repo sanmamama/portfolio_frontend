@@ -1,3 +1,5 @@
+const apiUrl = process.env.REACT_APP_API_URL;
+
 export const getUserData = (setMyUserDataGlobal) => {
     const token = document.cookie.split('; ').reduce((acc, row) => {
 		const [key, value] = row.split('=');
@@ -6,7 +8,7 @@ export const getUserData = (setMyUserDataGlobal) => {
 		}
 		return acc;
 	}, null);
-	fetch('http://localhost:8000/api/postter/user/',
+	fetch(`${apiUrl}/postter/user/`,
 		{
 		method: 'GET',
 		headers: {

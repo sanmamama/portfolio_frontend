@@ -6,6 +6,7 @@ import InfiniteScroll from 'react-infinite-scroller';
 import PostContent from './PostContent';
 import { useParams } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
+const apiUrl = process.env.REACT_APP_API_URL;
 
 function useQuery() {
   return new URLSearchParams(useLocation().search);
@@ -37,7 +38,7 @@ const Home = () => {
 			}
 			return acc;
 		}, null);
-        const response = await fetch(`http://127.0.0.1:8000/api/postter/like/`, {
+        const response = await fetch(`${apiUrl}/postter/like/`, {
             method: 'POST',
 			headers: {
                 'Content-Type': 'application/json',
@@ -71,7 +72,7 @@ const Home = () => {
 			}
 			return acc;
 		}, null);
-        const response = await fetch(`http://127.0.0.1:8000/api/postter/post/${postId}/`, {
+        const response = await fetch(`${apiUrl}/postter/post/${postId}/`, {
             method: 'DELETE',
 			headers: {
                 'Content-Type': 'application/json',
@@ -96,7 +97,7 @@ const Home = () => {
 			}
 			return acc;
 		}, null);
-        const response = await fetch(`http://127.0.0.1:8000/api/postter/follow/`, {
+        const response = await fetch(`${apiUrl}/postter/follow/`, {
             method: 'POST',
 			headers: {
                 'Content-Type': 'application/json',
@@ -125,7 +126,7 @@ const Home = () => {
 			return acc;
 		}, null);
 
-		const response = await fetch(`http://localhost:8000/api/postter/post/?q=${q}&page=1`,
+		const response = await fetch(`${apiUrl}/postter/post/?q=${q}&page=1`,
 			{
 				method: 'GET',
 				headers: {
@@ -152,7 +153,7 @@ const Home = () => {
 		}, null);
 		
 
-		const response = await fetch(`http://localhost:8000/api/postter/post/?q=${q}&page=${pageCount}`,
+		const response = await fetch(`${apiUrl}/postter/post/?q=${q}&page=${pageCount}`,
 			{
 				method: 'GET',
 				headers: {
