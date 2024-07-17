@@ -60,7 +60,7 @@ const Home = () => {
                 setMessages(data.detail);
             }
         } catch (error) {
-            setMessages('An error occurred.');
+
         }
     };
 

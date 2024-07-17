@@ -64,7 +64,7 @@ const EditProfile = () => {
             if(response.ok){
                 setMessages("プロフィールを更新しました")
             }else{
-                setMessages("プロフィール更新に失敗しました")
+                setMessages("プロフィールの更新に失敗しました")
             }
             return response.json();
         })
