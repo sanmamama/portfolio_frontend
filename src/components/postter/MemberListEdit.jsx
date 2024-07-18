@@ -24,7 +24,7 @@ const Message = () => {
         }));
     };
 
-	const handleSubmit = (e) => {
+	const handleEdit = (e) => {
         e.preventDefault();
 		const token = document.cookie.split('; ').reduce((acc, row) => {
 			const [key, value] = row.split('=');
@@ -77,6 +77,36 @@ const Message = () => {
         });
     };
 
+    const handleDelete = (e) => {
+        e.preventDefault();
+		const token = document.cookie.split('; ').reduce((acc, row) => {
+			const [key, value] = row.split('=');
+			if (key === 'token') {
+			acc = value;
+			}
+			return acc;
+		}, null);
+
+        fetch(`${apiUrl}/postter/memberlist/${id}/`, {
+            method: 'DELETE',
+            headers: {
+				'Authorization': `Token ${token}`,
+            },
+        })
+        .then(response => {
+            if(response.ok){
+                setMessages("リストを削除しました")
+            }else{
+                setMessages("リストの削除に失敗しました")
+            }
+            return response.json();
+        })
+        .then(data => {
+        })
+        .catch(error => {
+        });
+    };
+
     useEffect(()=>{
 		const getTargetListData = () => {
 			const token = document.cookie.split('; ').reduce((acc, row) => {
@@ -123,15 +153,16 @@ const Message = () => {
 				<div class="card-body pt-3 pb-3 pl-3 pr-3">
 					{messages}
 					<h4>リストを編集</h4>				
-					<form method="post" onSubmit={handleSubmit}>
+					<form method="post" onSubmit={handleEdit}>
 						<label>リストの名前</label><span class="ml-3 text-danger">{formError.name}</span>
 						<input class="form-control" type="text" name="name" value={formData.name} onChange={handleChange}/>
 						<label>リストの説明</label><span class="ml-3 text-danger">{formError.description}</span>
 						<input class="form-control" type="text" name="description" value={formData.description} onChange={handleChange}/>
 
-						<button type="submit" class="mb-2 mt-2 btn btn-outline-primary btn-block">作成する</button>
+						<button type="submit" class="mb-2 mt-2 btn btn-outline-primary btn-block">編集する</button>
 						<p class="ml-3 text-danger">{formError.non_field_error}</p>
 					</form>
+                    <button class="btn btn-outline-danger btn-block" onClick={handleDelete}>削除する</button>
 				</div>
 			</div>
 		</div>

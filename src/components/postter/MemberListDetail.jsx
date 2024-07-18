@@ -19,6 +19,32 @@ const Message = () => {
 	const [hasMore, setHasMore] = useState(true);
 	const [targetListData, setTargetListData] = useState(null);
 	
+	//リストから削除ハンドル
+	const handleDelete = async (list_id,user_id) => {
+		const token = document.cookie.split('; ').reduce((acc, row) => {
+			const [key, value] = row.split('=');
+			if (key === 'token') {
+			acc = value;
+			}
+			return acc;
+		}, null);
+        const response = await fetch(`${apiUrl}/postter/listdetail/delete/?list_id=${list_id}&user_id=${user_id}`, {
+            method: 'DELETE',
+			headers: {
+                'Content-Type': 'application/json',
+				'Authorization': `Token ${token}`,
+            },
+        });
+		if(response.ok){
+			setMessages(`deleted`);
+			refreshMessageList()
+			
+		}else{
+			setMessages(`delete failed`);
+		}
+        
+    };
+
 	//フォローハンドル
 	const handleFollow = async (user_id) => {
 		const token = document.cookie.split('; ').reduce((acc, row) => {
@@ -174,13 +200,13 @@ const Message = () => {
 										<div class="dropdown-menu">
 										{ListData.user.id == myUserDataGlobal.id && (
 											<>
-
+												<a class="dropdown-item" style={{cursor:"pointer"}} onClick={() => handleDelete(id,ListData.user.id)}>このユーザーをリストから削除</a>
 											</>
 										)}
 										{ListData.user.id !== myUserDataGlobal.id && (
 											<>
-												<a class="dropdown-item" style={{cursor:"pointer"}}>このユーザーをリストから削除</a>
-												<a class="dropdown-item" style={{cursor:"pointer"}} onClick={() => handleFollow(ListData.id)}>
+												<a class="dropdown-item" style={{cursor:"pointer"}} onClick={() => handleDelete(id,ListData.user.id)}>このユーザーをリストから削除</a>
+												<a class="dropdown-item" style={{cursor:"pointer"}} onClick={() => handleFollow(ListData.user.id)}>
 													{myUserDataGlobal.following.includes(ListData.user.id) ? "このユーザーのフォローを解除する" : "このユーザーをフォローする"}
 												</a>
 											</>
