@@ -70,7 +70,7 @@ const SidebarContent = () => {
     };
 
     return (
-        <div className="col-sm-3">
+        <div className="col-sm-3 d-none d-sm-block">
         <div>
             <h4>カテゴリー</h4>
             <ul>

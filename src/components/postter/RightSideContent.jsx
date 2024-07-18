@@ -24,7 +24,7 @@ export const RightSideContent = () => {
     // };
 
 	return (
-		<div class="col-sm-3 pl-1 pr-1">
+		<div class="col-sm-3 pl-1 pr-1 d-none d-sm-block">
 			<div class="mb-1 card">
 				<div class="card-body pt-3 pb-3 pl-3 pr-3">
 					<form onSubmit={handleSubmit}>

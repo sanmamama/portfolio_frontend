@@ -189,7 +189,7 @@ const Message = () => {
 								hasMore={hasMore}
 								threshold={5} >
 								{userList.map((MessageData,ix) => (
-								<tr class="text" key={ix}>
+								<tr key={ix}>
 									{MessageData.user_from.id == myUserDataGlobal.id && (
 									<>
 

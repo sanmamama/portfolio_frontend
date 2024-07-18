@@ -10,7 +10,7 @@ const LeftSideContent = () => {
 	}
 
 	return (
-		<div class="col-sm-3 pl-1 pr-1">
+		<div class="col-sm-3 pl-1 pr-1 d-none d-sm-block">
 			<div class="card mb-1">
 				<div class="card-body pt-3 pb-3 pl-3 pr-3">
 					<h5 class="mb-4"><Link to="/postter/">ホーム</Link></h5>
