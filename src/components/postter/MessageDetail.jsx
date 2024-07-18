@@ -180,51 +180,44 @@ const Message = () => {
                         送信
                     </button>
                 </form>
-				<div class="table table-responsive">
-					<table id='post_list' class="table-sm" style={{width: "100%"}}>
-						<tbody>
 							<InfiniteScroll
 								loadMore={loadMessageList}
 								loader={<div key={0}>Loading ...</div>}
 								hasMore={hasMore}
 								threshold={5} >
 								{userList.map((MessageData,ix) => (
-								<tr key={ix}>
+								<div class="d-flex" key={ix}>
 									{MessageData.user_from.id == myUserDataGlobal.id && (
 									<>
-
-										<td class="text" style={{width: "50%"}}>
+										<div class="" style={{width: "90%"}}>
 											<h6>
 												<p class="mt-2 text-right text-secondary">{MessageData.content}</p>
 												<p class="ml-1 text-right text-secondary">{MessageData.created_at.split('.')[0].replace('T',' ')}</p>
 											</h6>
-										</td>
-										<td class='text' style={{width: "55%"}}>
+										</div>
+										<div class="" style={{width: "10%"}}>
 										<img class="rounded img-fluid mx-auto d-block" src={`${MessageData.user_from.avatar_imgurl}`} id="avatar-image" width="40" height="40"/>
-										</td>
+										</div>
 									</>
 									)}
 									
 									{MessageData.user_to.id == myUserDataGlobal.id && (
 									<>
-										<td class="text" style={{width: "50%"}}>
+										<div class="" style={{width: "10%"}}>
 											<img class="rounded img-fluid mx-auto d-block" src={`${MessageData.user_from.avatar_imgurl}`} id="avatar-image" width="40" height="40"/>
-										</td>
-										<td class="text" style={{width: "50%"}}>
+										</div>
+										<div class="" style={{width: "90%"}}>
 											<h6>
 												<p class="mt-2 text-secondary">{MessageData.content}</p>
 												<p class="ml-1 text-secondary">{MessageData.created_at.split('.')[0].replace('T',' ')}</p>
 											</h6>
-										</td>
+										</div>
 									</>
 									)}
-								</tr>
+								</div>
 							
 							))}
 							</InfiniteScroll>
-						</tbody>
-					</table>
-				</div>
 				</div>
 			</div>
 		</div>
