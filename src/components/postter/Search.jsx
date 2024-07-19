@@ -259,6 +259,8 @@ const Home = () => {
 									<a class="mr-4" style={{cursor:"pointer"}} onClick={() => handleRepost(postData.id,ix,myUserDataGlobal.repost.includes(postData.id))}>
 									{myUserDataGlobal.repost.includes(postData.id) ? <img src={`${baseUrl}/icon/repost_active.svg`} width="16" height="16"/> : <img src={`${baseUrl}/icon/repost_no_active.svg`} width="16" height="16"/>}{postData.repost_count}
 									</a>
+
+									<img src={`${baseUrl}/icon/view_count.svg`} width="16" height="16"/>{postData.view_count}
 									
 								</td>
 								<td class='text' style={{width: "5%"}}>
