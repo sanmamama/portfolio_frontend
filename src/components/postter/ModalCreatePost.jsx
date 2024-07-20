@@ -89,12 +89,13 @@ class CustomModal extends React.Component {
 
         });
     this.closeModal()
+    this.props.refreshPost()
   }
 
   render() {
     return (
       <div>
-        <button class="mb-2 mt-2 btn btn-outline-primary btn-block" onClick={this.openModal}>ポストを投稿</button>
+        <button class="mb-2 mt-2 btn btn-outline-primary btn-block" onClick={this.openModal}>モーダルウインドウを開く</button>
         <Modal
           isOpen={this.state.modalIsOpen}
           onRequestClose={this.closeModal}
