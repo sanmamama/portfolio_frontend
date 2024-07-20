@@ -201,30 +201,9 @@ const Home = () => {
 	
 
 	const refreshPost = async() => {
-		const token = document.cookie.split('; ').reduce((acc, row) => {
-			const [key, value] = row.split('=');
-			if (key === 'token') {
-			acc = value;
-			}
-			return acc;
-		}, null);
-
-		const response = await fetch(`${apiUrl}/postter/post/?page=1`,
-			{
-				method: 'GET',
-				headers: {
-					'Authorization': `Token ${token}`,
-				},
-			}
-		)
-		const data = await response.json()
-		
-		if(response.ok){
-			setPosts(data.results)
-			//console.log(data.results)
-			setHasMore(data.next)
-			setPageCount(2)
-		}
+		setPosts([])
+		setPageCount(1)
+		setHasMore(true)
 	}
 
 	const loadPost = async(page) => {
@@ -313,7 +292,7 @@ const Home = () => {
 										<div class="dropdown-menu">
 										{postData.owner.id == myUserDataGlobal.id && (
 											<>
-												<a class="dropdown-item" onClick={() => handlePostDelete(postData.id)}>このポストを削除する</a>
+												<a class="dropdown-item" style={{cursor:"pointer"}} onClick={() => handlePostDelete(postData.id)}>このポストを削除する</a>
 											</>
 										)}
 										{postData.owner.id !== myUserDataGlobal.id && (

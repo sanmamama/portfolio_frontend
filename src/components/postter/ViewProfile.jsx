@@ -158,7 +158,7 @@ const Home = () => {
         
     };
 
-	const loadPost = async(page) => {
+	const loadPost = async() => {
 		const token = document.cookie.split('; ').reduce((acc, row) => {
 			const [key, value] = row.split('=');
 			if (key === 'token') {
@@ -185,32 +185,6 @@ const Home = () => {
 		}
 	}
 
-	const refreshPost = async() => {
-		const token = document.cookie.split('; ').reduce((acc, row) => {
-			const [key, value] = row.split('=');
-			if (key === 'token') {
-			acc = value;
-			}
-			return acc;
-		}, null);
-
-		const response = await fetch(`${apiUrl}/postter/post/user/${uid}/?page=1`,
-			{
-				method: 'GET',
-				headers: {
-					'Authorization': `Token ${token}`,
-				},
-			}
-		)
-		const data = await response.json()
-		
-		if(response.ok){
-			setPosts(data.results)
-			console.log(data.results)
-			setHasMore(data.next)
-			setPageCount(2)
-		}
-	}
 
 	const getMyUserData = () => {
 		const token = document.cookie.split('; ').reduce((acc, row) => {
@@ -245,9 +219,10 @@ const Home = () => {
 
 
 	useEffect(() => {
-		//setMessages("")
 		getMyUserData()
-		refreshPost()
+		setPosts([])
+		setPageCount(1)
+		setHasMore(true)
 		},[location.pathname])
 
 	
@@ -294,7 +269,7 @@ const Home = () => {
 									<>
 										<tr class="text" key={ix}>
 										<td class="text" style={{width: "15%"}}>
-											<img class="rounded img-fluid mx-auto d-block" src={`${baseUrl}${userData.avatar_imgurl}`} id="avatar-image" width="40" height="40"/>
+											<img class="rounded img-fluid mx-auto d-block" src={`${baseUrl}${postData.owner.avatar_imgurl}`} id="avatar-image" width="40" height="40"/>
 										</td>
 										<td class="text" style={{width: "80%"}}>
 											{postData.repost_user && (
@@ -328,7 +303,7 @@ const Home = () => {
 												<div class="dropdown-menu">
 												{postData.owner.id == myUserDataGlobal.id && (
 													<>
-														<a class="dropdown-item" onClick={() => handlePostDelete(postData.id)}>このポストを削除する</a>
+														<a class="dropdown-item" style={{cursor:"pointer"}} onClick={() => handlePostDelete(postData.id)}>このポストを削除する</a>
 													</>
 												)}
 												{postData.owner.id !== myUserDataGlobal.id && (

@@ -163,29 +163,9 @@ const Home = () => {
 
 
 	const refreshPost = async() => {
-		const token = document.cookie.split('; ').reduce((acc, row) => {
-			const [key, value] = row.split('=');
-			if (key === 'token') {
-			acc = value;
-			}
-			return acc;
-		}, null);
-
-		const response = await fetch(`${apiUrl}/postter/post/?q=${q}&page=1`,
-			{
-				method: 'GET',
-				headers: {
-					'Authorization': `Token ${token}`,
-				},
-			}
-		)
-		const data = await response.json()
-		
-		if(response.ok){
-			setPosts(data.results)
-			setHasMore(data.next)
-			setPageCount(2)
-		}
+		setPosts([])
+		setPageCount(1)
+		setHasMore(true)
 	}
 
 	const loadPost = async(page) => {
