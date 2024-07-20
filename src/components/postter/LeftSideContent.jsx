@@ -1,6 +1,7 @@
 import React, { useEffect, useState ,useContext } from 'react';
 import { Link } from 'react-router-dom';
 import {UserDataContext} from "./providers/UserDataProvider"
+import ModalCreatePost from './ModalCreatePost';
 
 const LeftSideContent = () => {
 	const {myUserDataGlobal,setMyUserDataGlobal} = useContext(UserDataContext);
@@ -16,6 +17,7 @@ const LeftSideContent = () => {
 					<h5 class="mb-4"><Link to="/postter/">ホーム</Link></h5>
 					<h5 class="mb-4"><Link to="/postter/message/">メッセージ</Link></h5>
 					<h5 class="mb-4"><Link to="/postter/memberlist/">リスト</Link></h5>
+					<ModalCreatePost/>
 				</div>
 			</div>
 			<div class="card mb-1">
