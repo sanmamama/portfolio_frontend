@@ -4,7 +4,7 @@ import {UserDataContext} from "./providers/UserDataProvider"
 import { getUserData } from "./GetUserData"
 import InfiniteScroll from 'react-infinite-scroller';
 import PostContent from './PostContent';
-import ModalCreatePost from './ModalCreatePost';
+
 
 
 const apiUrl = process.env.REACT_APP_API_URL;
@@ -250,7 +250,9 @@ const Home = () => {
 						<textarea class="form-control" type="textarea" name="content" value={formData.content} onChange={handlePostChange} placeholder="いまなにしてる？"/>
 						<button type="submit" class="mb-2 mt-2 btn btn-outline-primary btn-block">投稿する</button>
 					</form>
-					<ModalCreatePost refreshPost={refreshPost}/>
+
+					
+
 				<div class="table table-responsive">
 					<table id='post_list' class="table-sm" style={{width: "100%"}}>
 						<tbody>

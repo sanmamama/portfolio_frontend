@@ -4,9 +4,13 @@ import {UserDataContext} from "./providers/UserDataProvider"
 import { getUserData } from "./GetUserData"
 import InfiniteScroll from 'react-infinite-scroller';
 import { useParams } from 'react-router-dom';
+import ModalEditListButton from './ModalEditListButton';
+import { useNavigate } from 'react-router-dom';
+
 const apiUrl = process.env.REACT_APP_API_URL;
 
 const Message = () => {
+	const navigate = useNavigate();
 	const { id } = useParams();
 	const {myUserDataGlobal,setMyUserDataGlobal} = useContext(UserDataContext);
 	const [formData, setFormData] = useState({
@@ -18,8 +22,13 @@ const Message = () => {
 	const [pageCount, setPageCount] = useState(1);
 	const [hasMore, setHasMore] = useState(true);
 	const [targetListData, setTargetListData] = useState(null);
+
+	//リストをモーダルウインドウで削除後のナビゲート
+	const navigateListView = () =>{
+		navigate("/postter/memberlist/")
+	}
 	
-	//リストから削除ハンドル
+	//リストからユーザー削除ハンドル
 	const handleDelete = async (list_id,user_id) => {
 		const token = document.cookie.split('; ').reduce((acc, row) => {
 			const [key, value] = row.split('=');
@@ -37,7 +46,7 @@ const Message = () => {
         });
 		if(response.ok){
 			setMessages(`deleted`);
-			refreshMessageList()
+			refreshMemberList()
 			
 		}else{
 			setMessages(`delete failed`);
@@ -66,7 +75,7 @@ const Message = () => {
 		if(response.ok){
 			setMessages(`userId:${user_id}${res.message}`);
 			getUserData(setMyUserDataGlobal)
-			refreshMessageList()
+			refreshMemberList()
 			
 		}else{
 			setMessages(`userId:${user_id}${res}`);
@@ -74,32 +83,12 @@ const Message = () => {
         
     };
 
-	const refreshMessageList = async() => {
-		const token = document.cookie.split('; ').reduce((acc, row) => {
-			const [key, value] = row.split('=');
-			if (key === 'token') {
-			acc = value;
-			}
-			return acc;
-		}, null);
-
-		const response = await fetch(`${apiUrl}/postter/listdetail/${id}/`,
-			{
-				method: 'GET',
-				headers: {
-					'Authorization': `Token ${token}`,
-				},
-			}
-		)
-		const data = await response.json()
-		
-		if(response.ok){
-			setUserList(data.results)
-			console.log(data.results)
-			setHasMore(data.next)
-			setPageCount(2)
-		}
+	const refreshMemberList = async() => {
+		setUserList([])
+		setPageCount(1)
+		setHasMore(true)
 	}
+	
 
 	const loadMessageList = async(page) => {
 		const token = document.cookie.split('; ').reduce((acc, row) => {
@@ -128,35 +117,36 @@ const Message = () => {
 		}
 	}
 
-	useEffect(()=>{
-		const getTargetListData = () => {
-			const token = document.cookie.split('; ').reduce((acc, row) => {
-				const [key, value] = row.split('=');
-				if (key === 'token') {
-				acc = value;
-				}
-				return acc;
-			}, null);
-			fetch(`${apiUrl}/postter/memberlist/?id=${id}`,
-				{
-				method: 'GET',
-				headers: {
-					'Authorization': `Token ${token}`,
-					},
-				})
-			.then(response => {
-				if(!response.ok){
-					//トークンのセッション切れ
-					throw new Error();
-				}
-				return response.json()
-				})
-			.then(data => {
-				setTargetListData(data.results[0])
-				})
-			.catch(error => {
-			});
-		}
+	const getTargetListData = () => {
+		const token = document.cookie.split('; ').reduce((acc, row) => {
+			const [key, value] = row.split('=');
+			if (key === 'token') {
+			acc = value;
+			}
+			return acc;
+		}, null);
+		fetch(`${apiUrl}/postter/memberlist/?id=${id}`,
+			{
+			method: 'GET',
+			headers: {
+				'Authorization': `Token ${token}`,
+				},
+			})
+		.then(response => {
+			if(!response.ok){
+				//トークンのセッション切れ
+				throw new Error();
+			}
+			return response.json()
+			})
+		.then(data => {
+			setTargetListData(data.results[0])
+			})
+		.catch(error => {
+		});
+	}
+
+	useEffect(()=>{	
 		getTargetListData()
 	},[])
 	
@@ -173,7 +163,8 @@ const Message = () => {
 				
 					<p>{targetListData.name}</p>
 					<p>{targetListData.description}</p>
-					<p><Link class="btn btn-sm btn-outline-primary" to={`/postter/memberlist/${id}/edit`}>このリストを編集</Link></p>
+
+					<ModalEditListButton id={id} name={targetListData.name} description={targetListData.description} setTargetListData={setTargetListData} navigateListView={navigateListView}/>
 				<div class="table table-responsive">
 					<table id='post_list' class="table-sm" style={{width: "100%"}}>
 						<tbody>

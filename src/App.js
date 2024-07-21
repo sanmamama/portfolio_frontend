@@ -27,8 +27,6 @@ import Message from './components/postter/Message';
 import MessageDetail from './components/postter/MessageDetail';
 import MemberList from './components/postter/MemberList';
 import MemberListDetail from './components/postter/MemberListDetail';
-import MemberListEdit from './components/postter/MemberListEdit';
-import MemberListCreate from './components/postter/MemberListCreate';
 import MemberListAdd from './components/postter/MemberListAdd';
 import Search from './components/postter/Search';
 
@@ -63,8 +61,6 @@ const router = createBrowserRouter([
       { path: "message/:ids", element: <MessageDetail /> },
       { path: "memberlist", element: <MemberList /> },
       { path: "memberlist/:id", element: <MemberListDetail /> },
-      { path: "memberlist/:id/edit", element: <MemberListEdit /> },
-      { path: "memberlist/create", element: <MemberListCreate /> },
 
       { path: "search", element: <Search /> },
     ],

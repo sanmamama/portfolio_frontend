@@ -2,6 +2,7 @@ import React, { useEffect, useState ,useContext } from 'react';
 import { Link } from 'react-router-dom';
 import {UserDataContext} from "./providers/UserDataProvider"
 import InfiniteScroll from 'react-infinite-scroller';
+import ModalCreateListButton from './ModalCreateListButton';
 const apiUrl = process.env.REACT_APP_API_URL;
 
 const Message = () => {
@@ -16,32 +17,6 @@ const Message = () => {
 	const [hasMore, setHasMore] = useState(true);
 	
 
-	const refreshMessageList = async() => {
-		const token = document.cookie.split('; ').reduce((acc, row) => {
-			const [key, value] = row.split('=');
-			if (key === 'token') {
-			acc = value;
-			}
-			return acc;
-		}, null);
-
-		const response = await fetch(`${apiUrl}/postter/memberlist/?page=1`,
-			{
-				method: 'GET',
-				headers: {
-					'Authorization': `Token ${token}`,
-				},
-			}
-		)
-		const data = await response.json()
-		
-		if(response.ok){
-			setUserList(data.results)
-			console.log(data.results)
-			setHasMore(data.next)
-			setPageCount(2)
-		}
-	}
 
 	const loadMessageList = async(page) => {
 		const token = document.cookie.split('; ').reduce((acc, row) => {
@@ -81,7 +56,7 @@ const Message = () => {
 				<div class="card-body pt-3 pb-3 pl-3 pr-3">
 					{messages}
 					<h4>リスト</h4>
-				<p><Link class="btn btn-sm btn-outline-primary" to="/postter/memberlist/create">新しいリストを作成</Link></p>					
+				<p><ModalCreateListButton userList={userList} setUserList={setUserList}/></p>						
 				<div class="table table-responsive">
 					<table class="table">
 						<tbody>
