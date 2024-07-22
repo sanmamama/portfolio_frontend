@@ -15,7 +15,7 @@ const LeftSideContent = () => {
 			
 				<div class="card mb-1">
 					<div class="card-body pt-3 pb-3 pl-3 pr-3 ">
-						<h5 class="mb-4"><Link to="/postter/">ホーム</Link></h5>
+						<h5 class="mb-4"><Link to="/postter/home">ホーム</Link></h5>
 						<h5 class="mb-4"><Link to="/postter/message/">メッセージ</Link></h5>
 						<h5 class="mb-4"><Link to="/postter/memberlist/">リスト</Link></h5>
 						

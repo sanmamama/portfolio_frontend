@@ -23,6 +23,8 @@ const customStyles = {
     marginRight: "-50%",
     transform: "translate(-50%, -50%)",
     minWidth: "40%",
+    maxHeight: "80vh", // 追加: 最大高さを設定
+    overflowY: "auto"  // 追加: 垂直スクロールを有効にする
   },
 };
 
@@ -137,11 +139,8 @@ class CustomModal extends React.Component {
       this.setState({ userList: [...this.state.userList, ...data.results] });
       this.setState({ hasMore: data.next });
       this.setState({ pageCount: this.state.pageCount+1 });
-
     }
   }
-
-    
 
 
   handleAddMember = async (user_id,list_id) => {
@@ -191,30 +190,38 @@ class CustomModal extends React.Component {
             <h2>リストを選択</h2>
             <ModalCreateListButton refreshList={this.refreshList} />
             <InfiniteScroll
-								loadMore={this.loadList}
-								loader={<div key={0}>Loading ...</div>}
-								hasMore={this.state.hasMore}
-								threshold={5} >
-								{this.state.userList.map((ListData,ix) => (
-								<tr class="text" key={ix}>
-									<td>
-										<div>
-											<h6>
-												<p><span><b><Link to={`/postter/memberlist/${ListData.id}/`}>{ListData.name}</Link></b></span><span class="ml-3 text-secondary">{ListData.user_ids.length}人のメンバー</span></p>
-												<p><span class="ml-1 text-secondary">{ListData.description}</span></p>
-												<p class="mt-2 text-secondary">{}</p>
-											</h6>
-										</div>
-									</td>
-									<td>
-                  <a class="" style={{cursor:"pointer"}} onClick={() => this.handleAddMember(this.state.id,ListData.id)}>
-											{ListData.user_ids.includes(this.state.id) ? "登録を外す" : "登録する"}
-														
-										</a>
-									</td>					
-								</tr>
-							))}
-							</InfiniteScroll>
+              loadMore={this.loadList}
+              loader={<div key={0}>Loading ...</div>}
+              hasMore={this.state.hasMore}
+              threshold={5}
+              useWindow={false}
+            >
+              <table>
+                <tbody>
+                  {this.state.userList.map((ListData, ix) => (
+                    <tr class="text" key={ix}>
+                      <td>
+                        <div>
+                          <h6>
+                            <p>
+                              <span><b><Link to={`/postter/memberlist/${ListData.id}/`}>{ListData.name}</Link></b></span>
+                              <span class="ml-3 text-secondary">{ListData.user_ids.length}人のメンバー</span>
+                            </p>
+                            <p><span class="ml-1 text-secondary">{ListData.description}</span></p>
+                            <p class="mt-2 text-secondary">{}</p>
+                          </h6>
+                        </div>
+                      </td>
+                      <td>
+                        <a class="" style={{ cursor: "pointer" }} onClick={() => this.handleAddMember(this.state.id, ListData.id)}>
+                          {ListData.user_ids.includes(this.state.id) ? "登録を外す" : "登録する"}
+                        </a>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </InfiniteScroll>
 
 
             <button class="mb-2 mt-2 btn btn-outline-danger btn-block" onClick={this.closeModal}>閉じる</button>

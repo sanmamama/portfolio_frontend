@@ -84,23 +84,24 @@ class CustomModal extends React.Component {
         })
         .then(response => {
             if(response.ok){
-                
+              if(this.props.refreshList){
+                this.props.refreshList()
+              }
             }else{
 
             }
             return response.json();
         })
         .then(data => {
-
+          if(this.props.setUserList){
           this.props.setUserList([...this.props.userList, data])
+          }
         })
         .catch(error => {
 
         });
+    
         
-        if(this.props.refreshList){ //ModalAddUserToListから来たとき
-          this.props.refreshList()
-        }
     this.closeModal()
     
   }
