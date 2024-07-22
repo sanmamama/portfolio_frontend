@@ -28,7 +28,7 @@ class CustomModal extends React.Component {
     this.state = {
       modalIsOpen: false,
       name: "",
-      description: ""
+      description: "",
     };
 
     this.openModal = this.openModal.bind(this);
@@ -91,14 +91,16 @@ class CustomModal extends React.Component {
             return response.json();
         })
         .then(data => {
-          console.log(this.props.userList)
-          console.log(data)
 
           this.props.setUserList([...this.props.userList, data])
         })
         .catch(error => {
 
         });
+        
+        if(this.props.refreshList){ //ModalAddUserToListから来たとき
+          this.props.refreshList()
+        }
     this.closeModal()
     
   }

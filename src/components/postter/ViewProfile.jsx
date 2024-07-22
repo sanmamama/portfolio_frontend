@@ -6,6 +6,7 @@ import { getUserData } from "./GetUserData"
 import { useParams } from 'react-router-dom';
 import InfiniteScroll from 'react-infinite-scroller';
 import PostContent from './PostContent';
+import ModalAddUserToList from './ModalAddUserToList';
 const apiUrl = process.env.REACT_APP_API_URL;
 const baseUrl = process.env.REACT_APP_BASE_URL;
 
@@ -255,7 +256,7 @@ const Home = () => {
 					{userData.id == myUserDataGlobal.id && (
 					<h3><Link class="btn btn-outline-success btn-sm" to="/postter/editprofile" role="button">プロフィールを編集する</Link></h3>
 					)}
-
+					
 					<p class="mt-3 mb-3"><a class="btn btn-outline-success btn-sm" href={`/postter/add_member/${userData.id}/`}>リスト操作</a></p>
 				<div class="table table-responsive">
 					<table id='post_list' class="table-sm" style={{width: "100%"}}>
@@ -303,14 +304,15 @@ const Home = () => {
 												<div class="dropdown-menu">
 												{postData.owner.id == myUserDataGlobal.id && (
 													<>
-														<a class="dropdown-item" style={{cursor:"pointer"}} onClick={() => handlePostDelete(postData.id)}>このポストを削除する</a>
+														<ModalAddUserToList class={"dropdown-item"} id={postData.owner.id}/>
+														<a class="dropdown-item" style={{cursor:"pointer"}} onClick={() => handlePostDelete(postData.id)}>ポストを削除する</a>
 													</>
 												)}
 												{postData.owner.id !== myUserDataGlobal.id && (
 													<>
-														<a class="dropdown-item" style={{cursor:"pointer"}} href={`/postter/add_member/${postData.owner.id}/`}>このユーザーをリストに追加/削除</a>
+														<ModalAddUserToList class={"dropdown-item"} id={postData.owner.id}/>
 														<a class="dropdown-item" style={{cursor:"pointer"}} onClick={() => handleFollow(postData.owner.id)}>
-															{myUserDataGlobal.following.includes(postData.owner.id) ? "このユーザーのフォローを解除する" : "このユーザーをフォローする"}
+															{myUserDataGlobal.following.includes(postData.owner.id) ? "フォローを解除する" : "フォローする"}
 														</a>
 													</>
 												)}

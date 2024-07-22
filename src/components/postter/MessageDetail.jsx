@@ -169,6 +169,7 @@ const Message = () => {
 				<div class="card-body pt-3 pb-3 pl-3 pr-3">
 					{messages}
 					
+					<Link to="/postter/message">←メッセージ一覧へ</Link>
 					<img class="rounded img-fluid mx-auto d-block" src={`${targetUserData.avatar_imgurl}`} id="avatar-image" width="100" height="100"/>
 					<p class="text-center">{targetUserData.username} @{targetUserData.uid}</p>
 					<p class="text-center">{targetUserData.profile_statement}</p>

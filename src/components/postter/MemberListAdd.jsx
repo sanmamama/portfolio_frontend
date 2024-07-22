@@ -51,30 +51,9 @@ const Message = () => {
 
 
 	const refreshMessageList = async() => {
-		const token = document.cookie.split('; ').reduce((acc, row) => {
-			const [key, value] = row.split('=');
-			if (key === 'token') {
-			acc = value;
-			}
-			return acc;
-		}, null);
-
-		const response = await fetch(`${apiUrl}/postter/memberlist/?page=1`,
-			{
-				method: 'GET',
-				headers: {
-					'Authorization': `Token ${token}`,
-				},
-			}
-		)
-		const data = await response.json()
-		
-		if(response.ok){
-			setUserList(data.results)
-			console.log(data.results)
-			setHasMore(data.next)
-			setPageCount(2)
-		}
+			setUserList([])
+			setHasMore(true)
+			setPageCount(1)
 	}
 
 	const loadMessageList = async(page) => {
@@ -115,8 +94,9 @@ const Message = () => {
 				<div class="card-body pt-3 pb-3 pl-3 pr-3">
 					{messages}
 					<h4>リストを選択</h4>
-				<p><Link class="btn btn-sm btn-outline-primary" to="/postter/memberlist/create">新しいリストを作成</Link></p>					
-				<div class="table table-responsive">
+					<p><Link class="btn btn-sm btn-outline-primary" to="/postter/memberlist/create">新しいリストを作成</Link></p>					
+					<div class="table table-responsive">
+
 					<table class="table">
 						<tbody>
 							<InfiniteScroll
@@ -126,21 +106,21 @@ const Message = () => {
 								threshold={5} >
 								{userList.map((ListData,ix) => (
 								<tr class="text" key={ix}>
-										<td>
-											<div>
+									<td>
+										<div>
 											<h6>
 												<p><span><b><Link to={`/postter/memberlist/${ListData.id}/`}>{ListData.name}</Link></b></span><span class="ml-3 text-secondary">{ListData.user_ids.length}人のメンバー</span></p>
 												<p><span class="ml-1 text-secondary">{ListData.description}</span></p>
 												<p class="mt-2 text-secondary">{}</p>
 											</h6>
-											</div>
-										</td>
-										<td>
-												<a class="" style={{cursor:"pointer"}} onClick={() => handleAddMember(id,ListData.id)}>
-													{ListData.user_ids.includes(id) ? "登録を外す" : "登録する"}
-													
-												</a>
-										</td>					
+										</div>
+									</td>
+									<td>
+										<a class="" style={{cursor:"pointer"}} onClick={() => handleAddMember(id,ListData.id)}>
+											{ListData.user_ids.includes(id) ? "登録を外す" : "登録する"}
+														
+										</a>
+									</td>					
 								</tr>
 							))}
 							</InfiniteScroll>

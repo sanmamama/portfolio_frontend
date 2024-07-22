@@ -4,7 +4,7 @@ import {UserDataContext} from "./providers/UserDataProvider"
 import { getUserData } from "./GetUserData"
 import InfiniteScroll from 'react-infinite-scroller';
 import PostContent from './PostContent';
-
+import ModalAddUserToList from './ModalAddUserToList';
 
 
 const apiUrl = process.env.REACT_APP_API_URL;
@@ -246,6 +246,7 @@ const Home = () => {
 			<div class="card">
 				<div class="card-body pt-3 pb-3 pl-3 pr-3">
 					{messages}
+					
 					<form method="post" onSubmit={handlePostSubmit}>
 						<textarea class="form-control" type="textarea" name="content" value={formData.content} onChange={handlePostChange} placeholder="いまなにしてる？"/>
 						<button type="submit" class="mb-2 mt-2 btn btn-outline-primary btn-block">投稿する</button>
@@ -293,19 +294,21 @@ const Home = () => {
 									
 								</td>
 								<td class='text' style={{width: "5%"}}>
+								
 									<div class="dropdown">
 										<button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">︙</button>
 										<div class="dropdown-menu">
 										{postData.owner.id == myUserDataGlobal.id && (
 											<>
-												<a class="dropdown-item" style={{cursor:"pointer"}} onClick={() => handlePostDelete(postData.id)}>このポストを削除する</a>
+												<ModalAddUserToList class={"dropdown-item"} id={postData.owner.id}/>
+												<a class="dropdown-item" style={{cursor:"pointer"}} onClick={() => handlePostDelete(postData.id)}>ポストを削除する</a>
 											</>
 										)}
 										{postData.owner.id !== myUserDataGlobal.id && (
 											<>
-												<a class="dropdown-item" style={{cursor:"pointer"}} href={`/postter/add_member/${postData.owner.id}/`}>このユーザーをリストに追加/削除</a>
+												<ModalAddUserToList class={"dropdown-item"} id={postData.owner.id}/>
 												<a class="dropdown-item" style={{cursor:"pointer"}} onClick={() => handleFollow(postData.owner.id,ix)}>
-													{myUserDataGlobal.following.includes(postData.owner.id) ? "このユーザーのフォローを解除する" : "このユーザーをフォローする"}
+													{myUserDataGlobal.following.includes(postData.owner.id) ? "フォローを解除する" : "フォローする"}
 												</a>
 											</>
 										)}

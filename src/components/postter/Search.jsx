@@ -6,6 +6,7 @@ import InfiniteScroll from 'react-infinite-scroller';
 import PostContent from './PostContent';
 import { useParams } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
+import ModalAddUserToList from './ModalAddUserToList';
 const apiUrl = process.env.REACT_APP_API_URL;
 const baseUrl = process.env.REACT_APP_BASE_URL;
 
@@ -249,14 +250,15 @@ const Home = () => {
 										<div class="dropdown-menu">
 										{postData.owner.id == myUserDataGlobal.id && (
 											<>
-												<a class="dropdown-item" onClick={() => handlePostDelete(postData.id)}>このポストを削除する</a>
+												<ModalAddUserToList class={"dropdown-item"} id={postData.owner.id}/>
+												<a class="dropdown-item" onClick={() => handlePostDelete(postData.id)}>ポストを削除する</a>
 											</>
 										)}
 										{postData.owner.id !== myUserDataGlobal.id && (
 											<>
-												<a class="dropdown-item" style={{cursor:"pointer"}}>このユーザーをリストに追加/削除</a>
+												<ModalAddUserToList class={"dropdown-item"} id={postData.owner.id}/>
 												<a class="dropdown-item" style={{cursor:"pointer"}} onClick={() => handleFollow(postData.owner.id,ix)}>
-													{myUserDataGlobal.following.includes(postData.owner.id) ? "このユーザーのフォローを解除する" : "このユーザーをフォローする"}
+													{myUserDataGlobal.following.includes(postData.owner.id) ? "フォローを解除する" : "フォローする"}
 												</a>
 											</>
 										)}

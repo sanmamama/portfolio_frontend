@@ -52,6 +52,7 @@ const router = createBrowserRouter([
     element: <MainBase />,
     children: [
       { index: true, element: <PostterHome /> },
+      { path: "home", element: <PostterHome /> },
       { path: "editprofile", element: <EditProfile /> },
       { path: ":uid", element: <ViewProfile /> },
       { path: ":uid/following", element: <Following /> },

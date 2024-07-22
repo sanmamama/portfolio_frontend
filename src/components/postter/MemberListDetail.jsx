@@ -160,7 +160,7 @@ const Message = () => {
 			<div class="card">
 				<div class="card-body pt-3 pb-3 pl-3 pr-3">
 					{messages}
-				
+					<Link to="/postter/memberlist">←メッセージ一覧へ</Link>
 					<p>{targetListData.name}</p>
 					<p>{targetListData.description}</p>
 
