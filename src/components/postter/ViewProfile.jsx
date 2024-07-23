@@ -7,6 +7,7 @@ import { useParams } from 'react-router-dom';
 import InfiniteScroll from 'react-infinite-scroller';
 import PostContent from './PostContent';
 import ModalAddUserToList from './ModalAddUserToList';
+import ModalEditProfileButton from './ModalEditProfileButton';
 const apiUrl = process.env.REACT_APP_API_URL;
 const baseUrl = process.env.REACT_APP_BASE_URL;
 
@@ -237,7 +238,7 @@ const Home = () => {
 			<div class="card">
 				<div class="card-body pt-3 pb-3 pl-3 pr-3">
 					{messages}
-					<img class="rounded img-fluid mx-auto d-block" src={`${baseUrl}${userData.avatar_imgurl}`} id="avatar-image" width="150" height="150"/>
+					<img class="rounded img-fluid mx-auto d-block" src={`${userData.avatar_imgurl}`} id="avatar-image" width="150" height="150"/>
 					
 					<p class="mb-0"><b>{userData.username}</b></p>
 					<p class="text-secondary">@{userData.uid}</p>
@@ -254,7 +255,12 @@ const Home = () => {
 						</a></p>
 					)}
 					{userData.id == myUserDataGlobal.id && (
-					<h3><Link class="btn btn-outline-success btn-sm" to="/postter/editprofile" role="button">プロフィールを編集する</Link></h3>
+						<>
+
+					<ModalEditProfileButton uid={myUserDataGlobal.uid} username={myUserDataGlobal.username} profile_statement={myUserDataGlobal.profile_statement}
+						setMyUserDataGlobal={setMyUserDataGlobal} setUserData={setUserData}
+					/>
+					    </>
 					)}
 					
 					<p class="mt-3 mb-3"><a class="btn btn-outline-success btn-sm" href={`/postter/add_member/${userData.id}/`}>リスト操作</a></p>
@@ -270,7 +276,7 @@ const Home = () => {
 									<>
 										<tr class="text" key={ix}>
 										<td class="text" style={{width: "15%"}}>
-											<img class="rounded img-fluid mx-auto d-block" src={`${baseUrl}${postData.owner.avatar_imgurl}`} id="avatar-image" width="40" height="40"/>
+											<img class="rounded img-fluid mx-auto d-block" src={`${postData.owner.avatar_imgurl}`} id="avatar-image" width="40" height="40"/>
 										</td>
 										<td class="text" style={{width: "80%"}}>
 											{postData.repost_user && (

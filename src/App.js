@@ -17,7 +17,6 @@ import Logout from './components/postter/Logout';
 import Signup from './components/postter/Signup';
 import Confirm from './components/postter/Confirm';
 import PostterHome from './components/postter/Home';
-import EditProfile from './components/postter/EditProfile';
 import ViewProfile from './components/postter/ViewProfile';
 import Following from './components/postter/Following';
 import Follower from './components/postter/Follower';
@@ -53,7 +52,6 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <PostterHome /> },
       { path: "home", element: <PostterHome /> },
-      { path: "editprofile", element: <EditProfile /> },
       { path: ":uid", element: <ViewProfile /> },
       { path: ":uid/following", element: <Following /> },
       { path: ":uid/follower", element: <Follower /> },
