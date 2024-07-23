@@ -42,3 +42,14 @@
   background-size: cover;
   background-position: center 60%;
 }
+
+.no-link-style {
+  color: inherit; /* テキストの色を継承 */
+  text-decoration: none; /* 下線を削除 */
+}
+
+.no-link-style:hover,
+.no-link-style:focus {
+  color: inherit; /* ホバー時の色を継承 */
+  text-decoration: none; /* ホバー時の下線を削除 */
+}
