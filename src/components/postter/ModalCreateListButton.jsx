@@ -109,7 +109,7 @@ class CustomModal extends React.Component {
   render() {
     return (
       <div>
-        <button class="btn btn-outline-primary" onClick={this.openModal}>リストを作成</button>
+        <button class="btn btn-outline-primary mt-3 mb-3" onClick={this.openModal}>リストを作成</button>
         <Modal
           isOpen={this.state.modalIsOpen}
           onRequestClose={this.closeModal}

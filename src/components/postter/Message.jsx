@@ -120,7 +120,7 @@ const Message = () => {
 			<div class="card">
 				<div class="card-body pt-3 pb-3 pl-3 pr-3">
 					{messages}
-					<h4>メッセージ</h4>
+					<h4>新規メッセージ</h4>
 					<input class="mt-3 mb-3 form-control" type="text" value={query} onChange={(e) => setQuery(e.target.value)} placeholder="ユーザーを検索"/>
 					<div>
 						{results.map((result) => (
@@ -142,6 +142,7 @@ const Message = () => {
 							</>
 					))}
 					</div>
+					<h4 class="mt-3 mb-3">過去のメッセージ</h4>
 					<div>
 						<InfiniteScroll
 							loadMore={loadMessageList}
@@ -150,7 +151,7 @@ const Message = () => {
 							threshold={5} >
 							{userList.map((MessageData,ix) => (
 								<div>
-									{MessageData.user_from.id == myUserDataGlobal.id && !query && (
+									{MessageData.user_from.id == myUserDataGlobal.id && (
 										<Link class="no-link-style" to={`/postter/message/${myUserDataGlobal.id}-${MessageData.user_to.id}/`}>
 											<div class="row">
 												<div class="col-2">
@@ -166,7 +167,7 @@ const Message = () => {
 										</Link>
 									)}
 									
-									{MessageData.user_to.id == myUserDataGlobal.id && !query && (
+									{MessageData.user_to.id == myUserDataGlobal.id && (
 										<Link class="no-link-style" to={`/postter/message/${myUserDataGlobal.id}-${MessageData.user_from.id}/`}>
 										<div class="row">
 											<div class="col-2">

@@ -1,10 +1,10 @@
 import React, { useEffect, useState ,useContext } from 'react';
 import { Link,useLocation } from 'react-router-dom';
 import {UserDataContext} from "./providers/UserDataProvider"
-import { getFollowData } from "./GetFollowData"
 import { getUserData } from "./GetUserData"
 import { useParams } from 'react-router-dom';
 import InfiniteScroll from 'react-infinite-scroller';
+import ModalAddUserToList from './ModalAddUserToList';
 const apiUrl = process.env.REACT_APP_API_URL;
 const baseUrl = process.env.REACT_APP_BASE_URL;
 
@@ -186,12 +186,12 @@ const Home = () => {
 										<div class="dropdown-menu">
 										{postData.follower.id == myUserDataGlobal.id && (
 											<>
-
+											<ModalAddUserToList class={"dropdown-item"} id={postData.follower.id}/>
 											</>
 										)}
 										{postData.follower.id !== myUserDataGlobal.id && (
 											<>
-												<a class="dropdown-item" style={{cursor:"pointer"}}>このユーザーをリストに追加/削除</a>
+												<ModalAddUserToList class={"dropdown-item"} id={postData.follower.id}/>
 												<a class="dropdown-item" style={{cursor:"pointer"}} onClick={() => handleFollow(postData.follower.id)}>
 													{myUserDataGlobal.following.includes(postData.follower.id) ? "このユーザーのフォローを解除する" : "このユーザーをフォローする"}
 												</a>

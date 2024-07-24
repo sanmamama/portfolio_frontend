@@ -196,31 +196,28 @@ class CustomModal extends React.Component {
               threshold={5}
               useWindow={false}
             >
-              <table>
-                <tbody>
+              <div>
+              
                   {this.state.userList.map((ListData, ix) => (
-                    <tr class="text" key={ix}>
-                      <td>
-                        <div>
-                          <h6>
-                            <p>
-                              <span><b><Link to={`/postter/memberlist/${ListData.id}/`}>{ListData.name}</Link></b></span>
-                              <span class="ml-3 text-secondary">{ListData.user_ids.length}人のメンバー</span>
-                            </p>
-                            <p><span class="ml-1 text-secondary">{ListData.description}</span></p>
-                            <p class="mt-2 text-secondary">{}</p>
-                          </h6>
-                        </div>
-                      </td>
-                      <td>
-                        <a class="" style={{ cursor: "pointer" }} onClick={() => this.handleAddMember(this.state.id, ListData.id)}>
-                          {ListData.user_ids.includes(this.state.id) ? "登録を外す" : "登録する"}
-                        </a>
-                      </td>
-                    </tr>
+                    <a class="no-link-style" style={{ cursor: "pointer" }} onClick={() => this.handleAddMember(this.state.id, ListData.id)}>
+                    <div class="row">
+                      <div class="col-8">
+                        <p>
+                          <span><b>{ListData.name}</b></span>
+                          <span class="ml-3 text-secondary">{ListData.user_ids.length}人のメンバー</span>
+                        </p>
+                        <p><span class="ml-1 text-secondary">{ListData.description}</span></p>
+                        <p class="mt-2 text-secondary">{}</p>
+                      </div>
+                      <div class="col-4">
+                        
+                        {ListData.user_ids.includes(this.state.id) ? "登録を外す" : "登録する"}
+                        
+                      </div>
+                    </div>
+                    </a>
                   ))}
-                </tbody>
-              </table>
+              </div>
             </InfiniteScroll>
 
 
