@@ -161,11 +161,12 @@ const Message = () => {
 				<div class="card-body pt-3 pb-3 pl-3 pr-3">
 					{messages}
 					<Link to="/postter/memberlist">←メッセージ一覧へ</Link>
-					<p>{targetListData.name}</p>
+					<p class="mt-3">{targetListData.name}</p>
 					<p>{targetListData.description}</p>
 
 					<ModalEditListButton id={id} name={targetListData.name} description={targetListData.description} setTargetListData={setTargetListData} navigateListView={navigateListView}/>
-				<div class="table table-responsive">
+					
+					<div class="table table-responsive mt-3">
 					<table id='post_list' class="table-sm" style={{width: "100%"}}>
 						<tbody>
 							<InfiniteScroll

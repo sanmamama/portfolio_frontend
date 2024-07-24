@@ -120,103 +120,71 @@ const Message = () => {
 			<div class="card">
 				<div class="card-body pt-3 pb-3 pl-3 pr-3">
 					{messages}
-				<h4>メッセージ</h4>
-
-				
-				<input class="mt-3 form-control" type="text" value={query} onChange={(e) => setQuery(e.target.value)} placeholder="ユーザーを検索"/>
-				<div class="table-responsive">
-				<table class="table mt-3">
-					{results.map((result) => (
-					<>
-						{result.id != myUserDataGlobal.id && query && (
-						<Link class="no-link-style" to={`/postter/message/${myUserDataGlobal.id}-${result.id}/`}>
-						<tr>
-							<td class="text" style={{width: "15%"}}>
-								<img class="rounded img-fluid mx-auto d-block" src={`${result.avatar_imgurl}`} id="avatar-image" width="40" height="40"/>
-							</td>
-							<td class="text" style={{width: "85%"}}>
-								
-									<div>
-										<h6>
-											<b>{result.username}</b>
-											<span class="ml-1 text-secondary">@{result.uid}</span>
-											<p class="mt-2 text-secondary">{result.profile_statement}</p>
-										</h6>
+					<h4>メッセージ</h4>
+					<input class="mt-3 mb-3 form-control" type="text" value={query} onChange={(e) => setQuery(e.target.value)} placeholder="ユーザーを検索"/>
+					<div>
+						{results.map((result) => (
+							<>
+							{result.id != myUserDataGlobal.id && query && (
+								<Link class="no-link-style" to={`/postter/message/${myUserDataGlobal.id}-${result.id}/`}>
+								<div class="row">
+									<div class="col-2">
+										<img class="rounded img-fluid mx-auto d-block" src={`${result.avatar_imgurl}`} id="avatar-image" width="40" height="40"/>
 									</div>
-								
-							</td>
-						</tr>
-						</Link>
-						)}
-					</>
-				))}
-				</table>
-				
-				<p></p>
-					
-					<table class="table">
-
-							<InfiniteScroll
-								loadMore={loadMessageList}
-								loader={<div key={0}>Loading ...</div>}
-								hasMore={hasMore}
-								threshold={5} >
-								{userList.map((MessageData,ix) => (
-								<tr class="text" key={ix}>
+									<div class="col-10">
+										<b>{result.username}</b>
+										<span class="ml-1 text-secondary">@{result.uid}</span>
+										<p class="mt-2 text-secondary">{result.profile_statement}</p>
+									</div>
+								</div>
+								</Link>
+							)}
+							</>
+					))}
+					</div>
+					<div>
+						<InfiniteScroll
+							loadMore={loadMessageList}
+							loader={<div key={0}>Loading ...</div>}
+							hasMore={hasMore}
+							threshold={5} >
+							{userList.map((MessageData,ix) => (
+								<div>
 									{MessageData.user_from.id == myUserDataGlobal.id && !query && (
-									<>
-	
 										<Link class="no-link-style" to={`/postter/message/${myUserDataGlobal.id}-${MessageData.user_to.id}/`}>
-										<td class="text" style={{width: "15%"}}>
-											<img class="rounded img-fluid mx-auto d-block" src={`${MessageData.user_to.avatar_imgurl}`} id="avatar-image" width="40" height="40"/>
-										</td>
-										<td class="text" style={{width: "80%"}}>
-											<h6>
-												<b>{MessageData.user_to.username}</b>
-												<span class="ml-1 text-secondary">@{MessageData.user_to.uid}</span>
-												<span class="ml-1 text-secondary">{MessageData.created_at.split('.')[0].replace('T',' ')}</span>
-												<p class="mt-2 text-secondary">{MessageData.content}</p>
-											</h6>
-
-											
-										</td>
+											<div class="row">
+												<div class="col-2">
+													<img class="rounded img-fluid mx-auto d-block" src={`${MessageData.user_to.avatar_imgurl}`} id="avatar-image" width="40" height="40"/>
+												</div>
+												<div class="col-10">
+													<b>{MessageData.user_to.username}</b>
+													<span class="ml-1 text-secondary">@{MessageData.user_to.uid}</span>
+													<span class="ml-1 text-secondary">{MessageData.created_at.split('.')[0].replace('T',' ')}</span>
+													<p class="mt-2 text-secondary">{MessageData.content}</p>
+												</div>
+											</div>
 										</Link>
-										
-										
-									</>
 									)}
 									
 									{MessageData.user_to.id == myUserDataGlobal.id && !query && (
-									<>
-										
-										
 										<Link class="no-link-style" to={`/postter/message/${myUserDataGlobal.id}-${MessageData.user_from.id}/`}>
-										<td class="text" style={{width: "15%"}}>
-											<img class="rounded img-fluid mx-auto d-block" src={`${MessageData.user_from.avatar_imgurl}`} id="avatar-image" width="40" height="40"/>
-										</td>
-										<td class="text" style={{width: "80%"}}>
-
-											<h6>
+										<div class="row">
+											<div class="col-2">
+												<img class="rounded img-fluid mx-auto d-block" src={`${MessageData.user_from.avatar_imgurl}`} id="avatar-image" width="40" height="40"/>
+											</div>
+											<div class="col-10">
 												<b>{MessageData.user_from.username}</b>
 												<span class="ml-1 text-secondary">@{MessageData.user_from.uid}</span>
 												<span class="ml-1 text-secondary">{MessageData.created_at.split('.')[0].replace('T',' ')}</span>
 												<p class="mt-2 text-secondary">{MessageData.content}</p>
-											</h6>
-
-											
-										</td>
+											</div>
+										</div>
 										</Link>
-
-										
-										
-									</>
 									)}
-								</tr>
-							
-							))}
-							</InfiniteScroll>
-					</table>
-				</div>
+								</div>
+						))}
+						</InfiniteScroll>
+					</div>
 				</div>
 			</div>
 		</div>

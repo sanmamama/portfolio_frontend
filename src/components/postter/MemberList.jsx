@@ -57,30 +57,25 @@ const Message = () => {
 					{messages}
 					<h4>リスト</h4>
 				<p><ModalCreateListButton userList={userList} setUserList={setUserList}/></p>						
-				<div class="table table-responsive">
-					<table class="table">
-						<tbody>
+				<div>
 							<InfiniteScroll
 								loadMore={loadMessageList}
 								loader={<div key={0}>Loading ...</div>}
 								hasMore={hasMore}
 								threshold={5} >
 								{userList.map((ListData,ix) => (
-								<tr class="text" key={ix}>
-										<td class="text">
-											<div>
-											<h6>
-												<p><span><b><Link to={`/postter/memberlist/${ListData.id}/`}>{ListData.name}</Link></b></span><span class="ml-3 text-secondary">{ListData.user_ids.length}人のメンバー</span></p>
-												<p><span class="ml-1 text-secondary">{ListData.description}</span></p>
-												<p class="mt-2 text-secondary">{}</p>
-											</h6>
-											</div>
-										</td>						
-								</tr>
+								<Link class="no-link-style" to={`/postter/memberlist/${ListData.id}/`}>
+								<div class="col" key={ix}>
+									<div class="row">
+												<p><span><b>{ListData.name}</b></span><span class="ml-3 text-secondary">{ListData.user_ids.length}人のメンバー</span></p>
+									</div>
+									<div class="row">
+									<p><span class="ml-1 text-secondary">{ListData.description}</span></p>
+									</div>
+								</div>
+								</Link>
 							))}
 							</InfiniteScroll>
-						</tbody>
-					</table>
 				</div>
 				</div>
 			</div>
