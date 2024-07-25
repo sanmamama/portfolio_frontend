@@ -53,3 +53,17 @@
   color: inherit; /* ホバー時の色を継承 */
   text-decoration: none; /* ホバー時の下線を削除 */
 }
+
+.bg-custom-1 {
+  background-color: #ccf3ff !important;
+}
+
+.bg-custom-2 {
+  background-color: #f3f3f3 !important;
+}
+
+.scrollable-div {
+  max-height: 9999px; /* 任意の高さを指定 */
+  overflow-y: auto;
+  overflow-x: hidden;
+}

@@ -58,8 +58,9 @@ const Message = () => {
             return response.json();
         })
         .then(data => {
-            setFormData(() => ({
-                'content':''
+            setFormData((prev) => ({
+                ...prev,
+				'content':''
             }));
 			if(data.id){
 				setMessages(`postId:${data.id}メッセージを送信しました`)
@@ -159,6 +160,8 @@ const Message = () => {
 
 	
 
+	
+
 	if(!myUserDataGlobal || !userList || !targetUserData){
 		return("loading...")
 	}
@@ -173,52 +176,71 @@ const Message = () => {
 					<img class="rounded img-fluid mx-auto d-block" src={`${targetUserData.avatar_imgurl}`} id="avatar-image" width="100" height="100"/>
 					<p class="text-center">{targetUserData.username} @{targetUserData.uid}</p>
 					<p class="text-center">{targetUserData.profile_statement}</p>
-
-					
-				<form method="post" onSubmit={handleMessageSubmit}>
-					<textarea class="form-control" type="textarea" name="content" value={formData.content} onChange={handleMessageChange} placeholder="メッセージを入力"/>   
-                    <button type="submit" class="mb-2 mt-2 btn btn-outline-primary btn-block">
-                        送信
-                    </button>
-                </form>
-							<InfiniteScroll
-								loadMore={loadMessageList}
-								loader={<div key={0}>Loading ...</div>}
-								hasMore={hasMore}
-								threshold={5} >
-								{userList.map((MessageData,ix) => (
-								<div class="d-flex" key={ix}>
-									{MessageData.user_from.id == myUserDataGlobal.id && (
-									<>
-										<div class="" style={{width: "90%"}}>
-											<h6>
-												<p class="mt-2 text-right text-secondary">{MessageData.content}</p>
-												<p class="ml-1 text-right text-secondary">{MessageData.created_at.split('.')[0].replace('T',' ')}</p>
-											</h6>
-										</div>
-										<div class="" style={{width: "10%"}}>
+					<hr class="mt-4 mb-4"/>
+					<div class="mt-3 mb-3 scrollable-div">
+					<InfiniteScroll
+						loadMore={loadMessageList}
+						loader={<div key={0}>Loading ...</div>}
+						hasMore={hasMore}
+						threshold={5}
+						useWindow={false} >
+						{userList.map((MessageData,ix) => (
+						<div class="" key={ix}>
+							{MessageData.user_from.id == myUserDataGlobal.id && (
+							<>
+								<div class="row">
+									<div class="col-3">
+									</div>
+									<div class="col-7 bg-custom-1">
+										<p class="mt-2 text-right">{MessageData.content}</p>
+									</div>
+									<div class="col-2">
 										<img class="rounded img-fluid mx-auto d-block" src={`${MessageData.user_from.avatar_imgurl}`} id="avatar-image" width="40" height="40"/>
-										</div>
-									</>
-									)}
-									
-									{MessageData.user_to.id == myUserDataGlobal.id && (
-									<>
-										<div class="" style={{width: "10%"}}>
-											<img class="rounded img-fluid mx-auto d-block" src={`${MessageData.user_from.avatar_imgurl}`} id="avatar-image" width="40" height="40"/>
-										</div>
-										<div class="" style={{width: "90%"}}>
-											<h6>
-												<p class="mt-2 text-secondary">{MessageData.content}</p>
-												<p class="ml-1 text-secondary">{MessageData.created_at.split('.')[0].replace('T',' ')}</p>
-											</h6>
-										</div>
-									</>
-									)}
+									</div>
 								</div>
+								<div class="row">
+									<div class="col-3">
+									</div>
+									<div class="col-7">
+										<p class="ml-1 text-right text-secondary">{MessageData.created_at.split('.')[0].replace('T',' ')}</p>
+									</div>
+									<div class="col-2">
+									</div>
+								</div>
+							</>
+							)}
 							
-							))}
-							</InfiniteScroll>
+							{MessageData.user_to.id == myUserDataGlobal.id && (
+							<>
+								<div class="row">
+									<div class="col-2">
+										<img class="rounded img-fluid mx-auto d-block" src={`${MessageData.user_from.avatar_imgurl}`} id="avatar-image" width="40" height="40"/>
+									</div>
+									<div class="col-7 bg-custom-2">
+										<p class="mt-2">{MessageData.content}</p>
+									</div>
+									<div class="col-3">
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-2">
+									</div>
+									<div class="col-7">
+										<p class="ml-1 text-secondary">{MessageData.created_at.split('.')[0].replace('T',' ')}</p>
+									</div>
+									<div class="col-3">
+									</div>
+								</div>
+							</>
+							)}
+						</div>
+					))}
+					</InfiniteScroll>
+					</div>
+					<form method="post" onSubmit={handleMessageSubmit}>
+					<textarea class="form-control" type="textarea" name="content" value={formData.content} onChange={handleMessageChange} placeholder="メッセージを入力"/>   
+					<button type="submit" class="mb-3 mt-2 btn btn-outline-primary btn-block">送信</button>
+                </form>
 				</div>
 			</div>
 		</div>
