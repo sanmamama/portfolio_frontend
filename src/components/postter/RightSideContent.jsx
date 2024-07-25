@@ -1,6 +1,7 @@
 import React, { useEffect, useState ,useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {UserDataContext} from "./providers/UserDataProvider"
+const baseUrl = process.env.REACT_APP_BASE_URL;
 
 export const RightSideContent = () => {
 	const {myUserDataGlobal,setMyUserDataGlobal} = useContext(UserDataContext);
@@ -29,7 +30,7 @@ export const RightSideContent = () => {
 				<div class="card-body pt-3 pb-3 pl-3 pr-3">
 					<form onSubmit={handleSubmit}>
 						<div class="form-group">
-							<input type="text" class="form-control" name="q" placeholder="検索" value={query} onChange={(e) => setQuery(e.target.value)}/>
+						<input type="text" class="form-control" name="q" placeholder="検索" value={query} onChange={(e) => setQuery(e.target.value)}/>
 						</div>
 						<button type="submit" class="btn btn-primary">検索</button>
 					</form>
