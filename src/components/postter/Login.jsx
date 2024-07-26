@@ -80,10 +80,20 @@ const LoginForm = () => {
 
             if(data.key){
                 const token = data.key
-                document.cookie = `token=${token}; path=/; secure; samesite=strict`;
+                document.cookie = `token=${token}; path=/`;
+                //document.cookie = `token=${token}; path=/; secure; samesite=None`;
             
             getUserData(setMyUserDataGlobal)
-            navigate("/postter/")
+            navigate("/postter/home")
+            // const token2 = document.cookie.split('; ').reduce((acc, row) => {
+            //     const [key, value] = row.split('=');
+            //     if (key === 'token') {
+            //     acc = value;
+            //     }
+            //     return acc;
+            // }, null);
+            
+            // setMessages(token +"ログイン中"+token2)
 
             }else{
                 navigate("/postter/login")

@@ -3,30 +3,15 @@ import { NavLink,Link } from 'react-router-dom';
 import {useContext,useEffect } from 'react';
 import {UserDataContext} from "./providers/UserDataProvider"
 import { getUserData } from "./GetUserData"
+
 const apiUrl = process.env.REACT_APP_API_URL;
 
 function Header() {
 	const {myUserDataGlobal,setMyUserDataGlobal} = useContext(UserDataContext)
 
-	useEffect(()=>{
-		const getUser = () =>{
-			getUserData(setMyUserDataGlobal)
-		}
-		
-			getUser()
-
-	},[])
-
-
-	
-
-	// if(myUserDataGlobal==null){
-	// 	//グローバルステートが破棄されている場合、再セットします
+	// useEffect(()=>{
 	// 	getUserData(setMyUserDataGlobal)
-	// 	return("loading")
-	// }
-
-
+	// },[])
 
 	return (
     <header>
@@ -47,22 +32,21 @@ function Header() {
 				<li className="nav-item">
 				<NavLink className="nav-link" to="/postter/memberlist" activeClassName="active">リスト</NavLink>
 				</li>
-        </ul>
-		<ul class="navbar-nav">
-			<li>
-				<Link class="nav-item nav-link" to="">{myUserDataGlobal ? myUserDataGlobal.username + "としてログイン中":""}</Link>
-			</li>
-			<li>
-				<Link class="nav-item nav-link" to="/postter/logout">{myUserDataGlobal ? "ログアウト":""}</Link>
-			</li>
-			<li class="nav-item">
-				<Link class="nav-item nav-link" to="/postter/login">{myUserDataGlobal ? "":"ログイン"}</Link>
-			</li>
-			<li class="nav-item">
-				<Link class="nav-item nav-link" to="/postter/signup">{myUserDataGlobal ? "":"会員登録"}</Link>
-			</li>
-
-	  </ul>
+			</ul>
+			<ul class="navbar-nav">
+				<li>
+					<Link class="nav-item nav-link" to="">{myUserDataGlobal ? myUserDataGlobal.username + "としてログイン中":""}</Link>
+				</li>
+				<li>
+					<Link class="nav-item nav-link" to="/postter/logout">{myUserDataGlobal ? "ログアウト":""}</Link>
+				</li>
+				<li class="nav-item">
+					<Link class="nav-item nav-link" to="/postter/login">{myUserDataGlobal ? "":"ログイン"}</Link>
+				</li>
+				<li class="nav-item">
+					<Link class="nav-item nav-link" to="/postter/signup">{myUserDataGlobal ? "":"会員登録"}</Link>
+				</li>
+			</ul>
 			</div>
 		</nav>
 

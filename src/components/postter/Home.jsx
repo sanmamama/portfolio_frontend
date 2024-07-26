@@ -5,6 +5,7 @@ import { getUserData } from "./GetUserData"
 import InfiniteScroll from 'react-infinite-scroller';
 import PostContent from './PostContent';
 import ModalAddUserToList from './ModalAddUserToList';
+import { useNavigate } from "react-router-dom";
 
 
 const apiUrl = process.env.REACT_APP_API_URL;
@@ -20,6 +21,33 @@ const Home = () => {
 	const [posts, setPosts] = useState([]);
 	const [pageCount, setPageCount] = useState(1);
 	const [hasMore, setHasMore] = useState(true);
+	const navigate = useNavigate();
+
+	useEffect(()=>{
+		const token = document.cookie.split('; ').reduce((acc, row) => {
+			const [key, value] = row.split('=');
+			if (key === 'token') {
+			acc = value;
+			}
+			return acc;
+		}, null);
+		fetch(`${apiUrl}/postter/user/`,
+			{
+			method: 'GET',
+			headers: {
+				'Authorization': `Token ${token}`,
+				},
+			})
+		.then(response => {
+			if(!response.ok){
+				navigate("/postter/login")
+			}
+			return response.json()
+			})
+		.then(data => {
+			setMyUserDataGlobal(data[0])
+			});
+	},[])
 
 	//リツイートハンドル
 	const handleRepost = async (postId,post_ix,post_reposted) => {
