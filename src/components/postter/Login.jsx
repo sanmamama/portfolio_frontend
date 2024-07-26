@@ -108,7 +108,7 @@ const LoginForm = () => {
 
     return (
         <div class="row justify-content-center">
-            <div class="col-5">
+            <div class="col-10">
                 <h2>ログイン</h2>
                 <form onSubmit={handleSubmit}>
                     <div>
