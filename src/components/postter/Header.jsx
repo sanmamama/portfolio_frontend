@@ -9,9 +9,9 @@ const apiUrl = process.env.REACT_APP_API_URL;
 function Header() {
 	const {myUserDataGlobal,setMyUserDataGlobal} = useContext(UserDataContext)
 
-	// useEffect(()=>{
-	// 	getUserData(setMyUserDataGlobal)
-	// },[])
+	useEffect(()=>{
+		getUserData(setMyUserDataGlobal)
+	},[])
 
 	return (
     <header>
@@ -23,29 +23,51 @@ function Header() {
 
 			<div class="collapse navbar-collapse" id="navbarsExampleDefault">
 			<ul className="navbar-nav mr-auto">
-				<li className="nav-item">
-				<NavLink className="nav-link" to="/postter/home" activeClassName="active">ホーム</NavLink>
-				</li>
-				<li className="nav-item">
-				<NavLink className="nav-link" to="/postter/message" activeClassName="active">メッセージ</NavLink>
-				</li>
-				<li className="nav-item">
-				<NavLink className="nav-link" to="/postter/memberlist" activeClassName="active">リスト</NavLink>
-				</li>
+				{myUserDataGlobal ? 
+					<li className="nav-item">
+					<NavLink className="nav-link" to="/postter/home" activeClassName="active">ホーム</NavLink>
+					</li>
+				:""}
+
+				{myUserDataGlobal ? 
+					<li className="nav-item">
+					<NavLink className="nav-link" to="/postter/message" activeClassName="active">メッセージ</NavLink>
+					</li>
+				:""}
+
+				{myUserDataGlobal ? 
+					<li className="nav-item">
+					<NavLink className="nav-link" to="/postter/memberlist" activeClassName="active">リスト</NavLink>
+					</li>
+				:""}
+				
+
 			</ul>
 			<ul class="navbar-nav">
-				<li>
-					<Link class="nav-item nav-link" to="">{myUserDataGlobal ? myUserDataGlobal.username + "としてログイン中":""}</Link>
-				</li>
-				<li>
-					<Link class="nav-item nav-link" to="/postter/logout">{myUserDataGlobal ? "ログアウト":""}</Link>
-				</li>
-				<li class="nav-item">
-					<Link class="nav-item nav-link" to="/postter/login">{myUserDataGlobal ? "":"ログイン"}</Link>
-				</li>
-				<li class="nav-item">
-					<Link class="nav-item nav-link" to="/postter/signup">{myUserDataGlobal ? "":"会員登録"}</Link>
-				</li>
+				{myUserDataGlobal ? 
+					<li className="nav-item">
+					<Link className="nav-link" to={`/postter/${myUserDataGlobal.uid}/`}>{myUserDataGlobal.username}としてログイン中</Link>
+					</li>
+				:""}
+
+				{myUserDataGlobal ? 
+					<li className="nav-item">
+					<Link className="nav-link" to="/postter/logout">ログアウト</Link>
+					</li>
+				:""}
+
+				{!myUserDataGlobal ? 
+					<li className="nav-item">
+					<Link className="nav-link" to="/postter/login">ログイン</Link>
+					</li>
+				:""}
+
+				{!myUserDataGlobal ? 
+					<li className="nav-item">
+					<Link className="nav-link" to="/postter/signup">会員登録</Link>
+					</li>
+				:""}
+
 			</ul>
 			</div>
 		</nav>

@@ -28,6 +28,12 @@ const Home = () => {
 	const [pageCount, setPageCount] = useState(1);
 	const [hasMore, setHasMore] = useState(true);
 
+	const refreshPost = ()=>{
+		setPosts([])
+		setPageCount(1)
+		setHasMore(true)
+	}
+
 	//リツイートハンドル
 	const handleRepost = async (postId,post_ix,post_reposted) => {
 		const token = document.cookie.split('; ').reduce((acc, row) => {
@@ -56,7 +62,7 @@ const Home = () => {
 					setPosts(()=>{posts[post_ix].repost_count+=1;return posts;})
 				}
 				getUserData(setMyUserDataGlobal)
-				//refreshPost()
+				refreshPost()
                 setMessages(data.detail);
             } else {
                 const data = await response.json();
@@ -66,7 +72,7 @@ const Home = () => {
 					setPosts(()=>{posts[post_ix].repost_count+=1;return posts;})
 				}
 				getUserData(setMyUserDataGlobal)
-				//refreshPost()
+				refreshPost()
                 setMessages(data.detail);
             }
         } catch (error) {
@@ -126,6 +132,7 @@ const Home = () => {
         });
 		if(response.ok){
 			setMessages(`id:${postId}ポストを削除しました`);
+			refreshPost()
 			
 		}else{
 			setMessages(`id:${postId}ポストの削除に失敗しました`);
@@ -151,6 +158,7 @@ const Home = () => {
         });
 		const res = await response.json();
 		if(response.ok){
+			refreshPost()
 			setMessages(res.message);
 			getUserData(setMyUserDataGlobal)
 			
@@ -195,7 +203,8 @@ const Home = () => {
 			acc = value;
 			}
 			return acc;
-		})
+		}, null);
+		console.log(token)
 		fetch(`${apiUrl}/postter/user/${uid}/`,
 			{
 			method: 'GET',
@@ -226,6 +235,8 @@ const Home = () => {
 		setPageCount(1)
 		setHasMore(true)
 		},[location.pathname])
+
+	
 
 	
 
