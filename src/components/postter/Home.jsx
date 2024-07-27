@@ -5,6 +5,7 @@ import { getUserData } from "./GetUserData"
 import InfiniteScroll from 'react-infinite-scroller';
 import PostContent from './PostContent';
 import ModalAddUserToList from './ModalAddUserToList';
+import { loginCheck } from './LoginCheck';
 import { useNavigate } from "react-router-dom";
 
 
@@ -23,30 +24,9 @@ const Home = () => {
 	const [hasMore, setHasMore] = useState(true);
 	const navigate = useNavigate();
 
+	//ログインチェック
 	useEffect(()=>{
-		const token = document.cookie.split('; ').reduce((acc, row) => {
-			const [key, value] = row.split('=');
-			if (key === 'token') {
-			acc = value;
-			}
-			return acc;
-		}, null);
-		fetch(`${apiUrl}/postter/user/`,
-			{
-			method: 'GET',
-			headers: {
-				'Authorization': `Token ${token}`,
-				},
-			})
-		.then(response => {
-			if(!response.ok){
-				navigate("/postter/login")
-			}
-			return response.json()
-			})
-		.then(data => {
-			setMyUserDataGlobal(data[0])
-			});
+		loginCheck(setMyUserDataGlobal,navigate)
 	},[])
 
 	//リツイートハンドル

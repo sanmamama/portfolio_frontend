@@ -2,6 +2,8 @@ import React, { useEffect, useState ,useContext, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import {UserDataContext} from "./providers/UserDataProvider"
 import InfiniteScroll from 'react-infinite-scroller';
+import { loginCheck } from './LoginCheck';
+import { useNavigate } from "react-router-dom";
 const apiUrl = process.env.REACT_APP_API_URL;
 
 const Message = () => {
@@ -14,8 +16,14 @@ const Message = () => {
 	
 	const [query, setQuery] = useState('');
   	const [results, setResults] = useState([]);
+	const navigate = useNavigate();
 
+	//ログインチェック
+	useEffect(()=>{
+		loginCheck(setMyUserDataGlobal,navigate)
+	},[])
 
+	
 	const fetchResults = useCallback(async (searchQuery) => {
 	if (searchQuery) {
 		const token = document.cookie.split('; ').reduce((acc, row) => {

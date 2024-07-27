@@ -3,6 +3,8 @@ import { Link,useLocation } from 'react-router-dom';
 import {UserDataContext} from "./providers/UserDataProvider"
 import { getUserData } from "./GetUserData"
 import { useParams } from 'react-router-dom';
+import { loginCheck } from './LoginCheck';
+import { useNavigate } from "react-router-dom";
 import InfiniteScroll from 'react-infinite-scroller';
 import ModalAddUserToList from './ModalAddUserToList';
 const apiUrl = process.env.REACT_APP_API_URL;
@@ -22,6 +24,12 @@ const Home = () => {
 	const [posts, setPosts] = useState([]);
 	const [pageCount, setPageCount] = useState(1);
 	const [hasMore, setHasMore] = useState(true);
+	const navigate = useNavigate();
+
+	//ログインチェック
+	useEffect(()=>{
+		loginCheck(setMyUserDataGlobal,navigate)
+	},[])
 
 
 	//フォローハンドル

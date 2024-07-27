@@ -1,7 +1,8 @@
 import React, { useEffect, useState ,useContext } from 'react';
 import { Link,useLocation } from 'react-router-dom';
 import {UserDataContext} from "./providers/UserDataProvider"
-import { getFollowData } from "./GetFollowData"
+import { loginCheck } from './LoginCheck';
+import { useNavigate } from "react-router-dom";
 import { getUserData } from "./GetUserData"
 import { useParams } from 'react-router-dom';
 import InfiniteScroll from 'react-infinite-scroller';
@@ -33,6 +34,12 @@ const Home = () => {
 		setPageCount(1)
 		setHasMore(true)
 	}
+	const navigate = useNavigate();
+
+	//ログインチェック
+	useEffect(()=>{
+		loginCheck(setMyUserDataGlobal,navigate)
+	},[])
 
 	//リツイートハンドル
 	const handleRepost = async (postId,post_ix,post_reposted) => {

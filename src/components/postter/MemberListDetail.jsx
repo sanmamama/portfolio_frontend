@@ -5,7 +5,8 @@ import { getUserData } from "./GetUserData"
 import InfiniteScroll from 'react-infinite-scroller';
 import { useParams } from 'react-router-dom';
 import ModalEditListButton from './ModalEditListButton';
-import { useNavigate } from 'react-router-dom';
+import { loginCheck } from './LoginCheck';
+import { useNavigate } from "react-router-dom";
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
@@ -22,6 +23,11 @@ const Message = () => {
 	const [pageCount, setPageCount] = useState(1);
 	const [hasMore, setHasMore] = useState(true);
 	const [targetListData, setTargetListData] = useState(null);
+
+	//ログインチェック
+	useEffect(()=>{
+		loginCheck(setMyUserDataGlobal,navigate)
+	},[])
 
 	//リストをモーダルウインドウで削除後のナビゲート
 	const navigateListView = () =>{
