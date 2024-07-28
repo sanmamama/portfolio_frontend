@@ -20,14 +20,13 @@ import PostterHome from './components/postter/Home';
 import ViewProfile from './components/postter/ViewProfile';
 import Following from './components/postter/Following';
 import Follower from './components/postter/Follower';
-import Header from './components/postter/Header';
-import Footer from './components/postter/Footer';
 import Message from './components/postter/Message';
 import MessageDetail from './components/postter/MessageDetail';
 import MemberList from './components/postter/MemberList';
 import MemberListDetail from './components/postter/MemberListDetail';
 import MemberListAdd from './components/postter/MemberListAdd';
 import Search from './components/postter/Search';
+import Notification from './components/postter/Notification';
 
 
 import {UserDataProvider} from "./components/postter/providers/UserDataProvider"
@@ -60,7 +59,7 @@ const router = createBrowserRouter([
       { path: "message/:ids", element: <MessageDetail /> },
       { path: "memberlist", element: <MemberList /> },
       { path: "memberlist/:id", element: <MemberListDetail /> },
-
+      { path: "notification", element: <Notification /> },
       { path: "search", element: <Search /> },
     ],
   },
