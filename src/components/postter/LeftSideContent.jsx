@@ -8,7 +8,7 @@ const LeftSideContent = () => {
 	const {myUserDataGlobal,setMyUserDataGlobal} = useContext(UserDataContext);
 	const {myNotificationGlobal,setMyNotificationGlobal} = useContext(NotificationContext);
 
-	if(myUserDataGlobal==null || myNotificationGlobal ==null){
+	if(myUserDataGlobal==null){
 		return("loading")
 	}
 
@@ -20,7 +20,7 @@ const LeftSideContent = () => {
 						<h5 class="mb-4"><Link to="/postter/home"><img class="mr-3" src={`${baseUrl}/icon/home.svg`} width="16" height="16"/>ホーム</Link></h5>
 						<h5 class="mb-4">
 							<Link to="/postter/notification/"><img class="mr-3"src={`${baseUrl}/icon/notify.svg`} width="16" height="16"/>通知</Link>
-							<span class="ml-3">{myNotificationGlobal > 0 && (myNotificationGlobal+"件の新着通知")}</span>
+							<span class="ml-3">{myNotificationGlobal > 0 && (myNotificationGlobal)}</span>
 						</h5>
 						<h5 class="mb-4"><Link to="/postter/message/"><img class="mr-3"src={`${baseUrl}/icon/message.svg`} width="16" height="16"/>メッセージ</Link></h5>
 						<h5 class="mb-4"><Link to="/postter/memberlist/"><img class="mr-3"src={`${baseUrl}/icon/memberlist.svg`} width="16" height="16"/>リスト</Link></h5>

@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import {UserDataContext} from "./providers/UserDataProvider"
 import InfiniteScroll from 'react-infinite-scroller';
 import { loginCheck } from './LoginCheck';
+import PostContent from './PostContent';
 import { useNavigate } from "react-router-dom";
 const apiUrl = process.env.REACT_APP_API_URL;
 
@@ -106,7 +107,7 @@ const Message = () => {
 														<>
 															<Link class="no-link-style" to={`/postter/message/${myUserDataGlobal.id}-${NotificationData.sender.id}/`}>
 															<span class="ml-1 text-secondary">{NotificationData.sender.username}</span>
-															<p class="ml-1 text-secondary">{NotificationData.content}</p>
+															<p class="ml-1 text-secondary"><PostContent content={NotificationData.content}/></p>
 															<p class="ml-1 text-secondary">{NotificationData.created_at.split('.')[0].replace('T',' ')}</p>
 															</Link>
 														</>
