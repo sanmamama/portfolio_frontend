@@ -31,6 +31,7 @@ import Notification from './components/postter/Notification';
 
 import {UserDataProvider} from "./components/postter/providers/UserDataProvider"
 import {FollowDataProvider} from "./components/postter/providers/FollowDataProvider"
+import {NotificationProvider} from "./components/postter/providers/NotificationProvider"
 
 const router = createBrowserRouter([
   {
@@ -79,15 +80,12 @@ const App = () => {
   return (
     <>
     <UserDataProvider>
-        <FollowDataProvider>
-    <RouterProvider router={router}>
-      
-          
-          {/* The RouterProvider will render the current route */}
-        
-    </RouterProvider>
-    </FollowDataProvider>
-      </UserDataProvider>
+      <FollowDataProvider>
+        <NotificationProvider>
+          <RouterProvider router={router}/>
+        </NotificationProvider>
+      </FollowDataProvider>
+    </UserDataProvider>
     </>
   );
 };

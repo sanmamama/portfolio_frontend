@@ -98,14 +98,15 @@ const Message = () => {
 										
 											<div class="row">
 												<div class="col-2">
-													<img class="rounded img-fluid mx-auto d-block" src={`${NotificationData.receiver.avatar_imgurl}`} id="avatar-image" width="40" height="40"/>
+													<img class="rounded img-fluid mx-auto d-block" src={`${NotificationData.sender.avatar_imgurl}`} id="avatar-image" width="40" height="40"/>
+													<p class="text-center">{NotificationData.notification_type}</p>
 												</div>
 												<div class="col-10">
 													{NotificationData.is_read && (
 														<>
-															<Link class="no-link-style" to={`/postter/message/${myUserDataGlobal.id}-${NotificationData.receiver.id}/`}>
-															{NotificationData.notification_type}{NotificationData.receiver.username}
-															<span class="ml-1 text-secondary">@{NotificationData.receiver.uid}</span>
+															<Link class="no-link-style" to={`/postter/message/${myUserDataGlobal.id}-${NotificationData.sender.id}/`}>
+															<span class="ml-1 text-secondary">{NotificationData.sender.username}</span>
+															<p class="ml-1 text-secondary">{NotificationData.content}</p>
 															<p class="ml-1 text-secondary">{NotificationData.created_at.split('.')[0].replace('T',' ')}</p>
 															</Link>
 														</>
@@ -113,9 +114,9 @@ const Message = () => {
 
 													{!NotificationData.is_read && (
 														<b>
-															<Link class="no-link-style" to={`/postter/message/${myUserDataGlobal.id}-${NotificationData.receiver.id}/`}>
-															{NotificationData.notification_type}{NotificationData.receiver.username}
-															<span class="ml-1 text-secondary">@{NotificationData.receiver.uid}</span>
+															<Link class="no-link-style" to={`/postter/message/${myUserDataGlobal.id}-${NotificationData.sender.id}/`}>
+															<span class="ml-1 text-secondary">{NotificationData.sender.username}</span>												
+															<p class="ml-1 text-secondary">{NotificationData.content}</p>
 															<p class="ml-1 text-secondary">{NotificationData.created_at.split('.')[0].replace('T',' ')}</p>
 															</Link>
 														</b>

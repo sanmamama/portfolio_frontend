@@ -1,11 +1,13 @@
 import React, { useEffect, useState ,useContext } from 'react';
 import { Link } from 'react-router-dom';
 import {UserDataContext} from "./providers/UserDataProvider"
+import {NotificationContext} from "./providers/NotificationProvider"
 import { getUserData } from "./GetUserData"
 import InfiniteScroll from 'react-infinite-scroller';
 import PostContent from './PostContent';
 import ModalAddUserToList from './ModalAddUserToList';
 import { loginCheck } from './LoginCheck';
+import { notificationCheck } from './NotificationCheck';
 import { useNavigate } from "react-router-dom";
 
 
@@ -14,6 +16,7 @@ const baseUrl = process.env.REACT_APP_BASE_URL;
 
 const Home = () => {
 	const {myUserDataGlobal,setMyUserDataGlobal} = useContext(UserDataContext);
+	const {myNotificationGlobal,setMyNotificationGlobal} = useContext(NotificationContext);
 	const [formData, setFormData] = useState({
         content: ''
     });
@@ -27,6 +30,7 @@ const Home = () => {
 	//ログインチェック
 	useEffect(()=>{
 		loginCheck(setMyUserDataGlobal,navigate)
+		notificationCheck(setMyNotificationGlobal)
 	},[])
 
 	//リツイートハンドル

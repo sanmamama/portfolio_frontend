@@ -31,6 +31,12 @@ function Header() {
 
 				{myUserDataGlobal ? 
 					<li className="nav-item">
+					<NavLink className="nav-link" to="/postter/notification/" activeClassName="active">通知</NavLink>
+					</li>
+				:""}
+
+				{myUserDataGlobal ? 
+					<li className="nav-item">
 					<NavLink className="nav-link" to="/postter/message" activeClassName="active">メッセージ</NavLink>
 					</li>
 				:""}
