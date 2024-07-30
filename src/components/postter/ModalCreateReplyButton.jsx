@@ -68,13 +68,13 @@ class CustomModal extends React.Component {
 			}
 			return acc;
 		}, null);
-        fetch(`${apiUrl}/postter/reply/`, {
+        fetch(`${apiUrl}/postter/post/`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
 				'Authorization': `Token ${token}`,
             },
-            body: JSON.stringify({content:this.state.newPost.trim(),post:this.props.postData.id}),
+            body: JSON.stringify({content:this.state.newPost.trim(),parent:this.props.postData.id}),
         })
         .then(response => {
             if(response.ok){
