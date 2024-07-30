@@ -292,6 +292,7 @@ const Home = () => {
 								threshold={5} >
 								{posts.map((postData,ix) => (
 									<>
+									
 										<tr class="text" key={ix}>
 										<td class="text" style={{width: "15%"}}>
 											<img class="rounded img-fluid mx-auto d-block" src={`${postData.owner.avatar_imgurl}`} id="avatar-image" width="40" height="40"/>

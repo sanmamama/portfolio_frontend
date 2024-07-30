@@ -14,14 +14,12 @@ const baseUrl = process.env.REACT_APP_BASE_URL;
 
 
 const Home = () => {
-	const location = useLocation();
-	const { uid } = useParams();
 	const { post_id } = useParams();
 
 	const {myUserDataGlobal,setMyUserDataGlobal} = useContext(UserDataContext);
 	const [userData,setUserData] = useState(null);
 	const [messages, setMessages] = useState("");
-	const [posts, setPosts] = useState([]);
+	const [posts, setPosts] = useState(null);
 	const navigate = useNavigate();
 
 	//ログインチェック
@@ -52,22 +50,20 @@ const Home = () => {
 				const data = await response.json();
 				//dtrictModeのせいで2回コールされて+-2されるけど気にしないよう。
 				if(post_reposted){
-					setPosts(()=>{posts[post_ix].repost_count-=1;return posts;})
+					setPosts(()=>{posts.repost_count-=1;return posts;})
 				}else{
-					setPosts(()=>{posts[post_ix].repost_count+=1;return posts;})
+					setPosts(()=>{posts.repost_count+=1;return posts;})
 				}
 				getUserData(setMyUserDataGlobal)
-				refreshPost()
                 setMessages(data.detail);
             } else {
                 const data = await response.json();
 				if(post_reposted){
-					setPosts(()=>{posts[post_ix].repost_count-=1;return posts;})
+					setPosts(()=>{posts.repost_count-=1;return posts;})
 				}else{
-					setPosts(()=>{posts[post_ix].repost_count+=1;return posts;})
+					setPosts(()=>{posts.repost_count+=1;return posts;})
 				}
 				getUserData(setMyUserDataGlobal)
-				refreshPost()
                 setMessages(data.detail);
             }
         } catch (error) {
@@ -96,9 +92,9 @@ const Home = () => {
 		if(response.ok){
 			//dtrictModeのせいで2回コールされて+-2されるけど気にしないよう。
 			if(post_liked){
-				setPosts(()=>{posts[post_ix].like_count-=1;return posts;})
+				setPosts(()=>{posts.like_count-=1;return posts;})
 			}else{
-				setPosts(()=>{posts[post_ix].like_count+=1;return posts;})
+				setPosts(()=>{posts.like_count+=1;return posts;})
 			}
 			getUserData(setMyUserDataGlobal)
 			setMessages(`postId:${post_id}${res.message}`);
@@ -127,7 +123,6 @@ const Home = () => {
         });
 		if(response.ok){
 			setMessages(`id:${postId}ポストを削除しました`);
-			refreshPost()
 			
 		}else{
 			setMessages(`id:${postId}ポストの削除に失敗しました`);
@@ -153,7 +148,6 @@ const Home = () => {
         });
 		const res = await response.json();
 		if(response.ok){
-			refreshPost()
 			setMessages(res.message);
 			getUserData(setMyUserDataGlobal)
 			
@@ -173,7 +167,7 @@ const Home = () => {
 		}, null);
 		
 
-		const response = await fetch(`${apiUrl}/postter/post/user/${uid}/`,
+		const response = await fetch(`${apiUrl}/postter/post/${post_id}/`,
 			{
 				method: 'GET',
 				headers: {
@@ -184,58 +178,16 @@ const Home = () => {
 		const data = await response.json()
 		
 		if(response.ok){
-			setPosts([...posts, ...data.results])
-			setHasMore(data.next)
-			setPageCount(pageCount+1)
+			setPosts(data)
 		}
 	}
 
 
-	const getMyUserData = () => {
-		const token = document.cookie.split('; ').reduce((acc, row) => {
-			const [key, value] = row.split('=');
-			if (key === 'token') {
-			acc = value;
-			}
-			return acc;
-		}, null);
-		console.log(token)
-		fetch(`${apiUrl}/postter/user/${uid}/`,
-			{
-			method: 'GET',
-			headers: {
-				'Authorization': `Token ${token}`,
-				},
-			})
-		.then(response => {
-			if(!response.ok){
-				//トークンのセッション切れ
-				throw new Error();
-			}
-			return response.json()
-			})
-		.then(data => {
-			//ログインしているとき
-			setUserData(data)
-			})
-		.catch(error => {
-			//ログインしていないとき
-		});
-	}
-
-
 	useEffect(() => {
-		getMyUserData()
-		setPosts([])
-		setPageCount(1)
-		setHasMore(true)
-		},[location.pathname])
+		loadPost()
+		},[])
 
-	
-
-	
-
-	if(!myUserDataGlobal || !userData || !posts){
+	if(!posts){
 		return("loading...")
 	}
 
@@ -244,69 +196,34 @@ const Home = () => {
 			<div class="card">
 				<div class="card-body pt-3 pb-3 pl-3 pr-3">
 					{messages}
-					<img class="rounded img-fluid mx-auto d-block" src={`${userData.avatar_imgurl}`} id="avatar-image" width="150" height="150"/>
-					
-					<p class="mb-0"><b>{userData.username}</b></p>
-					<p class="text-secondary">@{userData.uid}</p>
-					<p> {userData.profile_statement} </p>
-					<p>
-					<span class="mr-3"><b>{ userData.post_count }</b>ポスト</span>
-					<span class="mr-3"><Link to={`/postter/${userData.uid}/following/`}><b>{ userData.following_count }</b>フォロー</Link></span>
-					<span class="mr-3"><Link to={`/postter/${userData.uid}/follower/`}><b>{ userData.follower_count }</b>フォロワー</Link></span>
-					</p>
-
-					{userData.id !== myUserDataGlobal.id && (
-						<p class="mt-3 mb-3"><a class="btn btn-outline-success btn-sm" role="button" style={{cursor:"pointer"}} onClick={() => handleFollow(userData.id)}>
-						{myUserDataGlobal.following.includes(userData.id) ? "フォローを解除" : "フォローする"}
-						</a></p>
-					)}
-					{userData.id == myUserDataGlobal.id && (
-						<>
-
-					<ModalEditProfileButton uid={myUserDataGlobal.uid} username={myUserDataGlobal.username} profile_statement={myUserDataGlobal.profile_statement}
-						setMyUserDataGlobal={setMyUserDataGlobal} setUserData={setUserData}
-					/>
-					    </>
-					)}
-					
-					<p class="mt-3 mb-3"><a class="btn btn-outline-success btn-sm" href={`/postter/add_member/${userData.id}/`}>リスト操作</a></p>
-				<div class="table table-responsive">
-					<table id='post_list' class="table-sm" style={{width: "100%"}}>
-						<tbody>
-						<InfiniteScroll
-								loadMore={loadPost}
-								loader={<div key={0}>Loading ...</div>}
-								hasMore={hasMore}
-								threshold={5} >
-								{posts.map((postData,ix) => (
-									<>
-										<tr class="text" key={ix}>
+					<table>
+					<tr class="text">
 										<td class="text" style={{width: "15%"}}>
-											<img class="rounded img-fluid mx-auto d-block" src={`${postData.owner.avatar_imgurl}`} id="avatar-image" width="40" height="40"/>
+											<img class="rounded img-fluid mx-auto d-block" src={`${posts.owner.avatar_imgurl}`} id="avatar-image" width="40" height="40"/>
 										</td>
 										<td class="text" style={{width: "80%"}}>
-											{postData.repost_user && (
+											{posts.repost_user && (
 											<>
-											<p><img class="mr-2" src={`${baseUrl}/icon/repost_active.svg`} width="16" height="16"/><Link to={`/postter/${postData.repost_user.uid}/`}>{postData.repost_user.username}</Link>がリポストしました</p>
+											<p><img class="mr-2" src={`${baseUrl}/icon/repost_active.svg`} width="16" height="16"/><Link to={`/postter/${posts.repost_user.uid}/`}>{posts.repost_user.username}</Link>がリポストしました</p>
 											</>
 											)}
 											<h6>
-												<Link to={`/postter/${postData.owner.uid}/`}><b>{postData.owner.username}</b></Link>
-												<span class="ml-1 text-secondary">@{postData.owner.uid}</span>
-												<span class="ml-1 text-secondary">{postData.created_at.split('.')[0].replace('T',' ')}</span>
+												<Link to={`/postter/${posts.owner.uid}/`}><b>{posts.owner.username}</b></Link>
+												<span class="ml-1 text-secondary">@{posts.owner.uid}</span>
+												<span class="ml-1 text-secondary">{posts.created_at.split('.')[0].replace('T',' ')}</span>
 											</h6>
-											<p><PostContent content={postData.content}/></p>
+											<p><PostContent content={posts.content}/></p>
 
-											<a class="mr-4" style={{cursor:"pointer"}} onClick={() => handleLike(postData.id,ix,myUserDataGlobal.like.includes(postData.id))}>
-											{myUserDataGlobal.like.includes(postData.id) ? <img src={`${baseUrl}/icon/heart_active.svg`} width="16" height="16"/> : <img src={`${baseUrl}/icon/heart_no_active.svg`} width="16" height="16"/>}{postData.like_count}
+											<a class="mr-4" style={{cursor:"pointer"}} onClick={() => handleLike(posts.id,1,myUserDataGlobal.like.includes(posts.id))}>
+											{myUserDataGlobal.like.includes(posts.id) ? <img src={`${baseUrl}/icon/heart_active.svg`} width="16" height="16"/> : <img src={`${baseUrl}/icon/heart_no_active.svg`} width="16" height="16"/>}{posts.like_count}
 											</a>
 											
-											<a class="mr-4" style={{cursor:"pointer"}} onClick={() => handleRepost(postData.id,ix,myUserDataGlobal.repost.includes(postData.id))}>
-											{myUserDataGlobal.repost.includes(postData.id) ? <img src={`${baseUrl}/icon/repost_active.svg`} width="16" height="16"/> : <img src={`${baseUrl}/icon/repost_no_active.svg`} width="16" height="16"/>}{postData.repost_count}
+											<a class="mr-4" style={{cursor:"pointer"}} onClick={() => handleRepost(posts.id,1,myUserDataGlobal.repost.includes(posts.id))}>
+											{myUserDataGlobal.repost.includes(posts.id) ? <img src={`${baseUrl}/icon/repost_active.svg`} width="16" height="16"/> : <img src={`${baseUrl}/icon/repost_no_active.svg`} width="16" height="16"/>}{posts.repost_count}
 											</a>
 
 	
-											<img src={`${baseUrl}/icon/view_count.svg`} width="16" height="16"/>{postData.view_count}
+											<img src={`${baseUrl}/icon/view_count.svg`} width="16" height="16"/>{posts.view_count}
 
 
 										</td>
@@ -314,17 +231,17 @@ const Home = () => {
 											<div class="dropdown">
 												<button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">︙</button>
 												<div class="dropdown-menu">
-												{postData.owner.id == myUserDataGlobal.id && (
+												{posts.owner.id == myUserDataGlobal.id && (
 													<>
-														<ModalAddUserToList class={"dropdown-item"} id={postData.owner.id}/>
-														<a class="dropdown-item" style={{cursor:"pointer"}} onClick={() => handlePostDelete(postData.id)}>ポストを削除する</a>
+														<ModalAddUserToList class={"dropdown-item"} id={posts.owner.id}/>
+														<a class="dropdown-item" style={{cursor:"pointer"}} onClick={() => handlePostDelete(posts.id)}>ポストを削除する</a>
 													</>
 												)}
-												{postData.owner.id !== myUserDataGlobal.id && (
+												{posts.owner.id !== myUserDataGlobal.id && (
 													<>
-														<ModalAddUserToList class={"dropdown-item"} id={postData.owner.id}/>
-														<a class="dropdown-item" style={{cursor:"pointer"}} onClick={() => handleFollow(postData.owner.id)}>
-															{myUserDataGlobal.following.includes(postData.owner.id) ? "フォローを解除する" : "フォローする"}
+														<ModalAddUserToList class={"dropdown-item"} id={posts.owner.id}/>
+														<a class="dropdown-item" style={{cursor:"pointer"}} onClick={() => handleFollow(posts.owner.id)}>
+															{myUserDataGlobal.following.includes(posts.owner.id) ? "フォローを解除する" : "フォローする"}
 														</a>
 													</>
 												)}
@@ -334,15 +251,9 @@ const Home = () => {
 
 											</div>
 										</td>
-									</tr>
-							</>
-							
-							))}
-							</InfiniteScroll>
-						
-						</tbody>
+							</tr>
 					</table>
-				</div>
+				
 				</div>
 			</div>
 		</div>

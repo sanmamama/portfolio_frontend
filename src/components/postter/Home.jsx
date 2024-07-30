@@ -6,6 +6,7 @@ import { getUserData } from "./GetUserData"
 import InfiniteScroll from 'react-infinite-scroller';
 import PostContent from './PostContent';
 import ModalAddUserToList from './ModalAddUserToList';
+import ModalCreateReplyButton from './ModalCreateReplyButton';
 import { loginCheck } from './LoginCheck';
 import { notificationCheck } from './NotificationCheck';
 import { useNavigate } from "react-router-dom";
@@ -275,7 +276,8 @@ const Home = () => {
 								hasMore={hasMore}
 								threshold={5} >
 								{posts.map((postData,ix) => (
-								<>				
+								<>
+									
 								<tr class="text" key={ix}>
 								<td class="text" style={{width: "15%"}}>
 									<img class="rounded img-fluid mx-auto d-block" src={postData.owner.avatar_imgurl} id="avatar-image" width="40" height="40"/>
@@ -291,8 +293,11 @@ const Home = () => {
 										<span class="ml-1 text-secondary">@{postData.owner.uid}</span>
 										<span class="ml-1 text-secondary">{postData.created_at.split('.')[0].replace('T',' ')}</span>
 									</h6>
+									<Link class="no-link-style" to={`/postter/post/${postData.id}/`}>	
 									<p><PostContent content={postData.content}/></p>
+									</Link>
 
+									<ModalCreateReplyButton postData={postData}/>
 									
 									<a class="mr-4" style={{cursor:"pointer"}} onClick={() => handleLike(postData.id,ix,myUserDataGlobal.like.includes(postData.id))}>
 									{myUserDataGlobal.like.includes(postData.id) ? <img src={`${baseUrl}/icon/heart_active.svg`} width="16" height="16"/> : <img src={`${baseUrl}/icon/heart_no_active.svg`} width="16" height="16"/>}{postData.like_count}
@@ -331,6 +336,7 @@ const Home = () => {
 									</div>
 								</td>
 							</tr>
+							
 							</>
 							))}
 							</InfiniteScroll>

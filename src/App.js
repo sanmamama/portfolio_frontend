@@ -27,6 +27,7 @@ import MemberListDetail from './components/postter/MemberListDetail';
 import MemberListAdd from './components/postter/MemberListAdd';
 import Search from './components/postter/Search';
 import Notification from './components/postter/Notification';
+import PostDetail from './components/postter/PostDetail';
 
 
 import {UserDataProvider} from "./components/postter/providers/UserDataProvider"
@@ -53,6 +54,7 @@ const router = createBrowserRouter([
       { index: true, element: <PostterHome /> },
       { path: "home", element: <PostterHome /> },
       { path: ":uid", element: <ViewProfile /> },
+      { path: "post/:post_id", element: <PostDetail /> },
       { path: ":uid/following", element: <Following /> },
       { path: ":uid/follower", element: <Follower /> },
       { path: "add_member/:id", element: <MemberListAdd /> },
