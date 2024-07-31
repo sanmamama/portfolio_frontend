@@ -96,37 +96,101 @@ const Message = () => {
 							threshold={5} >
 							{NotificationList.map((NotificationData,ix) => (
 								<div>
-										
+												
+									{NotificationData.notification_type == "follow" && (
+										<>
+											<Link class="no-link-style" to={`/postter/${NotificationData.sender.uid}/`}>
 											<div class="row">
 												<div class="col-2">
 													<img class="rounded img-fluid mx-auto d-block" src={`${NotificationData.sender.avatar_imgurl}`} id="avatar-image" width="40" height="40"/>
 													<p class="text-center">{NotificationData.notification_type}</p>
 												</div>
-												<div class="col-10">
-													{NotificationData.is_read && (
-														<>
-															<Link class="no-link-style" to={`/postter/message/${myUserDataGlobal.id}-${NotificationData.sender.id}/`}>
-															<span class="ml-1 text-secondary">{NotificationData.sender.username}</span>
-															<p class="ml-1 text-secondary"><PostContent content={NotificationData.content}/></p>
-															<p class="ml-1 text-secondary">{NotificationData.created_at.split('.')[0].replace('T',' ')}</p>
-															</Link>
-														</>
-													)}
-
-													{!NotificationData.is_read && (
-														<b>
-															<Link class="no-link-style" to={`/postter/message/${myUserDataGlobal.id}-${NotificationData.sender.id}/`}>
-															<span class="ml-1 text-secondary">{NotificationData.sender.username}</span>												
-															<p class="ml-1 text-secondary">{NotificationData.content}</p>
-															<p class="ml-1 text-secondary">{NotificationData.created_at.split('.')[0].replace('T',' ')}</p>
-															</Link>
-														</b>
-													)}
-													
-
+											<div class="col-10">
+											
+											<p class="ml-1 text-secondary"><b>{NotificationData.sender.username}</b>さんにフォローされました</p>
+											<p class="ml-1 text-secondary"><PostContent content={NotificationData.content}/></p>
+											<p class="ml-1 text-secondary">{NotificationData.created_at.split('.')[0].replace('T',' ')}</p>
+											
 												</div>
 											</div>
-										
+											</Link>
+										</>
+									)}
+									{NotificationData.notification_type == "like" && (
+										<>
+											<Link class="no-link-style" to={`/postter/post/${NotificationData.post}/`}>
+											<div class="row">
+												<div class="col-2">
+													<img class="rounded img-fluid mx-auto d-block" src={`${NotificationData.sender.avatar_imgurl}`} id="avatar-image" width="40" height="40"/>
+													<p class="text-center">{NotificationData.notification_type}</p>
+												</div>
+											<div class="col-10">
+											
+											<p class="ml-1 text-secondary"><b>{NotificationData.sender.username}</b>さんにいいねされました</p>
+											<p class="ml-1 text-secondary"><PostContent content={NotificationData.content}/></p>
+											<p class="ml-1 text-secondary">{NotificationData.created_at.split('.')[0].replace('T',' ')}</p>
+											
+											</div>
+										</div>
+										</Link>
+										</>
+									)}
+									{NotificationData.notification_type == "mention" && (
+										<>
+											<Link class="no-link-style" to={`/postter/post/${NotificationData.post}/`}>
+											<div class="row">
+												<div class="col-2">
+													<img class="rounded img-fluid mx-auto d-block" src={`${NotificationData.sender.avatar_imgurl}`} id="avatar-image" width="40" height="40"/>
+													<p class="text-center">{NotificationData.notification_type}</p>
+												</div>
+											<div class="col-10">
+											
+											<p class="ml-1 text-secondary"><b>{NotificationData.sender.username}</b>さんからメンションを受け取りました</p>
+											<p class="ml-1 text-secondary"><PostContent content={NotificationData.content}/></p>
+											<p class="ml-1 text-secondary">{NotificationData.created_at.split('.')[0].replace('T',' ')}</p>
+											
+											</div>
+										</div>
+										</Link>
+										</>
+									)}
+									{NotificationData.notification_type == "message" && (
+										<>
+										<Link class="no-link-style" to={`/postter/message/${myUserDataGlobal.id}-${NotificationData.sender.id}/`}>
+											<div class="row">
+												<div class="col-2">
+													<img class="rounded img-fluid mx-auto d-block" src={`${NotificationData.sender.avatar_imgurl}`} id="avatar-image" width="40" height="40"/>
+													<p class="text-center">{NotificationData.notification_type}</p>
+												</div>
+											<div class="col-10">
+											<p class="ml-1 text-secondary"><b>{NotificationData.sender.username}</b>さんからダイレクトメッセージを受け取りました</p>
+											<p class="ml-1 text-secondary"><PostContent content={NotificationData.content}/></p>
+											<p class="ml-1 text-secondary">{NotificationData.created_at.split('.')[0].replace('T',' ')}</p>
+											
+											</div>
+										</div>
+										</Link>
+										</>
+									)}
+									{NotificationData.notification_type == "reply" && (
+										<>
+											<Link class="no-link-style" to={`/postter/post/${NotificationData.parent}/`}>
+											<div class="row">
+												<div class="col-2">
+													<img class="rounded img-fluid mx-auto d-block" src={`${NotificationData.sender.avatar_imgurl}`} id="avatar-image" width="40" height="40"/>
+													<p class="text-center">{NotificationData.notification_type}</p>
+												</div>
+											<div class="col-10">
+											<p class="ml-1 text-secondary"><b>{NotificationData.sender.username}</b>さんにリプライされました</p>
+											<p class="ml-1 text-secondary"><PostContent content={NotificationData.content}/></p>
+											<p class="ml-1 text-secondary">{NotificationData.created_at.split('.')[0].replace('T',' ')}</p>
+											
+											</div>
+										</div>
+										</Link>
+										</>
+									)}
+
 								</div>
 						))}
 						</InfiniteScroll>

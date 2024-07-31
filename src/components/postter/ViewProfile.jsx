@@ -165,9 +165,10 @@ const Home = () => {
         });
 		const res = await response.json();
 		if(response.ok){
-			refreshPost()
+			//refreshPost()
 			setMessages(res.message);
 			getUserData(setMyUserDataGlobal)
+			getMyUserData()
 			
 		}else{
 			setMessages(res);

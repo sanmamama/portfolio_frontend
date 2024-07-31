@@ -262,6 +262,9 @@ const Home = () => {
 			setReplies([...replies, ...data.results])
 			setHasMore(data.next)
 			setPageCount(pageCount+1)
+		}else{
+			setReplies([])
+			setHasMore(false)
 		}
 	}
 
@@ -278,7 +281,7 @@ const Home = () => {
 		},[location.pathname])
 
 
-	if(!posts || !replies || !myUserDataGlobal){
+	if(!posts  || !myUserDataGlobal){
 		return("loading...")
 	}
 
@@ -358,8 +361,9 @@ const Home = () => {
 							class="form-control"
 							value={newPost}
 							onChange={handleInputChange}
-							rows="4"
+							rows="2"
 							cols="50"
+							placeholder="返信をポストする"
 						/>
 						<button　class="mb-2 mt-2 btn btn-outline-primary btn-block" type="submit">返信</button>
 						</form>

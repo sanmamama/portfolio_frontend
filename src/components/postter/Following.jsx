@@ -122,7 +122,7 @@ const Home = () => {
 			acc = value;
 			}
 			return acc;
-		})
+		}, null);
 		fetch(`${apiUrl}/postter/user/${uid}/`,
 			{
 			method: 'GET',
