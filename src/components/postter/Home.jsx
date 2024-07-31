@@ -290,7 +290,7 @@ const Home = () => {
 									)}
 									{postData.parent && (
 											<>
-											<p><img class="mr-2" src={`${baseUrl}/icon/reply.svg`} width="16" height="16"/><Link to={`/postter/post/${postData.parent}/`}>ポストID{postData.parent}</Link>にリプライしました</p>
+											<p><img class="mr-2" src={`${baseUrl}/icon/reply.svg`} width="16" height="16"/><Link to={`/postter/post/${postData.parent}/`}>ポストID{postData.parent}</Link>へのリプライ</p>
 											</>
 									)}
 									<h6>
@@ -302,7 +302,7 @@ const Home = () => {
 									<p><PostContent content={postData.content}/></p>
 									</Link>
 
-									<ModalCreateReplyButton postData={postData}/>
+									<ModalCreateReplyButton refreshPost={refreshPost} postData={postData}/>
 									
 									<a class="mr-4" style={{cursor:"pointer"}} onClick={() => handleLike(postData.id,ix,myUserDataGlobal.like.includes(postData.id))}>
 									{myUserDataGlobal.like.includes(postData.id) ? <img src={`${baseUrl}/icon/heart_active.svg`} width="16" height="16"/> : <img src={`${baseUrl}/icon/heart_no_active.svg`} width="16" height="16"/>}{postData.like_count}

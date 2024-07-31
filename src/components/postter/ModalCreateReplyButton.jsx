@@ -91,7 +91,7 @@ class CustomModal extends React.Component {
 
         });
     this.closeModal()
-    //this.props.refreshPost()
+    this.props.refreshPost()
   }
 
   render() {

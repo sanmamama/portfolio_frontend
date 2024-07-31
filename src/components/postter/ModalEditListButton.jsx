@@ -152,7 +152,7 @@ class CustomModal extends React.Component {
 						  <input class="form-control" type="text" name="name" value={this.state.name} onChange={this.handleInputChange}/>
               <label>リストの説明</label>
               <textarea class="form-control" name="description" value={this.state.description} onChange={this.handleInputChange} rows="3" cols="50"/>
-              <button　class="mb-2 mt-2 btn btn-outline-primary btn-block" type="submit">変更</button>
+              <button class="mb-2 mt-2 btn btn-outline-primary btn-block" type="submit">変更</button>
             </form>
             <button class="btn btn-danger btn-block" onClick={this.handleListDelete}>リストを削除する</button>
             <button class="mb-2 mt-4 btn btn-outline-danger btn-block" onClick={this.closeModal}>閉じる</button>

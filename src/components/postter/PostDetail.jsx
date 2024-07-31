@@ -15,13 +15,15 @@ const baseUrl = process.env.REACT_APP_BASE_URL;
 
 
 const Home = () => {
+	const location = useLocation();
 	const { post_id } = useParams();
 
 	const {myUserDataGlobal,setMyUserDataGlobal} = useContext(UserDataContext);
 	const [userData,setUserData] = useState(null);
 	const [messages, setMessages] = useState("");
+	const [newPost, setNewPost] = useState("");
 	const [posts, setPosts] = useState(null);
-	const [replies, setreplies] = useState([]);
+	const [replies, setReplies] = useState([]);
 	const [pageCount, setPageCount] = useState(1);
 	const [hasMore, setHasMore] = useState(true);
 	const navigate = useNavigate();
@@ -49,27 +51,25 @@ const Home = () => {
                 },
                 body: JSON.stringify({ post: postId })
             });
-
-            if (response.ok) {
 				const data = await response.json();
 				//dtrictModeのせいで2回コールされて+-2されるけど気にしないよう。
-				if(post_reposted){
-					setPosts(()=>{posts.repost_count-=1;return posts;})
+				if(post_ix >= 0){
+					if(post_reposted){
+						setReplies(()=>{replies[post_ix].repost_count-=1;return replies;})
+					}else{
+						setReplies(()=>{replies[post_ix].repost_count+=1;return replies;})
+					}
+					
 				}else{
-					setPosts(()=>{posts.repost_count+=1;return posts;})
+					if(post_reposted){
+						setPosts(()=>{posts.repost_count-=1;return posts;})
+					}else{
+						setPosts(()=>{posts.repost_count+=1;return posts;})
+					}
 				}
 				getUserData(setMyUserDataGlobal)
-                setMessages(data.detail);
-            } else {
-                const data = await response.json();
-				if(post_reposted){
-					setPosts(()=>{posts.repost_count-=1;return posts;})
-				}else{
-					setPosts(()=>{posts.repost_count+=1;return posts;})
-				}
-				getUserData(setMyUserDataGlobal)
-                setMessages(data.detail);
-            }
+				setMessages(data.detail);
+
         } catch (error) {
             setMessages('An error occurred.');
         }
@@ -95,10 +95,18 @@ const Home = () => {
 		const res = await response.json();
 		if(response.ok){
 			//dtrictModeのせいで2回コールされて+-2されるけど気にしないよう。
-			if(post_liked){
-				setPosts(()=>{posts.like_count-=1;return posts;})
+			if(post_ix >= 0){
+				if(post_liked){
+					setReplies(()=>{replies[post_ix].like_count-=1;return replies;})
+				}else{
+					setReplies(()=>{replies[post_ix].like_count+=1;return replies;})
+				}
 			}else{
-				setPosts(()=>{posts.like_count+=1;return posts;})
+				if(post_liked){
+					setPosts(()=>{posts.like_count-=1;return posts;})
+				}else{
+					setPosts(()=>{posts.like_count+=1;return posts;})
+				}
 			}
 			getUserData(setMyUserDataGlobal)
 			setMessages(`postId:${post_id}${res.message}`);
@@ -131,6 +139,7 @@ const Home = () => {
 		}else{
 			setMessages(`id:${postId}ポストの削除に失敗しました`);
 		}
+		refreshPost()
 	};
 
 	//フォローハンドル
@@ -160,6 +169,49 @@ const Home = () => {
 		}
         
     };
+
+	//返信投稿
+	//ポストフォームチェンジ
+	const handleInputChange = (e) => {
+        setNewPost(e.target.value)
+    };
+
+	const handlePostSubmit = (event) => {
+		event.preventDefault();
+		if (newPost === "") return;
+		
+		const token = document.cookie.split('; ').reduce((acc, row) => {
+				const [key, value] = row.split('=');
+				if (key === 'token') {
+				acc = value;
+				}
+				return acc;
+			}, null);
+			fetch(`${apiUrl}/postter/post/`, {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+					'Authorization': `Token ${token}`,
+				},
+				body: JSON.stringify({content:newPost,parent:post_id}),
+			})
+			.then(response => {
+				if(response.ok){
+					setNewPost("")
+				}else{
+	
+				}
+				
+				return response.json();
+			})
+			.then(data => {
+	
+			})
+			.catch(error => {
+	
+			});
+		refreshPost()
+	  }
 
 	const loadPost = async() => {
 		const token = document.cookie.split('; ').reduce((acc, row) => {
@@ -207,16 +259,23 @@ const Home = () => {
 		const data = await response.json()
 		
 		if(response.ok){
-			setreplies([...replies, ...data.results])
+			setReplies([...replies, ...data.results])
 			setHasMore(data.next)
 			setPageCount(pageCount+1)
 		}
 	}
 
+	const refreshPost = ()=>{
+		loadPost()
+		setReplies([])
+		setHasMore(true)
+		setPageCount(1)
+	}
+
 
 	useEffect(() => {
-		loadPost()
-		},[])
+		refreshPost()
+		},[location.pathname])
 
 
 	if(!posts || !replies || !myUserDataGlobal){
@@ -241,7 +300,7 @@ const Home = () => {
 											)}
 											{posts.parent && (
 											<>
-											<p><img class="mr-2" src={`${baseUrl}/icon/reply.svg`} width="16" height="16"/><Link to={`/postter/post/${posts.parent}/`}>ポストID{posts.parent}</Link>にリプライしました</p>
+											<p><img class="mr-2" src={`${baseUrl}/icon/reply.svg`} width="16" height="16"/><Link to={`/postter/post/${posts.parent}/`}>ポストID{posts.parent}</Link>へのリプライ</p>
 											</>
 											)}
 											
@@ -254,11 +313,11 @@ const Home = () => {
 
 											<ModalCreateReplyButton postData={posts}/>
 
-											<a class="mr-4" style={{cursor:"pointer"}} onClick={() => handleLike(posts.id,1,myUserDataGlobal.like.includes(posts.id))}>
+											<a class="mr-4" style={{cursor:"pointer"}} onClick={() => handleLike(posts.id,-1,myUserDataGlobal.like.includes(posts.id))}>
 											{myUserDataGlobal.like.includes(posts.id) ? <img src={`${baseUrl}/icon/heart_active.svg`} width="16" height="16"/> : <img src={`${baseUrl}/icon/heart_no_active.svg`} width="16" height="16"/>}{posts.like_count}
 											</a>
 											
-											<a class="mr-4" style={{cursor:"pointer"}} onClick={() => handleRepost(posts.id,1,myUserDataGlobal.repost.includes(posts.id))}>
+											<a class="mr-4" style={{cursor:"pointer"}} onClick={() => handleRepost(posts.id,-1,myUserDataGlobal.repost.includes(posts.id))}>
 											{myUserDataGlobal.repost.includes(posts.id) ? <img src={`${baseUrl}/icon/repost_active.svg`} width="16" height="16"/> : <img src={`${baseUrl}/icon/repost_no_active.svg`} width="16" height="16"/>}{posts.repost_count}
 											</a>
 
@@ -293,7 +352,18 @@ const Home = () => {
 								</td>
 							</tr>
 					</table>
-
+					<hr/>
+					<form onSubmit={handlePostSubmit}>
+						<textarea 
+							class="form-control"
+							value={newPost}
+							onChange={handleInputChange}
+							rows="4"
+							cols="50"
+						/>
+						<button　class="mb-2 mt-2 btn btn-outline-primary btn-block" type="submit">返信</button>
+						</form>
+					<hr/>
 					<table id='Reply_list' class="table-sm" style={{width: "100%"}}>
 						<tbody>
 							<InfiniteScroll

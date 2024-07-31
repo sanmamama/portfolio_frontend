@@ -7,7 +7,11 @@ export const notificationCheck = (setMyNotificationGlobal) => {
 		acc = value;
 		}
 		return acc;
+	
+		
+
 	}, null);
+
 	fetch(`${apiUrl}/postter/notification/unread_count/`,
 		{
 		method: 'GET',

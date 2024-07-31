@@ -303,6 +303,11 @@ const Home = () => {
 											<p><img class="mr-2" src={`${baseUrl}/icon/repost_active.svg`} width="16" height="16"/><Link to={`/postter/${postData.repost_user.uid}/`}>{postData.repost_user.username}</Link>がリポストしました</p>
 											</>
 											)}
+											{postData.parent && (
+											<>
+											<p><img class="mr-2" src={`${baseUrl}/icon/reply.svg`} width="16" height="16"/><Link to={`/postter/post/${postData.parent}/`}>ポストID{postData.parent}</Link>へのリプライ</p>
+											</>
+											)}
 											<h6>
 												<Link to={`/postter/${postData.owner.uid}/`}><b>{postData.owner.username}</b></Link>
 												<span class="ml-1 text-secondary">@{postData.owner.uid}</span>
