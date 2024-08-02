@@ -298,12 +298,12 @@ const Home = () => {
 										<td class="text" style={{width: "80%"}}>
 											{posts.repost_user && (
 											<>
-											<p><img class="mr-2" src={`${baseUrl}/icon/repost_active.svg`} width="16" height="16"/><Link to={`/postter/${posts.repost_user.uid}/`}>{posts.repost_user.username}</Link>がリポストしました</p>
+											<p><img class="mr-2" src={`${baseUrl}/media/icon/repost_active.svg`} width="16" height="16"/><Link to={`/postter/${posts.repost_user.uid}/`}>{posts.repost_user.username}</Link>がリポストしました</p>
 											</>
 											)}
 											{posts.parent && (
 											<>
-											<p><img class="mr-2" src={`${baseUrl}/icon/reply.svg`} width="16" height="16"/><Link to={`/postter/post/${posts.parent}/`}>ポストID{posts.parent}</Link>へのリプライ</p>
+											<p><img class="mr-2" src={`${baseUrl}/media/icon/reply.svg`} width="16" height="16"/><Link to={`/postter/post/${posts.parent}/`}>ポストID{posts.parent}</Link>へのリプライ</p>
 											</>
 											)}
 											
@@ -317,15 +317,15 @@ const Home = () => {
 											<ModalCreateReplyButton postData={posts}/>
 
 											<a class="mr-4" style={{cursor:"pointer"}} onClick={() => handleLike(posts.id,-1,myUserDataGlobal.like.includes(posts.id))}>
-											{myUserDataGlobal.like.includes(posts.id) ? <img src={`${baseUrl}/icon/heart_active.svg`} width="16" height="16"/> : <img src={`${baseUrl}/icon/heart_no_active.svg`} width="16" height="16"/>}{posts.like_count}
+											{myUserDataGlobal.like.includes(posts.id) ? <img src={`${baseUrl}/media/icon/heart_active.svg`} width="16" height="16"/> : <img src={`${baseUrl}/media/icon/heart_no_active.svg`} width="16" height="16"/>}{posts.like_count}
 											</a>
 											
 											<a class="mr-4" style={{cursor:"pointer"}} onClick={() => handleRepost(posts.id,-1,myUserDataGlobal.repost.includes(posts.id))}>
-											{myUserDataGlobal.repost.includes(posts.id) ? <img src={`${baseUrl}/icon/repost_active.svg`} width="16" height="16"/> : <img src={`${baseUrl}/icon/repost_no_active.svg`} width="16" height="16"/>}{posts.repost_count}
+											{myUserDataGlobal.repost.includes(posts.id) ? <img src={`${baseUrl}/media/icon/repost_active.svg`} width="16" height="16"/> : <img src={`${baseUrl}/media/icon/repost_no_active.svg`} width="16" height="16"/>}{posts.repost_count}
 											</a>
 
 	
-											<img src={`${baseUrl}/icon/view_count.svg`} width="16" height="16"/>{posts.view_count}
+											<img src={`${baseUrl}/media/icon/view_count.svg`} width="16" height="16"/>{posts.view_count}
 
 
 										</td>
@@ -395,14 +395,14 @@ const Home = () => {
 									<ModalCreateReplyButton postData={replyData}/>
 									
 									<a class="mr-4" style={{cursor:"pointer"}} onClick={() => handleLike(replyData.id,ix,myUserDataGlobal.like.includes(replyData.id))}>
-									{myUserDataGlobal.like.includes(replyData.id) ? <img src={`${baseUrl}/icon/heart_active.svg`} width="16" height="16"/> : <img src={`${baseUrl}/icon/heart_no_active.svg`} width="16" height="16"/>}{replyData.like_count}
+									{myUserDataGlobal.like.includes(replyData.id) ? <img src={`${baseUrl}/media/icon/heart_active.svg`} width="16" height="16"/> : <img src={`${baseUrl}/media/icon/heart_no_active.svg`} width="16" height="16"/>}{replyData.like_count}
 									</a>
 									
 									<a class="mr-4" style={{cursor:"pointer"}} onClick={() => handleRepost(replyData.id,ix,myUserDataGlobal.repost.includes(replyData.id))}>
-									{myUserDataGlobal.repost.includes(replyData.id) ? <img src={`${baseUrl}/icon/repost_active.svg`} width="16" height="16"/> : <img src={`${baseUrl}/icon/repost_no_active.svg`} width="16" height="16"/>}{replyData.repost_count}
+									{myUserDataGlobal.repost.includes(replyData.id) ? <img src={`${baseUrl}/media/icon/repost_active.svg`} width="16" height="16"/> : <img src={`${baseUrl}/media/icon/repost_no_active.svg`} width="16" height="16"/>}{replyData.repost_count}
 									</a>
 
-									<img src={`${baseUrl}/icon/view_count.svg`} width="16" height="16"/>{replyData.view_count}
+									<img src={`${baseUrl}/media/icon/view_count.svg`} width="16" height="16"/>{replyData.view_count}
 
 									
 									

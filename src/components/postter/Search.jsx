@@ -241,14 +241,14 @@ const Home = () => {
 									<p><PostContent content={postData.content}/></p>
 
 									<a class="mr-4" style={{cursor:"pointer"}} onClick={() => handleLike(postData.id,ix,myUserDataGlobal.like.includes(postData.id))}>
-									{myUserDataGlobal.like.includes(postData.id) ? <img src={`${baseUrl}/icon/heart_active.svg`} width="16" height="16"/> : <img src={`${baseUrl}/icon/heart_no_active.svg`} width="16" height="16"/>}{postData.like_count}
+									{myUserDataGlobal.like.includes(postData.id) ? <img src={`${baseUrl}/media/icon/heart_active.svg`} width="16" height="16"/> : <img src={`${baseUrl}/media/icon/heart_no_active.svg`} width="16" height="16"/>}{postData.like_count}
 									</a>
 									
 									<a class="mr-4" style={{cursor:"pointer"}} onClick={() => handleRepost(postData.id,ix,myUserDataGlobal.repost.includes(postData.id))}>
-									{myUserDataGlobal.repost.includes(postData.id) ? <img src={`${baseUrl}/icon/repost_active.svg`} width="16" height="16"/> : <img src={`${baseUrl}/icon/repost_no_active.svg`} width="16" height="16"/>}{postData.repost_count}
+									{myUserDataGlobal.repost.includes(postData.id) ? <img src={`${baseUrl}/media/icon/repost_active.svg`} width="16" height="16"/> : <img src={`${baseUrl}/media/icon/repost_no_active.svg`} width="16" height="16"/>}{postData.repost_count}
 									</a>
 
-									<img src={`${baseUrl}/icon/view_count.svg`} width="16" height="16"/>{postData.view_count}
+									<img src={`${baseUrl}/media/icon/view_count.svg`} width="16" height="16"/>{postData.view_count}
 									
 								</td>
 								<td class='text' style={{width: "5%"}}>

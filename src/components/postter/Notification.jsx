@@ -135,6 +135,25 @@ const Message = () => {
 										</Link>
 										</>
 									)}
+									{NotificationData.notification_type == "repost" && (
+										<>
+											<Link class="no-link-style" to={`/postter/post/${NotificationData.post}/`}>
+											<div class="row">
+												<div class="col-2">
+													<img class="rounded img-fluid mx-auto d-block" src={`${NotificationData.sender.avatar_imgurl}`} id="avatar-image" width="40" height="40"/>
+													<p class="text-center">{NotificationData.notification_type}</p>
+												</div>
+											<div class="col-10">
+											
+											<p class="ml-1"><b>{NotificationData.sender.username}</b>さんにリポストされました</p>
+											<p class="ml-1 text-secondary"><PostContent content={NotificationData.content}/></p>
+											<p class="ml-1 text-secondary">{NotificationData.created_at.split('.')[0].replace('T',' ')}</p>
+											
+											</div>
+										</div>
+										</Link>
+										</>
+									)}
 									{NotificationData.notification_type == "mention" && (
 										<>
 											<Link class="no-link-style" to={`/postter/post/${NotificationData.post}/`}>

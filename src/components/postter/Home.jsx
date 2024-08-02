@@ -285,12 +285,12 @@ const Home = () => {
 								<td class="text" style={{width: "80%"}}>
 									{postData.repost_user && (
 										<>
-										<p><img class="mr-2" src={`${baseUrl}/icon/repost_active.svg`} width="16" height="16"/><Link to={`/postter/${postData.repost_user.uid}/`}>{postData.repost_user.username}</Link>がリポストしました</p>
+										<p><img class="mr-2" src={`${baseUrl}/media/icon/repost_active.svg`} width="16" height="16"/><Link to={`/postter/${postData.repost_user.uid}/`}>{postData.repost_user.username}</Link>がリポストしました</p>
 										</>
 									)}
 									{postData.parent && (
 											<>
-											<p><img class="mr-2" src={`${baseUrl}/icon/reply.svg`} width="16" height="16"/><Link to={`/postter/post/${postData.parent}/`}>ポストID{postData.parent}</Link>へのリプライ</p>
+											<p><img class="mr-2" src={`${baseUrl}/media/icon/reply.svg`} width="16" height="16"/><Link to={`/postter/post/${postData.parent}/`}>ポストID{postData.parent}</Link>へのリプライ</p>
 											</>
 									)}
 									<h6>
@@ -305,14 +305,14 @@ const Home = () => {
 									<ModalCreateReplyButton refreshPost={refreshPost} postData={postData}/>
 									
 									<a class="mr-4" style={{cursor:"pointer"}} onClick={() => handleLike(postData.id,ix,myUserDataGlobal.like.includes(postData.id))}>
-									{myUserDataGlobal.like.includes(postData.id) ? <img src={`${baseUrl}/icon/heart_active.svg`} width="16" height="16"/> : <img src={`${baseUrl}/icon/heart_no_active.svg`} width="16" height="16"/>}{postData.like_count}
+									{myUserDataGlobal.like.includes(postData.id) ? <img src={`${baseUrl}/media/icon/heart_active.svg`} width="16" height="16"/> : <img src={`${baseUrl}/media/icon/heart_no_active.svg`} width="16" height="16"/>}{postData.like_count}
 									</a>
 									
 									<a class="mr-4" style={{cursor:"pointer"}} onClick={() => handleRepost(postData.id,ix,myUserDataGlobal.repost.includes(postData.id))}>
-									{myUserDataGlobal.repost.includes(postData.id) ? <img src={`${baseUrl}/icon/repost_active.svg`} width="16" height="16"/> : <img src={`${baseUrl}/icon/repost_no_active.svg`} width="16" height="16"/>}{postData.repost_count}
+									{myUserDataGlobal.repost.includes(postData.id) ? <img src={`${baseUrl}/media/icon/repost_active.svg`} width="16" height="16"/> : <img src={`${baseUrl}/media/icon/repost_no_active.svg`} width="16" height="16"/>}{postData.repost_count}
 									</a>
 
-									<img src={`${baseUrl}/icon/view_count.svg`} width="16" height="16"/>{postData.view_count}
+									<img src={`${baseUrl}/media/icon/view_count.svg`} width="16" height="16"/>{postData.view_count}
 									
 								</td>
 								<td class='text' style={{width: "5%"}}>

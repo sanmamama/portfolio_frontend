@@ -98,7 +98,7 @@ class CustomModal extends React.Component {
     return (
       <>
         <a class="mr-4" style={{cursor:"pointer"}} onClick={this.openModal}>
-        <img src={`${baseUrl}/icon/reply.svg`} width="16" height="16"/>{this.props.postData.reply_count}
+        <img src={`${baseUrl}/media/icon/reply.svg`} width="16" height="16"/>{this.props.postData.reply_count}
         </a>
         <Modal
           isOpen={this.state.modalIsOpen}
