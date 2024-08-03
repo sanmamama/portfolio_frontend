@@ -13,6 +13,13 @@ function Header() {
 		getUserData(setMyUserDataGlobal)
 	},[])
 
+	const closeMenu = () => {
+		const navBar = document.getElementById('navbarsExampleDefault');
+		if (navBar.classList.contains('show')) {
+		  navBar.classList.remove('show');
+		}
+	  };
+
 	return (
 		<header>
 			<nav className="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
@@ -29,6 +36,7 @@ function Header() {
 									<NavLink
 										className={({ isActive }) => "nav-link" + (isActive ? " active" : "")}
 										to="/postter/home"
+										onClick={closeMenu}
 									>
 										ホーム
 									</NavLink>
@@ -37,6 +45,7 @@ function Header() {
 									<NavLink
 										className={({ isActive }) => "nav-link" + (isActive ? " active" : "")}
 										to="/postter/notification/"
+										onClick={closeMenu}
 									>
 										通知
 									</NavLink>
@@ -45,6 +54,7 @@ function Header() {
 									<NavLink
 										className={({ isActive }) => "nav-link" + (isActive ? " active" : "")}
 										to="/postter/message"
+										onClick={closeMenu}
 									>
 										メッセージ
 									</NavLink>
@@ -53,6 +63,7 @@ function Header() {
 									<NavLink
 										className={({ isActive }) => "nav-link" + (isActive ? " active" : "")}
 										to="/postter/memberlist"
+										onClick={closeMenu}
 									>
 										リスト
 									</NavLink>
