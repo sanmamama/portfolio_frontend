@@ -160,18 +160,18 @@ const Home = () => {
 	}
 
 	return (
-		<div class="col-sm-6 pl-0 pr-0">
-			<div class="card">
-				<div class="card-body pt-3 pb-3 pl-3 pr-3">
+		<div className="col-sm-6 pl-0 pr-0">
+			<div className="card">
+				<div className="card-body pt-3 pb-3 pl-3 pr-3">
 					{messages}
 					
 					
-					<p class="mb-0"><b>{userData.username}</b></p>
-					<p class="text-secondary">@{userData.uid}</p>
+					<p className="mb-0"><b>{userData.username}</b></p>
+					<p className="text-secondary">@{userData.uid}</p>
 
-					<p class="mt-3 mb-3">フォロー中</p>
-				<div class="table table-responsive">
-					<table id='post_list' class="table-sm" style={{width: "100%"}}>
+					<p className="mt-3 mb-3">フォロー中</p>
+				<div className="table table-responsive">
+					<table id='post_list' className="table-sm" style={{width: "100%"}}>
 						<tbody>
 						<InfiniteScroll
 								loadMore={loadFollow}
@@ -179,30 +179,30 @@ const Home = () => {
 								hasMore={hasMore}
 								threshold={5} >
 								{posts.map((postData,ix) => (
-								<tr class="text" key={ix}>
-								<td class="text" style={{width: "15%"}}>
-									<img class="rounded img-fluid mx-auto d-block" src={`${baseUrl}${postData.following.avatar_imgurl}`} id="avatar-image" width="40" height="40"/>
+								<tr className="text" key={ix}>
+								<td className="text" style={{width: "15%"}}>
+									<img className="rounded img-fluid mx-auto d-block" src={`${baseUrl}${postData.following.avatar_imgurl}`} id="avatar-image" width="40" height="40"/>
 								</td>
-								<td class="text" style={{width: "80%"}}>
+								<td className="text" style={{width: "80%"}}>
 									<h6>
 										<Link to={`/postter/${postData.following.uid}/`}><b>{postData.following.username}</b></Link>
-										<span class="ml-1 text-secondary">@{postData.following.uid}</span>
+										<span className="ml-1 text-secondary">@{postData.following.uid}</span>
 									</h6>
 									<p>{postData.following.profile_statement}</p>
 								</td>
-								<td class='text' style={{width: "5%"}}>
-									<div class="dropdown">
-										<button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">︙</button>
-										<div class="dropdown-menu">
+								<td className='text' style={{width: "5%"}}>
+									<div className="dropdown">
+										<button type="button" className="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">︙</button>
+										<div className="dropdown-menu">
 										{postData.following.id == myUserDataGlobal.id && (
 											<>
-											<ModalAddUserToList class={"dropdown-item"} id={postData.following.id}/>
+											<ModalAddUserToList className={"dropdown-item"} id={postData.following.id}/>
 											</>
 										)}
 										{postData.following.id !== myUserDataGlobal.id && (
 											<>
-												<ModalAddUserToList class={"dropdown-item"} id={postData.following.id}/>
-												<a class="dropdown-item" style={{cursor:"pointer"}} onClick={() => handleFollow(postData.following.id)}>
+												<ModalAddUserToList className={"dropdown-item"} id={postData.following.id}/>
+												<a className="dropdown-item" style={{cursor:"pointer"}} onClick={() => handleFollow(postData.following.id)}>
 													{myUserDataGlobal.following.includes(postData.following.id) ? "このユーザーのフォローを解除する" : "このユーザーをフォローする"}
 												</a>
 											</>

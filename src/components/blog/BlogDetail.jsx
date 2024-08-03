@@ -14,7 +14,7 @@ function replaceHTag(content) {
     let toc = '';
 
     const updatedContent = content.replace(/<(h[4-6])>(.*?)<\/\1>/g, (match, p1, p2) => {
-        const tocEntry = `<p class="ml-${p1.charAt(1)-5}"><a href="#${idCounter}">${p2}</a></p>`;
+        const tocEntry = `<p className="ml-${p1.charAt(1)-5}"><a href="#${idCounter}">${p2}</a></p>`;
         toc += tocEntry;
         return `<a style="display: block; margin-top: -60px; padding-top: 60px;" id="${idCounter++}"><${p1}>${p2}</${p1}></a>`;
 
@@ -73,18 +73,18 @@ const BlogDetail = () => {
 		<div className="col-sm-9">
 			<div className="container container-m">
 						{data.detail}
-						<span class="mt-0 mb-0 text-secondary">投稿日 {formatDateToJapanese(data.created_at)}　編集日 {formatDateToJapanese(data.updated_at)}</span>
-						<span class="ml-2 text-secondary mark small"><Link to={`/?category=${data.category.id}`}>{data.category.name}</Link></span>
+						<span className="mt-0 mb-0 text-secondary">投稿日 {formatDateToJapanese(data.created_at)}　編集日 {formatDateToJapanese(data.updated_at)}</span>
+						<span className="ml-2 text-secondary mark small"><Link to={`/?category=${data.category.id}`}>{data.category.name}</Link></span>
 						{data.tag.map(
 						tag => (
-							<span class="ml-2 text-secondary small" key={tag.id}><Link to={`/?tag=${tag.id}`}>{tag.name}</Link></span>
+							<span className="ml-2 text-secondary small" key={tag.id}><Link to={`/?tag=${tag.id}`}>{tag.name}</Link></span>
 							))}
-						<h4 class="mt-1 mb-4">
-						<img class="mr-2" src = {data.img} width="50" height="50"></img>
-						<span class="align-text-bottom">{data.title}</span>
+						<h4 className="mt-1 mb-4">
+						<img className="mr-2" src = {data.img} width="50" height="50"></img>
+						<span className="align-text-bottom">{data.title}</span>
 						</h4>
 					<div dangerouslySetInnerHTML={{ __html: sanitizedContent }} />
-					<button class="btn btn-outline-primary" onClick={handleLike}>いいね！ ({data.likes})</button>
+					<button className="btn btn-outline-primary" onClick={handleLike}>いいね！ ({data.likes})</button>
 			</div>
 		</div>
 		

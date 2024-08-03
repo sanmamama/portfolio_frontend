@@ -83,9 +83,9 @@ const Message = () => {
 	}
 
 	return (
-		<div class="col-sm-6 pl-0 pr-0">
-			<div class="card">
-				<div class="card-body pt-3 pb-3 pl-3 pr-3">
+		<div className="col-sm-6 pl-0 pr-0">
+			<div className="card">
+				<div className="card-body pt-3 pb-3 pl-3 pr-3">
 					{messages}
 					<h4>通知</h4>
 					<div>
@@ -99,17 +99,17 @@ const Message = () => {
 												
 									{NotificationData.notification_type == "follow" && (
 										<>
-											<Link class="no-link-style" to={`/postter/${NotificationData.sender.uid}/`}>
-											<div class="row">
-												<div class="col-2">
-													<img class="rounded img-fluid mx-auto d-block" src={`${NotificationData.sender.avatar_imgurl}`} id="avatar-image" width="40" height="40"/>
-													<p class="text-center">{NotificationData.notification_type}</p>
+											<Link className="no-link-style" to={`/postter/${NotificationData.sender.uid}/`}>
+											<div className="row">
+												<div className="col-2">
+													<img className="rounded img-fluid mx-auto d-block" src={`${NotificationData.sender.avatar_imgurl}`} id="avatar-image" width="40" height="40"/>
+													<p className="text-center">{NotificationData.notification_type}</p>
 												</div>
-											<div class="col-10">
+											<div className="col-10">
 											
-											<p class="ml-1"><b>{NotificationData.sender.username}</b>さんにフォローされました</p>
-											<p class="ml-1 text-secondary"><PostContent content={NotificationData.content}/></p>
-											<p class="ml-1 text-secondary">{NotificationData.created_at.split('.')[0].replace('T',' ')}</p>
+											<p className="ml-1"><b>{NotificationData.sender.username}</b>さんにフォローされました</p>
+											<p className="ml-1 text-secondary"><PostContent content={NotificationData.content}/></p>
+											<p className="ml-1 text-secondary">{NotificationData.created_at.split('.')[0].replace('T',' ')}</p>
 											
 												</div>
 											</div>
@@ -118,17 +118,17 @@ const Message = () => {
 									)}
 									{NotificationData.notification_type == "like" && (
 										<>
-											<Link class="no-link-style" to={`/postter/post/${NotificationData.post}/`}>
-											<div class="row">
-												<div class="col-2">
-													<img class="rounded img-fluid mx-auto d-block" src={`${NotificationData.sender.avatar_imgurl}`} id="avatar-image" width="40" height="40"/>
-													<p class="text-center">{NotificationData.notification_type}</p>
+											<Link className="no-link-style" to={`/postter/post/${NotificationData.post}/`}>
+											<div className="row">
+												<div className="col-2">
+													<img className="rounded img-fluid mx-auto d-block" src={`${NotificationData.sender.avatar_imgurl}`} id="avatar-image" width="40" height="40"/>
+													<p className="text-center">{NotificationData.notification_type}</p>
 												</div>
-											<div class="col-10">
+											<div className="col-10">
 											
-											<p class="ml-1"><b>{NotificationData.sender.username}</b>さんにいいねされました</p>
-											<p class="ml-1 text-secondary"><PostContent content={NotificationData.content}/></p>
-											<p class="ml-1 text-secondary">{NotificationData.created_at.split('.')[0].replace('T',' ')}</p>
+											<p className="ml-1"><b>{NotificationData.sender.username}</b>さんにいいねされました</p>
+											<p className="ml-1 text-secondary"><PostContent content={NotificationData.content}/></p>
+											<p className="ml-1 text-secondary">{NotificationData.created_at.split('.')[0].replace('T',' ')}</p>
 											
 											</div>
 										</div>
@@ -137,17 +137,17 @@ const Message = () => {
 									)}
 									{NotificationData.notification_type == "repost" && (
 										<>
-											<Link class="no-link-style" to={`/postter/post/${NotificationData.post}/`}>
-											<div class="row">
-												<div class="col-2">
-													<img class="rounded img-fluid mx-auto d-block" src={`${NotificationData.sender.avatar_imgurl}`} id="avatar-image" width="40" height="40"/>
-													<p class="text-center">{NotificationData.notification_type}</p>
+											<Link className="no-link-style" to={`/postter/post/${NotificationData.post}/`}>
+											<div className="row">
+												<div className="col-2">
+													<img className="rounded img-fluid mx-auto d-block" src={`${NotificationData.sender.avatar_imgurl}`} id="avatar-image" width="40" height="40"/>
+													<p className="text-center">{NotificationData.notification_type}</p>
 												</div>
-											<div class="col-10">
+											<div className="col-10">
 											
-											<p class="ml-1"><b>{NotificationData.sender.username}</b>さんにリポストされました</p>
-											<p class="ml-1 text-secondary"><PostContent content={NotificationData.content}/></p>
-											<p class="ml-1 text-secondary">{NotificationData.created_at.split('.')[0].replace('T',' ')}</p>
+											<p className="ml-1"><b>{NotificationData.sender.username}</b>さんにリポストされました</p>
+											<p className="ml-1 text-secondary"><PostContent content={NotificationData.content}/></p>
+											<p className="ml-1 text-secondary">{NotificationData.created_at.split('.')[0].replace('T',' ')}</p>
 											
 											</div>
 										</div>
@@ -156,17 +156,17 @@ const Message = () => {
 									)}
 									{NotificationData.notification_type == "mention" && (
 										<>
-											<Link class="no-link-style" to={`/postter/post/${NotificationData.post}/`}>
-											<div class="row">
-												<div class="col-2">
-													<img class="rounded img-fluid mx-auto d-block" src={`${NotificationData.sender.avatar_imgurl}`} id="avatar-image" width="40" height="40"/>
-													<p class="text-center">{NotificationData.notification_type}</p>
+											<Link className="no-link-style" to={`/postter/post/${NotificationData.post}/`}>
+											<div className="row">
+												<div className="col-2">
+													<img className="rounded img-fluid mx-auto d-block" src={`${NotificationData.sender.avatar_imgurl}`} id="avatar-image" width="40" height="40"/>
+													<p className="text-center">{NotificationData.notification_type}</p>
 												</div>
-											<div class="col-10">
+											<div className="col-10">
 											
-											<p class="ml-1"><b>{NotificationData.sender.username}</b>さんからメンションを受け取りました</p>
-											<p class="ml-1 text-secondary"><PostContent content={NotificationData.content}/></p>
-											<p class="ml-1 text-secondary">{NotificationData.created_at.split('.')[0].replace('T',' ')}</p>
+											<p className="ml-1"><b>{NotificationData.sender.username}</b>さんからメンションを受け取りました</p>
+											<p className="ml-1 text-secondary"><PostContent content={NotificationData.content}/></p>
+											<p className="ml-1 text-secondary">{NotificationData.created_at.split('.')[0].replace('T',' ')}</p>
 											
 											</div>
 										</div>
@@ -175,16 +175,16 @@ const Message = () => {
 									)}
 									{NotificationData.notification_type == "message" && (
 										<>
-										<Link class="no-link-style" to={`/postter/message/${myUserDataGlobal.id}-${NotificationData.sender.id}/`}>
-											<div class="row">
-												<div class="col-2">
-													<img class="rounded img-fluid mx-auto d-block" src={`${NotificationData.sender.avatar_imgurl}`} id="avatar-image" width="40" height="40"/>
-													<p class="text-center">{NotificationData.notification_type}</p>
+										<Link className="no-link-style" to={`/postter/message/${myUserDataGlobal.id}-${NotificationData.sender.id}/`}>
+											<div className="row">
+												<div className="col-2">
+													<img className="rounded img-fluid mx-auto d-block" src={`${NotificationData.sender.avatar_imgurl}`} id="avatar-image" width="40" height="40"/>
+													<p className="text-center">{NotificationData.notification_type}</p>
 												</div>
-											<div class="col-10">
-											<p class="ml-1"><b>{NotificationData.sender.username}</b>さんからダイレクトメッセージを受け取りました</p>
-											<p class="ml-1 text-secondary"><PostContent content={NotificationData.content}/></p>
-											<p class="ml-1 text-secondary">{NotificationData.created_at.split('.')[0].replace('T',' ')}</p>
+											<div className="col-10">
+											<p className="ml-1"><b>{NotificationData.sender.username}</b>さんからダイレクトメッセージを受け取りました</p>
+											<p className="ml-1 text-secondary"><PostContent content={NotificationData.content}/></p>
+											<p className="ml-1 text-secondary">{NotificationData.created_at.split('.')[0].replace('T',' ')}</p>
 											
 											</div>
 										</div>
@@ -193,16 +193,16 @@ const Message = () => {
 									)}
 									{NotificationData.notification_type == "reply" && (
 										<>
-											<Link class="no-link-style" to={`/postter/post/${NotificationData.parent}/`}>
-											<div class="row">
-												<div class="col-2">
-													<img class="rounded img-fluid mx-auto d-block" src={`${NotificationData.sender.avatar_imgurl}`} id="avatar-image" width="40" height="40"/>
-													<p class="text-center">{NotificationData.notification_type}</p>
+											<Link className="no-link-style" to={`/postter/post/${NotificationData.parent}/`}>
+											<div className="row">
+												<div className="col-2">
+													<img className="rounded img-fluid mx-auto d-block" src={`${NotificationData.sender.avatar_imgurl}`} id="avatar-image" width="40" height="40"/>
+													<p className="text-center">{NotificationData.notification_type}</p>
 												</div>
-											<div class="col-10">
-											<p class="ml-1"><b>{NotificationData.sender.username}</b>さんにリプライされました</p>
-											<p class="ml-1 text-secondary"><PostContent content={NotificationData.content}/></p>
-											<p class="ml-1 text-secondary">{NotificationData.created_at.split('.')[0].replace('T',' ')}</p>
+											<div className="col-10">
+											<p className="ml-1"><b>{NotificationData.sender.username}</b>さんにリプライされました</p>
+											<p className="ml-1 text-secondary"><PostContent content={NotificationData.content}/></p>
+											<p className="ml-1 text-secondary">{NotificationData.created_at.split('.')[0].replace('T',' ')}</p>
 											
 											</div>
 										</div>

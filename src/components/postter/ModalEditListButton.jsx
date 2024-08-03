@@ -138,7 +138,7 @@ class CustomModal extends React.Component {
   render() {
     return (
       <div>
-        <button class="btn btn-outline-primary" onClick={this.openModal}>リストを編集</button>
+        <button className="btn btn-outline-primary" onClick={this.openModal}>リストを編集</button>
         <Modal
           isOpen={this.state.modalIsOpen}
           onRequestClose={this.closeModal}
@@ -149,13 +149,13 @@ class CustomModal extends React.Component {
             <h2>既存のリストを編集</h2>
             <form onSubmit={this.handleListSubmit}>
               <label>リストの名前</label>
-						  <input class="form-control" type="text" name="name" value={this.state.name} onChange={this.handleInputChange}/>
+						  <input className="form-control" type="text" name="name" value={this.state.name} onChange={this.handleInputChange}/>
               <label>リストの説明</label>
-              <textarea class="form-control" name="description" value={this.state.description} onChange={this.handleInputChange} rows="3" cols="50"/>
-              <button class="mb-2 mt-2 btn btn-outline-primary btn-block" type="submit">変更</button>
+              <textarea className="form-control" name="description" value={this.state.description} onChange={this.handleInputChange} rows="3" cols="50"/>
+              <button className="mb-2 mt-2 btn btn-outline-primary btn-block" type="submit">変更</button>
             </form>
-            <button class="btn btn-danger btn-block" onClick={this.handleListDelete}>リストを削除する</button>
-            <button class="mb-2 mt-4 btn btn-outline-danger btn-block" onClick={this.closeModal}>閉じる</button>
+            <button className="btn btn-danger btn-block" onClick={this.handleListDelete}>リストを削除する</button>
+            <button className="mb-2 mt-4 btn btn-outline-danger btn-block" onClick={this.closeModal}>閉じる</button>
           </div>
         </Modal>
       </div>

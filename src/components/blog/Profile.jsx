@@ -7,14 +7,14 @@ function Profile() {
       <div className="col-sm-9">
               <div className="container container-m">
       <div className="row">
-        <div class="row">
-			    <div class="col">
-            <span class="mt-0 mb-0 text-secondary">作成日：2024年5月18日　最終更新日：2024年5月28日</span>
-            <h4 class="mt-1 mb-4">プロフィール</h4>
+        <div className="row">
+			    <div className="col">
+            <span className="mt-0 mb-0 text-secondary">作成日：2024年5月18日　最終更新日：2024年5月28日</span>
+            <h4 className="mt-1 mb-4">プロフィール</h4>
 
             <a style={{ display: 'block', marginTop: '-40px', paddingTop: '40px' }} id="1"></a>
-            <h5 class="mb-3 mt-3"><b>自己紹介</b></h5>
-            <p>こんにちは！あじと申します。</p>
+            <h5 className="mb-3 mt-3"><b>自己紹介</b></h5>
+            <p>こんにちは！sanmamamaと申します。</p>
 
               <p>
                 私は大学卒業後、地方公務員として10年間、町役場で一般行政事務に従事しました。住民対応や各種行政手続きのサポートを通じて、対人スキルと問題解決能力を磨いてきました。具体的には、住民からの問い合わせ対応や、イベントの企画・運営、書類作成・管理など、多岐にわたる業務を担当してきました。これにより、複数のタスクを効率的にこなし、チームで協力して目標を達成する力を養うことができました。
@@ -34,7 +34,7 @@ function Profile() {
 
 
             <a style={{ display: 'block', marginTop: '-40px', paddingTop: '40px' }} id="2"></a>
-            <h5 class="mb-3 mt-3"><b>自己PR</b></h5>
+            <h5 className="mb-3 mt-3"><b>自己PR</b></h5>
               <p>
                 私は10年間にわたり地方公務員として住民対応や行政手続きのサポートを行い、多岐にわたる業務を通じて高い対人スキルと問題解決能力を身につけました。この経験を活かし、システム開発の分野で新しい価値を提供したいと考えています。
               </p>
@@ -52,28 +52,28 @@ function Profile() {
               </p>
 
             <a style={{ display: 'block', marginTop: '-40px', paddingTop: '40px' }} id="3"></a>
-            <h5 class="mb-3 mt-3"><b>経歴</b></h5>
+            <h5 className="mb-3 mt-3"><b>経歴</b></h5>
             <p>
-              <div class="wp-block-columns is-layout-flex wp-container-core-columns-is-layout-1 wp-block-columns-is-layout-flex">
-                <div class="wp-block-column is-layout-flow wp-block-column-is-layout-flow">
-                <p>1988年7月23日</p>
+              <div className="wp-block-columns is-layout-flex wp-container-core-columns-is-layout-1 wp-block-columns-is-layout-flex">
+                <div className="wp-block-column is-layout-flow wp-block-column-is-layout-flow">
+                <p>1988年7月</p>
                 <p>2007年4月</p>
                 <p>2011年3月</p>
                 <p>2013年4月</p>
-                <p>2024年8月15日</p>
+                <p>2024年8月</p>
                 <p>現在に至る</p>
                 </div>
-                <div class="wp-block-column is-layout-flow wp-block-column-is-layout-flow">
+                <div className="wp-block-column is-layout-flow wp-block-column-is-layout-flow">
                 <p>北海道釧路市生まれ</p>
                 <p>北海道工業大学工学部情報ネットワーク工学科入学</p>
                 <p>北海道工業大学工学部情報ネットワーク工学科卒業</p>
-                <p>北海道標津郡標津町役場入庁</p>
-                <p>北海道標津郡標津町役場退庁</p>
+                <p>町役場入庁</p>
+                <p>町役場退庁</p>
                 </div>
                 </div>
             </p>
             <a style={{ display: 'block', marginTop: '-40px', paddingTop: '40px' }} id="4"></a>
-            <h5 class="mb-3 mt-3"><b>資格・スキル</b></h5>
+            <h5 className="mb-3 mt-3"><b>資格・スキル</b></h5>
             <p>応用情報技術者試験合格、司書、普通自動車免許</p>
 
         </div>
@@ -84,10 +84,10 @@ function Profile() {
     <div className="col-sm-3">
       <div>
         <h4>目次</h4>
-        <p class="mt-3"><a href="#1">自己紹介</a></p>
-        <p class="mt-3"><a href="#2">自己PR</a></p>
-        <p class="mt-3"><a href="#3">経歴</a></p>
-        <p class="mt-3"><a href="#4">資格・スキル</a></p>
+        <p className="mt-3"><a href="#1">自己紹介</a></p>
+        <p className="mt-3"><a href="#2">自己PR</a></p>
+        <p className="mt-3"><a href="#3">経歴</a></p>
+        <p className="mt-3"><a href="#4">資格・スキル</a></p>
       </div>
     </div>
     </>

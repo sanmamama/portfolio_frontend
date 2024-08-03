@@ -107,17 +107,17 @@ const LoginForm = () => {
     };
 
     return (
-        <div class="row justify-content-center">
-            <div class="col-10">
+        <div className="row justify-content-center">
+            <div className="col-10">
                 <h2>ログイン</h2>
                 <form onSubmit={handleSubmit}>
                     <div>
-                        <label>メールアドレス</label><span class="ml-3 text-danger">{formError.email}</span>
-                        <input class="form-control" type="email" name="email" value={formData.email} onChange={handleChange}/>    
-                        <label>パスワード</label><span class="ml-3 text-danger">{formError.password}</span>
-                        <input class="form-control" type="password" name="password" value={formData.password} onChange={handleChange}/>
+                        <label>メールアドレス</label><span className="ml-3 text-danger">{formError.email}</span>
+                        <input className="form-control" type="email" name="email" value={formData.email} onChange={handleChange}/>    
+                        <label>パスワード</label><span className="ml-3 text-danger">{formError.password}</span>
+                        <input className="form-control" type="password" name="password" value={formData.password} onChange={handleChange}/>
                     </div>
-                    <button class="mt-2 btn btn-outline-primary btn-block" type="submit">送信</button>
+                    <button className="mt-2 btn btn-outline-primary btn-block" type="submit">送信</button>
                 </form>
                 <p>{messages}</p>
                 <p>{formError.non_field_errors}</p>

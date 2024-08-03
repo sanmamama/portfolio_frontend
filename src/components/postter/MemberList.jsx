@@ -58,9 +58,9 @@ const Message = () => {
 	}
 
 	return (
-		<div class="col-sm-6 pl-0 pr-0">
-			<div class="card">
-				<div class="card-body pt-3 pb-3 pl-3 pr-3">
+		<div className="col-sm-6 pl-0 pr-0">
+			<div className="card">
+				<div className="card-body pt-3 pb-3 pl-3 pr-3">
 					{messages}
 					<h4>リスト</h4>
 				<p><ModalCreateListButton userList={userList} setUserList={setUserList}/></p>						
@@ -71,13 +71,13 @@ const Message = () => {
 								hasMore={hasMore}
 								threshold={5} >
 								{userList.map((ListData,ix) => (
-								<Link class="no-link-style" to={`/postter/memberlist/${ListData.id}/`}>
-								<div class="col" key={ix}>
-									<div class="row">
-												<p><span><b>{ListData.name}</b></span><span class="ml-3 text-secondary">{ListData.user_ids.length}人のメンバー</span></p>
+								<Link className="no-link-style" to={`/postter/memberlist/${ListData.id}/`}>
+								<div className="col" key={ix}>
+									<div className="row">
+												<p><span><b>{ListData.name}</b></span><span className="ml-3 text-secondary">{ListData.user_ids.length}人のメンバー</span></p>
 									</div>
-									<div class="row">
-									<p><span class="ml-1 text-secondary">{ListData.description}</span></p>
+									<div className="row">
+									<p><span className="ml-1 text-secondary">{ListData.description}</span></p>
 									</div>
 								</div>
 								</Link>

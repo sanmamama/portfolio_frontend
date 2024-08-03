@@ -9,7 +9,7 @@ function Contact() {
         <div className="col-sm-9">
             <div className="container container-m">
                 <div className="row">
-                    <div class="w-100">
+                    <div className="w-100">
                         <h1>お問い合わせ</h1>
                         <ContactForm />
                     </div>
@@ -93,17 +93,17 @@ const ContactForm = () => {
         <>
         <form onSubmit={handleSubmit}>
             <div>
-                <label>お名前</label> {errors.name && <span class="ml-3" style={{ color: 'red' }}>{errors.name}</span>}
-                <input class="form-control" type="text" name="name" value={formData.name} onChange={handleChange} />
+                <label>お名前</label> {errors.name && <span className="ml-3" style={{ color: 'red' }}>{errors.name}</span>}
+                <input className="form-control" type="text" name="name" value={formData.name} onChange={handleChange} />
 
-                <label>メールアドレス</label> {errors.email && <span class="ml-3" style={{ color: 'red' }}>{errors.email}</span>}
-                <input class="form-control" type="email" name="email" value={formData.email} onChange={handleChange} />
+                <label>メールアドレス</label> {errors.email && <span className="ml-3" style={{ color: 'red' }}>{errors.email}</span>}
+                <input className="form-control" type="email" name="email" value={formData.email} onChange={handleChange} />
 				
-                <label>メッセージ</label> {errors.message && <span class="ml-3" style={{ color: 'red' }}>{errors.message}</span>}
-                <textarea class="form-control" name="message" value={formData.message} onChange={handleChange}></textarea>
+                <label>メッセージ</label> {errors.message && <span className="ml-3" style={{ color: 'red' }}>{errors.message}</span>}
+                <textarea className="form-control" name="message" value={formData.message} onChange={handleChange}></textarea>
 				
             </div>
-            <button class="mt-2 btn btn-outline-primary btn-block" type="submit">送信</button>
+            <button className="mt-2 btn btn-outline-primary btn-block" type="submit">送信</button>
         </form>
         <p>{messages}</p>
         </>

@@ -100,24 +100,24 @@ const SignupForm = () => {
 
 
     return (
-        <div class="row justify-content-center">
-            <div class="col-5">
+        <div className="row justify-content-center">
+            <div className="col-5">
                 <h2>会員登録</h2>
                 <form onSubmit={handleSubmit}>
-                    <label>メールアドレス</label><span class="ml-3 text-danger">{formError.email}</span>
-                    <input class="form-control" type="email" name="email" value={formData.email} onChange={handleChange}/>
+                    <label>メールアドレス</label><span className="ml-3 text-danger">{formError.email}</span>
+                    <input className="form-control" type="email" name="email" value={formData.email} onChange={handleChange}/>
 
-                    <label>ユーザー名</label><span class="ml-3 text-danger">{formError.username}</span>
-                    <input class="form-control" type="username" name="username" value={formData.username} onChange={handleChange}/>
+                    <label>ユーザー名</label><span className="ml-3 text-danger">{formError.username}</span>
+                    <input className="form-control" type="username" name="username" value={formData.username} onChange={handleChange}/>
                     
-                    <label>パスワード</label><span class="ml-3 text-danger">{formError.password1}</span>
-                    <input class="form-control" type="password" name="password1" value={formData.password1} onChange={handleChange}/>
+                    <label>パスワード</label><span className="ml-3 text-danger">{formError.password1}</span>
+                    <input className="form-control" type="password" name="password1" value={formData.password1} onChange={handleChange}/>
                     
-                    <label>確認用パスワード</label><span class="ml-3 text-danger">{formError.password2}</span>
-                    <input class="form-control" type="password" name="password2" value={formData.password2} onChange={handleChange}/>
+                    <label>確認用パスワード</label><span className="ml-3 text-danger">{formError.password2}</span>
+                    <input className="form-control" type="password" name="password2" value={formData.password2} onChange={handleChange}/>
                     
 				
-                    <button class="mt-2 btn btn-outline-primary btn-block" type="submit">送信</button>
+                    <button className="mt-2 btn btn-outline-primary btn-block" type="submit">送信</button>
                 </form>
 
                 <p>{messages}</p>

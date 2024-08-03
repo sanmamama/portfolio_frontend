@@ -7,8 +7,8 @@ function Portfolio() {
               <div className="container container-m">
       <div className="row">
         <div>
-        <span class="mt-0 mb-0 text-secondary">作成日：2024年5月18日　最終更新日：2024年5月18日</span>
-				<h4 class="mt-1 mb-4">ポートフォリオ</h4>
+        <span className="mt-0 mb-0 text-secondary">作成日：2024年5月18日　最終更新日：2024年5月18日</span>
+				<h4 className="mt-1 mb-4">ポートフォリオ</h4>
 
 				<p><a href="/">Myblog</a></p>
 				<p>このブログです。</p>

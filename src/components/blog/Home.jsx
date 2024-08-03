@@ -86,23 +86,23 @@ const App = () => {
 		<div className="container container-m">
 			<div className="row">
 			{blog.map(item => (
-				<div class="col-md-6">
-					<div class="d-flex flex-column bd-highlight mb-5">
-						<div key={item.id}>
-							<span class="mt-0 mb-0 text-secondary">{formatDateToJapanese(item.created_at)}</span>
-							<span class="ml-2 text-secondary mark small"><Link to={`/?category=${item.category.id}`}>{item.category.name}</Link></span>
+				<div className="col-md-6" key={item.id}>
+					<div className="d-flex flex-column bd-highlight mb-5">
+						<div>
+							<span className="mt-0 mb-0 text-secondary">{formatDateToJapanese(item.created_at)}</span>
+							<span className="ml-2 text-secondary mark small"><Link to={`/?category=${item.category.id}`}>{item.category.name}</Link></span>
 							{item.tag.map(
 								tag => (
-									<span class="ml-2 text-secondary small" key={tag.id}><Link to={`/?tag=${tag.id}`}>{tag.name}</Link></span>
+									<span className="ml-2 text-secondary small" key={tag.id}><Link to={`/?tag=${tag.id}`}>{tag.name}</Link></span>
 									))}
 							<h5>
-								<img class="mr-2" src = {item.img} width="50" height="50"></img>
-								<span class="align-text-bottom"><Link to={`/detail/${item.id}`}>{item.title}</Link></span>
+								<img className="mr-2" src = {item.img} width="50" height="50"></img>
+								<span className="align-text-bottom"><Link to={`/detail/${item.id}`}>{item.title}</Link></span>
 							</h5>
 							<span>
 							{truncateTo100Chars(item.content)}
 							</span>
-							<span class="ml-3">
+							<span className="ml-3">
 								<Link to={`/detail/${item.id}`}>続きを見る</Link>
 							</span>
 							<p>{item.likes}いいね！</p>
@@ -112,7 +112,7 @@ const App = () => {
 			))}	
 			</div>
 
-			<div class="text-center">
+			<div className="text-center">
 				
 				{currentPage > 1 ?
 				<span className="ml-2"><Link to={`/?page=${currentPage - 1}${addUrl}`}>prev</Link></span>

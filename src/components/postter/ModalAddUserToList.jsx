@@ -179,7 +179,7 @@ class CustomModal extends React.Component {
   render() {
     return (
       <div>
-        <a class={this.state.class} style={{cursor:"pointer"}} onClick={this.openModal}>リストに追加/削除</a>
+        <a className={this.state.class} style={{cursor:"pointer"}} onClick={this.openModal}>リストに追加/削除</a>
         <Modal
           isOpen={this.state.modalIsOpen}
           onRequestClose={this.closeModal}
@@ -199,17 +199,17 @@ class CustomModal extends React.Component {
               <div>
               
                   {this.state.userList.map((ListData, ix) => (
-                    <a class="no-link-style" style={{ cursor: "pointer" }} onClick={() => this.handleAddMember(this.state.id, ListData.id)}>
-                    <div class="row">
-                      <div class="col-8">
+                    <a className="no-link-style" style={{ cursor: "pointer" }} onClick={() => this.handleAddMember(this.state.id, ListData.id)}>
+                    <div className="row">
+                      <div className="col-8">
                         <p>
                           <span><b>{ListData.name}</b></span>
-                          <span class="ml-3 text-secondary">{ListData.user_ids.length}人のメンバー</span>
+                          <span className="ml-3 text-secondary">{ListData.user_ids.length}人のメンバー</span>
                         </p>
-                        <p><span class="ml-1 text-secondary">{ListData.description}</span></p>
-                        <p class="mt-2 text-secondary">{}</p>
+                        <p><span className="ml-1 text-secondary">{ListData.description}</span></p>
+                        <p className="mt-2 text-secondary">{}</p>
                       </div>
-                      <div class="col-4">
+                      <div className="col-4">
                         
                         {ListData.user_ids.includes(this.state.id) ? "登録を外す" : "登録する"}
                         
@@ -221,7 +221,7 @@ class CustomModal extends React.Component {
             </InfiniteScroll>
 
 
-            <button class="mb-2 mt-2 btn btn-outline-danger btn-block" onClick={this.closeModal}>閉じる</button>
+            <button className="mb-2 mt-2 btn btn-outline-danger btn-block" onClick={this.closeModal}>閉じる</button>
           </div>
         </Modal>
       </div>

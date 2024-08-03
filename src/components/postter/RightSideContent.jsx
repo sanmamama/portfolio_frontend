@@ -25,19 +25,19 @@ export const RightSideContent = () => {
     // };
 
 	return (
-		<div class="col-sm-3 pl-1 pr-1 d-none d-sm-block">
-			<div class="mb-1 card">
-				<div class="card-body pt-3 pb-3 pl-3 pr-3">
+		<div className="col-sm-3 pl-1 pr-1 d-none d-sm-block">
+			<div className="mb-1 card">
+				<div className="card-body pt-3 pb-3 pl-3 pr-3">
 					<form onSubmit={handleSubmit}>
-						<div class="form-group">
-						<input type="text" class="form-control" name="q" placeholder="検索" value={query} onChange={(e) => setQuery(e.target.value)}/>
+						<div className="form-group">
+						<input type="text" className="form-control" name="q" placeholder="検索" value={query} onChange={(e) => setQuery(e.target.value)}/>
 						</div>
-						<button type="submit" class="btn btn-primary">検索</button>
+						<button type="submit" className="btn btn-primary">検索</button>
 					</form>
 				</div>
 			</div>
-			<div class="mb-1 card">
-				<div class="card-body pt-3 pb-3 pl-3 pr-3">
+			<div className="mb-1 card">
+				<div className="card-body pt-3 pb-3 pl-3 pr-3">
 					<h4>おすすめのユーザー</h4>
 						<p>あああああ</p>
 				</div>

@@ -173,17 +173,17 @@ const Message = () => {
 	}
 
 	return (
-		<div class="col-sm-6 pl-0 pr-0">
-			<div class="card">
-				<div class="card-body pt-3 pb-3 pl-3 pr-3">
+		<div className="col-sm-6 pl-0 pr-0">
+			<div className="card">
+				<div className="card-body pt-3 pb-3 pl-3 pr-3">
 					{messages}
 					
 					<Link to="/postter/message">←メッセージ一覧へ</Link>
-					<img class="rounded img-fluid mx-auto d-block" src={`${targetUserData.avatar_imgurl}`} id="avatar-image" width="100" height="100"/>
-					<p class="text-center">{targetUserData.username} @{targetUserData.uid}</p>
-					<p class="text-center">{targetUserData.profile_statement}</p>
-					<hr class="mt-4 mb-4"/>
-					<div class="mt-3 mb-3 scrollable-div">
+					<img className="rounded img-fluid mx-auto d-block" src={`${targetUserData.avatar_imgurl}`} id="avatar-image" width="100" height="100"/>
+					<p className="text-center">{targetUserData.username} @{targetUserData.uid}</p>
+					<p className="text-center">{targetUserData.profile_statement}</p>
+					<hr className="mt-4 mb-4"/>
+					<div className="mt-3 mb-3 scrollable-div">
 					<InfiniteScroll
 						loadMore={loadMessageList}
 						loader={<div key={0}>Loading ...</div>}
@@ -191,26 +191,26 @@ const Message = () => {
 						threshold={5}
 						useWindow={false} >
 						{userList.map((MessageData,ix) => (
-						<div class="" key={ix}>
+						<div className="" key={ix}>
 							{MessageData.user_from.id == myUserDataGlobal.id && (
 							<>
-								<div class="row">
-									<div class="col-3">
+								<div className="row">
+									<div className="col-3">
 									</div>
-									<div class="col-7 bg-custom-1">
-										<p class="mt-2 text-right">{MessageData.content}</p>
+									<div className="col-7 bg-custom-1">
+										<p className="mt-2 text-right">{MessageData.content}</p>
 									</div>
-									<div class="col-2">
-										<img class="rounded img-fluid mx-auto d-block" src={`${MessageData.user_from.avatar_imgurl}`} id="avatar-image" width="40" height="40"/>
+									<div className="col-2">
+										<img className="rounded img-fluid mx-auto d-block" src={`${MessageData.user_from.avatar_imgurl}`} id="avatar-image" width="40" height="40"/>
 									</div>
 								</div>
-								<div class="row">
-									<div class="col-3">
+								<div className="row">
+									<div className="col-3">
 									</div>
-									<div class="col-7">
-										<p class="ml-1 text-right text-secondary">{MessageData.created_at.split('.')[0].replace('T',' ')}</p>
+									<div className="col-7">
+										<p className="ml-1 text-right text-secondary">{MessageData.created_at.split('.')[0].replace('T',' ')}</p>
 									</div>
-									<div class="col-2">
+									<div className="col-2">
 									</div>
 								</div>
 							</>
@@ -218,23 +218,23 @@ const Message = () => {
 							
 							{MessageData.user_to.id == myUserDataGlobal.id && (
 							<>
-								<div class="row">
-									<div class="col-2">
-										<img class="rounded img-fluid mx-auto d-block" src={`${MessageData.user_from.avatar_imgurl}`} id="avatar-image" width="40" height="40"/>
+								<div className="row">
+									<div className="col-2">
+										<img className="rounded img-fluid mx-auto d-block" src={`${MessageData.user_from.avatar_imgurl}`} id="avatar-image" width="40" height="40"/>
 									</div>
-									<div class="col-7 bg-custom-2">
-										<p class="mt-2">{MessageData.content}</p>
+									<div className="col-7 bg-custom-2">
+										<p className="mt-2">{MessageData.content}</p>
 									</div>
-									<div class="col-3">
+									<div className="col-3">
 									</div>
 								</div>
-								<div class="row">
-									<div class="col-2">
+								<div className="row">
+									<div className="col-2">
 									</div>
-									<div class="col-7">
-										<p class="ml-1 text-secondary">{MessageData.created_at.split('.')[0].replace('T',' ')}</p>
+									<div className="col-7">
+										<p className="ml-1 text-secondary">{MessageData.created_at.split('.')[0].replace('T',' ')}</p>
 									</div>
-									<div class="col-3">
+									<div className="col-3">
 									</div>
 								</div>
 							</>
@@ -244,8 +244,8 @@ const Message = () => {
 					</InfiniteScroll>
 					</div>
 					<form method="post" onSubmit={handleMessageSubmit}>
-					<textarea class="form-control" type="textarea" name="content" value={formData.content} onChange={handleMessageChange} placeholder="メッセージを入力"/>   
-					<button type="submit" class="mb-3 mt-2 btn btn-outline-primary btn-block">送信</button>
+					<textarea className="form-control" type="textarea" name="content" value={formData.content} onChange={handleMessageChange} placeholder="メッセージを入力"/>   
+					<button type="submit" className="mb-3 mt-2 btn btn-outline-primary btn-block">送信</button>
                 </form>
 				</div>
 			</div>

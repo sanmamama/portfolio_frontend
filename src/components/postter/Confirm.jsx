@@ -9,7 +9,7 @@ function Contact() {
         <div className="col-sm-9">
             <div className="container container-m">
                 <div className="row">
-                    <div class="w-100">
+                    <div className="w-100">
                         <ContactForm />
                     </div>
                 </div>

@@ -124,25 +124,25 @@ const Message = () => {
 	}
 
 	return (
-		<div class="col-sm-6 pl-0 pr-0">
-			<div class="card">
-				<div class="card-body pt-3 pb-3 pl-3 pr-3">
+		<div className="col-sm-6 pl-0 pr-0">
+			<div className="card">
+				<div className="card-body pt-3 pb-3 pl-3 pr-3">
 					{messages}
 					<h4>新規メッセージ</h4>
-					<input class="mt-3 mb-3 form-control" type="text" value={query} onChange={(e) => setQuery(e.target.value)} placeholder="ユーザーを検索"/>
+					<input className="mt-3 mb-3 form-control" type="text" value={query} onChange={(e) => setQuery(e.target.value)} placeholder="ユーザーを検索"/>
 					<div>
 						{results.map((result) => (
 							<>
 							{result.id != myUserDataGlobal.id && query && (
-								<Link class="no-link-style" to={`/postter/message/${myUserDataGlobal.id}-${result.id}/`}>
-								<div class="row">
-									<div class="col-2">
-										<img class="rounded img-fluid mx-auto d-block" src={`${result.avatar_imgurl}`} id="avatar-image" width="40" height="40"/>
+								<Link className="no-link-style" to={`/postter/message/${myUserDataGlobal.id}-${result.id}/`}>
+								<div className="row">
+									<div className="col-2">
+										<img className="rounded img-fluid mx-auto d-block" src={`${result.avatar_imgurl}`} id="avatar-image" width="40" height="40"/>
 									</div>
-									<div class="col-10">
+									<div className="col-10">
 										<b>{result.username}</b>
-										<span class="ml-1 text-secondary">@{result.uid}</span>
-										<p class="mt-2 text-secondary">{result.profile_statement}</p>
+										<span className="ml-1 text-secondary">@{result.uid}</span>
+										<p className="mt-2 text-secondary">{result.profile_statement}</p>
 									</div>
 								</div>
 								</Link>
@@ -150,7 +150,7 @@ const Message = () => {
 							</>
 					))}
 					</div>
-					<h4 class="mt-3 mb-3">過去のメッセージ</h4>
+					<h4 className="mt-3 mb-3">過去のメッセージ</h4>
 					<div>
 						<InfiniteScroll
 							loadMore={loadMessageList}
@@ -160,32 +160,32 @@ const Message = () => {
 							{userList.map((MessageData,ix) => (
 								<div>
 									{MessageData.user_from.id == myUserDataGlobal.id && (
-										<Link class="no-link-style" to={`/postter/message/${myUserDataGlobal.id}-${MessageData.user_to.id}/`}>
-											<div class="row">
-												<div class="col-2">
-													<img class="rounded img-fluid mx-auto d-block" src={`${MessageData.user_to.avatar_imgurl}`} id="avatar-image" width="40" height="40"/>
+										<Link className="no-link-style" to={`/postter/message/${myUserDataGlobal.id}-${MessageData.user_to.id}/`}>
+											<div className="row">
+												<div className="col-2">
+													<img className="rounded img-fluid mx-auto d-block" src={`${MessageData.user_to.avatar_imgurl}`} id="avatar-image" width="40" height="40"/>
 												</div>
-												<div class="col-10">
+												<div className="col-10">
 													<b>{MessageData.user_to.username}</b>
-													<span class="ml-1 text-secondary">@{MessageData.user_to.uid}</span>
-													<span class="ml-1 text-secondary">{MessageData.created_at.split('.')[0].replace('T',' ')}</span>
-													<p class="mt-2 text-secondary">{MessageData.content}</p>
+													<span className="ml-1 text-secondary">@{MessageData.user_to.uid}</span>
+													<span className="ml-1 text-secondary">{MessageData.created_at.split('.')[0].replace('T',' ')}</span>
+													<p className="mt-2 text-secondary">{MessageData.content}</p>
 												</div>
 											</div>
 										</Link>
 									)}
 									
 									{MessageData.user_to.id == myUserDataGlobal.id && (
-										<Link class="no-link-style" to={`/postter/message/${myUserDataGlobal.id}-${MessageData.user_from.id}/`}>
-										<div class="row">
-											<div class="col-2">
-												<img class="rounded img-fluid mx-auto d-block" src={`${MessageData.user_from.avatar_imgurl}`} id="avatar-image" width="40" height="40"/>
+										<Link className="no-link-style" to={`/postter/message/${myUserDataGlobal.id}-${MessageData.user_from.id}/`}>
+										<div className="row">
+											<div className="col-2">
+												<img className="rounded img-fluid mx-auto d-block" src={`${MessageData.user_from.avatar_imgurl}`} id="avatar-image" width="40" height="40"/>
 											</div>
-											<div class="col-10">
+											<div className="col-10">
 												<b>{MessageData.user_from.username}</b>
-												<span class="ml-1 text-secondary">@{MessageData.user_from.uid}</span>
-												<span class="ml-1 text-secondary">{MessageData.created_at.split('.')[0].replace('T',' ')}</span>
-												<p class="mt-2 text-secondary">{MessageData.content}</p>
+												<span className="ml-1 text-secondary">@{MessageData.user_from.uid}</span>
+												<span className="ml-1 text-secondary">{MessageData.created_at.split('.')[0].replace('T',' ')}</span>
+												<p className="mt-2 text-secondary">{MessageData.content}</p>
 											</div>
 										</div>
 										</Link>

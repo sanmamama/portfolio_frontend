@@ -286,41 +286,41 @@ const Home = () => {
 	}
 
 	return (
-		<div class="col-sm-6 pl-0 pr-0">
-			<div class="card">
-				<div class="card-body pt-3 pb-3 pl-3 pr-3">
+		<div className="col-sm-6 pl-0 pr-0">
+			<div className="card">
+				<div className="card-body pt-3 pb-3 pl-3 pr-3">
 					{messages}
 					<table>
-					<tr class="text">
-										<td class="text" style={{width: "15%"}}>
-											<img class="rounded img-fluid mx-auto d-block" src={`${posts.owner.avatar_imgurl}`} id="avatar-image" width="40" height="40"/>
+					<tr className="text">
+										<td className="text" style={{width: "15%"}}>
+											<img className="rounded img-fluid mx-auto d-block" src={`${posts.owner.avatar_imgurl}`} id="avatar-image" width="40" height="40"/>
 										</td>
-										<td class="text" style={{width: "80%"}}>
+										<td className="text" style={{width: "80%"}}>
 											{posts.repost_user && (
 											<>
-											<p><img class="mr-2" src={`${baseUrl}/media/icon/repost_active.svg`} width="16" height="16"/><Link to={`/postter/${posts.repost_user.uid}/`}>{posts.repost_user.username}</Link>がリポストしました</p>
+											<p><img className="mr-2" src={`${baseUrl}/media/icon/repost_active.svg`} width="16" height="16"/><Link to={`/postter/${posts.repost_user.uid}/`}>{posts.repost_user.username}</Link>がリポストしました</p>
 											</>
 											)}
 											{posts.parent && (
 											<>
-											<p><img class="mr-2" src={`${baseUrl}/media/icon/reply.svg`} width="16" height="16"/><Link to={`/postter/post/${posts.parent}/`}>ポストID{posts.parent}</Link>へのリプライ</p>
+											<p><img className="mr-2" src={`${baseUrl}/media/icon/reply.svg`} width="16" height="16"/><Link to={`/postter/post/${posts.parent}/`}>ポストID{posts.parent}</Link>へのリプライ</p>
 											</>
 											)}
 											
 											<h6>
 												<Link to={`/postter/${posts.owner.uid}/`}><b>{posts.owner.username}</b></Link>
-												<span class="ml-1 text-secondary">@{posts.owner.uid}</span>
-												<span class="ml-1 text-secondary">{posts.created_at.split('.')[0].replace('T',' ')}</span>
+												<span className="ml-1 text-secondary">@{posts.owner.uid}</span>
+												<span className="ml-1 text-secondary">{posts.created_at.split('.')[0].replace('T',' ')}</span>
 											</h6>
 											<p><PostContent content={posts.content}/></p>
 
 											<ModalCreateReplyButton postData={posts}/>
 
-											<a class="mr-4" style={{cursor:"pointer"}} onClick={() => handleLike(posts.id,-1,myUserDataGlobal.like.includes(posts.id))}>
+											<a className="mr-4" style={{cursor:"pointer"}} onClick={() => handleLike(posts.id,-1,myUserDataGlobal.like.includes(posts.id))}>
 											{myUserDataGlobal.like.includes(posts.id) ? <img src={`${baseUrl}/media/icon/heart_active.svg`} width="16" height="16"/> : <img src={`${baseUrl}/media/icon/heart_no_active.svg`} width="16" height="16"/>}{posts.like_count}
 											</a>
 											
-											<a class="mr-4" style={{cursor:"pointer"}} onClick={() => handleRepost(posts.id,-1,myUserDataGlobal.repost.includes(posts.id))}>
+											<a className="mr-4" style={{cursor:"pointer"}} onClick={() => handleRepost(posts.id,-1,myUserDataGlobal.repost.includes(posts.id))}>
 											{myUserDataGlobal.repost.includes(posts.id) ? <img src={`${baseUrl}/media/icon/repost_active.svg`} width="16" height="16"/> : <img src={`${baseUrl}/media/icon/repost_no_active.svg`} width="16" height="16"/>}{posts.repost_count}
 											</a>
 
@@ -329,20 +329,20 @@ const Home = () => {
 
 
 										</td>
-										<td class='text' style={{width: "5%"}}>
-											<div class="dropdown">
-												<button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">︙</button>
-												<div class="dropdown-menu">
+										<td className='text' style={{width: "5%"}}>
+											<div className="dropdown">
+												<button type="button" className="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">︙</button>
+												<div className="dropdown-menu">
 												{posts.owner.id == myUserDataGlobal.id && (
 													<>
-														<ModalAddUserToList class={"dropdown-item"} id={posts.owner.id}/>
-														<a class="dropdown-item" style={{cursor:"pointer"}} onClick={() => handlePostDelete(posts.id)}>ポストを削除する</a>
+														<ModalAddUserToList className={"dropdown-item"} id={posts.owner.id}/>
+														<a className="dropdown-item" style={{cursor:"pointer"}} onClick={() => handlePostDelete(posts.id)}>ポストを削除する</a>
 													</>
 												)}
 												{posts.owner.id !== myUserDataGlobal.id && (
 													<>
-														<ModalAddUserToList class={"dropdown-item"} id={posts.owner.id}/>
-														<a class="dropdown-item" style={{cursor:"pointer"}} onClick={() => handleFollow(posts.owner.id)}>
+														<ModalAddUserToList className={"dropdown-item"} id={posts.owner.id}/>
+														<a className="dropdown-item" style={{cursor:"pointer"}} onClick={() => handleFollow(posts.owner.id)}>
 															{myUserDataGlobal.following.includes(posts.owner.id) ? "フォローを解除する" : "フォローする"}
 														</a>
 													</>
@@ -358,17 +358,17 @@ const Home = () => {
 					<hr/>
 					<form onSubmit={handlePostSubmit}>
 						<textarea 
-							class="form-control"
+							className="form-control"
 							value={newPost}
 							onChange={handleInputChange}
 							rows="2"
 							cols="50"
 							placeholder="返信をポストする"
 						/>
-						<button　class="mb-2 mt-2 btn btn-outline-primary btn-block" type="submit">返信</button>
+						<button　className="mb-2 mt-2 btn btn-outline-primary btn-block" type="submit">返信</button>
 						</form>
 					<hr/>
-					<table id='Reply_list' class="table-sm" style={{width: "100%"}}>
+					<table id='Reply_list' className="table-sm" style={{width: "100%"}}>
 						<tbody>
 							<InfiniteScroll
 								loadMore={loadReply}
@@ -378,27 +378,27 @@ const Home = () => {
 								{replies.map((replyData,ix) => (
 								<>
 									
-								<tr class="text" key={ix}>
-								<td class="text" style={{width: "15%"}}>
-									<img class="rounded img-fluid mx-auto d-block" src={replyData.owner.avatar_imgurl} id="avatar-image" width="40" height="40"/>
+								<tr className="text" key={ix}>
+								<td className="text" style={{width: "15%"}}>
+									<img className="rounded img-fluid mx-auto d-block" src={replyData.owner.avatar_imgurl} id="avatar-image" width="40" height="40"/>
 								</td>
-								<td class="text" style={{width: "80%"}}>
+								<td className="text" style={{width: "80%"}}>
 									<h6>
 										<Link to={`/postter/${replyData.owner.uid}/`}><b>{replyData.owner.username}</b></Link>
-										<span class="ml-1 text-secondary">@{replyData.owner.uid}</span>
-										<span class="ml-1 text-secondary">{replyData.created_at.split('.')[0].replace('T',' ')}</span>
+										<span className="ml-1 text-secondary">@{replyData.owner.uid}</span>
+										<span className="ml-1 text-secondary">{replyData.created_at.split('.')[0].replace('T',' ')}</span>
 									</h6>
-									<Link class="no-link-style" to={`/postter/post/${replyData.id}/`}>	
+									<Link className="no-link-style" to={`/postter/post/${replyData.id}/`}>	
 									<p><PostContent content={replyData.content}/></p>
 									</Link>
 
 									<ModalCreateReplyButton postData={replyData}/>
 									
-									<a class="mr-4" style={{cursor:"pointer"}} onClick={() => handleLike(replyData.id,ix,myUserDataGlobal.like.includes(replyData.id))}>
+									<a className="mr-4" style={{cursor:"pointer"}} onClick={() => handleLike(replyData.id,ix,myUserDataGlobal.like.includes(replyData.id))}>
 									{myUserDataGlobal.like.includes(replyData.id) ? <img src={`${baseUrl}/media/icon/heart_active.svg`} width="16" height="16"/> : <img src={`${baseUrl}/media/icon/heart_no_active.svg`} width="16" height="16"/>}{replyData.like_count}
 									</a>
 									
-									<a class="mr-4" style={{cursor:"pointer"}} onClick={() => handleRepost(replyData.id,ix,myUserDataGlobal.repost.includes(replyData.id))}>
+									<a className="mr-4" style={{cursor:"pointer"}} onClick={() => handleRepost(replyData.id,ix,myUserDataGlobal.repost.includes(replyData.id))}>
 									{myUserDataGlobal.repost.includes(replyData.id) ? <img src={`${baseUrl}/media/icon/repost_active.svg`} width="16" height="16"/> : <img src={`${baseUrl}/media/icon/repost_no_active.svg`} width="16" height="16"/>}{replyData.repost_count}
 									</a>
 
@@ -409,21 +409,21 @@ const Home = () => {
 
 									
 								</td>
-								<td class='text' style={{width: "5%"}}>
+								<td className='text' style={{width: "5%"}}>
 								
-									<div class="dropdown">
-										<button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">︙</button>
-										<div class="dropdown-menu">
+									<div className="dropdown">
+										<button type="button" className="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">︙</button>
+										<div className="dropdown-menu">
 										{replyData.owner.id == myUserDataGlobal.id && (
 											<>
-												<ModalAddUserToList class={"dropdown-item"} id={replyData.owner.id}/>
-												<a class="dropdown-item" style={{cursor:"pointer"}} onClick={() => handlePostDelete(replyData.id)}>ポストを削除する</a>
+												<ModalAddUserToList className={"dropdown-item"} id={replyData.owner.id}/>
+												<a className="dropdown-item" style={{cursor:"pointer"}} onClick={() => handlePostDelete(replyData.id)}>ポストを削除する</a>
 											</>
 										)}
 										{replyData.owner.id !== myUserDataGlobal.id && (
 											<>
-												<ModalAddUserToList class={"dropdown-item"} id={replyData.owner.id}/>
-												<a class="dropdown-item" style={{cursor:"pointer"}} onClick={() => handleFollow(replyData.owner.id,ix)}>
+												<ModalAddUserToList className={"dropdown-item"} id={replyData.owner.id}/>
+												<a className="dropdown-item" style={{cursor:"pointer"}} onClick={() => handleFollow(replyData.owner.id,ix)}>
 													{myUserDataGlobal.following.includes(replyData.owner.id) ? "フォローを解除する" : "フォローする"}
 												</a>
 											</>

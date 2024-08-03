@@ -123,7 +123,7 @@ this.closeModal()
   render() {
     return (
       <div>
-        <button class="btn btn-outline-success btn-sm" onClick={this.openModal}>プロフィール編集</button>
+        <button className="btn btn-outline-success btn-sm" onClick={this.openModal}>プロフィール編集</button>
         <Modal
           isOpen={this.state.modalIsOpen}
           onRequestClose={this.closeModal}
@@ -134,18 +134,18 @@ this.closeModal()
             <h2>プロフィール編集</h2>
             <form onSubmit={this.handleListSubmit}>
               <label>ユーザーID</label>
-						  <input class="form-control" type="text" name="uid" value={this.state.uid} onChange={this.handleInputChange}/>
+						  <input className="form-control" type="text" name="uid" value={this.state.uid} onChange={this.handleInputChange}/>
               <label>ユーザー名</label>
-              <input class="form-control" type="text" name="username" value={this.state.username} onChange={this.handleInputChange}/>
+              <input className="form-control" type="text" name="username" value={this.state.username} onChange={this.handleInputChange}/>
               <label>プロフィール画像</label>
               <div>
                 <input type="file" id="avatar" name="avatar" onChange={this.handleFileChange} />
               </div>
               <label>プロフィール</label>
-              <textarea class="form-control" name="profile_statement" value={this.state.profile_statement} onChange={this.handleInputChange} rows="3" cols="50"/>
-              <button　class="mb-2 mt-2 btn btn-outline-primary btn-block" type="submit">更新する</button>
+              <textarea className="form-control" name="profile_statement" value={this.state.profile_statement} onChange={this.handleInputChange} rows="3" cols="50"/>
+              <button　className="mb-2 mt-2 btn btn-outline-primary btn-block" type="submit">更新する</button>
             </form>
-            <button class="mb-2 mt-4 btn btn-outline-danger btn-block" onClick={this.closeModal}>閉じる</button>
+            <button className="mb-2 mt-4 btn btn-outline-danger btn-block" onClick={this.closeModal}>閉じる</button>
           </div>
         </Modal>
       </div>

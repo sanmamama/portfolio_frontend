@@ -11,10 +11,10 @@ const PostterBase = () => {
 			<ScrollRestoration/>
 				<Header />
 				<br/><br/><br/>
-				<div class="container mt-3">
-					<div class="content-wrapper">
-						<div class="container-fluid">
-							<div class="row">
+				<div className="container mt-3">
+					<div className="content-wrapper">
+						<div className="container-fluid">
+							<div className="row">
 									<LeftSideContent/>		
 										<Outlet />
 									<RightSideContent/>

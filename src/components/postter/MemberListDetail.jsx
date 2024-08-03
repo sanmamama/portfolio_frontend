@@ -162,18 +162,18 @@ const Message = () => {
 	}
 
 	return (
-		<div class="col-sm-6 pl-0 pr-0">
-			<div class="card">
-				<div class="card-body pt-3 pb-3 pl-3 pr-3">
+		<div className="col-sm-6 pl-0 pr-0">
+			<div className="card">
+				<div className="card-body pt-3 pb-3 pl-3 pr-3">
 					{messages}
 					<Link to="/postter/memberlist">←メッセージ一覧へ</Link>
-					<p class="mt-3">{targetListData.name}</p>
+					<p className="mt-3">{targetListData.name}</p>
 					<p>{targetListData.description}</p>
 
 					<ModalEditListButton id={id} name={targetListData.name} description={targetListData.description} setTargetListData={setTargetListData} navigateListView={navigateListView}/>
 					
-					<div class="table table-responsive mt-3">
-					<table id='post_list' class="table-sm" style={{width: "100%"}}>
+					<div className="table table-responsive mt-3">
+					<table id='post_list' className="table-sm" style={{width: "100%"}}>
 						<tbody>
 							<InfiniteScroll
 								loadMore={loadMessageList}
@@ -181,30 +181,30 @@ const Message = () => {
 								hasMore={hasMore}
 								threshold={5} >
 								{userList.map((ListData,ix) => (
-								<tr class="text" key={ix}>
-								<td class="text" style={{width: "15%"}}>
-									<img class="rounded img-fluid mx-auto d-block" src={ListData.user.avatar_imgurl} id="avatar-image" width="40" height="40"/>
+								<tr className="text" key={ix}>
+								<td className="text" style={{width: "15%"}}>
+									<img className="rounded img-fluid mx-auto d-block" src={ListData.user.avatar_imgurl} id="avatar-image" width="40" height="40"/>
 								</td>
-								<td class="text" style={{width: "80%"}}>
+								<td className="text" style={{width: "80%"}}>
 									<h6>
 										<Link to={`/postter/${ListData.user.uid}/`}><b>{ListData.user.username}</b></Link>
-										<span class="ml-1 text-secondary">@{ListData.user.uid}</span>
+										<span className="ml-1 text-secondary">@{ListData.user.uid}</span>
 									</h6>
 									<p>{ListData.user.profile_statement}</p>
 								</td>
-								<td class='text' style={{width: "5%"}}>
-									<div class="dropdown">
-										<button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">︙</button>
-										<div class="dropdown-menu">
+								<td className='text' style={{width: "5%"}}>
+									<div className="dropdown">
+										<button type="button" className="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">︙</button>
+										<div className="dropdown-menu">
 										{ListData.user.id == myUserDataGlobal.id && (
 											<>
-												<a class="dropdown-item" style={{cursor:"pointer"}} onClick={() => handleDelete(id,ListData.user.id)}>このユーザーをリストから削除</a>
+												<a className="dropdown-item" style={{cursor:"pointer"}} onClick={() => handleDelete(id,ListData.user.id)}>このユーザーをリストから削除</a>
 											</>
 										)}
 										{ListData.user.id !== myUserDataGlobal.id && (
 											<>
-												<a class="dropdown-item" style={{cursor:"pointer"}} onClick={() => handleDelete(id,ListData.user.id)}>このユーザーをリストから削除</a>
-												<a class="dropdown-item" style={{cursor:"pointer"}} onClick={() => handleFollow(ListData.user.id)}>
+												<a className="dropdown-item" style={{cursor:"pointer"}} onClick={() => handleDelete(id,ListData.user.id)}>このユーザーをリストから削除</a>
+												<a className="dropdown-item" style={{cursor:"pointer"}} onClick={() => handleFollow(ListData.user.id)}>
 													{myUserDataGlobal.following.includes(ListData.user.id) ? "このユーザーのフォローを解除する" : "このユーザーをフォローする"}
 												</a>
 											</>
