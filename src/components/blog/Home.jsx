@@ -2,7 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Route, Switch, useLocation, useHistory } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import SidebarContent from './HomeSidebar';
+
 const apiUrl = process.env.REACT_APP_API_URL;
+const baseUrl = process.env.REACT_APP_BASE_URL;
 
 
 
@@ -37,7 +39,6 @@ function useQuery() {
 }
 
 const App = () => {
-	
     const [blog, setBlog] = useState(null);
 	const [pageCount, setPageCount] = useState(null);
     const [currentPage, setCurrentPage] = useState(null);
@@ -51,7 +52,6 @@ const App = () => {
 
     
     const fetchItems = async (currentPage) => {
-
         const response = await fetch(`${apiUrl}/blog/?page=${selectedPage}&category=${selectedCategory}&tag=${selectedTag}&date=${selectedYearMonth}`);
         const data = await response.json();
         setBlog(data.results);
@@ -89,30 +89,70 @@ const App = () => {
 				<div className="col-md-6" key={item.id}>
 					<div className="d-flex flex-column bd-highlight mb-5">
 						<div>
-							<span className="mt-0 mb-0 text-secondary">{formatDateToJapanese(item.created_at)}</span>
-							<span className="ml-2 text-secondary mark small"><Link to={`/?category=${item.category.id}`}>{item.category.name}</Link></span>
-							{item.tag.map(
-								tag => (
-									<span className="ml-2 text-secondary small" key={tag.id}><Link to={`/?tag=${tag.id}`}>{tag.name}</Link></span>
-									))}
-							<h5>
-								<img className="mr-2" src = {item.img} width="50" height="50"></img>
-								<span className="align-text-bottom"><Link to={`/detail/${item.id}`}>{item.title}</Link></span>
-							</h5>
-							<span>
-							{truncateTo100Chars(item.content)}
-							</span>
-							<span className="ml-3">
-								<Link to={`/detail/${item.id}`}>続きを見る</Link>
-							</span>
-							<p>{item.likes}いいね！</p>
+							<Link className="no-link-style" to={`/detail/${item.id}`}>
+						
+							<div>
+								<span className="ml-2 text-secondary mark small">
+									<Link to={`/?category=${item.category.id}`}>{item.category.name}</Link>
+								</span>
+
+								{item.tag.map(
+									tag => (
+										<span className="ml-2 text-secondary small" key={tag.id}>
+											<Link to={`/?tag=${tag.id}`}>{tag.name}</Link>
+										</span>
+								))}
+							</div>
+
+
+							<div className="text-center">
+								<img src={item.img} height="150"/>
+							</div>
+
+							<div>
+								<span>
+									<img className="mr-2 align-baseline" src={`${baseUrl}/media/icon/calendar.svg`} width="16" height="16"/>
+								</span>
+
+								<span className="text-secondary align-text-bottom">
+									{formatDateToJapanese(item.created_at)}
+								</span>
+							</div>
+
+							<div>
+								<h5>
+									<p className="ml-1 mr-1 mt-3 mb-3">
+										<b>{item.title}</b>
+									</p>
+								</h5>
+							</div>
+
+							<div>
+								<span className="ml-1 mr-1 text-secondary">
+									{truncateTo100Chars(item.content)}
+								</span>
+								<div className="text-right">
+								<span>
+								記事を読む
+								</span>
+								</div>
+							</div>
+							
+							
+								
+									
+								
+							
+							
+							</Link>
 						</div>
 					</div>
 				</div>	
 			))}	
 			</div>
 
-			<div className="text-center">
+			{pageCount > 1 ?
+				<div className="text-center">
 				
 				{currentPage > 1 ?
 				<span className="ml-2"><Link to={`/?page=${currentPage - 1}${addUrl}`}>prev</Link></span>
@@ -133,7 +173,9 @@ const App = () => {
 				<span className="ml-2">next</span>
 				}
 			
-			</div>
+				</div>
+			:""}
+			
 			</div>
 			</div>
 			<SidebarContent />
