@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link,useLocation } from 'react-router-dom';
 import SidebarContent from './HomeSidebar';
 
 // カスタムフック: ウィンドウサイズが `576px` 以下かどうかをチェック
@@ -72,17 +72,17 @@ const Pagination = ({ currentPage, pageCount, addUrl }) => (
 
 // ブログアイテムの表示
 const BlogItem = ({ item,isSmallScreen }) => (
-    <div className="col-md-6">
-        <div className="d-flex flex-column bd-highlight mb-5">
-            <div>
+    <div className="col-md-6 pl-2 pr-2">
+        <div className="d-flex flex-column bd-highlight">
+			<div>
                 <Link className="no-link-style" to={`/detail/${item.id}`}>
-                    <div>
-                        <span className="ml-2 text-secondary mark small">
+                    <div className="card-img-overlay pl-2 pr-2">
+                        <span className="text-secondary mark small">
                             <Link to={`/?category=${item.category.id}`}>{item.category.name}</Link>
                         </span>
 
                         {item.tag.map(tag => (
-                            <span className="ml-2 text-secondary small" key={tag.id}>
+                            <span className="ml-2 text-secondary custom-mark small" key={tag.id}>
                                 <Link to={`/?tag=${tag.id}`}>{tag.name}</Link>
                             </span>
                         ))}
@@ -99,7 +99,6 @@ const BlogItem = ({ item,isSmallScreen }) => (
                                 src={`${process.env.REACT_APP_BASE_URL}/media/icon/calendar.svg`}
                                 width="16"
                                 height="16"
-                                alt="Calendar"
                             />
                         </span>
                         <span className="text-secondary align-text-bottom">
@@ -109,14 +108,14 @@ const BlogItem = ({ item,isSmallScreen }) => (
 
                     <div>
                         <h5>
-                            <p className="ml-1 mr-1 mt-3 mb-3">
+                            <p className="mt-3 mb-3">
                                 <b>{item.title}</b>
                             </p>
                         </h5>
                     </div>
 
                     <div>
-                        <span className="ml-1 mr-1 text-secondary">
+                        <span className="text-secondary">
                             {truncateTo100Chars(item.content)}
                         </span>
                         <div className="text-right">
@@ -137,12 +136,15 @@ const App = () => {
 
     const isSmallScreen = useIsSmallScreen();
 
+	//ページ遷移
+	const location = useLocation();
+
     // URLパラメータからフィルタ状態を取得
     const query = useQuery();
-    const selectedPage = parseInt(query.get('page') || 1, 10);
-    const selectedCategory = query.get('category') || '';
-    const selectedTag = query.get('tag') || '';
-    const selectedYearMonth = query.get('date') || '';
+    let selectedPage = parseInt(query.get('page') || 1, 10);
+    let selectedCategory = query.get('category') || '';
+    let selectedTag = query.get('tag') || '';
+    let selectedYearMonth = query.get('date') || '';
 
     const fetchItems = async () => {
         const response = await fetch(
@@ -158,6 +160,14 @@ const App = () => {
         fetchItems();
     }, [selectedPage, selectedCategory, selectedTag, selectedYearMonth]);
 
+	useEffect(() => {
+        selectedPage = parseInt(query.get('page') || 1, 10);
+		selectedCategory = query.get('category') || '';
+		selectedTag = query.get('tag') || '';
+		selectedYearMonth = query.get('date') || '';
+    }, [location.pathname]);
+	
+
     if (!blog) {
         return <div>Loading...</div>;
     }
@@ -168,6 +178,16 @@ const App = () => {
         <>
             <div className="col-sm-9">
                 <div className="container container-m">
+					{selectedPage > 1 || selectedCategory || selectedTag || selectedYearMonth ?
+						<div>
+							<Link to="/">トップ</Link>
+							{selectedCategory ? (<>＞{selectedCategory}(カテゴリ)</>):""}
+							{selectedTag ? (<>＞{selectedTag}(タグ)</>):""}
+							{selectedYearMonth ? (<>＞{selectedYearMonth}(アーカイブ)</>):""}
+						</div>
+					:""}
+
+					
                     <div className="row">
                         {blog.map(item => (
                             <BlogItem key={item.id} item={item} isSmallScreen={isSmallScreen} />

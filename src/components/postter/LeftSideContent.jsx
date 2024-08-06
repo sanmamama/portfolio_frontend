@@ -31,7 +31,7 @@ const LeftSideContent = () => {
 					<div className="card-body pt-3 pb-3 pl-3 pr-3">
 						<h4>プロフィール</h4>						
 							
-						<img src={myUserDataGlobal.avatar_imgurl} width="100%" height="100%"/>
+						<img className="img-fluid" src={myUserDataGlobal.avatar_imgurl}/>
 						<p className="mt-0 mb-0"><b><Link to={`/postter/${myUserDataGlobal.uid}/`}>{myUserDataGlobal.username}</Link></b></p>
 						<p className="mt-0 mb-0 text-secondary">@{myUserDataGlobal.uid}</p>
 						<p className="mt-0 mb-3"> {myUserDataGlobal.profile_statement}</p>

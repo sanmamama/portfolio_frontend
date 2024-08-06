@@ -71,32 +71,47 @@ const SidebarContent = () => {
 
     return (
         <div className="col-sm-3 d-none d-sm-block">
-        <div>
-            <h4>カテゴリー</h4>
-            <ul>
-                {categories.map(([id, { name, count }]) => (
-                    <li key={id}>
-                        <Link to={`/?category=${id}`}>{name} ({count})</Link>
-                    </li>
-                ))}
-            </ul>
-            <h4>タグ</h4>
-            <ul>
-                {tags.map(([id, { name, count }]) => (
-                    <li key={id}>
-                        <Link to={`/?tag=${id}`}>{name} ({count})</Link>
-                    </li>
-                ))}
-            </ul>
-            <h4>アーカイブ</h4>
-            <ul>
-                {archives.map(([month, count]) => (
-                    <li key={month}>
-                        <Link to={`/?date=${month}`}>{formatMonth(month)} ({count})</Link>
-                    </li>
-                )).reverse()}
-            </ul>
-        </div>
+            <div className="card">
+                <div className="card-body">
+                    <h4>プロフィール</h4>
+                    <img
+                        className="img-fluid"
+                        src={`${process.env.REACT_APP_BASE_URL}/media/profile.jpg`}
+                    />
+                    <p>sanmamamaです。</p>
+                    <p>上記プロフィール画像は生成系AIで作成しています。</p>
+                    <p>プロフ詳細は<Link to="/profile">こちら！</Link></p>
+                </div>
+            </div>
+
+            <div className="card mt-1">
+                <div className="card-body">
+                    <h4>カテゴリー</h4>
+                    <ul>
+                        {categories.map(([id, { name, count }]) => (
+                            <li key={id}>
+                                <Link to={`/?category=${name}`}>{name} ({count})</Link>
+                            </li>
+                        ))}
+                    </ul>
+                    <h4>タグ</h4>
+                    <ul>
+                        {tags.map(([id, { name, count }]) => (
+                            <li key={id}>
+                                <Link to={`/?tag=${name}`}>{name} ({count})</Link>
+                            </li>
+                        ))}
+                    </ul>
+                    <h4>アーカイブ</h4>
+                    <ul>
+                        {archives.map(([month, count]) => (
+                            <li key={month}>
+                                <Link to={`/?date=${month}`}>{formatMonth(month)} ({count})</Link>
+                            </li>
+                        )).reverse()}
+                    </ul>
+                </div>
+            </div>
         </div>
     );
 };

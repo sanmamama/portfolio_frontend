@@ -70,29 +70,45 @@ const BlogDetail = () => {
 
 	return (
 		<>
-		<div className="col-sm-9">
-			<div className="container container-m">
-						{data.detail}
-						<span className="mt-0 mb-0 text-secondary">投稿日 {formatDateToJapanese(data.created_at)}　編集日 {formatDateToJapanese(data.updated_at)}</span>
-						<span className="ml-2 text-secondary mark small"><Link to={`/?category=${data.category.id}`}>{data.category.name}</Link></span>
-						{data.tag.map(
-						tag => (
-							<span className="ml-2 text-secondary small" key={tag.id}><Link to={`/?tag=${tag.id}`}>{tag.name}</Link></span>
-							))}
-						<h4 className="mt-1 mb-4">
-						<img className="mr-2" src = {data.img} width="50" height="50"></img>
-						<span className="align-text-bottom">{data.title}</span>
-						</h4>
-					<div dangerouslySetInnerHTML={{ __html: sanitizedContent }} />
-					<button className="btn btn-outline-primary" onClick={handleLike}>いいね！ ({data.likes})</button>
+		<div className="col-sm-9 order-1 order-sm-1">
+			<div className="mb-3">
+					<span className="mt-0 mb-0 text-secondary">{formatDateToJapanese(data.created_at)}</span>
+					<span className="ml-2 text-secondary mark"><Link to={`/?category=${data.category.id}`}>{data.category.name}</Link></span>
+				{data.tag.map(
+				tag => (
+					<span className="ml-2 text-secondary custom-mark" key={tag.id}><Link to={`/?tag=${tag.id}`}>{tag.name}</Link></span>
+				))}
 			</div>
+
+			<div>
+				<h4 className="mb-3">{data.title}</h4>
+			</div>
+
+			<div className="text-center mb-3">
+				<img className="img-fluid" src = {data.img} width="100" height="100"/>
+			</div>
+		</div>
+
+
+		<div className="col-sm-9 order-3 order-sm-2">
+				<div>
+					<div dangerouslySetInnerHTML={{ __html: sanitizedContent }} />
+					<div className="text-center mb-3">
+						<button className="btn btn-outline-primary" onClick={handleLike}>いいね！ ({data.likes})</button>
+					</div>
+				</div>
 		</div>
 		
 
-		<div className="col-sm-3">
+		<div className="col-sm-3 order-2 order-sm-1">
 			<div>
-				<h3>目次</h3>
-				<div dangerouslySetInnerHTML={{ __html: toc }} />
+				{toc && (
+					<>
+					<h3 className="mb-3">この記事の目次</h3>
+					<div dangerouslySetInnerHTML={{ __html: toc }} />
+					</>
+				)}
+				
 			</div>
 		</div>
 		</>

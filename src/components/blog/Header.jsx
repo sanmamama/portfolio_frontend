@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 
 function Header() {
@@ -9,10 +9,36 @@ function Header() {
     }
   };
 
+  const handleDocumentClick = (event) => {
+    const navBar = document.getElementById('navbarsExampleDefault');
+    const isClickInside = navBar.contains(event.target) || event.target.classList.contains('navbar-toggler');
+
+    if (!isClickInside) {
+      closeMenu();
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener('click', handleDocumentClick);
+    return () => {
+      document.removeEventListener('click', handleDocumentClick);
+    };
+  }, []);
+
   return (
     <header>
       <nav className="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-        <a className="navbar-brand" href="/">myblog</a>
+        <a className="navbar-brand" href="/">
+          <img
+            className="mr-2 align-top img-fluid"
+            src={`${process.env.REACT_APP_BASE_URL}/media/icon/sanma.svg`}
+            width="32"
+            height="32"
+            alt="Calendar"
+          />
+          さんまログ
+        </a>
+        
         <button 
           className="navbar-toggler" 
           type="button" 
@@ -78,7 +104,7 @@ function Header() {
 
       <div className="jumbotron">
         <div className="container">
-          <h1 className="display-3"><a className="text-dark text-decoration-none" href="/">myblog</a></h1>
+          <h1 className="display-5"><a className="text-dark text-decoration-none" href="/">さんまログ</a></h1>
           <p>ポートフォリオサイトです。</p>
         </div>
       </div>
