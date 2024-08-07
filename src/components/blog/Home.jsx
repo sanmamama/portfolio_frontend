@@ -35,7 +35,7 @@ const truncateTo100Chars = (value) => {
     const clean = /<.*?>/g;
     value = value.replace(clean, '').replace(/&[A-Za-z0-9#]+;/g, '');
 
-    return value.length > 100 ? `${value.slice(0, 100)}...` : value;
+    return value.length > 100 ? `${value.slice(0, 100)}.....` : value;
 };
 
 // カスタムフック: URLクエリパラメータを取得
@@ -78,12 +78,12 @@ const BlogItem = ({ item,isSmallScreen }) => (
                 <Link className="no-link-style" to={`/detail/${item.id}`}>
                     <div className="card-img-overlay pl-2 pr-2">
                         <span className="text-secondary mark small">
-                            <Link to={`/?category=${item.category.id}`}>{item.category.name}</Link>
+                            <Link to={`/?category=${item.category.name}`}>{item.category.name}</Link>
                         </span>
 
                         {item.tag.map(tag => (
                             <span className="ml-2 text-secondary custom-mark small" key={tag.id}>
-                                <Link to={`/?tag=${tag.id}`}>{tag.name}</Link>
+                                <Link to={`/?tag=${tag.name}`}>{tag.name}</Link>
                             </span>
                         ))}
                     </div>
@@ -114,13 +114,10 @@ const BlogItem = ({ item,isSmallScreen }) => (
                         </h5>
                     </div>
 
-                    <div>
+                    <div className="mb-4">
                         <span className="text-secondary">
                             {truncateTo100Chars(item.content)}
                         </span>
-                        <div className="text-right">
-                            <span>記事を読む</span>
-                        </div>
                     </div>
                 </Link>
 				{isSmallScreen && <hr />}
@@ -177,17 +174,16 @@ const App = () => {
     return (
         <>
             <div className="col-sm-9">
-                <div className="container container-m">
 					{selectedPage > 1 || selectedCategory || selectedTag || selectedYearMonth ?
-						<div>
+						<div className="mb-2">
 							<Link to="/">トップ</Link>
-							{selectedCategory ? (<>＞{selectedCategory}(カテゴリ)</>):""}
-							{selectedTag ? (<>＞{selectedTag}(タグ)</>):""}
-							{selectedYearMonth ? (<>＞{selectedYearMonth}(アーカイブ)</>):""}
+							{selectedCategory ? (<> ＞ {selectedCategory}(カテゴリ)</>):""}
+							{selectedTag ? (<> ＞ {selectedTag}(タグ)</>):""}
+							{selectedYearMonth ? (<> ＞ {selectedYearMonth}(アーカイブ)</>):""}
 						</div>
 					:""}
 
-					
+                <div className="container container-m">
                     <div className="row">
                         {blog.map(item => (
                             <BlogItem key={item.id} item={item} isSmallScreen={isSmallScreen} />

@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams,useNavigate } from 'react-router-dom';
 import DOMPurify from 'dompurify';
 import { Link } from 'react-router-dom';
 const apiUrl = process.env.REACT_APP_API_URL;
@@ -27,6 +27,7 @@ function replaceHTag(content) {
 const BlogDetail = () => {
 	const { id } = useParams();
 	const [data, setData] = useState(null);
+	const navigate = useNavigate();
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -41,6 +42,10 @@ const BlogDetail = () => {
 		};
 		fetchData();
 	}, []);
+
+	const handleBack = () => {
+		navigate(-1);  // 1つ前のページに戻る
+	  };
 
 	const handleLike = async () => {
         const response = await fetch(`${apiUrl}/blog/${id}/like/`, {
@@ -71,12 +76,24 @@ const BlogDetail = () => {
 	return (
 		<>
 		<div className="col-sm-9 order-1 order-sm-1">
+			<div className="mb-2">
+				<Link onClick={handleBack}>← もどる</Link>
+			</div>
 			<div className="mb-3">
-					<span className="mt-0 mb-0 text-secondary">{formatDateToJapanese(data.created_at)}</span>
-					<span className="ml-2 text-secondary mark"><Link to={`/?category=${data.category.id}`}>{data.category.name}</Link></span>
+				<span>
+					<img
+						className="mr-2 align-baseline"
+						src={`${process.env.REACT_APP_BASE_URL}/media/icon/calendar.svg`}
+						width="16"
+						height="16"
+                    />
+				</span>
+					<span className="mt-0 mb-0 text-secondary align-text-bottom">
+							{formatDateToJapanese(data.created_at)}</span>
+					<span className="ml-2 text-secondary mark align-text-bottom"><Link to={`/?category=${data.category.id}`}>{data.category.name}</Link></span>
 				{data.tag.map(
 				tag => (
-					<span className="ml-2 text-secondary custom-mark" key={tag.id}><Link to={`/?tag=${tag.id}`}>{tag.name}</Link></span>
+					<span className="ml-2 text-secondary custom-mark align-text-bottom" key={tag.id}><Link to={`/?tag=${tag.id}`}>{tag.name}</Link></span>
 				))}
 			</div>
 
@@ -100,13 +117,13 @@ const BlogDetail = () => {
 		</div>
 		
 
-		<div className="col-sm-3 order-2 order-sm-1">
+		<div className="col-sm-3 order-2 order-sm-1 mb-5">
 			<div>
 				{toc && (
-					<>
+					<div>
 					<h3 className="mb-3">この記事の目次</h3>
-					<div dangerouslySetInnerHTML={{ __html: toc }} />
-					</>
+					<div className="pt-2 border" dangerouslySetInnerHTML={{ __html: toc }} />
+					</div>
 				)}
 				
 			</div>
