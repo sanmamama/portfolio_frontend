@@ -16,7 +16,7 @@ function replaceHTag(content) {
     const updatedContent = content.replace(/<(h[4-6])>(.*?)<\/\1>/g, (match, p1, p2) => {
         const tocEntry = `<p className="ml-${p1.charAt(1)-5}"><a href="#${idCounter}">${p2}</a></p>`;
         toc += tocEntry;
-        return `<a style="display: block; margin-top: -60px; padding-top: 60px;" id="${idCounter++}"><${p1}>${p2}</${p1}></a>`;
+        return `<a style="display: block; margin-top: -60px; padding-top: 60px;" id="${idCounter++}"><${p1} class="mt-4 mb-0">${p2}</${p1}></a><hr class="mt-2 mb-2"/>`;
 
 
     });
@@ -61,7 +61,7 @@ const BlogDetail = () => {
 		return <div>Loading...</div>;
 	}
 
-	const {updatedContent,toc} = replaceHTag(data.content);
+	const {updatedContent,toc} = replaceHTag(data.content_html);
 	const sanitizedContent = sanitizeHtml(updatedContent);
 	
 	const formatDateToJapanese = (dateString) => {
@@ -77,7 +77,11 @@ const BlogDetail = () => {
 		<>
 		<div className="col-sm-9 order-1 order-sm-1">
 			<div className="mb-2">
-				<Link onClick={handleBack}>← もどる</Link>
+				<Link to="/">トップ </Link>
+				<Link to={`/?category=${data.category.name}`}>＞ {data.category.name} </Link>
+				＞ {data.title}
+				
+
 			</div>
 			<div className="mb-3">
 				<span>
@@ -121,8 +125,8 @@ const BlogDetail = () => {
 			<div>
 				{toc && (
 					<div>
-					<h3 className="mb-3">この記事の目次</h3>
-					<div className="pt-2 border" dangerouslySetInnerHTML={{ __html: toc }} />
+					<h4 className="mb-3">目次</h4>
+					<div className="pl-1 pt-2 border" dangerouslySetInnerHTML={{ __html: toc }} />
 					</div>
 				)}
 				

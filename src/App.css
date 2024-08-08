@@ -82,3 +82,16 @@
 .custom-mark {
   background-color: lightblue; /* 任意の色に変更 */
 }
+
+.custom-link-style {
+  color: inherit; /* テキストの色を継承 */
+  text-decoration: none; /* 下線を削除 */
+}
+
+.custom-link-style:hover,
+.custom-link-style:focus {
+  color: inherit; /* ホバー時の色を継承 */
+  text-decoration: none; /* ホバー時の下線を削除 */
+  opacity:0.6;
+	transition:0.1s;
+}

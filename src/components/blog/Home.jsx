@@ -75,7 +75,7 @@ const BlogItem = ({ item,isSmallScreen }) => (
     <div className="col-md-6 pl-2 pr-2">
         <div className="d-flex flex-column bd-highlight">
 			<div>
-                <Link className="no-link-style" to={`/detail/${item.id}`}>
+                <Link className="custom-link-style" to={`/detail/${item.id}`}>
                     <div className="card-img-overlay pl-2 pr-2">
                         <span className="text-secondary mark small">
                             <Link to={`/?category=${item.category.name}`}>{item.category.name}</Link>
@@ -116,7 +116,7 @@ const BlogItem = ({ item,isSmallScreen }) => (
 
                     <div className="mb-4">
                         <span className="text-secondary">
-                            {truncateTo100Chars(item.content)}
+                            {truncateTo100Chars(item.content_html)}
                         </span>
                     </div>
                 </Link>
