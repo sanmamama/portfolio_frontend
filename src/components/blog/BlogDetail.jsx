@@ -9,21 +9,6 @@ function sanitizeHtml(html) {
 	return DOMPurify.sanitize(html);
 }
 
-function replaceHTag(content) {
-    let idCounter = 1;
-    let toc = '';
-
-    const updatedContent = content.replace(/<(h[4-6])>(.*?)<\/\1>/g, (match, p1, p2) => {
-        const tocEntry = `<p className="ml-${p1.charAt(1)-5}"><a href="#${idCounter}">${p2}</a></p>`;
-        toc += tocEntry;
-        return `<a style="display: block; margin-top: -60px; padding-top: 60px;" id="${idCounter++}"><${p1} class="mt-4 mb-0">${p2}</${p1}></a><hr class="mt-2 mb-2"/>`;
-
-
-    });
-
-    return { updatedContent, toc };
-}
-
 const BlogDetail = () => {
 	const { id } = useParams();
 	const [data, setData] = useState(null);
@@ -61,8 +46,7 @@ const BlogDetail = () => {
 		return <div>Loading...</div>;
 	}
 
-	const {updatedContent,toc} = replaceHTag(data.content_html);
-	const sanitizedContent = sanitizeHtml(updatedContent);
+	const sanitizedContent = sanitizeHtml(data.content_html);
 	
 	const formatDateToJapanese = (dateString) => {
 		const date = new Date(dateString);
@@ -76,14 +60,14 @@ const BlogDetail = () => {
 	return (
 		<>
 		<div className="col-sm-9 order-1 order-sm-1">
-			<div className="mb-2">
+			<div className="mb-3">
 				<Link to="/">トップ </Link>
 				<Link to={`/?category=${data.category.name}`}>＞ {data.category.name} </Link>
 				＞ {data.title}
 				
 
 			</div>
-			<div className="mb-3">
+			<div className="mb-1">
 				<span>
 					<img
 						className="mr-2 align-baseline"
@@ -102,36 +86,29 @@ const BlogDetail = () => {
 			</div>
 
 			<div>
-				<h4 className="mb-3">{data.title}</h4>
+				<h4 className="mb-3"><b>{data.title}</b></h4>
 			</div>
 
-			<div className="text-center mb-3">
-				<img className="img-fluid" src = {data.img} width="100" height="100"/>
+			<div className="text-center">
+				<img className="img-fluid" src = {data.img} width="400" height="150"/>
 			</div>
-		</div>
 
-
-		<div className="col-sm-9 order-3 order-sm-2">
-				<div>
-					<div dangerouslySetInnerHTML={{ __html: sanitizedContent }} />
+			<div className="markdownx">
+					<div className="markdownx-preview" dangerouslySetInnerHTML={{ __html: sanitizedContent }} />
 					<div className="text-center mb-3">
 						<button className="btn btn-outline-primary" onClick={handleLike}>いいね！ ({data.likes})</button>
 					</div>
-				</div>
-		</div>
-		
-
-		<div className="col-sm-3 order-2 order-sm-1 mb-5">
-			<div>
-				{toc && (
-					<div>
-					<h4 className="mb-3">目次</h4>
-					<div className="pl-1 pt-2 border" dangerouslySetInnerHTML={{ __html: toc }} />
-					</div>
-				)}
-				
 			</div>
 		</div>
+
+
+		<div className="col-sm-3 order-2 order-sm-1 mb-3  d-none d-sm-block">
+			<div className="stick">
+				<h4 className="mb-3">目次</h4>
+				<div className="pt-2 border" dangerouslySetInnerHTML={{ __html: data.toc_html }} />
+			</div>
+		</div>
+				
 		</>
 	);
 	};

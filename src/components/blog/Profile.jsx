@@ -81,8 +81,8 @@ function Profile() {
     </div>
     </div>
     </div>
-    <div className="col-sm-3">
-      <div>
+    <div className="col-sm-3 d-none d-sm-block">
+      <div className="stick">
         <h4>目次</h4>
         <p className="mt-3"><a href="#1">自己紹介</a></p>
         <p className="mt-3"><a href="#2">自己PR</a></p>

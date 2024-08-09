@@ -88,8 +88,8 @@ const BlogItem = ({ item,isSmallScreen }) => (
                         ))}
                     </div>
 
-                    <div className="text-center">
-                        <img src={item.img} height="150" alt={item.title} />
+                    <div className="image-container">
+                        <img src={item.img} alt={item.title} />
                     </div>
 
                     <div>
