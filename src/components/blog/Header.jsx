@@ -36,7 +36,7 @@ function Header() {
             height="32"
             alt="Calendar"
           />
-          さんまログ
+          さんままま
         </a>
         
         <button 
@@ -104,7 +104,7 @@ function Header() {
 
       <div className="jumbotron">
         <div className="container">
-          <h1 className="display-5"><a className="text-dark text-decoration-none" href="/">さんまログ</a></h1>
+          <h1 className="display-5"><a className="text-dark text-decoration-none" href="/">さんままま</a></h1>
           <p>ポートフォリオサイトです。</p>
         </div>
       </div>
