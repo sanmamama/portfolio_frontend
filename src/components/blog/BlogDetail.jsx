@@ -93,6 +93,11 @@ const BlogDetail = () => {
 				<img className="img-fluid" src = {data.img} width="400" height="150"/>
 			</div>
 
+			<div>
+				<h4 className="mt-2 mb-2">目次</h4>
+				<div className="pt-2 border" dangerouslySetInnerHTML={{ __html: data.toc_html }} />			
+			</div>
+
 			<div className="markdownx">
 					<div className="markdownx-preview" dangerouslySetInnerHTML={{ __html: sanitizedContent }} />
 					<div className="text-center mb-3">
