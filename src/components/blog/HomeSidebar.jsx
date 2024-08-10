@@ -79,8 +79,9 @@ const SidebarContent = () => {
                         src={`${process.env.REACT_APP_BASE_URL}/media/profile.jpg`}
                     />
                     <p>sanmamamaです。</p>
-                    <p>上記プロフィール画像は生成系AIで作成しています。</p>
                     <p>プロフ詳細は<Link to="/profile">こちら！</Link></p>
+                    <p><Link to="https://x.com/sanma_tensyoku">X(旧Twitter)</Link></p>
+                    <p><Link to="https://github.com/ajifly723/">GitHub</Link></p>
                 </div>
             </div>
 
