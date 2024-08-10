@@ -81,7 +81,7 @@ const SidebarContent = () => {
                     <p>sanmamamaです。</p>
                     <p>プロフ詳細は<Link to="/profile">こちら！</Link></p>
                     <p><Link to="https://x.com/sanma_tensyoku">X(旧Twitter)</Link></p>
-                    <p><Link to="https://github.com/ajifly723/">GitHub</Link></p>
+                    <p><Link to="https://github.com/sanmamama/">GitHub</Link></p>
                 </div>
             </div>
 
