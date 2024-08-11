@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import SidebarContent from './HomeSidebar';
 
 function Profile() {
     return (
@@ -9,12 +8,12 @@ function Profile() {
       <div className="row">
         <div className="row">
 			    <div className="col">
-            <span className="mt-0 mb-0 text-secondary">作成日：2024年5月18日　最終更新日：2024年5月28日</span>
+            <span className="mt-0 mb-0 text-secondary">最終更新日：2024年5月28日</span>
             <h4 className="mt-1 mb-4">プロフィール</h4>
 
             <a style={{ display: 'block', marginTop: '-40px', paddingTop: '40px' }} id="1"></a>
             <h5 className="mb-3 mt-3"><b>自己紹介</b></h5>
-            <p>こんにちは！sanmamamaと申します。</p>
+            <p>こんにちは！さんまままと申します。</p>
 
               <p>
                 私は大学卒業後、地方公務員として10年間、町役場で一般行政事務に従事しました。住民対応や各種行政手続きのサポートを通じて、対人スキルと問題解決能力を磨いてきました。具体的には、住民からの問い合わせ対応や、イベントの企画・運営、書類作成・管理など、多岐にわたる業務を担当してきました。これにより、複数のタスクを効率的にこなし、チームで協力して目標を達成する力を養うことができました。
@@ -55,26 +54,35 @@ function Profile() {
             <h5 className="mb-3 mt-3"><b>経歴</b></h5>
             <p>
               <div className="wp-block-columns is-layout-flex wp-container-core-columns-is-layout-1 wp-block-columns-is-layout-flex">
-                <div className="wp-block-column is-layout-flow wp-block-column-is-layout-flow">
-                <p>1988年7月</p>
-                <p>2007年4月</p>
-                <p>2011年3月</p>
-                <p>2013年4月</p>
-                <p>2024年8月</p>
-                <p>現在に至る</p>
-                </div>
-                <div className="wp-block-column is-layout-flow wp-block-column-is-layout-flow">
-                <p>北海道釧路市生まれ</p>
-                <p>北海道工業大学工学部情報ネットワーク工学科入学</p>
-                <p>北海道工業大学工学部情報ネットワーク工学科卒業</p>
-                <p>町役場入庁</p>
-                <p>町役場退庁</p>
-                </div>
-                </div>
+                  <div className="row">
+                    <div className="col">
+                      <p>1988年7月</p>
+                      <p>2007年4月</p>
+                      <p>2011年3月</p>
+                      <p>2013年4月</p>
+                      <p>2024年8月</p>
+                      <p>現在に至る</p>
+                    </div>
+                    <div className="col">
+                      <p>北海道生まれ</p>
+                      <p>北海道工業大学入学</p>
+                      <p>北海道工業大学卒業</p>
+                      <p>町役場入庁</p>
+                      <p>町役場退庁</p>
+                    </div>
+                  </div>
+              </div>
             </p>
             <a style={{ display: 'block', marginTop: '-40px', paddingTop: '40px' }} id="4"></a>
             <h5 className="mb-3 mt-3"><b>資格・スキル</b></h5>
-            <p>応用情報技術者試験合格、司書、普通自動車免許</p>
+            <div className="row">
+                    <div className="col">
+                      <p>2023年6月</p>
+                    </div>
+                    <div className="col">
+                      <p>応用情報技術者試験合格</p>
+                    </div>
+                  </div>
 
         </div>
       </div>

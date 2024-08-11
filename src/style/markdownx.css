@@ -1,9 +1,7 @@
 /**
 django-markdownx styles for Django Admin
 **/
-.markdownx {
-    display: inline-block;
-}
+
 .markdownx .markdownx-editor,
 .markdownx .markdownx-preview {
     margin-left: 0;
@@ -95,7 +93,6 @@ django-markdownx styles for Django Admin
     margin: 1.5em 0 1.5em 0;
     padding: 1em;
     white-space: pre;
-    white-space: pre-wrap;
     word-wrap: break-word;
 }
 .markdownx .markdownx-preview pre code {

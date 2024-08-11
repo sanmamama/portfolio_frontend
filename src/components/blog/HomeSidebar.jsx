@@ -78,9 +78,8 @@ const SidebarContent = () => {
                         className="img-fluid"
                         src={`${process.env.REACT_APP_BASE_URL}/media/profile.jpg`}
                     />
-                    <p>sanmamamaです。</p>
-                    <p>プロフ詳細は<Link to="/profile">こちら！</Link></p>
-                    <p><Link to="https://x.com/sanma_tensyoku">X(旧Twitter)</Link></p>
+                    <p>さんまままです。</p>
+                    <p><Link to="https://x.com/sanmamama_">X(旧Twitter)</Link></p>
                     <p><Link to="https://github.com/sanmamama/">GitHub</Link></p>
                 </div>
             </div>
