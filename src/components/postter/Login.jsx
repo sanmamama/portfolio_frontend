@@ -23,7 +23,45 @@ const LoginForm = () => {
     const navigate = useNavigate();
 
 
-    //メソッド達
+
+    const handleGuestLogin = (e) => {
+        e.preventDefault();
+        fetch(`${apiUrl}/auth/guest-login/`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+        .then(response => {
+            if(response.ok){
+                setMessages("ゲストログイン成功")
+            }else{
+                setMessages("")
+            }
+            return response.json();
+        })
+        .then(data => {
+            setResponseData(data);
+
+            if(data.key){
+                const token = data.key
+                document.cookie = `token=${token}; path=/`;
+            
+            getUserData(setMyUserDataGlobal)
+            navigate("/postter/home")
+
+            }else{
+                navigate("/postter/login")
+            }
+
+        })
+        .catch(error => {
+            setErrors(error);
+            navigate("/postter/login")
+        });
+    };
+
+    
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData((prevFormData) => ({
@@ -109,19 +147,26 @@ const LoginForm = () => {
     return (
         <div className="row justify-content-center">
             <div className="col-10">
-                <h2>ログイン</h2>
-                <form onSubmit={handleSubmit}>
-                    <div>
-                        <label>メールアドレス</label><span className="ml-3 text-danger">{formError.email}</span>
-                        <input className="form-control" type="email" name="email" value={formData.email} onChange={handleChange}/>    
-                        <label>パスワード</label><span className="ml-3 text-danger">{formError.password}</span>
-                        <input className="form-control" type="password" name="password" value={formData.password} onChange={handleChange}/>
-                    </div>
-                    <button className="mt-2 btn btn-outline-primary btn-block" type="submit">送信</button>
-                </form>
-                <p>{messages}</p>
-                <p>{formError.non_field_errors}</p>
+                <div>
+                    <h2>ログイン</h2>
+                    <form onSubmit={handleSubmit}>
+                        <div>
+                            <label>メールアドレス</label><span className="ml-3 text-danger">{formError.email}</span>
+                            <input className="form-control" type="email" name="email" value={formData.email} onChange={handleChange}/>    
+                            <label>パスワード</label><span className="ml-3 text-danger">{formError.password}</span>
+                            <input className="form-control" type="password" name="password" value={formData.password} onChange={handleChange}/>
+                        </div>
+                        <button className="mt-2 btn btn-outline-primary btn-block" type="submit">送信</button>
+                    </form>
+                    <p>{messages}</p>
+                    <p>{formError.non_field_errors}</p>
+                </div>
+
+                <div className="mt-5">
+                    <button className="btn btn-primary btn-block" onClick={handleGuestLogin}>ゲストログイン</button>
+                </div>
             </div>
+            
         </div>
     );
 };
