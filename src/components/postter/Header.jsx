@@ -87,21 +87,21 @@ function Header() {
             {myUserDataGlobal ? (
               <>
                 <li className="nav-item">
-                  <Link className="nav-link" to={`/postter/${myUserDataGlobal.uid}/`}>
+                  <NavLink className="nav-link" to={`/postter/${myUserDataGlobal.uid}/`} onClick={closeMenu}>
                     {myUserDataGlobal.username}としてログイン中
-                  </Link>
+                  </NavLink>
                 </li>
                 <li className="nav-item">
-                  <Link className="nav-link" to="/postter/logout">ログアウト</Link>
+                  <NavLink className="nav-link" to="/postter/logout" onClick={closeMenu}>ログアウト</NavLink>
                 </li>
               </>
             ) : (
               <>
                 <li className="nav-item">
-                  <Link className="nav-link" to="/postter/login">ログイン</Link>
+                  <NavLink className="nav-link" to="/postter/login" onClick={closeMenu}>ログイン</NavLink>
                 </li>
                 <li className="nav-item">
-                  <Link className="nav-link" to="/postter/signup">会員登録</Link>
+                  <NavLink className="nav-link" to="/postter/signup" onClick={closeMenu}>会員登録</NavLink>
                 </li>
               </>
             )}
