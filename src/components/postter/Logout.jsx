@@ -24,10 +24,10 @@ const Logout = () => {
         document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
 		
 		//ヘッダの名前をリセット
-		setMyUserDataGlobal("")
+		setMyUserDataGlobal(null)
         navigate('/postter/login');
       } catch (error) {
-		setMyUserDataGlobal("")
+		setMyUserDataGlobal(null)
 		navigate('/postter/login')
       }
     };

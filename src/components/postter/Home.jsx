@@ -299,6 +299,7 @@ const Home = () => {
 									</h6>
 									<Link className="no-link-style" to={`/postter/post/${postData.id}/`}>	
 									<p><PostContent content={postData.content}/></p>
+									<p><PostContent content={postData.content_EN}/></p>
 									</Link>
 
 									<ModalCreateReplyButton refreshPost={refreshPost} postData={postData}/>
