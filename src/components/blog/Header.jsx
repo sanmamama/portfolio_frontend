@@ -29,13 +29,6 @@ function Header() {
     <header>
       <nav className="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
         <a className="navbar-brand" href="/">
-          <img
-            className="mr-2 align-top img-fluid"
-            src={`${process.env.REACT_APP_BASE_URL}/media/icon/sanma.svg`}
-            width="32"
-            height="32"
-            alt="Calendar"
-          />
           さんままま
         </a>
         
