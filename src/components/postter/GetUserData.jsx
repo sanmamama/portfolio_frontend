@@ -8,6 +8,7 @@ export const getUserData = (setMyUserDataGlobal) => {
 		}
 		return acc;
 	}, null);
+	
 	fetch(`${apiUrl}/postter/user/`,
 		{
 		method: 'GET',

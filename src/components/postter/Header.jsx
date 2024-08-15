@@ -7,7 +7,7 @@ function Header() {
   const { myUserDataGlobal, setMyUserDataGlobal } = useContext(UserDataContext);
 
   useEffect(() => {
-    getUserData(setMyUserDataGlobal);
+    //getUserData(setMyUserDataGlobal);
 
     // メニュー外をクリックした際にメニューを閉じる
     const handleOutsideClick = (event) => {

@@ -24,7 +24,7 @@ const Message = () => {
 
 	//ログインチェック
 	useEffect(()=>{
-		loginCheck(setMyUserDataGlobal,navigate)
+		loginCheck(myUserDataGlobal,setMyUserDataGlobal,navigate)
 	},[])
 	
 	const handleAddMember = async (user_id,list_id) => {

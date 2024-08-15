@@ -20,7 +20,7 @@ const Message = () => {
 
 	//ログインチェック
 	useEffect(()=>{
-		loginCheck(setMyUserDataGlobal,navigate)
+		loginCheck(myUserDataGlobal,setMyUserDataGlobal,navigate)
 	},[])
 
 	

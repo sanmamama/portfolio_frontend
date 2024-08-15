@@ -30,7 +30,7 @@ const Home = () => {
 
 	//ログインチェック
 	useEffect(()=>{
-		loginCheck(setMyUserDataGlobal,navigate)
+		loginCheck(myUserDataGlobal,setMyUserDataGlobal,navigate)
 		notificationCheck(setMyNotificationGlobal)
 	},[])
 
@@ -62,7 +62,7 @@ const Home = () => {
 					setPosts(()=>{posts[post_ix].repost_count+=1;return posts;})
 				}
 				getUserData(setMyUserDataGlobal)
-				refreshPost()
+				//refreshPost()
                 setMessages(data.detail);
             } else {
                 const data = await response.json();
@@ -72,7 +72,7 @@ const Home = () => {
 					setPosts(()=>{posts[post_ix].repost_count+=1;return posts;})
 				}
 				getUserData(setMyUserDataGlobal)
-				refreshPost()
+				//refreshPost()
                 setMessages(data.detail);
             }
         } catch (error) {
@@ -222,7 +222,7 @@ const Home = () => {
 		setHasMore(true)
 	}
 
-	const loadPost = async(page) => {
+	const loadPost = async() => {
 		const token = document.cookie.split('; ').reduce((acc, row) => {
 			const [key, value] = row.split('=');
 			if (key === 'token') {
@@ -231,7 +231,6 @@ const Home = () => {
 			return acc;
 		}, null);
 		
-
 		const response = await fetch(`${apiUrl}/postter/post/?page=${pageCount}`,
 			{
 				method: 'GET',

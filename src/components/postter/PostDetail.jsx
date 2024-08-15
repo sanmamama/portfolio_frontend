@@ -30,7 +30,7 @@ const Home = () => {
 
 	//ログインチェック
 	useEffect(()=>{
-		loginCheck(setMyUserDataGlobal,navigate)
+		loginCheck(myUserDataGlobal,setMyUserDataGlobal,navigate)
 	},[])
 
 	//リツイートハンドル

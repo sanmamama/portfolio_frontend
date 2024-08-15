@@ -19,7 +19,7 @@ const Message = () => {
 
 	//ログインチェック
 	useEffect(()=>{
-		loginCheck(setMyUserDataGlobal,navigate)
+		loginCheck(myUserDataGlobal,setMyUserDataGlobal,navigate)
 	},[])
 
 
@@ -50,7 +50,7 @@ const Message = () => {
 		}
 	}
 
-	const loadNotificationList = async(page) => {
+	const loadNotificationList = async() => {
 		const token = document.cookie.split('; ').reduce((acc, row) => {
 			const [key, value] = row.split('=');
 			if (key === 'token') {
@@ -70,7 +70,7 @@ const Message = () => {
 		)
 		const data = await response.json()
 		
-		if(response.ok){
+		if(response.ok){		
 			setNotificationList([...NotificationList, ...data.results])
 			setHasMore(data.next)
 			setPageCount(pageCount+1)
