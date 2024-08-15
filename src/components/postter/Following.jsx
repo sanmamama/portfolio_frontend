@@ -109,7 +109,6 @@ const Home = () => {
 		
 		if(response.ok){
 			setPosts(data.results)
-			console.log(data.results)
 			setHasMore(data.next)
 			setPageCount(2)
 		}
