@@ -1,10 +1,9 @@
-import React, { useEffect, useState ,useContext } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import {UserDataContext} from "./providers/UserDataProvider"
-const baseUrl = process.env.REACT_APP_BASE_URL;
+
+
 
 export const RightSideContent = () => {
-	const {myUserDataGlobal,setMyUserDataGlobal} = useContext(UserDataContext);
 	const [query, setQuery] = useState('');
 	const navigate = useNavigate();
 

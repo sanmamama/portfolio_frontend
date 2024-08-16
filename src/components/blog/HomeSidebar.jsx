@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 const apiUrl = process.env.REACT_APP_API_URL;
 
 const SidebarContent = () => {
-    const [posts, setPosts] = useState([]);
     const [categories, setCategories] = useState([]);
     const [tags, setTags] = useState([]);
     const [archives, setArchives] = useState([]);
@@ -13,7 +12,6 @@ const SidebarContent = () => {
         fetch(`${apiUrl}/blog/all/`)
             .then(response => response.json())
             .then(data => {
-                setPosts(data);
                 calculateCategories(data);
                 calculateTags(data);
                 calculateArchives(data);
@@ -77,6 +75,7 @@ const SidebarContent = () => {
                     <img
                         className="img-fluid"
                         src={`${process.env.REACT_APP_BASE_URL}/media/profile.jpg`}
+                        alt="profile"
                     />
                     <p>さんまままです。</p>
                     <p><Link to="https://x.com/sanmamama_">X(旧Twitter)</Link></p>

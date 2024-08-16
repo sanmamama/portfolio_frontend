@@ -12,11 +12,7 @@ const Message = () => {
 	const id = parseInt(useParams().id, 10);
 
 	const {myUserDataGlobal,setMyUserDataGlobal} = useContext(UserDataContext);
-	const [formData, setFormData] = useState({
-        content: ''
-    });
 	const [messages, setMessages] = useState("");
-    const [errors, setErrors] = useState("");
 	const [userList, setUserList] = useState([]);
 	const [pageCount, setPageCount] = useState(1);
 	const [hasMore, setHasMore] = useState(true);
@@ -25,7 +21,7 @@ const Message = () => {
 	//ログインチェック
 	useEffect(()=>{
 		loginCheck(myUserDataGlobal,setMyUserDataGlobal,navigate)
-	},[])
+	},[myUserDataGlobal,setMyUserDataGlobal,navigate])
 	
 	const handleAddMember = async (user_id,list_id) => {
 		const token = document.cookie.split('; ').reduce((acc, row) => {
@@ -46,7 +42,6 @@ const Message = () => {
 				"list":list_id,
 			}),
         });
-		const res = await response.json();
 		if(response.ok){
 			setMessages(`ok`);
 			refreshMessageList()
@@ -125,10 +120,10 @@ const Message = () => {
 										</div>
 									</td>
 									<td>
-										<a className="" style={{cursor:"pointer"}} onClick={() => handleAddMember(id,ListData.id)}>
+										<button style={{cursor:"pointer"}} onClick={() => handleAddMember(id,ListData.id)}>
 											{ListData.user_ids.includes(id) ? "登録を外す" : "登録する"}
 														
-										</a>
+										</button>
 									</td>					
 								</tr>
 							))}

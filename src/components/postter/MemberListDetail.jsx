@@ -14,11 +14,7 @@ const Message = () => {
 	const navigate = useNavigate();
 	const { id } = useParams();
 	const {myUserDataGlobal,setMyUserDataGlobal} = useContext(UserDataContext);
-	const [formData, setFormData] = useState({
-        content: ''
-    });
 	const [messages, setMessages] = useState("");
-    const [errors, setErrors] = useState("");
 	const [userList, setUserList] = useState([]);
 	const [pageCount, setPageCount] = useState(1);
 	const [hasMore, setHasMore] = useState(true);
@@ -27,7 +23,7 @@ const Message = () => {
 	//ログインチェック
 	useEffect(()=>{
 		loginCheck(myUserDataGlobal,setMyUserDataGlobal,navigate)
-	},[])
+	},[myUserDataGlobal,setMyUserDataGlobal,navigate])
 
 	//リストをモーダルウインドウで削除後のナビゲート
 	const navigateListView = () =>{

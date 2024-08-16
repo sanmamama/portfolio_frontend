@@ -9,8 +9,6 @@ const apiUrl = process.env.REACT_APP_API_URL;
 
 const Message = () => {
 	const {myUserDataGlobal,setMyUserDataGlobal} = useContext(UserDataContext);
-	const [messages, setMessages] = useState("");
-    const [errors, setErrors] = useState("");
 	const [NotificationList, setNotificationList] = useState([]);
 	const [pageCount, setPageCount] = useState(1);
 	const [hasMore, setHasMore] = useState(true);
@@ -20,35 +18,35 @@ const Message = () => {
 	//ログインチェック
 	useEffect(()=>{
 		loginCheck(myUserDataGlobal,setMyUserDataGlobal,navigate)
-	},[])
+	},[myUserDataGlobal,setMyUserDataGlobal,navigate])
 
 
-	const refreshNotificationList = async() => {
-		const token = document.cookie.split('; ').reduce((acc, row) => {
-			const [key, value] = row.split('=');
-			if (key === 'token') {
-			acc = value;
-			}
-			return acc;
-		}, null);
+	// const refreshNotificationList = async() => {
+	// 	const token = document.cookie.split('; ').reduce((acc, row) => {
+	// 		const [key, value] = row.split('=');
+	// 		if (key === 'token') {
+	// 		acc = value;
+	// 		}
+	// 		return acc;
+	// 	}, null);
 
-		const response = await fetch(`${apiUrl}/postter/message/?page=1`,
-			{
-				method: 'GET',
-				headers: {
-					'Authorization': `Token ${token}`,
-				},
-			}
-		)
-		const data = await response.json()
+	// 	const response = await fetch(`${apiUrl}/postter/message/?page=1`,
+	// 		{
+	// 			method: 'GET',
+	// 			headers: {
+	// 				'Authorization': `Token ${token}`,
+	// 			},
+	// 		}
+	// 	)
+	// 	const data = await response.json()
 		
-		if(response.ok){
-			setNotificationList(data.results)
-			console.log(data.results)
-			setHasMore(data.next)
-			setPageCount(2)
-		}
-	}
+	// 	if(response.ok){
+	// 		setNotificationList(data.results)
+	// 		console.log(data.results)
+	// 		setHasMore(data.next)
+	// 		setPageCount(2)
+	// 	}
+	// }
 
 	const loadNotificationList = async() => {
 		const token = document.cookie.split('; ').reduce((acc, row) => {
@@ -86,7 +84,6 @@ const Message = () => {
 		<div className="col-sm-6 pl-0 pr-0">
 			<div className="card">
 				<div className="card-body pt-3 pb-3 pl-3 pr-3">
-					{messages}
 					<h4>通知</h4>
 					<div>
 						<InfiniteScroll

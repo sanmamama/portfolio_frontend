@@ -8,8 +8,6 @@ const apiUrl = process.env.REACT_APP_API_URL;
 
 const Message = () => {
 	const {myUserDataGlobal,setMyUserDataGlobal} = useContext(UserDataContext);
-	const [messages, setMessages] = useState("");
-    const [errors, setErrors] = useState("");
 	const [userList, setUserList] = useState([]);
 	const [pageCount, setPageCount] = useState(1);
 	const [hasMore, setHasMore] = useState(true);
@@ -21,7 +19,7 @@ const Message = () => {
 	//ログインチェック
 	useEffect(()=>{
 		loginCheck(myUserDataGlobal,setMyUserDataGlobal,navigate)
-	},[])
+	},[myUserDataGlobal,setMyUserDataGlobal,navigate])
 
 	
 	const fetchResults = useCallback(async (searchQuery) => {
@@ -64,32 +62,32 @@ const Message = () => {
 	}, [query, fetchResults]);
 
 
-	const refreshMessageList = async() => {
-		const token = document.cookie.split('; ').reduce((acc, row) => {
-			const [key, value] = row.split('=');
-			if (key === 'token') {
-			acc = value;
-			}
-			return acc;
-		}, null);
+	// const refreshMessageList = async() => {
+	// 	const token = document.cookie.split('; ').reduce((acc, row) => {
+	// 		const [key, value] = row.split('=');
+	// 		if (key === 'token') {
+	// 		acc = value;
+	// 		}
+	// 		return acc;
+	// 	}, null);
 
-		const response = await fetch(`${apiUrl}/postter/message/?page=1`,
-			{
-				method: 'GET',
-				headers: {
-					'Authorization': `Token ${token}`,
-				},
-			}
-		)
-		const data = await response.json()
+	// 	const response = await fetch(`${apiUrl}/postter/message/?page=1`,
+	// 		{
+	// 			method: 'GET',
+	// 			headers: {
+	// 				'Authorization': `Token ${token}`,
+	// 			},
+	// 		}
+	// 	)
+	// 	const data = await response.json()
 		
-		if(response.ok){
-			setUserList(data.results)
-			console.log(data.results)
-			setHasMore(data.next)
-			setPageCount(2)
-		}
-	}
+	// 	if(response.ok){
+	// 		setUserList(data.results)
+	// 		console.log(data.results)
+	// 		setHasMore(data.next)
+	// 		setPageCount(2)
+	// 	}
+	// }
 
 	const loadMessageList = async(page) => {
 		const token = document.cookie.split('; ').reduce((acc, row) => {
@@ -127,7 +125,6 @@ const Message = () => {
 		<div className="col-sm-6 pl-0 pr-0">
 			<div className="card">
 				<div className="card-body pt-3 pb-3 pl-3 pr-3">
-					{messages}
 					<h4>新規メッセージ</h4>
 					<input className="mt-3 mb-3 form-control" type="text" value={query} onChange={(e) => setQuery(e.target.value)} placeholder="ユーザーを検索"/>
 					<div>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+//import React, { useState, useEffect } from 'react';
 
 function Profile() {
     return (
@@ -9,10 +9,11 @@ function Profile() {
         <div className="row">
 			    <div className="col">
             <span className="mt-0 mb-0 text-secondary">最終更新日：2024年5月28日</span>
-            <h4 className="mt-1 mb-4">プロフィール</h4>
+            <h3><b>プロフィール</b></h3>
 
-            <a style={{ display: 'block', marginTop: '-40px', paddingTop: '40px' }} id="1"></a>
-            <h5 className="mb-3 mt-3"><b>自己紹介</b></h5>
+            <h3 className="anchor" id="1"><b>1.自己紹介</b></h3>
+            
+            <hr/>
             <p>こんにちは！さんまままと申します。</p>
 
               <p>
@@ -32,8 +33,9 @@ function Profile() {
               </p>
 
 
-            <a style={{ display: 'block', marginTop: '-40px', paddingTop: '40px' }} id="2"></a>
-            <h5 className="mb-3 mt-3"><b>自己PR</b></h5>
+            <h3 className="anchor" id="2"><b>2.自己PR</b></h3>
+            
+            <hr/>
               <p>
                 私は10年間にわたり地方公務員として住民対応や行政手続きのサポートを行い、多岐にわたる業務を通じて高い対人スキルと問題解決能力を身につけました。この経験を活かし、システム開発の分野で新しい価値を提供したいと考えています。
               </p>
@@ -50,8 +52,9 @@ function Profile() {
                 これまでの公務員としての経験と、現在進行中のエンジニアとしての学びを融合させ、ユーザーのニーズに応えるための革新的なソリューションを提供できるエンジニアを目指しています。
               </p>
 
-            <a style={{ display: 'block', marginTop: '-40px', paddingTop: '40px' }} id="3"></a>
-            <h5 className="mb-3 mt-3"><b>経歴</b></h5>
+            <h3 className="anchor" id="3"><b>3.経歴</b></h3>
+            
+            <hr/>
             <p>
               <div className="wp-block-columns is-layout-flex wp-container-core-columns-is-layout-1 wp-block-columns-is-layout-flex">
                   <div className="row">
@@ -73,8 +76,9 @@ function Profile() {
                   </div>
               </div>
             </p>
-            <a style={{ display: 'block', marginTop: '-40px', paddingTop: '40px' }} id="4"></a>
-            <h5 className="mb-3 mt-3"><b>資格・スキル</b></h5>
+            <h3 className="anchor" id="4"><b>4.資格・スキル</b></h3>
+            
+            <hr/>
             <div className="row">
                     <div className="col">
                       <p>2023年6月</p>
@@ -92,10 +96,10 @@ function Profile() {
     <div className="col-sm-3 d-none d-sm-block">
       <div className="stick">
         <h4>目次</h4>
-        <p className="mt-3"><a href="#1">自己紹介</a></p>
-        <p className="mt-3"><a href="#2">自己PR</a></p>
-        <p className="mt-3"><a href="#3">経歴</a></p>
-        <p className="mt-3"><a href="#4">資格・スキル</a></p>
+        <p className="mt-3"><a href="#1">1.自己紹介</a></p>
+        <p className="mt-3"><a href="#2">2.自己PR</a></p>
+        <p className="mt-3"><a href="#3">3.経歴</a></p>
+        <p className="mt-3"><a href="#4">4.資格・スキル</a></p>
       </div>
     </div>
     </>

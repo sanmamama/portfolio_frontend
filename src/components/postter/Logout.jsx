@@ -5,7 +5,7 @@ import { UserDataContext } from "./providers/UserDataProvider"
 const apiUrl = process.env.REACT_APP_API_URL;
 
 const Logout = () => {
-  const {myUserDataGlobal,setMyUserDataGlobal} = useContext(UserDataContext)
+  const {setMyUserDataGlobal} = useContext(UserDataContext)
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -33,7 +33,7 @@ const Logout = () => {
     };
 
     handleLogout();
-  }, []);
+  }, [navigate,setMyUserDataGlobal]);
 
   return null;
 };

@@ -27,7 +27,7 @@ const Message = () => {
 	//ログインチェック
 	useEffect(()=>{
 		loginCheck(myUserDataGlobal,setMyUserDataGlobal,navigate)
-	},[])
+	},[myUserDataGlobal,setMyUserDataGlobal,navigate])
 	
 	//ポストフォームチェンジ
 	const handleMessageChange = (e) => {

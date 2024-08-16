@@ -1,5 +1,5 @@
 
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import { useContext } from 'react';
 import { UserDataContext } from "./providers/UserDataProvider"
@@ -7,7 +7,7 @@ import { getUserData } from "./GetUserData"
 const apiUrl = process.env.REACT_APP_API_URL;
 
 const LoginForm = () => {
-    const {myUserDataGlobal,setMyUserDataGlobal} = useContext(UserDataContext)
+    const {setMyUserDataGlobal} = useContext(UserDataContext)
     const [formData, setFormData] = useState({
         email: '',
         password: '',
@@ -18,8 +18,6 @@ const LoginForm = () => {
         non_field_errors:''
     });
     const [messages, setMessages] = useState("");
-    const [responseData, setResponseData] = useState([]);
-    const [errors, setErrors] = useState("");
     const navigate = useNavigate();
 
 
@@ -41,7 +39,7 @@ const LoginForm = () => {
             return response.json();
         })
         .then(data => {
-            setResponseData(data);
+
 
             if(data.key){
                 const token = data.key
@@ -56,7 +54,6 @@ const LoginForm = () => {
 
         })
         .catch(error => {
-            setErrors(error);
             navigate("/postter/login")
         });
     };
@@ -88,7 +85,6 @@ const LoginForm = () => {
             return response.json();
         })
         .then(data => {
-            setResponseData(data);
 
             setFormError(() => ({
                 'email':'',
@@ -139,7 +135,6 @@ const LoginForm = () => {
             //console.log(token)
         })
         .catch(error => {
-            setErrors(error);
             navigate("/postter/login")
         });
     };

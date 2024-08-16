@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link,useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import SidebarContent from './HomeSidebar';
 
 // カスタムフック: ウィンドウサイズが `576px` 以下かどうかをチェック
@@ -99,6 +99,7 @@ const BlogItem = ({ item,isSmallScreen }) => (
                                 src={`${process.env.REACT_APP_BASE_URL}/media/icon/calendar.svg`}
                                 width="16"
                                 height="16"
+                                alt="calendar"
                             />
                         </span>
                         <span className="text-secondary align-text-bottom">
@@ -130,40 +131,30 @@ const App = () => {
     const [blog, setBlog] = useState(null);
     const [pageCount, setPageCount] = useState(null);
     const [currentPage, setCurrentPage] = useState(null);
-
     const isSmallScreen = useIsSmallScreen();
-
-	//ページ遷移
-	const location = useLocation();
 
     // URLパラメータからフィルタ状態を取得
     const query = useQuery();
-    let selectedPage = parseInt(query.get('page') || 1, 10);
-    let selectedCategory = query.get('category') || '';
-    let selectedTag = query.get('tag') || '';
-    let selectedYearMonth = query.get('date') || '';
+    const selectedPage = parseInt(query.get('page') || 1, 10);
+    const selectedCategory = query.get('category') || '';
+    const selectedTag = query.get('tag') || '';
+    const selectedYearMonth = query.get('date') || '';
 
-    const fetchItems = async () => {
-        const response = await fetch(
-            `${process.env.REACT_APP_API_URL}/blog/?page=${selectedPage}&category=${selectedCategory}&tag=${selectedTag}&date=${selectedYearMonth}`
-        );
-        const data = await response.json();
-        setBlog(data.results);
-        setCurrentPage(selectedPage);
-        setPageCount(Math.ceil(data.count / 6));
-    };
+    
 
     useEffect(() => {
+        const fetchItems = async () => {
+            const response = await fetch(
+                `${process.env.REACT_APP_API_URL}/blog/?page=${selectedPage}&category=${selectedCategory}&tag=${selectedTag}&date=${selectedYearMonth}`
+            );
+            const data = await response.json();
+            setBlog(data.results);
+            setCurrentPage(selectedPage);
+            setPageCount(Math.ceil(data.count / 6));
+        };
         fetchItems();
-    }, [selectedPage, selectedCategory, selectedTag, selectedYearMonth]);
+    }, [selectedPage,selectedCategory,selectedTag,selectedYearMonth]);
 
-	useEffect(() => {
-        selectedPage = parseInt(query.get('page') || 1, 10);
-		selectedCategory = query.get('category') || '';
-		selectedTag = query.get('tag') || '';
-		selectedYearMonth = query.get('date') || '';
-    }, [location.pathname]);
-	
 
     if (!blog) {
         return <div>Loading...</div>;

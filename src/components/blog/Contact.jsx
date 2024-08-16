@@ -19,11 +19,6 @@ function Contact() {
     );
 }
 
-
-
-
-
-
 const ContactForm = () => {
     const [formData, setFormData] = useState({
         name: '',
@@ -75,8 +70,6 @@ const ContactForm = () => {
             return response.json();
         })
         .then(data => {
-            //console.log('Success:', data);
-            //alert('Message sent successfully!');
             setMessages('送信しました')
             setFormData({
                 name: '',

@@ -9,11 +9,6 @@ const apiUrl = process.env.REACT_APP_API_URL;
 
 const Message = () => {
 	const {myUserDataGlobal,setMyUserDataGlobal} = useContext(UserDataContext);
-	const [formData, setFormData] = useState({
-        content: ''
-    });
-	const [messages, setMessages] = useState("");
-    const [errors, setErrors] = useState("");
 	const [userList, setUserList] = useState([]);
 	const [pageCount, setPageCount] = useState(1);
 	const [hasMore, setHasMore] = useState(true);
@@ -22,7 +17,7 @@ const Message = () => {
 	//ログインチェック
 	useEffect(()=>{
 		loginCheck(myUserDataGlobal,setMyUserDataGlobal,navigate)
-	},[])
+	},[myUserDataGlobal,setMyUserDataGlobal,navigate])
 
 
 	const loadMessageList = async(page) => {
@@ -61,7 +56,6 @@ const Message = () => {
 		<div className="col-sm-6 pl-0 pr-0">
 			<div className="card">
 				<div className="card-body pt-3 pb-3 pl-3 pr-3">
-					{messages}
 					<h4>リスト</h4>
 				<p><ModalCreateListButton userList={userList} setUserList={setUserList}/></p>						
 				<div>

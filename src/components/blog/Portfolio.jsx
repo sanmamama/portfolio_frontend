@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import SidebarContent from './HomeSidebar';
+//import React, { useState, useEffect } from 'react';
 
 function Portfolio() {
     return (
@@ -8,7 +7,7 @@ function Portfolio() {
       <div className="row">
         <div>
         <span className="mt-0 mb-0 text-secondary">最終更新日：2024年5月18日</span>
-				<h4 className="mt-1 mb-4">ポートフォリオ</h4>
+				<h3><b>ポートフォリオ</b></h3>
 
 				<p><a href="/">blog</a></p>
 				<p>このブログです。</p>

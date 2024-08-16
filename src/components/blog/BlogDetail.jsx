@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import { useParams,useNavigate } from 'react-router-dom';
+import { useParams} from 'react-router-dom';
 import DOMPurify from 'dompurify';
 import { Link } from 'react-router-dom';
 const apiUrl = process.env.REACT_APP_API_URL;
@@ -12,7 +12,6 @@ function sanitizeHtml(html) {
 const BlogDetail = () => {
 	const { id } = useParams();
 	const [data, setData] = useState(null);
-	const navigate = useNavigate();
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -26,11 +25,8 @@ const BlogDetail = () => {
 		}
 		};
 		fetchData();
-	}, []);
+	}, [id]);
 
-	const handleBack = () => {
-		navigate(-1);  // 1つ前のページに戻る
-	  };
 
 	const handleLike = async () => {
         const response = await fetch(`${apiUrl}/blog/${id}/like/`, {
@@ -74,6 +70,7 @@ const BlogDetail = () => {
 						src={`${process.env.REACT_APP_BASE_URL}/media/icon/calendar.svg`}
 						width="16"
 						height="16"
+						alt="calendar"
                     />
 				</span>
 					<span className="mt-0 mb-0 text-secondary align-text-bottom">
@@ -90,7 +87,7 @@ const BlogDetail = () => {
 			</div>
 
 			<div className="text-center">
-				<img className="img-fluid" src = {data.img} width="400" height="150"/>
+				<img className="img-fluid" src = {data.img} width="400" height="150" alt="data"/>
 			</div>
 
 			<div>

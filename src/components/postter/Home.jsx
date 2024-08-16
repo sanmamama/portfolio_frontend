@@ -17,12 +17,12 @@ const baseUrl = process.env.REACT_APP_BASE_URL;
 
 const Home = () => {
 	const {myUserDataGlobal,setMyUserDataGlobal} = useContext(UserDataContext);
-	const {myNotificationGlobal,setMyNotificationGlobal} = useContext(NotificationContext);
+	const {setMyNotificationGlobal} = useContext(NotificationContext);
 	const [formData, setFormData] = useState({
         content: ''
     });
 	const [messages, setMessages] = useState("");
-    const [errors, setErrors] = useState("");
+    const [setErrors] = useState("");
 	const [posts, setPosts] = useState([]);
 	const [pageCount, setPageCount] = useState(1);
 	const [hasMore, setHasMore] = useState(true);
@@ -32,7 +32,7 @@ const Home = () => {
 	useEffect(()=>{
 		loginCheck(myUserDataGlobal,setMyUserDataGlobal,navigate)
 		notificationCheck(setMyNotificationGlobal)
-	},[])
+	},[myUserDataGlobal,setMyUserDataGlobal,setMyNotificationGlobal,navigate])
 
 	//リツイートハンドル
 	const handleRepost = async (postId,post_ix,post_reposted) => {
@@ -278,17 +278,17 @@ const Home = () => {
 									
 								<tr className="text" key={ix}>
 								<td className="text" style={{width: "15%"}}>
-									<img className="rounded img-fluid mx-auto d-block" src={postData.owner.avatar_imgurl} id="avatar-image" width="40" height="40"/>
+									<img className="rounded img-fluid mx-auto d-block" src={postData.owner.avatar_imgurl} id="avatar-image" width="40" height="40" alt="avatarimage"/>
 								</td>
 								<td className="text" style={{width: "80%"}}>
 									{postData.repost_user && (
 										<>
-										<p><img className="mr-2" src={`${baseUrl}/media/icon/repost_active.svg`} width="16" height="16"/><Link to={`/postter/${postData.repost_user.uid}/`}>{postData.repost_user.username}</Link>がリポストしました</p>
+										<p><img className="mr-2" src={`${baseUrl}/media/icon/repost_active.svg`} width="16" height="16" alt="repost"/><Link to={`/postter/${postData.repost_user.uid}/`}>{postData.repost_user.username}</Link>がリポストしました</p>
 										</>
 									)}
 									{postData.parent && (
 											<>
-											<p><img className="mr-2" src={`${baseUrl}/media/icon/reply.svg`} width="16" height="16"/><Link to={`/postter/post/${postData.parent}/`}>ポストID{postData.parent}</Link>へのリプライ</p>
+											<p><img className="mr-2" src={`${baseUrl}/media/icon/reply.svg`} width="16" height="16" alt="reply"/><Link to={`/postter/post/${postData.parent}/`}>ポストID{postData.parent}</Link>へのリプライ</p>
 											</>
 									)}
 									<h6>
@@ -303,34 +303,33 @@ const Home = () => {
 
 									<ModalCreateReplyButton refreshPost={refreshPost} postData={postData}/>
 									
-									<a className="mr-4" style={{cursor:"pointer"}} onClick={() => handleLike(postData.id,ix,myUserDataGlobal.like.includes(postData.id))}>
-									{myUserDataGlobal.like.includes(postData.id) ? <img src={`${baseUrl}/media/icon/heart_active.svg`} width="16" height="16"/> : <img src={`${baseUrl}/media/icon/heart_no_active.svg`} width="16" height="16"/>}{postData.like_count}
-									</a>
+									<button className="mr-4 btn btn-link" style={{cursor:"pointer"}} onClick={() => handleLike(postData.id,ix,myUserDataGlobal.like.includes(postData.id))}>
+									{myUserDataGlobal.like.includes(postData.id) ? <img src={`${baseUrl}/media/icon/heart_active.svg`} width="16" height="16" alt="like"/> : <img src={`${baseUrl}/media/icon/heart_no_active.svg`} width="16" height="16" alt="like"/>}{postData.like_count}
+									</button>
 									
-									<a className="mr-4" style={{cursor:"pointer"}} onClick={() => handleRepost(postData.id,ix,myUserDataGlobal.repost.includes(postData.id))}>
-									{myUserDataGlobal.repost.includes(postData.id) ? <img src={`${baseUrl}/media/icon/repost_active.svg`} width="16" height="16"/> : <img src={`${baseUrl}/media/icon/repost_no_active.svg`} width="16" height="16"/>}{postData.repost_count}
-									</a>
+									<button className="mr-4 btn btn-link" style={{cursor:"pointer"}} onClick={() => handleRepost(postData.id,ix,myUserDataGlobal.repost.includes(postData.id))}>
+									{myUserDataGlobal.repost.includes(postData.id) ? <img src={`${baseUrl}/media/icon/repost_active.svg`} width="16" height="16"  alt="repost"/> : <img src={`${baseUrl}/media/icon/repost_no_active.svg`} width="16" height="16"  alt="repost"/>}{postData.repost_count}
+									</button>
 
-									<img src={`${baseUrl}/media/icon/view_count.svg`} width="16" height="16"/>{postData.view_count}
+									<img src={`${baseUrl}/media/icon/view_count.svg`} width="16" height="16" alt="view"/>{postData.view_count}
 									
 								</td>
 								<td className='text' style={{width: "5%"}}>
-								
 									<div className="dropdown">
 										<button type="button" className="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">︙</button>
 										<div className="dropdown-menu">
-										{postData.owner.id == myUserDataGlobal.id && (
+										{postData.owner.id === myUserDataGlobal.id && (
 											<>
 												<ModalAddUserToList className={"dropdown-item"} id={postData.owner.id}/>
-												<a className="dropdown-item" style={{cursor:"pointer"}} onClick={() => handlePostDelete(postData.id)}>ポストを削除する</a>
+												<button className="dropdown-item" style={{cursor:"pointer"}} onClick={() => handlePostDelete(postData.id)}>ポストを削除する</button>
 											</>
 										)}
 										{postData.owner.id !== myUserDataGlobal.id && (
 											<>
 												<ModalAddUserToList className={"dropdown-item"} id={postData.owner.id}/>
-												<a className="dropdown-item" style={{cursor:"pointer"}} onClick={() => handleFollow(postData.owner.id,ix)}>
+												<button className="btn btn-link dropdown-item" style={{cursor:"pointer"}} onClick={() => handleFollow(postData.owner.id,ix)}>
 													{myUserDataGlobal.following.includes(postData.owner.id) ? "フォローを解除する" : "フォローする"}
-												</a>
+												</button>
 											</>
 										)}
 

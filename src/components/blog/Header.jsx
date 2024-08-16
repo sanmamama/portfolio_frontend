@@ -9,16 +9,17 @@ function Header() {
     }
   };
 
-  const handleDocumentClick = (event) => {
-    const navBar = document.getElementById('navbarsExampleDefault');
-    const isClickInside = navBar.contains(event.target) || event.target.classList.contains('navbar-toggler');
-
-    if (!isClickInside) {
-      closeMenu();
-    }
-  };
-
+  
   useEffect(() => {
+    const handleDocumentClick = (event) => {
+      const navBar = document.getElementById('navbarsExampleDefault');
+      const isClickInside = navBar.contains(event.target) || event.target.classList.contains('navbar-toggler');
+  
+      if (!isClickInside) {
+        closeMenu();
+      }
+    };
+
     document.addEventListener('click', handleDocumentClick);
     return () => {
       document.removeEventListener('click', handleDocumentClick);

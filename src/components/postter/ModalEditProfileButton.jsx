@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Modal from "react-modal";
 
 
 Modal.setAppElement("#root");
 const apiUrl = process.env.REACT_APP_API_URL;
-const baseUrl = process.env.REACT_APP_BASE_URL;
+
 
 
 

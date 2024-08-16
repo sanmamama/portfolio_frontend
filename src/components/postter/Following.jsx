@@ -1,5 +1,5 @@
 import React, { useEffect, useState ,useContext } from 'react';
-import { Link,useLocation } from 'react-router-dom';
+import { Link} from 'react-router-dom';
 import {UserDataContext} from "./providers/UserDataProvider"
 import { getUserData } from "./GetUserData"
 import { useParams } from 'react-router-dom';
@@ -11,15 +11,12 @@ const apiUrl = process.env.REACT_APP_API_URL;
 const baseUrl = process.env.REACT_APP_BASE_URL;
 
 const Home = () => {
-	const location = useLocation();
 	const { uid } = useParams();
 	const {myUserDataGlobal,setMyUserDataGlobal} = useContext(UserDataContext);
 
 	const [userData,setUserData] = useState(null);
 
 	const [messages, setMessages] = useState("");
-	const [responseMessages, setResponseMessages] = useState("");
-    const [errors, setErrors] = useState("");
 
 	const [posts, setPosts] = useState([]);
 	const [pageCount, setPageCount] = useState(1);
@@ -29,7 +26,7 @@ const Home = () => {
 	//ログインチェック
 	useEffect(()=>{
 		loginCheck(myUserDataGlobal,setMyUserDataGlobal,navigate)
-	},[])
+	},[myUserDataGlobal,setMyUserDataGlobal,navigate])
 
 
 	//フォローハンドル
@@ -114,43 +111,42 @@ const Home = () => {
 		}
 	}
 
-	const getUidUserData = () => {
-		const token = document.cookie.split('; ').reduce((acc, row) => {
-			const [key, value] = row.split('=');
-			if (key === 'token') {
-			acc = value;
-			}
-			return acc;
-		}, null);
-		fetch(`${apiUrl}/postter/user/${uid}/`,
-			{
-			method: 'GET',
-			headers: {
-				'Authorization': `Token ${token}`,
-				},
-			})
-		.then(response => {
-			if(!response.ok){
-				//トークンのセッション切れ
-				throw new Error();
-			}
-			return response.json()
-			})
-		.then(data => {
-			//ログインしているとき
-			setUserData(data)
-			})
-		.catch(error => {
-			//ログインしていないとき
-		});
-	}
-
 
 	useEffect(() => {
-		setMessages("")
+		const getUidUserData = () => {
+			const token = document.cookie.split('; ').reduce((acc, row) => {
+				const [key, value] = row.split('=');
+				if (key === 'token') {
+				acc = value;
+				}
+				return acc;
+			}, null);
+			fetch(`${apiUrl}/postter/user/${uid}/`,
+				{
+				method: 'GET',
+				headers: {
+					'Authorization': `Token ${token}`,
+					},
+				})
+			.then(response => {
+				if(!response.ok){
+					//トークンのセッション切れ
+					throw new Error();
+				}
+				return response.json()
+				})
+			.then(data => {
+				//ログインしているとき
+				setUserData(data)
+				})
+			.catch(error => {
+				//ログインしていないとき
+			});
+		}
+
 		getUidUserData()
-		refreshFollow()
-		},[location.pathname])
+		//refreshFollow()
+		},[uid])
 
 	
 
@@ -180,7 +176,7 @@ const Home = () => {
 								{posts.map((postData,ix) => (
 								<tr className="text" key={ix}>
 								<td className="text" style={{width: "15%"}}>
-									<img className="rounded img-fluid mx-auto d-block" src={`${baseUrl}${postData.following.avatar_imgurl}`} id="avatar-image" width="40" height="40"/>
+									<img className="rounded img-fluid mx-auto d-block" src={`${baseUrl}${postData.following.avatar_imgurl}`} id="avatar-image" width="40" height="40" alt="avatarimage"/>
 								</td>
 								<td className="text" style={{width: "80%"}}>
 									<h6>
@@ -193,7 +189,7 @@ const Home = () => {
 									<div className="dropdown">
 										<button type="button" className="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">︙</button>
 										<div className="dropdown-menu">
-										{postData.following.id == myUserDataGlobal.id && (
+										{postData.following.id === myUserDataGlobal.id && (
 											<>
 											<ModalAddUserToList className={"dropdown-item"} id={postData.following.id}/>
 											</>
@@ -201,9 +197,9 @@ const Home = () => {
 										{postData.following.id !== myUserDataGlobal.id && (
 											<>
 												<ModalAddUserToList className={"dropdown-item"} id={postData.following.id}/>
-												<a className="dropdown-item" style={{cursor:"pointer"}} onClick={() => handleFollow(postData.following.id)}>
+												<button className="dropdown-item" style={{cursor:"pointer"}} onClick={() => handleFollow(postData.following.id)}>
 													{myUserDataGlobal.following.includes(postData.following.id) ? "このユーザーのフォローを解除する" : "このユーザーをフォローする"}
-												</a>
+												</button>
 											</>
 										)}
 

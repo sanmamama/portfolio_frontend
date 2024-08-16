@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Modal from "react-modal";
 import PostContent from './PostContent';
 
@@ -97,9 +97,9 @@ class CustomModal extends React.Component {
   render() {
     return (
       <>
-        <a className="mr-4" style={{cursor:"pointer"}} onClick={this.openModal}>
-        <img src={`${baseUrl}/media/icon/reply.svg`} width="16" height="16"/>{this.props.postData.reply_count}
-        </a>
+        <button className="mr-4 btn btn-link" style={{cursor:"pointer"}} onClick={this.openModal}>
+        <img src={`${baseUrl}/media/icon/reply.svg`} width="16" height="16" alt="reply"/>{this.props.postData.reply_count}
+        </button>
         <Modal
           isOpen={this.state.modalIsOpen}
           onRequestClose={this.closeModal}
@@ -110,7 +110,7 @@ class CustomModal extends React.Component {
           <table id='post_list' className="table-sm" style={{width: "100%"}}>
 								<tr className="text">
 								<td className="text" style={{width: "15%"}}>
-									<img className="rounded img-fluid mx-auto d-block" src={this.props.postData.owner.avatar_imgurl} id="avatar-image" width="40" height="40"/>
+									<img className="rounded img-fluid mx-auto d-block" src={this.props.postData.owner.avatar_imgurl} id="avatar-image" width="40" height="40"  alt="avatarimage"/>
 								</td>
 								<td className="text" style={{width: "80%"}}>
 									<h6>

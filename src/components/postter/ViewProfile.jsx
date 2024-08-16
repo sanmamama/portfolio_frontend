@@ -22,8 +22,6 @@ const Home = () => {
 	const [userData,setUserData] = useState(null);
 
 	const [messages, setMessages] = useState("");
-	const [responseMessages, setResponseMessages] = useState("");
-    const [errors, setErrors] = useState("");
 
 	const [posts, setPosts] = useState([]);
 	const [pageCount, setPageCount] = useState(1);
@@ -39,7 +37,7 @@ const Home = () => {
 	//ログインチェック
 	useEffect(()=>{
 		loginCheck(myUserDataGlobal,setMyUserDataGlobal,navigate)
-	},[])
+	},[myUserDataGlobal,setMyUserDataGlobal,navigate])
 
 	//リツイートハンドル
 	const handleRepost = async (postId,post_ix,post_reposted) => {
@@ -256,7 +254,7 @@ const Home = () => {
 			<div className="card">
 				<div className="card-body pt-3 pb-3 pl-3 pr-3">
 					{messages}
-					<img className="rounded img-fluid mx-auto d-block" src={`${userData.avatar_imgurl}`} id="avatar-image" width="150" height="150"/>
+					<img className="rounded img-fluid mx-auto d-block" src={`${userData.avatar_imgurl}`} id="avatar-image" width="150" height="150" alt="avatarimage"/>
 					
 					<p className="mb-0"><b>{userData.username}</b></p>
 					<p className="text-secondary">@{userData.uid}</p>
@@ -268,11 +266,11 @@ const Home = () => {
 					</p>
 
 					{userData.id !== myUserDataGlobal.id && (
-						<p className="mt-3 mb-3"><a className="btn btn-outline-success btn-sm" role="button" style={{cursor:"pointer"}} onClick={() => handleFollow(userData.id)}>
+						<p className="mt-3 mb-3"><button className="btn btn-outline-success btn-sm" style={{cursor:"pointer"}} onClick={() => handleFollow(userData.id)}>
 						{myUserDataGlobal.following.includes(userData.id) ? "フォローを解除" : "フォローする"}
-						</a></p>
+						</button></p>
 					)}
-					{userData.id == myUserDataGlobal.id && (
+					{userData.id === myUserDataGlobal.id && (
 						<>
 
 					<ModalEditProfileButton uid={myUserDataGlobal.uid} username={myUserDataGlobal.username} profile_statement={myUserDataGlobal.profile_statement}

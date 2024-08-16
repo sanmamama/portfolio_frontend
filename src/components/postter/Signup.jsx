@@ -1,12 +1,9 @@
 
-import React, { useEffect, useState } from 'react';
-import { useNavigate } from "react-router-dom";
+import React, { useState } from 'react';
 const apiUrl = process.env.REACT_APP_API_URL;
 
 
 const SignupForm = () => {
-
-    const navigate = useNavigate();
     const [formData, setFormData] = useState({
         email: '',
         username: '',
@@ -21,8 +18,6 @@ const SignupForm = () => {
         non_field_errors:''
     });
     const [messages, setMessages] = useState("");
-    const [responseData, setResponseData] = useState([]);
-    const [errors, setErrors] = useState("");
 
 
     const handleChange = (e) => {
@@ -52,7 +47,6 @@ const SignupForm = () => {
             return response.json();
         })
         .then(data => {
-            setResponseData(data);
             
             setFormError(() => ({
                 'email':'',
@@ -94,7 +88,7 @@ const SignupForm = () => {
             }
         })
         .catch(error => {
-            setErrors(error);
+
         });
     };
 

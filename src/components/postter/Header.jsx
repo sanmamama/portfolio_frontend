@@ -1,13 +1,11 @@
-import { NavLink, Link } from 'react-router-dom';
+import { NavLink} from 'react-router-dom';
 import { useContext, useEffect } from 'react';
 import { UserDataContext } from "./providers/UserDataProvider";
-import { getUserData } from "./GetUserData";
 
 function Header() {
   const { myUserDataGlobal, setMyUserDataGlobal } = useContext(UserDataContext);
 
   useEffect(() => {
-    //getUserData(setMyUserDataGlobal);
 
     // メニュー外をクリックした際にメニューを閉じる
     const handleOutsideClick = (event) => {

@@ -1,6 +1,6 @@
 
 import React, { useEffect, useState } from 'react';
-import { BrowserRouter as Router, Route, Switch, useLocation, useHistory } from 'react-router-dom';
+import { BrowserRouter as useLocation} from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
 const apiUrl = process.env.REACT_APP_API_URL;
 
@@ -56,7 +56,7 @@ const ContactForm = () => {
         .catch(error => {
             setErrors(error);
         });
-    }, []);
+    }, [key,navigate]);
 
 
     return (
