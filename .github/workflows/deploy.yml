@@ -10,23 +10,37 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Check out the repository
+    - name: チェックアウト
       uses: actions/checkout@v2
 
-    - name: Set up Node.js
+    - name: セットアップNode.js
       uses: actions/setup-node@v2
       with:
-        node-version: '18'
+        node-version: '20.14'
 
-    - name: Install Node.js dependencies and build React app
+    - name: React appのビルド
       run: |
         npm install
         npm run build
+    
+    - name: サーバーにファイル(static)をアップロード
+      uses: appleboy/scp-action@v0.1.3
+      with:
+        host: 118.27.2.129
+        username: root
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        passphrase: ${{ secrets.SSH_PASSPHRASE }}
+        port: 22
+        source: "frontend/build/static/*"
+        target: "/root/rest/static/"
 
-    - name: Upload static files to /root/rest/static
-      run: |
-        scp -r build/static/* user@your-vps-ip:/root/rest/static/
-
-    - name: Upload manifest and other build files to /root/rest/static/build
-      run: |
-        scp build/*.{json,js,html} user@your-vps-ip:/root/rest/static/build/
+    - name: サーバーにファイル(manifestなどその他)をアップロード
+      uses: appleboy/scp-action@v0.1.3
+      with:
+        host: 118.27.2.129
+        username: root
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        passphrase: ${{ secrets.SSH_PASSPHRASE }}
+        port: 22
+        source: "frontend/build/*"
+        target: "/root/rest/static/build/"
