@@ -338,11 +338,11 @@ const Home = () => {
 											</h6>
 											<p><PostContent content={postData.content}/></p>
 
-											<button className="mr-4" style={{cursor:"pointer"}} onClick={() => handleLike(postData.id,ix,myUserDataGlobal.like.includes(postData.id))}>
+											<button className="mr-4 btn btn-link" style={{cursor:"pointer"}} onClick={() => handleLike(postData.id,ix,myUserDataGlobal.like.includes(postData.id))}>
 											{myUserDataGlobal.like.includes(postData.id) ? <img src={`${baseUrl}/media/icon/heart_active.svg`} width="16" height="16" alt="like"/> : <img src={`${baseUrl}/media/icon/heart_no_active.svg`} width="16" height="16" alt="like"/>}{postData.like_count}
 											</button>
 											
-											<button className="mr-4" style={{cursor:"pointer"}} onClick={() => handleRepost(postData.id,ix,myUserDataGlobal.repost.includes(postData.id))}>
+											<button className="mr-4 btn btn-link" style={{cursor:"pointer"}} onClick={() => handleRepost(postData.id,ix,myUserDataGlobal.repost.includes(postData.id))}>
 											{myUserDataGlobal.repost.includes(postData.id) ? <img src={`${baseUrl}/media/icon/repost_active.svg`} width="16" height="16" alt="repost"/> : <img src={`${baseUrl}/media/icon/repost_no_active.svg`} width="16" height="16" alt="repost"/>}{postData.repost_count}
 											</button>
 
@@ -357,14 +357,14 @@ const Home = () => {
 												<div className="dropdown-menu">
 												{postData.owner.id === myUserDataGlobal.id && (
 													<>
-														<ModalAddUserToList className={"dropdown-item"} id={postData.owner.id}/>
-														<button className="dropdown-item" style={{cursor:"pointer"}} onClick={() => handlePostDelete(postData.id)}>ポストを削除する</button>
+														<ModalAddUserToList class={"dropdown-item"} id={postData.owner.id}/>
+														<button className="dropdown-item btn btn-link" style={{cursor:"pointer"}} onClick={() => handlePostDelete(postData.id)}>ポストを削除する</button>
 													</>
 												)}
 												{postData.owner.id !== myUserDataGlobal.id && (
 													<>
-														<ModalAddUserToList className={"dropdown-item"} id={postData.owner.id}/>
-														<button className="dropdown-item" style={{cursor:"pointer"}} onClick={() => handleFollow(postData.owner.id)}>
+														<ModalAddUserToList class={"dropdown-item"} id={postData.owner.id}/>
+														<button className="dropdown-item btn btn-link" style={{cursor:"pointer"}} onClick={() => handleFollow(postData.owner.id)}>
 															{myUserDataGlobal.following.includes(postData.owner.id) ? "フォローを解除する" : "フォローする"}
 														</button>
 													</>

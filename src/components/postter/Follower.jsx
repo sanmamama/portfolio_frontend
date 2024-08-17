@@ -192,13 +192,13 @@ const Home = () => {
 										<div className="dropdown-menu">
 										{postData.follower.id === myUserDataGlobal.id && (
 											<>
-											<ModalAddUserToList className={"dropdown-item"} id={postData.follower.id}/>
+											<ModalAddUserToList class={"dropdown-item"} id={postData.follower.id}/>
 											</>
 										)}
 										{postData.follower.id !== myUserDataGlobal.id && (
 											<>
-												<ModalAddUserToList className={"dropdown-item"} id={postData.follower.id}/>
-												<button className="dropdown-item" style={{cursor:"pointer"}} onClick={() => handleFollow(postData.follower.id)}>
+												<ModalAddUserToList class={"dropdown-item"} id={postData.follower.id}/>
+												<button className="dropdown-item btn btn-link" style={{cursor:"pointer"}} onClick={() => handleFollow(postData.follower.id)}>
 													{myUserDataGlobal.following.includes(postData.follower.id) ? "このユーザーのフォローを解除する" : "このユーザーをフォローする"}
 												</button>
 											</>
