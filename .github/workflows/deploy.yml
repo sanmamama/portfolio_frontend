@@ -31,7 +31,7 @@ jobs:
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         passphrase: ${{ secrets.SSH_PASSPHRASE }}
         port: 22
-        source: "frontend/build/static/*"
+        source: "build/static/*"
         target: "/root/rest/static/"
 
     - name: サーバーにファイル(manifestなどその他)をアップロード
@@ -42,5 +42,5 @@ jobs:
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         passphrase: ${{ secrets.SSH_PASSPHRASE }}
         port: 22
-        source: "frontend/build/*"
+        source: "build/*"
         target: "/root/rest/static/build/"
