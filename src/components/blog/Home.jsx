@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link,useLocation } from 'react-router-dom';
 import SidebarContent from './HomeSidebar';
 
 // カスタムフック: ウィンドウサイズが `576px` 以下かどうかをチェック
@@ -131,7 +131,11 @@ const App = () => {
     const [blog, setBlog] = useState(null);
     const [pageCount, setPageCount] = useState(null);
     const [currentPage, setCurrentPage] = useState(null);
+
     const isSmallScreen = useIsSmallScreen();
+
+	//ページ遷移
+	const location = useLocation();
 
     // URLパラメータからフィルタ状態を取得
     const query = useQuery();
@@ -153,7 +157,7 @@ const App = () => {
             setPageCount(Math.ceil(data.count / 6));
         };
         fetchItems();
-    }, [selectedPage,selectedCategory,selectedTag,selectedYearMonth]);
+    }, [location.search,selectedPage,selectedCategory,selectedTag,selectedYearMonth]);
 
 
     if (!blog) {
