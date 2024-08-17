@@ -33,7 +33,7 @@ jobs:
         passphrase: ${{ secrets.SSH_PASSPHRASE }}
         port: 22
         source: "build/static/*"
-        target: "/root/rest/static/"
+        target: "/root/rest/"
 
     - name: サーバーにファイル(manifestなどその他)をアップロード
       uses: appleboy/scp-action@v0.1.3
@@ -44,4 +44,4 @@ jobs:
         passphrase: ${{ secrets.SSH_PASSPHRASE }}
         port: 22
         source: "build/*"
-        target: "/root/rest/static/build/"
+        target: "/root/rest/static/"
