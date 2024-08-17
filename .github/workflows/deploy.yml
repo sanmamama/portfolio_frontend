@@ -35,6 +35,16 @@ jobs:
         port: 22
         source: "build/*"
         target: "/root/rest/static/"
+          
+
+    - name: アップロードしたcss,js,mediaファイルを移動する
+      uses: appleboy/ssh-action@v0.1.2
+      with:
+        host: 118.27.2.129
+        username: root
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        passphrase: ${{ secrets.SSH_PASSPHRASE }}
+        port: 22
         script: |
           mv /root/rest/static/build/static/css /root/rest/static/
           mv /root/rest/static/build/static/js /root/rest/static/
