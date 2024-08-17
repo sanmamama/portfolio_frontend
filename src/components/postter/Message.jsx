@@ -130,11 +130,11 @@ const Message = () => {
 					<div>
 						{results.map((result) => (
 							<>
-							{result.id != myUserDataGlobal.id && query && (
+							{result.id !== myUserDataGlobal.id && query && (
 								<Link className="no-link-style" to={`/postter/message/${myUserDataGlobal.id}-${result.id}/`}>
 								<div className="row">
 									<div className="col-2">
-										<img className="rounded img-fluid mx-auto d-block" src={`${result.avatar_imgurl}`} id="avatar-image" width="40" height="40"/>
+										<img className="rounded img-fluid mx-auto d-block" src={`${result.avatar_imgurl}`} id="avatar-image" width="40" height="40" alt="avatarimage"/>
 									</div>
 									<div className="col-10">
 										<b>{result.username}</b>
@@ -156,11 +156,11 @@ const Message = () => {
 							threshold={5} >
 							{userList.map((MessageData,ix) => (
 								<div>
-									{MessageData.user_from.id == myUserDataGlobal.id && (
+									{MessageData.user_from.id === myUserDataGlobal.id && (
 										<Link className="no-link-style" to={`/postter/message/${myUserDataGlobal.id}-${MessageData.user_to.id}/`}>
 											<div className="row">
 												<div className="col-2">
-													<img className="rounded img-fluid mx-auto d-block" src={`${MessageData.user_to.avatar_imgurl}`} id="avatar-image" width="40" height="40"/>
+													<img className="rounded img-fluid mx-auto d-block" src={`${MessageData.user_to.avatar_imgurl}`} id="avatar-image" width="40" height="40" alt="avatarimage"/>
 												</div>
 												<div className="col-10">
 													<b>{MessageData.user_to.username}</b>
@@ -172,11 +172,11 @@ const Message = () => {
 										</Link>
 									)}
 									
-									{MessageData.user_to.id == myUserDataGlobal.id && (
+									{MessageData.user_to.id === myUserDataGlobal.id && (
 										<Link className="no-link-style" to={`/postter/message/${myUserDataGlobal.id}-${MessageData.user_from.id}/`}>
 										<div className="row">
 											<div className="col-2">
-												<img className="rounded img-fluid mx-auto d-block" src={`${MessageData.user_from.avatar_imgurl}`} id="avatar-image" width="40" height="40"/>
+												<img className="rounded img-fluid mx-auto d-block" src={`${MessageData.user_from.avatar_imgurl}`} id="avatar-image" width="40" height="40" alt="avatarimage"/>
 											</div>
 											<div className="col-10">
 												<b>{MessageData.user_from.username}</b>

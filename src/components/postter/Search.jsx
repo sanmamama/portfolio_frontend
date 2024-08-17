@@ -20,11 +20,7 @@ const Home = () => {
 	const q = query.get('q');
 	//const { q } = useParams();
 	const {myUserDataGlobal,setMyUserDataGlobal} = useContext(UserDataContext);
-	const [formData, setFormData] = useState({
-        content: ''
-    });
 	const [messages, setMessages] = useState("");
-    const [errors, setErrors] = useState("");
 	const [posts, setPosts] = useState([]);
 	const [pageCount, setPageCount] = useState(1);
 	const [hasMore, setHasMore] = useState(true);
@@ -230,7 +226,7 @@ const Home = () => {
 								{posts.map((postData,ix) => (
 								<tr className="text" key={ix}>
 								<td className="text" style={{width: "15%"}}>
-									<img className="rounded img-fluid mx-auto d-block" src={postData.owner.avatar_imgurl} id="avatar-image" width="40" height="40"/>
+									<img className="rounded img-fluid mx-auto d-block" src={postData.owner.avatar_imgurl} id="avatar-image" width="40" height="40" alt="avatarimage"/>
 								</td>
 								<td className="text" style={{width: "80%"}}>
 									<h6>
@@ -240,33 +236,33 @@ const Home = () => {
 									</h6>
 									<p><PostContent content={postData.content}/></p>
 
-									<a className="mr-4" style={{cursor:"pointer"}} onClick={() => handleLike(postData.id,ix,myUserDataGlobal.like.includes(postData.id))}>
-									{myUserDataGlobal.like.includes(postData.id) ? <img src={`${baseUrl}/media/icon/heart_active.svg`} width="16" height="16"/> : <img src={`${baseUrl}/media/icon/heart_no_active.svg`} width="16" height="16"/>}{postData.like_count}
-									</a>
+									<button className="mr-4" style={{cursor:"pointer"}} onClick={() => handleLike(postData.id,ix,myUserDataGlobal.like.includes(postData.id))}>
+									{myUserDataGlobal.like.includes(postData.id) ? <img src={`${baseUrl}/media/icon/heart_active.svg`} width="16" height="16" alt="like"/> : <img src={`${baseUrl}/media/icon/heart_no_active.svg`} width="16" height="16" alt="like"/>}{postData.like_count}
+									</button>
 									
-									<a className="mr-4" style={{cursor:"pointer"}} onClick={() => handleRepost(postData.id,ix,myUserDataGlobal.repost.includes(postData.id))}>
-									{myUserDataGlobal.repost.includes(postData.id) ? <img src={`${baseUrl}/media/icon/repost_active.svg`} width="16" height="16"/> : <img src={`${baseUrl}/media/icon/repost_no_active.svg`} width="16" height="16"/>}{postData.repost_count}
-									</a>
+									<button className="mr-4" style={{cursor:"pointer"}} onClick={() => handleRepost(postData.id,ix,myUserDataGlobal.repost.includes(postData.id))}>
+									{myUserDataGlobal.repost.includes(postData.id) ? <img src={`${baseUrl}/media/icon/repost_active.svg`} width="16" height="16" alt="repost"/> : <img src={`${baseUrl}/media/icon/repost_no_active.svg`} width="16" height="16" alt="repost"/>}{postData.repost_count}
+									</button>
 
-									<img src={`${baseUrl}/media/icon/view_count.svg`} width="16" height="16"/>{postData.view_count}
+									<img src={`${baseUrl}/media/icon/view_count.svg`} width="16" height="16" alt="view"/>{postData.view_count}
 									
 								</td>
 								<td className='text' style={{width: "5%"}}>
 									<div className="dropdown">
 										<button type="button" className="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">︙</button>
 										<div className="dropdown-menu">
-										{postData.owner.id == myUserDataGlobal.id && (
+										{postData.owner.id === myUserDataGlobal.id && (
 											<>
 												<ModalAddUserToList className={"dropdown-item"} id={postData.owner.id}/>
-												<a className="dropdown-item" onClick={() => handlePostDelete(postData.id)}>ポストを削除する</a>
+												<button className="dropdown-item" onClick={() => handlePostDelete(postData.id)}>ポストを削除する</button>
 											</>
 										)}
 										{postData.owner.id !== myUserDataGlobal.id && (
 											<>
 												<ModalAddUserToList className={"dropdown-item"} id={postData.owner.id}/>
-												<a className="dropdown-item" style={{cursor:"pointer"}} onClick={() => handleFollow(postData.owner.id,ix)}>
+												<button className="dropdown-item" style={{cursor:"pointer"}} onClick={() => handleFollow(postData.owner.id,ix)}>
 													{myUserDataGlobal.following.includes(postData.owner.id) ? "フォローを解除する" : "フォローする"}
-												</a>
+												</button>
 											</>
 										)}
 

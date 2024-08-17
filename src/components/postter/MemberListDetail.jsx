@@ -119,38 +119,39 @@ const Message = () => {
 		}
 	}
 
-	const getTargetListData = () => {
-		const token = document.cookie.split('; ').reduce((acc, row) => {
-			const [key, value] = row.split('=');
-			if (key === 'token') {
-			acc = value;
-			}
-			return acc;
-		}, null);
-		fetch(`${apiUrl}/postter/memberlist/?id=${id}`,
-			{
-			method: 'GET',
-			headers: {
-				'Authorization': `Token ${token}`,
-				},
-			})
-		.then(response => {
-			if(!response.ok){
-				//トークンのセッション切れ
-				throw new Error();
-			}
-			return response.json()
-			})
-		.then(data => {
-			setTargetListData(data.results[0])
-			})
-		.catch(error => {
-		});
-	}
+	
 
-	useEffect(()=>{	
+	useEffect(()=>{
+		const getTargetListData = () => {
+			const token = document.cookie.split('; ').reduce((acc, row) => {
+				const [key, value] = row.split('=');
+				if (key === 'token') {
+				acc = value;
+				}
+				return acc;
+			}, null);
+			fetch(`${apiUrl}/postter/memberlist/?id=${id}`,
+				{
+				method: 'GET',
+				headers: {
+					'Authorization': `Token ${token}`,
+					},
+				})
+			.then(response => {
+				if(!response.ok){
+					//トークンのセッション切れ
+					throw new Error();
+				}
+				return response.json()
+				})
+			.then(data => {
+				setTargetListData(data.results[0])
+				})
+			.catch(error => {
+			});
+		}
 		getTargetListData()
-	},[])
+	},[id])
 	
 
 	if(!myUserDataGlobal || !userList || !targetListData){
@@ -179,7 +180,7 @@ const Message = () => {
 								{userList.map((ListData,ix) => (
 								<tr className="text" key={ix}>
 								<td className="text" style={{width: "15%"}}>
-									<img className="rounded img-fluid mx-auto d-block" src={ListData.user.avatar_imgurl} id="avatar-image" width="40" height="40"/>
+									<img className="rounded img-fluid mx-auto d-block" src={ListData.user.avatar_imgurl} id="avatar-image" width="40" height="40" alt="avatarimage"/>
 								</td>
 								<td className="text" style={{width: "80%"}}>
 									<h6>
@@ -192,17 +193,17 @@ const Message = () => {
 									<div className="dropdown">
 										<button type="button" className="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">︙</button>
 										<div className="dropdown-menu">
-										{ListData.user.id == myUserDataGlobal.id && (
+										{ListData.user.id === myUserDataGlobal.id && (
 											<>
-												<a className="dropdown-item" style={{cursor:"pointer"}} onClick={() => handleDelete(id,ListData.user.id)}>このユーザーをリストから削除</a>
+												<button className="dropdown-item" style={{cursor:"pointer"}} onClick={() => handleDelete(id,ListData.user.id)}>このユーザーをリストから削除</button>
 											</>
 										)}
 										{ListData.user.id !== myUserDataGlobal.id && (
 											<>
-												<a className="dropdown-item" style={{cursor:"pointer"}} onClick={() => handleDelete(id,ListData.user.id)}>このユーザーをリストから削除</a>
-												<a className="dropdown-item" style={{cursor:"pointer"}} onClick={() => handleFollow(ListData.user.id)}>
+												<button className="dropdown-item" style={{cursor:"pointer"}} onClick={() => handleDelete(id,ListData.user.id)}>このユーザーをリストから削除</button>
+												<button className="dropdown-item" style={{cursor:"pointer"}} onClick={() => handleFollow(ListData.user.id)}>
 													{myUserDataGlobal.following.includes(ListData.user.id) ? "このユーザーのフォローを解除する" : "このユーザーをフォローする"}
-												</a>
+												</button>
 											</>
 										)}
 

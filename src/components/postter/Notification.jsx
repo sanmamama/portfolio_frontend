@@ -1,4 +1,4 @@
-import React, { useEffect, useState ,useContext, useCallback } from 'react';
+import React, { useEffect, useState ,useContext } from 'react';
 import { Link } from 'react-router-dom';
 import {UserDataContext} from "./providers/UserDataProvider"
 import InfiniteScroll from 'react-infinite-scroller';
@@ -94,12 +94,12 @@ const Message = () => {
 							{NotificationList.map((NotificationData,ix) => (
 								<div>
 												
-									{NotificationData.notification_type == "follow" && (
+									{NotificationData.notification_type === "follow" && (
 										<>
 											<Link className="no-link-style" to={`/postter/${NotificationData.sender.uid}/`}>
 											<div className="row">
 												<div className="col-2">
-													<img className="rounded img-fluid mx-auto d-block" src={`${NotificationData.sender.avatar_imgurl}`} id="avatar-image" width="40" height="40"/>
+													<img className="rounded img-fluid mx-auto d-block" src={`${NotificationData.sender.avatar_imgurl}`} id="avatar-image" width="40" height="40" alt="avatarimage"/>
 													<p className="text-center">{NotificationData.notification_type}</p>
 												</div>
 											<div className="col-10">
@@ -113,12 +113,12 @@ const Message = () => {
 											</Link>
 										</>
 									)}
-									{NotificationData.notification_type == "like" && (
+									{NotificationData.notification_type === "like" && (
 										<>
 											<Link className="no-link-style" to={`/postter/post/${NotificationData.post}/`}>
 											<div className="row">
 												<div className="col-2">
-													<img className="rounded img-fluid mx-auto d-block" src={`${NotificationData.sender.avatar_imgurl}`} id="avatar-image" width="40" height="40"/>
+													<img className="rounded img-fluid mx-auto d-block" src={`${NotificationData.sender.avatar_imgurl}`} id="avatar-image" width="40" height="40" alt="avatarimage"/>
 													<p className="text-center">{NotificationData.notification_type}</p>
 												</div>
 											<div className="col-10">
@@ -132,12 +132,12 @@ const Message = () => {
 										</Link>
 										</>
 									)}
-									{NotificationData.notification_type == "repost" && (
+									{NotificationData.notification_type === "repost" && (
 										<>
 											<Link className="no-link-style" to={`/postter/post/${NotificationData.post}/`}>
 											<div className="row">
 												<div className="col-2">
-													<img className="rounded img-fluid mx-auto d-block" src={`${NotificationData.sender.avatar_imgurl}`} id="avatar-image" width="40" height="40"/>
+													<img className="rounded img-fluid mx-auto d-block" src={`${NotificationData.sender.avatar_imgurl}`} id="avatar-image" width="40" height="40" alt="avatarimage"/>
 													<p className="text-center">{NotificationData.notification_type}</p>
 												</div>
 											<div className="col-10">
@@ -151,12 +151,12 @@ const Message = () => {
 										</Link>
 										</>
 									)}
-									{NotificationData.notification_type == "mention" && (
+									{NotificationData.notification_type === "mention" && (
 										<>
 											<Link className="no-link-style" to={`/postter/post/${NotificationData.post}/`}>
 											<div className="row">
 												<div className="col-2">
-													<img className="rounded img-fluid mx-auto d-block" src={`${NotificationData.sender.avatar_imgurl}`} id="avatar-image" width="40" height="40"/>
+													<img className="rounded img-fluid mx-auto d-block" src={`${NotificationData.sender.avatar_imgurl}`} id="avatar-image" width="40" height="40" alt="avatarimage"/>
 													<p className="text-center">{NotificationData.notification_type}</p>
 												</div>
 											<div className="col-10">
@@ -170,12 +170,12 @@ const Message = () => {
 										</Link>
 										</>
 									)}
-									{NotificationData.notification_type == "message" && (
+									{NotificationData.notification_type === "message" && (
 										<>
 										<Link className="no-link-style" to={`/postter/message/${myUserDataGlobal.id}-${NotificationData.sender.id}/`}>
 											<div className="row">
 												<div className="col-2">
-													<img className="rounded img-fluid mx-auto d-block" src={`${NotificationData.sender.avatar_imgurl}`} id="avatar-image" width="40" height="40"/>
+													<img className="rounded img-fluid mx-auto d-block" src={`${NotificationData.sender.avatar_imgurl}`} id="avatar-image" width="40" height="40" alt="avatarimage"/>
 													<p className="text-center">{NotificationData.notification_type}</p>
 												</div>
 											<div className="col-10">
@@ -188,12 +188,12 @@ const Message = () => {
 										</Link>
 										</>
 									)}
-									{NotificationData.notification_type == "reply" && (
+									{NotificationData.notification_type === "reply" && (
 										<>
 											<Link className="no-link-style" to={`/postter/post/${NotificationData.parent}/`}>
 											<div className="row">
 												<div className="col-2">
-													<img className="rounded img-fluid mx-auto d-block" src={`${NotificationData.sender.avatar_imgurl}`} id="avatar-image" width="40" height="40"/>
+													<img className="rounded img-fluid mx-auto d-block" src={`${NotificationData.sender.avatar_imgurl}`} id="avatar-image" width="40" height="40" alt="avatarimage"/>
 													<p className="text-center">{NotificationData.notification_type}</p>
 												</div>
 											<div className="col-10">

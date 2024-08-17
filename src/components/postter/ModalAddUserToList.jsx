@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Modal from "react-modal";
-import { Link } from 'react-router-dom';
+
 import InfiniteScroll from 'react-infinite-scroller';
 import ModalCreateListButton from './ModalCreateListButton';
 
@@ -162,7 +162,6 @@ class CustomModal extends React.Component {
 				"list":list_id,
 			}),
         });
-		const res = await response.json();
 		if(response.ok){
       this.refreshList()
 		}else{
@@ -179,7 +178,7 @@ class CustomModal extends React.Component {
   render() {
     return (
       <div>
-        <button className={this.state.class} style={{cursor:"pointer"}} onClick={this.openModal}>リストに追加/削除</button>
+        <button className={this.state.class+" btn btn-link no-link-style"} style={{cursor:"pointer"}} onClick={this.openModal}>リストに追加/削除</button>
         <Modal
           isOpen={this.state.modalIsOpen}
           onRequestClose={this.closeModal}
@@ -199,7 +198,8 @@ class CustomModal extends React.Component {
               <div>
               
                   {this.state.userList.map((ListData, ix) => (
-                    <a className="no-link-style" style={{ cursor: "pointer" }} onClick={() => this.handleAddMember(this.state.id, ListData.id)}>
+                    <div>
+                    <button className="btn btn-link no-link-style w-100" style={{ cursor: "pointer" }} onClick={() => this.handleAddMember(this.state.id, ListData.id)}>
                     <div className="row">
                       <div className="col-8">
                         <p>
@@ -215,7 +215,8 @@ class CustomModal extends React.Component {
                         
                       </div>
                     </div>
-                    </a>
+                    </button>
+                    </div>
                   ))}
               </div>
             </InfiniteScroll>

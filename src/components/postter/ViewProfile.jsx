@@ -163,10 +163,34 @@ const Home = () => {
         });
 		const res = await response.json();
 		if(response.ok){
-			//refreshPost()
-			setMessages(res.message);
-			getUserData(setMyUserDataGlobal)
-			getMyUserData()
+			setMessages(res.actionType);
+			
+			if(res.actionType === "follow"){
+				
+				setMyUserDataGlobal(prevData => ({
+					...prevData,
+					following_count: prevData.following_count + 1,
+					following: [...prevData.following, res.id]
+				}));
+
+				setUserData(()=>{
+					userData.follower_count+=1;
+					return userData
+				})
+				
+			}else{
+
+				setMyUserDataGlobal(prevData => ({
+					...prevData,
+					following_count: prevData.following_count - 1,
+					following: prevData.following.filter(id => id !== res.id)
+				}));
+
+				setUserData(()=>{
+					userData.follower_count-=1;
+					return userData
+				})
+			}
 			
 		}else{
 			setMessages(res);
@@ -202,44 +226,45 @@ const Home = () => {
 	}
 
 
-	const getMyUserData = () => {
-		const token = document.cookie.split('; ').reduce((acc, row) => {
-			const [key, value] = row.split('=');
-			if (key === 'token') {
-			acc = value;
-			}
-			return acc;
-		}, null);
-		fetch(`${apiUrl}/postter/user/${uid}/`,
-			{
-			method: 'GET',
-			headers: {
-				'Authorization': `Token ${token}`,
-				},
-			})
-		.then(response => {
-			if(!response.ok){
-				//トークンのセッション切れ
-				throw new Error();
-			}
-			return response.json()
-			})
-		.then(data => {
-			//ログインしているとき
-			setUserData(data)
-			})
-		.catch(error => {
-			//ログインしていないとき
-		});
-	}
+	
 
 
 	useEffect(() => {
-		getMyUserData()
+		const getTargetUserData = () => {
+			const token = document.cookie.split('; ').reduce((acc, row) => {
+				const [key, value] = row.split('=');
+				if (key === 'token') {
+				acc = value;
+				}
+				return acc;
+			}, null);
+			fetch(`${apiUrl}/postter/user/${uid}/`,
+				{
+				method: 'GET',
+				headers: {
+					'Authorization': `Token ${token}`,
+					},
+				})
+			.then(response => {
+				if(!response.ok){
+					//トークンのセッション切れ
+					throw new Error();
+				}
+				return response.json()
+				})
+			.then(data => {
+				//ログインしているとき
+				setUserData(data)
+				})
+			.catch(error => {
+				//ログインしていないとき
+			});
+		}
+		getTargetUserData()
 		setPosts([])
 		setPageCount(1)
 		setHasMore(true)
-		},[location.pathname])
+		},[location.pathname,uid])
 
 	
 
@@ -279,7 +304,7 @@ const Home = () => {
 					    </>
 					)}
 					
-					<p className="mt-3 mb-3"><a className="btn btn-outline-success btn-sm" href={`/postter/add_member/${userData.id}/`}>リスト操作</a></p>
+					<p className="mt-3 mb-3"><button className="btn btn-outline-success btn-sm" href={`/postter/add_member/${userData.id}/`}>リスト操作</button></p>
 				<div className="table table-responsive">
 					<table id='post_list' className="table-sm" style={{width: "100%"}}>
 						<tbody>
@@ -293,17 +318,17 @@ const Home = () => {
 									
 										<tr className="text" key={ix}>
 										<td className="text" style={{width: "15%"}}>
-											<img className="rounded img-fluid mx-auto d-block" src={`${postData.owner.avatar_imgurl}`} id="avatar-image" width="40" height="40"/>
+											<img className="rounded img-fluid mx-auto d-block" src={`${postData.owner.avatar_imgurl}`} id="avatar-image" width="40" height="40" alt="avatarimage"/>
 										</td>
 										<td className="text" style={{width: "80%"}}>
 											{postData.repost_user && (
 											<>
-											<p><img className="mr-2" src={`${baseUrl}/media/icon/repost_active.svg`} width="16" height="16"/><Link to={`/postter/${postData.repost_user.uid}/`}>{postData.repost_user.username}</Link>がリポストしました</p>
+											<p><img className="mr-2" src={`${baseUrl}/media/icon/repost_active.svg`} width="16" height="16" alt="repost"/><Link to={`/postter/${postData.repost_user.uid}/`}>{postData.repost_user.username}</Link>がリポストしました</p>
 											</>
 											)}
 											{postData.parent && (
 											<>
-											<p><img className="mr-2" src={`${baseUrl}/media/icon/reply.svg`} width="16" height="16"/><Link to={`/postter/post/${postData.parent}/`}>ポストID{postData.parent}</Link>へのリプライ</p>
+											<p><img className="mr-2" src={`${baseUrl}/media/icon/reply.svg`} width="16" height="16" alt="reply"/><Link to={`/postter/post/${postData.parent}/`}>ポストID{postData.parent}</Link>へのリプライ</p>
 											</>
 											)}
 											<h6>
@@ -313,16 +338,16 @@ const Home = () => {
 											</h6>
 											<p><PostContent content={postData.content}/></p>
 
-											<a className="mr-4" style={{cursor:"pointer"}} onClick={() => handleLike(postData.id,ix,myUserDataGlobal.like.includes(postData.id))}>
-											{myUserDataGlobal.like.includes(postData.id) ? <img src={`${baseUrl}/media/icon/heart_active.svg`} width="16" height="16"/> : <img src={`${baseUrl}/media/icon/heart_no_active.svg`} width="16" height="16"/>}{postData.like_count}
-											</a>
+											<button className="mr-4" style={{cursor:"pointer"}} onClick={() => handleLike(postData.id,ix,myUserDataGlobal.like.includes(postData.id))}>
+											{myUserDataGlobal.like.includes(postData.id) ? <img src={`${baseUrl}/media/icon/heart_active.svg`} width="16" height="16" alt="like"/> : <img src={`${baseUrl}/media/icon/heart_no_active.svg`} width="16" height="16" alt="like"/>}{postData.like_count}
+											</button>
 											
-											<a className="mr-4" style={{cursor:"pointer"}} onClick={() => handleRepost(postData.id,ix,myUserDataGlobal.repost.includes(postData.id))}>
-											{myUserDataGlobal.repost.includes(postData.id) ? <img src={`${baseUrl}/media/icon/repost_active.svg`} width="16" height="16"/> : <img src={`${baseUrl}/media/icon/repost_no_active.svg`} width="16" height="16"/>}{postData.repost_count}
-											</a>
+											<button className="mr-4" style={{cursor:"pointer"}} onClick={() => handleRepost(postData.id,ix,myUserDataGlobal.repost.includes(postData.id))}>
+											{myUserDataGlobal.repost.includes(postData.id) ? <img src={`${baseUrl}/media/icon/repost_active.svg`} width="16" height="16" alt="repost"/> : <img src={`${baseUrl}/media/icon/repost_no_active.svg`} width="16" height="16" alt="repost"/>}{postData.repost_count}
+											</button>
 
 	
-											<img src={`${baseUrl}/media/icon/view_count.svg`} width="16" height="16"/>{postData.view_count}
+											<img src={`${baseUrl}/media/icon/view_count.svg`} width="16" height="16" alt="view"/>{postData.view_count}
 
 
 										</td>
@@ -330,18 +355,18 @@ const Home = () => {
 											<div className="dropdown">
 												<button type="button" className="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">︙</button>
 												<div className="dropdown-menu">
-												{postData.owner.id == myUserDataGlobal.id && (
+												{postData.owner.id === myUserDataGlobal.id && (
 													<>
 														<ModalAddUserToList className={"dropdown-item"} id={postData.owner.id}/>
-														<a className="dropdown-item" style={{cursor:"pointer"}} onClick={() => handlePostDelete(postData.id)}>ポストを削除する</a>
+														<button className="dropdown-item" style={{cursor:"pointer"}} onClick={() => handlePostDelete(postData.id)}>ポストを削除する</button>
 													</>
 												)}
 												{postData.owner.id !== myUserDataGlobal.id && (
 													<>
 														<ModalAddUserToList className={"dropdown-item"} id={postData.owner.id}/>
-														<a className="dropdown-item" style={{cursor:"pointer"}} onClick={() => handleFollow(postData.owner.id)}>
+														<button className="dropdown-item" style={{cursor:"pointer"}} onClick={() => handleFollow(postData.owner.id)}>
 															{myUserDataGlobal.following.includes(postData.owner.id) ? "フォローを解除する" : "フォローする"}
-														</a>
+														</button>
 													</>
 												)}
 

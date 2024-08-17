@@ -9,7 +9,7 @@ const apiUrl = process.env.REACT_APP_API_URL;
 
 const Message = () => {
 	const { ids } = useParams();
-	const [fromId,toId] = ids.split('-');
+	const [,toId] = ids.split('-');
 	const {myUserDataGlobal,setMyUserDataGlobal} = useContext(UserDataContext);
 	const [formData, setFormData] = useState({
 		user_to: toId,
@@ -17,11 +17,9 @@ const Message = () => {
     });
 	const [targetUserData, setTargetUserData] = useState(null);
 	const [messages, setMessages] = useState("");
-    const [errors, setErrors] = useState("");
 	const [userList, setUserList] = useState([]);
 	const [pageCount, setPageCount] = useState(1);
 	const [hasMore, setHasMore] = useState(true);
-	const [recipientUser, setRecipientUser] = useState(null);
 	const navigate = useNavigate();
 
 	//ログインチェック
@@ -74,7 +72,7 @@ const Message = () => {
 			}
         })
         .catch(error => {
-            setErrors(error);
+
         });
     };
 
@@ -162,7 +160,7 @@ const Message = () => {
 			});
 		}
 		getTargetUserData()
-	},[])
+	},[toId])
 
 	
 
@@ -179,7 +177,7 @@ const Message = () => {
 					{messages}
 					
 					<Link to="/postter/message">←メッセージ一覧へ</Link>
-					<img className="rounded img-fluid mx-auto d-block" src={`${targetUserData.avatar_imgurl}`} id="avatar-image" width="100" height="100"/>
+					<img className="rounded img-fluid mx-auto d-block" src={`${targetUserData.avatar_imgurl}`} id="avatar-image" width="100" height="100" alt="avatarimage"/>
 					<p className="text-center">{targetUserData.username} @{targetUserData.uid}</p>
 					<p className="text-center">{targetUserData.profile_statement}</p>
 					<hr className="mt-4 mb-4"/>
@@ -192,7 +190,7 @@ const Message = () => {
 						useWindow={false} >
 						{userList.map((MessageData,ix) => (
 						<div className="" key={ix}>
-							{MessageData.user_from.id == myUserDataGlobal.id && (
+							{MessageData.user_from.id === myUserDataGlobal.id && (
 							<>
 								<div className="row">
 									<div className="col-3">
@@ -201,7 +199,7 @@ const Message = () => {
 										<p className="mt-2 text-right">{MessageData.content}</p>
 									</div>
 									<div className="col-2">
-										<img className="rounded img-fluid mx-auto d-block" src={`${MessageData.user_from.avatar_imgurl}`} id="avatar-image" width="40" height="40"/>
+										<img className="rounded img-fluid mx-auto d-block" src={`${MessageData.user_from.avatar_imgurl}`} id="avatar-image" width="40" height="40" alt="avatarimage"/>
 									</div>
 								</div>
 								<div className="row">
@@ -216,11 +214,11 @@ const Message = () => {
 							</>
 							)}
 							
-							{MessageData.user_to.id == myUserDataGlobal.id && (
+							{MessageData.user_to.id === myUserDataGlobal.id && (
 							<>
 								<div className="row">
 									<div className="col-2">
-										<img className="rounded img-fluid mx-auto d-block" src={`${MessageData.user_from.avatar_imgurl}`} id="avatar-image" width="40" height="40"/>
+										<img className="rounded img-fluid mx-auto d-block" src={`${MessageData.user_from.avatar_imgurl}`} id="avatar-image" width="40" height="40" alt="avatarimage"/>
 									</div>
 									<div className="col-7 bg-custom-2">
 										<p className="mt-2">{MessageData.content}</p>
