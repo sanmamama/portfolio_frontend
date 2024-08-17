@@ -46,8 +46,8 @@ jobs:
         passphrase: ${{ secrets.SSH_PASSPHRASE }}
         port: 22
         script: |
-          mv /root/rest/static/build/static/css /root/rest/static/
-          mv /root/rest/static/build/static/js /root/rest/static/
-          mv /root/rest/static/build/static/media /root/rest/static/
+          mv -f /root/rest/static/build/static/css /root/rest/static/
+          mv -f /root/rest/static/build/static/js /root/rest/static/
+          mv -f /root/rest/static/build/static/media /root/rest/static/
           ls
 
