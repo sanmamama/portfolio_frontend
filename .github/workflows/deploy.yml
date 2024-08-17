@@ -23,19 +23,9 @@ jobs:
         npm install
         npm run build
         ls
-    
-    - name: サーバーにファイル(static)をアップロード
-      uses: appleboy/scp-action@v0.1.3
-      with:
-        host: 118.27.2.129
-        username: root
-        key: ${{ secrets.SSH_PRIVATE_KEY }}
-        passphrase: ${{ secrets.SSH_PASSPHRASE }}
-        port: 22
-        source: "build/static/*"
-        target: "/root/rest/"
+  
 
-    - name: サーバーにファイル(manifestなどその他)をアップロード
+    - name: サーバーにファイルをアップロード
       uses: appleboy/scp-action@v0.1.3
       with:
         host: 118.27.2.129
@@ -45,3 +35,6 @@ jobs:
         port: 22
         source: "build/*"
         target: "/root/rest/static/"
+        script: |
+          mv /root/rest/static/build/static /root/rest/
+
