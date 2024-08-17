@@ -36,5 +36,5 @@ jobs:
         source: "build/*"
         target: "/root/rest/static/"
         script: |
-          mv /root/rest/static/build/static /root/rest/
+          mv -f /root/rest/static/build/static /root/rest/
 
