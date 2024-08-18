@@ -120,7 +120,6 @@ const BlogDetail = () => {
 					<div className="text-center mb-3">
 						<button className="btn btn-outline-primary" onClick={handleLike}>いいね！ ({data.likes})</button>
 					</div>
-
 			</div>
 		</div>
 
