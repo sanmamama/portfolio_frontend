@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState ,useContext } from 'react';
 import { Link,useLocation } from 'react-router-dom';
 import SidebarContent from './HomeSidebar';
+import {BlogDataContext} from "./providers/BlogDataProvider"
 
 // カスタムフック: ウィンドウサイズが `576px` 以下かどうかをチェック
 const useIsSmallScreen = () => {
@@ -128,6 +129,7 @@ const BlogItem = ({ item,isSmallScreen }) => (
 );
 
 const App = () => {
+    const {myBlogDataGlobal,setMyBlogDataGlobal} = useContext(BlogDataContext);
     const [blog, setBlog] = useState(null);
     const [pageCount, setPageCount] = useState(null);
     const [currentPage, setCurrentPage] = useState(null);
@@ -151,12 +153,31 @@ const App = () => {
                 `${process.env.REACT_APP_API_URL}/blog/?page=${selectedPage}&category=${selectedCategory}&tag=${selectedTag}&date=${selectedYearMonth}`
             );
             const data = await response.json();
-            setBlog(data.results);
+            //setBlog(data.results);
             setCurrentPage(selectedPage);
             setPageCount(Math.ceil(data.count / 6));
         };
-        fetchItems();
-    }, [location.search,selectedPage,selectedCategory,selectedTag,selectedYearMonth]);
+
+        const filteredBlogs = myBlogDataGlobal.filter((item) => {
+            const createdAtDate = new Date(item.created_at);
+            const year = createdAtDate.getFullYear();
+            const month = String(createdAtDate.getMonth() + 1).padStart(2, '0'); // 月は 0 ベースなので +1 する
+            const yearMonth = `${year}${month}`;
+
+            return (
+                item.category.name === selectedCategory ||
+                item.tag.some((tag) => selectedTag.includes(tag.name)) ||
+                yearMonth === selectedYearMonth
+            );
+        })
+        if(filteredBlogs.length){
+            setBlog(filteredBlogs);
+        }else{
+            setBlog(myBlogDataGlobal);
+        }
+
+        //fetchItems();
+    }, [location.search,selectedPage,selectedCategory,selectedTag,selectedYearMonth,myBlogDataGlobal]);
 
 
     if (!blog) {
@@ -167,6 +188,7 @@ const App = () => {
 
     return (
         <>
+        
             <div className="col-sm-9">
 					{selectedPage > 1 || selectedCategory || selectedTag || selectedYearMonth ?
 						<div className="mb-2">
