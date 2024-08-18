@@ -13,8 +13,8 @@ function sanitizeHtml(html) {
 const BlogDetail = () => {
 	const { id } = useParams();
 	const [data, setData] = useState(null);
-	const {myBlogDataGlobal} = useContext(BlogDataContext);
-	
+	const {myBlogDataGlobal,setMyBlogDataGlobal} = useContext(BlogDataContext);
+
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -48,8 +48,14 @@ const BlogDetail = () => {
         });
         const res = await response.json();
         setData({ ...data, likes: res.likes });
-    };
-	
+		
+		const index = myBlogDataGlobal.findIndex(obj => obj.id === Number(id));
+		setMyBlogDataGlobal((prevData) => 
+			prevData.map((item, idx) => 
+				idx === index ? { ...item, likes: res.likes } : item
+			)
+		);
+	}
 
 
 	if (!data) {
@@ -114,6 +120,7 @@ const BlogDetail = () => {
 					<div className="text-center mb-3">
 						<button className="btn btn-outline-primary" onClick={handleLike}>いいね！ ({data.likes})</button>
 					</div>
+					{JSON.stringify(myBlogDataGlobal)}
 			</div>
 		</div>
 
