@@ -129,10 +129,12 @@ const BlogItem = ({ item,isSmallScreen }) => (
 );
 
 const App = () => {
-    const {myBlogDataGlobal,setMyBlogDataGlobal} = useContext(BlogDataContext);
+    const {myBlogDataGlobal} = useContext(BlogDataContext);
     const [blog, setBlog] = useState(null);
-    const [pageCount, setPageCount] = useState(null);
-    const [currentPage, setCurrentPage] = useState(null);
+    //const [pageCount, setPageCount] = useState(null);
+    //const [currentPage, setCurrentPage] = useState(null);
+    const [pageCount] = useState(null);
+    const [currentPage] = useState(null);
 
     const isSmallScreen = useIsSmallScreen();
 
@@ -148,15 +150,15 @@ const App = () => {
 
 
     useEffect(() => {
-        const fetchItems = async () => {
-            const response = await fetch(
-                `${process.env.REACT_APP_API_URL}/blog/?page=${selectedPage}&category=${selectedCategory}&tag=${selectedTag}&date=${selectedYearMonth}`
-            );
-            const data = await response.json();
-            //setBlog(data.results);
-            setCurrentPage(selectedPage);
-            setPageCount(Math.ceil(data.count / 6));
-        };
+        // const fetchItems = async () => {
+        //     const response = await fetch(
+        //         `${process.env.REACT_APP_API_URL}/blog/?page=${selectedPage}&category=${selectedCategory}&tag=${selectedTag}&date=${selectedYearMonth}`
+        //     );
+        //     const data = await response.json();
+        //     //setBlog(data.results);
+        //     setCurrentPage(selectedPage);
+        //     setPageCount(Math.ceil(data.count / 6));
+        // };
 
         try{
             const filteredBlogs = myBlogDataGlobal.filter((item) => {
