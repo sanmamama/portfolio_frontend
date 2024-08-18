@@ -33,6 +33,7 @@ import PostDetail from './components/postter/PostDetail';
 import {UserDataProvider} from "./components/postter/providers/UserDataProvider"
 import {FollowDataProvider} from "./components/postter/providers/FollowDataProvider"
 import {NotificationProvider} from "./components/postter/providers/NotificationProvider"
+import {BlogDataProvider} from "./components/blog/providers/BlogDataProvider"
 
 const router = createBrowserRouter([
   {
@@ -84,7 +85,9 @@ const App = () => {
     <UserDataProvider>
       <FollowDataProvider>
         <NotificationProvider>
-          <RouterProvider router={router}/>
+          <BlogDataProvider>
+            <RouterProvider router={router}/>
+          </BlogDataProvider>
         </NotificationProvider>
       </FollowDataProvider>
     </UserDataProvider>

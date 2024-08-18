@@ -1,23 +1,37 @@
 // src/components/Sidebar.js
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
-const apiUrl = process.env.REACT_APP_API_URL;
+import {BlogDataContext} from "./providers/BlogDataProvider"
+
+
+//const apiUrl = process.env.REACT_APP_API_URL;
 
 const SidebarContent = () => {
     const [categories, setCategories] = useState([]);
     const [tags, setTags] = useState([]);
     const [archives, setArchives] = useState([]);
+    const {myBlogDataGlobal} = useContext(BlogDataContext);
+    
+
+    // useEffect(() => {
+    //     fetch(`${apiUrl}/blog/all/`)
+    //         .then(response => response.json())
+    //         .then(data => {
+    //             calculateCategories(data);
+    //             calculateTags(data);
+    //             calculateArchives(data);
+
+    //         })
+    //         .catch(error => console.error('Error fetching posts:', error));
+    // }, []);
 
     useEffect(() => {
-        fetch(`${apiUrl}/blog/all/`)
-            .then(response => response.json())
-            .then(data => {
-                calculateCategories(data);
-                calculateTags(data);
-                calculateArchives(data);
-            })
-            .catch(error => console.error('Error fetching posts:', error));
-    }, []);
+        if(myBlogDataGlobal){
+            calculateCategories(myBlogDataGlobal);
+            calculateTags(myBlogDataGlobal);
+            calculateArchives(myBlogDataGlobal);
+        }
+        }, [myBlogDataGlobal]);
 
     const calculateCategories = (posts) => {
         const categoryCount = {};

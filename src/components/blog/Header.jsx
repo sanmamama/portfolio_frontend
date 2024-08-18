@@ -1,15 +1,12 @@
-import React, { useEffect } from 'react';
+import React, { useEffect ,useContext } from 'react';
 import { NavLink } from 'react-router-dom';
+import {BlogDataContext} from "./providers/BlogDataProvider"
+
+const apiUrl = process.env.REACT_APP_API_URL;
 
 function Header() {
-  const closeMenu = () => {
-    const navBar = document.getElementById('navbarsExampleDefault');
-    if (navBar.classList.contains('show')) {
-      navBar.classList.remove('show');
-    }
-  };
+  const {myBlogDataGlobal,setMyBlogDataGlobal} = useContext(BlogDataContext);
 
-  
   useEffect(() => {
     const handleDocumentClick = (event) => {
       const navBar = document.getElementById('navbarsExampleDefault');
@@ -24,7 +21,28 @@ function Header() {
     return () => {
       document.removeEventListener('click', handleDocumentClick);
     };
+    
   }, []);
+
+  useEffect(() => {
+    if(!myBlogDataGlobal){
+      fetch(`${apiUrl}/blog/all/`)
+          .then(response => response.json())
+          .then(data => {
+            setMyBlogDataGlobal(data)
+
+          })
+          .catch(error => console.error('Error fetching posts:', error));
+      }
+}, [myBlogDataGlobal,setMyBlogDataGlobal]);
+
+
+  const closeMenu = () => {
+    const navBar = document.getElementById('navbarsExampleDefault');
+    if (navBar.classList.contains('show')) {
+      navBar.classList.remove('show');
+    }
+  };
 
   return (
     <header>

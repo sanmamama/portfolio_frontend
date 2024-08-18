@@ -1,8 +1,9 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useParams} from 'react-router-dom';
 import DOMPurify from 'dompurify';
 import { Link } from 'react-router-dom';
+import {BlogDataContext} from "./providers/BlogDataProvider"
 const apiUrl = process.env.REACT_APP_API_URL;
 
 function sanitizeHtml(html) {
@@ -12,20 +13,33 @@ function sanitizeHtml(html) {
 const BlogDetail = () => {
 	const { id } = useParams();
 	const [data, setData] = useState(null);
+	const {myBlogDataGlobal} = useContext(BlogDataContext);
+	
 
 	useEffect(() => {
 		const fetchData = async () => {
-		try {
-			const url = `${apiUrl}/blog/${id}/`;
-			const response = await fetch(url);
-			const jsonData = await response.json();
-			setData(jsonData);
-		} catch (error) {
-			console.error('Error fetching data:', error);
+			try {
+				const url = `${apiUrl}/blog/${id}/`;
+				const response = await fetch(url);
+				const jsonData = await response.json();
+				setData(jsonData);
+			} catch (error) {
+				console.error('Error fetching data:', error);
+			}
+			};
+
+		
+		try{
+			const index = myBlogDataGlobal.findIndex(obj => obj.id === Number(id));
+			setData(myBlogDataGlobal[index])
+		}catch{
+			fetchData();
 		}
-		};
-		fetchData();
-	}, [id]);
+		
+		
+		
+
+	}, [myBlogDataGlobal,id]);
 
 
 	const handleLike = async () => {

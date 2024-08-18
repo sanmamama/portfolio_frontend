@@ -144,7 +144,6 @@ const App = () => {
     const selectedTag = query.get('tag') || '';
     const selectedYearMonth = query.get('date') || '';
 
-    
 
     useEffect(() => {
         const fetchItems = async () => {
