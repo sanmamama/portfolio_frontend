@@ -158,23 +158,29 @@ const App = () => {
             setPageCount(Math.ceil(data.count / 6));
         };
 
-        const filteredBlogs = myBlogDataGlobal.filter((item) => {
-            const createdAtDate = new Date(item.created_at);
-            const year = createdAtDate.getFullYear();
-            const month = String(createdAtDate.getMonth() + 1).padStart(2, '0'); // 月は 0 ベースなので +1 する
-            const yearMonth = `${year}${month}`;
+        try{
+            const filteredBlogs = myBlogDataGlobal.filter((item) => {
+                const createdAtDate = new Date(item.created_at);
+                const year = createdAtDate.getFullYear();
+                const month = String(createdAtDate.getMonth() + 1).padStart(2, '0'); // 月は 0 ベースなので +1 する
+                const yearMonth = `${year}${month}`;
 
-            return (
-                item.category.name === selectedCategory ||
-                item.tag.some((tag) => selectedTag.includes(tag.name)) ||
-                yearMonth === selectedYearMonth
-            );
-        })
-        if(filteredBlogs.length){
-            setBlog(filteredBlogs);
-        }else{
-            setBlog(myBlogDataGlobal);
+                return (
+                    item.category.name === selectedCategory ||
+                    item.tag.some((tag) => selectedTag.includes(tag.name)) ||
+                    yearMonth === selectedYearMonth
+                );
+            })
+
+            if(filteredBlogs.length){
+                setBlog(filteredBlogs);
+            }else{
+                setBlog(myBlogDataGlobal);
+            }
+        }catch{
+            return
         }
+        
 
         //fetchItems();
     }, [location.search,selectedPage,selectedCategory,selectedTag,selectedYearMonth,myBlogDataGlobal]);
