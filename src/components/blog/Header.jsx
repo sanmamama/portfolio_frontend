@@ -1,5 +1,5 @@
 import React, { useEffect ,useContext } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink ,Link } from 'react-router-dom';
 import {BlogDataContext} from "./providers/BlogDataProvider"
 
 const apiUrl = process.env.REACT_APP_API_URL;
@@ -47,9 +47,9 @@ function Header() {
   return (
     <header>
       <nav className="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-        <a className="navbar-brand" href="/">
+        <Link className="navbar-brand" href="/">
           さんままま
-        </a>
+        </Link>
         
         <button 
           className="navbar-toggler" 
@@ -116,7 +116,7 @@ function Header() {
 
       <div className="jumbotron">
         <div className="container">
-          <h1 className="display-5"><a className="text-dark text-decoration-none" href="/">さんままま</a></h1>
+          <h1 className="display-5"><Link className="text-dark text-decoration-none" to="/">さんままま</Link></h1>
           <p>ポートフォリオサイトです。</p>
         </div>
       </div>
