@@ -119,7 +119,7 @@ const BlogDetail = () => {
 			<div className="markdownx">
 					<div className="markdownx-preview" dangerouslySetInnerHTML={{ __html: sanitizedContent }} />
 					<div className="text-center mb-3">
-						<button className="btn btn-outline-primary" onClick={handleLike}>いいね！ ({data.likes})</button>
+						<button className="btn btn-outline-primary  mt-3" onClick={handleLike}>いいね！ ({data.likes})</button>
 					</div>
 			</div>
 		</div>
