@@ -22,6 +22,7 @@ function Header() {
       document.removeEventListener('click', handleDocumentClick);
     };
     
+    
   }, []);
 
   useEffect(() => {

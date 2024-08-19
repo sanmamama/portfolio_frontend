@@ -4,8 +4,6 @@ import { useParams} from 'react-router-dom';
 import DOMPurify from 'dompurify';
 import { Link } from 'react-router-dom';
 import {BlogDataContext} from "./providers/BlogDataProvider"
-import hljs from 'highlight.js';
-import 'highlight.js/styles/atom-one-dark.css';
 const apiUrl = process.env.REACT_APP_API_URL;
 
 function sanitizeHtml(html) {
@@ -19,25 +17,28 @@ const BlogDetail = () => {
 
 
 	useEffect(() => {
-		const fetchData = async () => {
-			try {
-				const url = `${apiUrl}/blog/${id}/`;
-				const response = await fetch(url);
-				const jsonData = await response.json();
-				setData(jsonData);
-			} catch (error) {
-				console.error('Error fetching data:', error);
-			}
-			};
+		
+		// const fetchData = async () => {
+		// 	try {
+		// 		const url = `${apiUrl}/blog/${id}/`;
+		// 		const response = await fetch(url);
+		// 		const jsonData = await response.json();
+		// 		setData(jsonData);
+		// 	} catch (error) {
+		// 		console.error('Error fetching data:', error);
+		// 	}
+		// };
 
 		
 		try{
 			const index = myBlogDataGlobal.findIndex(obj => obj.id === Number(id));
 			setData(myBlogDataGlobal[index])
 		}catch{
-			fetchData();
+			return
 		}
-		hljs.highlightAll();
+		
+		
+		
 
 	}, [myBlogDataGlobal,id]);
 

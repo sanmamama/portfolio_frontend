@@ -8,6 +8,7 @@ const useIsSmallScreen = () => {
     const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 576);
 
     useEffect(() => {
+
         const handleResize = () => {
             setIsSmallScreen(window.innerWidth <= 576);
         };
@@ -183,7 +184,6 @@ const App = () => {
             return
         }
         
-        
         //fetchItems();
     }, [location.search,selectedPage,selectedCategory,selectedTag,selectedYearMonth,myBlogDataGlobal]);
 
@@ -219,6 +219,7 @@ const App = () => {
                     <Pagination currentPage={currentPage} pageCount={pageCount} addUrl={addUrl} />
                 </div>
             </div>
+
             <SidebarContent />
         </>
     );
