@@ -113,7 +113,7 @@ const BlogDetail = () => {
 
 			<div>
 				<h4 className="mt-2 mb-2">目次</h4>
-				<div className="pt-2 border" dangerouslySetInnerHTML={{ __html: data.toc_html }} />			
+				<div className="pt-2 border body-toc" dangerouslySetInnerHTML={{ __html: data.toc_html }} />			
 			</div>
 
 			<div className="markdownx">

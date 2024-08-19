@@ -116,5 +116,21 @@
 }
 
 .right-sidebar-toc{
-  font-size: 14px;
+  font-size: 15px;
 }
+.right-sidebar-toc li {
+  list-style-type: none;
+}
+
+.right-sidebar-toc ul{
+  padding-inline-start:1em;
+}
+
+.body-toc li {
+  list-style-type: none;
+}
+
+.body-toc ul{
+  padding-inline-start:1em;
+}
+
