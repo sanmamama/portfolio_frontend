@@ -4,6 +4,8 @@ import { useParams} from 'react-router-dom';
 import DOMPurify from 'dompurify';
 import { Link } from 'react-router-dom';
 import {BlogDataContext} from "./providers/BlogDataProvider"
+import hljs from 'highlight.js';
+import 'highlight.js/styles/atom-one-dark.css';
 const apiUrl = process.env.REACT_APP_API_URL;
 
 function sanitizeHtml(html) {
@@ -35,9 +37,7 @@ const BlogDetail = () => {
 		}catch{
 			fetchData();
 		}
-		
-		
-		
+		hljs.highlightAll();
 
 	}, [myBlogDataGlobal,id]);
 
