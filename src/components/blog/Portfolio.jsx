@@ -11,9 +11,11 @@ function Portfolio() {
 
 				<p><a href="/">blog</a></p>
 				<p>このブログです。</p>
-				<p><a href="/postter">Postter</a></p>
+
+				<p><a href="/">Postter</a></p>
 				<p>X(旧Twitter)のようなSNSアプリです。</p>
         <p>現在準備中ですのでアクセスできません。</p>
+        
         </div>
     </div></div>
     </div>
