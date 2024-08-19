@@ -8,7 +8,7 @@ function Profile() {
       <div className="row">
         <div className="row">
 			    <div className="col">
-            <span className="mt-0 mb-0 text-secondary">最終更新日：2024年5月28日</span>
+            <span className="mt-0 mb-0 text-secondary">最終更新日：2024年8月18日</span>
             <h3><b>プロフィール</b></h3>
 
             <h3 className="anchor" id="1"><b>1.自己紹介</b></h3>
@@ -23,7 +23,7 @@ function Profile() {
                 仕事以外では、読書が趣味で、新しい発想や考え方に触れることが大好きです。特に、技術書やビジネス書、フィクションなど幅広いジャンルの本を読んでいます。読書を通じて得た知識や視点を日常生活や仕事に活かし、常に自己成長を図ることを心掛けています。
               </p>
               <p>
-                そんな私がシステム開発に興味を持つようになったのは、地方公務員として働く中で感じた業務効率化の必要性や、IT技術の進化に対する関心からです。2023年春に応用情報技術者試験に合格し、退職を機に2023年8月から本格的にWebエンジニアリングの学習を始めました。現在、学習期間は3ヶ月ほど、開発期間は5ヶ月になります。
+                そんな私がシステム開発に興味を持つようになったのは、地方公務員として働く中で感じた業務効率化の必要性や、IT技術の進化に対する関心からです。2023年春に応用情報技術者試験に合格し、退職を機に2023年9月から本格的にWebエンジニアリングの学習を始めました。
               </p>
               <p>
                 学習の過程では、HTML、CSS、JavaScriptなどの基本的なフロントエンド技術を習得し、さらにDjangoを用いたバックエンド開発にも取り組んできました。これにより、フルスタックな開発スキルを身につけ、ユーザーフレンドリーなウェブアプリケーションの構築に自信を持っています。
@@ -59,15 +59,13 @@ function Profile() {
               <div className="wp-block-columns is-layout-flex wp-container-core-columns-is-layout-1 wp-block-columns-is-layout-flex">
                   <div className="row">
                     <div className="col">
-                      <p>1988年7月</p>
                       <p>2007年4月</p>
                       <p>2011年3月</p>
                       <p>2013年4月</p>
-                      <p>2024年8月</p>
+                      <p>2023年8月</p>
                       <p>現在に至る</p>
                     </div>
                     <div className="col">
-                      <p>北海道生まれ</p>
                       <p>北海道工業大学入学</p>
                       <p>北海道工業大学卒業</p>
                       <p>町役場入庁</p>
@@ -81,7 +79,7 @@ function Profile() {
             <hr/>
             <div className="row">
                     <div className="col">
-                      <p>2023年6月</p>
+                      <p>2023年</p>
                     </div>
                     <div className="col">
                       <p>応用情報技術者試験合格</p>

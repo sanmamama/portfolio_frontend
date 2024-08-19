@@ -4,7 +4,7 @@ function Footer(){
 	return(
 		<footer className="container">
 			<hr></hr>
-			<p className="text-center">&copy; さんままま 2024</p>
+			<p className="text-center">&copy; さんまブログ 2024</p>
 		</footer>
 	);
 }

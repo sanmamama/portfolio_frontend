@@ -48,7 +48,7 @@ function Header() {
     <header>
       <nav className="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
         <Link className="navbar-brand" href="/">
-          さんままま
+          さんまブログ
         </Link>
         
         <button 
@@ -71,7 +71,7 @@ function Header() {
                 to="/"
                 onClick={closeMenu}
               >
-                ホーム
+                ブログ
               </NavLink>
             </li>
             <li className="nav-item">
@@ -116,8 +116,8 @@ function Header() {
 
       <div className="jumbotron">
         <div className="container">
-          <h1 className="display-5"><Link className="text-dark text-decoration-none" to="/">さんままま</Link></h1>
-          <p>ポートフォリオサイトです。</p>
+          <h1 className="display-5"><Link className="text-dark text-decoration-none" to="/">さんまブログ</Link></h1>
+          <p>私「さんままま」がエンジニアとしてのキャリアをスタートさせるためのポートフォリオサイトです</p>
         </div>
       </div>
     </header>
