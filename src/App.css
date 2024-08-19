@@ -114,3 +114,7 @@
   object-fit: cover; /* 画像をコンテナに合わせる */
   object-position: center; /* 画像を中央に配置 */
 }
+
+.right-sidebar-toc{
+  font-size: 14px;
+}

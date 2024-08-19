@@ -128,7 +128,7 @@ const BlogDetail = () => {
 		<div className="col-sm-3 order-2 order-sm-1 mb-3  d-none d-sm-block">
 			<div className="stick">
 				<h4 className="mb-3">目次</h4>
-				<div className="pt-2 border" dangerouslySetInnerHTML={{ __html: data.toc_html }} />
+				<div className="pt-2 border right-sidebar-toc" dangerouslySetInnerHTML={{ __html: data.toc_html }} />
 			</div>
 		</div>
 				

@@ -118,7 +118,7 @@ function Header() {
       <div className="jumbotron">
         <div className="container">
           <h1 className="display-5"><Link className="text-dark text-decoration-none" to="/">さんまブログ</Link></h1>
-          <p>私「さんままま」がエンジニアとしてのキャリアをスタートさせるためのポートフォリオサイトです</p>
+          <p>私「さんままま」のポートフォリオサイトです</p>
         </div>
       </div>
     </header>
