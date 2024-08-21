@@ -147,9 +147,9 @@ const LoginForm = () => {
                     <form onSubmit={handleSubmit}>
                         <div>
                             <label>メールアドレス</label><span className="ml-3 text-danger">{formError.email}</span>
-                            <input className="form-control" type="email" name="email" value={formData.email} onChange={handleChange}/>    
+                            <input className="form-control" type="email" name="email" autoComplete="email" value={formData.email} onChange={handleChange}/>    
                             <label>パスワード</label><span className="ml-3 text-danger">{formError.password}</span>
-                            <input className="form-control" type="password" name="password" value={formData.password} onChange={handleChange}/>
+                            <input className="form-control" type="password" name="password" autoComplete="password" value={formData.password} onChange={handleChange}/>
                         </div>
                         <button className="mt-2 btn btn-outline-primary btn-block" type="submit">送信</button>
                     </form>

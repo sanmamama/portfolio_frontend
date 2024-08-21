@@ -97,7 +97,7 @@ class CustomModal extends React.Component {
   render() {
     return (
       <>
-        <button className="mr-4 btn btn-link" style={{cursor:"pointer"}} onClick={this.openModal}>
+        <button className="btn btn-link" style={{cursor:"pointer"}} onClick={this.openModal}>
         <img src={`${baseUrl}/media/icon/reply.svg`} width="16" height="16" alt="reply"/>{this.props.postData.reply_count}
         </button>
         <Modal
