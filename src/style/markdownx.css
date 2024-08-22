@@ -21,7 +21,7 @@ django-markdownx styles for Django Admin
 
 
 /* Django admin overrides */
-
+/* 
 .markdownx .markdownx-preview a { color: #5b80b2; text-decoration:underline; }
 .markdownx .markdownx-preview a:visited { color: #0b0080; }
 .markdownx .markdownx-preview a:hover { color: #0645ad; }
@@ -122,4 +122,4 @@ django-markdownx styles for Django Admin
 .markdownx .markdownx-preview img  { border: 0; -ms-interpolation-mode: bicubic; vertical-align: middle; }
 .markdownx .markdownx-preview table  { border-collapse: collapse; border-spacing: 0; }
 .markdownx .markdownx-preview th  { background: none; background: #f8f8f8; font-size: 17px; }
-.markdownx .markdownx-preview td  { vertical-align: top; font-size: 17px; }
+.markdownx .markdownx-preview td  { vertical-align: top; font-size: 17px; } */

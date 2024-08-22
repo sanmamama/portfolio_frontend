@@ -6,30 +6,13 @@ import { Link } from 'react-router-dom';
 import {BlogDataContext} from "./providers/BlogDataProvider"
 const apiUrl = process.env.REACT_APP_API_URL;
 
-function sanitizeHtml(html) {
-	return DOMPurify.sanitize(html);
-}
 
 const BlogDetail = () => {
 	const { id } = useParams();
 	const [data, setData] = useState(null);
 	const {myBlogDataGlobal,setMyBlogDataGlobal} = useContext(BlogDataContext);
 
-
 	useEffect(() => {
-		
-		// const fetchData = async () => {
-		// 	try {
-		// 		const url = `${apiUrl}/blog/${id}/`;
-		// 		const response = await fetch(url);
-		// 		const jsonData = await response.json();
-		// 		setData(jsonData);
-		// 	} catch (error) {
-		// 		console.error('Error fetching data:', error);
-		// 	}
-		// };
-
-		
 		try{
 			const index = myBlogDataGlobal.findIndex(obj => obj.id === Number(id));
 			setData(myBlogDataGlobal[index])
@@ -37,11 +20,28 @@ const BlogDetail = () => {
 			return
 		}
 		
-		
-		
-
 	}, [myBlogDataGlobal,id]);
 
+	useEffect(() => {
+		window.hljs.highlightAll();
+	}, [data]);
+
+	
+
+	const formatDateToJapanese = (dateString) => {
+		const date = new Date(dateString);
+		const year = date.getFullYear();
+		const month = date.getMonth() + 1;
+		const day = date.getDate();
+	
+		return `${year}年${month}月${day}日`;
+	};
+
+	const handleHighLight = async () => {
+        window.hljs.highlightAll();
+		console.log(window.hljs)
+		setData((prev)=>prev)
+	}
 
 	const handleLike = async () => {
         const response = await fetch(`${apiUrl}/blog/${id}/like/`, {
@@ -58,21 +58,12 @@ const BlogDetail = () => {
 		);
 	}
 
-
 	if (!data) {
 		return <div>Loading...</div>;
 	}
 
-	const sanitizedContent = sanitizeHtml(data.content_html);
 	
-	const formatDateToJapanese = (dateString) => {
-		const date = new Date(dateString);
-		const year = date.getFullYear();
-		const month = date.getMonth() + 1;
-		const day = date.getDate();
 	
-		return `${year}年${month}月${day}日`;
-	};
 
 	return (
 		<>
@@ -117,9 +108,11 @@ const BlogDetail = () => {
 			</div>
 
 			<div className="markdownx">
-					<div className="markdownx-preview" dangerouslySetInnerHTML={{ __html: sanitizedContent }} />
+					<div className="markdownx-preview" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(data.content_html) }} />
 					<div className="text-center mb-3">
 						<button className="btn btn-outline-primary  mt-3" onClick={handleLike}>いいね！ ({data.likes})</button>
+						<button className="btn btn-outline-primary  mt-3" onClick={handleHighLight}>ハイライト</button>
+						
 					</div>
 			</div>
 		</div>
@@ -128,7 +121,7 @@ const BlogDetail = () => {
 		<div className="col-sm-3 order-2 order-sm-1 mb-3  d-none d-sm-block">
 			<div className="stick">
 				<h4 className="mb-3">目次</h4>
-				<div className="pt-2 border right-sidebar-toc" dangerouslySetInnerHTML={{ __html: data.toc_html }} />
+				<div className="pt-2 border right-sidebar-toc" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(data.toc_html) }} />
 			</div>
 		</div>
 				
