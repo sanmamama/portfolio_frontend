@@ -128,8 +128,8 @@ const Message = () => {
 					<h4>新規メッセージ</h4>
 					<input className="mt-3 mb-3 form-control" type="text" value={query} onChange={(e) => setQuery(e.target.value)} placeholder="ユーザーを検索"/>
 					<div>
-						{results.map((result) => (
-							<>
+						{results.map((result,ix) => (
+							<div key={ix}>
 							{result.id !== myUserDataGlobal.id && query && (
 								<Link className="no-link-style" to={`/postter/message/${myUserDataGlobal.id}-${result.id}/`}>
 								<div className="row">
@@ -144,7 +144,7 @@ const Message = () => {
 								</div>
 								</Link>
 							)}
-							</>
+							</div>
 					))}
 					</div>
 					<h4 className="mt-3 mb-3">過去のメッセージ</h4>
@@ -155,7 +155,7 @@ const Message = () => {
 							hasMore={hasMore}
 							threshold={5} >
 							{userList.map((MessageData,ix) => (
-								<div>
+								<div key={ix}>
 									{MessageData.user_from.id === myUserDataGlobal.id && (
 										<Link className="no-link-style" to={`/postter/message/${myUserDataGlobal.id}-${MessageData.user_to.id}/`}>
 											<div className="row">

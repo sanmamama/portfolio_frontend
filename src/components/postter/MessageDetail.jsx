@@ -98,7 +98,7 @@ const Message = () => {
 		if(response.ok){
 			setUserList(data.results)
 			console.log(data.results)
-			setHasMore(data.next)
+			setHasMore(!!data.next)
 			setPageCount(2)
 		}
 	}
@@ -124,7 +124,7 @@ const Message = () => {
 		
 		if(response.ok){
 			setUserList([...userList, ...data.results])
-			setHasMore(data.next)
+			setHasMore(!!data.next)
 			setPageCount(pageCount+1)
 
 		}

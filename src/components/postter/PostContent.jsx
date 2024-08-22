@@ -20,7 +20,7 @@ const PostContent = ({ content }) => {
     });
   };
 
-  return <p>{renderContentWithLinks(content)}</p>;
+  return <>{renderContentWithLinks(content)}</>;
 };
 
 export default PostContent;

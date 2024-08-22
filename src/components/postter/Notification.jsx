@@ -92,7 +92,7 @@ const Message = () => {
 							hasMore={hasMore}
 							threshold={5} >
 							{NotificationList.map((NotificationData,ix) => (
-								<div>
+								<div key={ix}>
 												
 									{NotificationData.notification_type === "follow" && (
 										<>

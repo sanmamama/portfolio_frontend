@@ -6,11 +6,10 @@ import { useNavigate } from "react-router-dom";
 import { getUserData } from "./GetUserData"
 import { useParams } from 'react-router-dom';
 import InfiniteScroll from 'react-infinite-scroller';
-import PostContent from './PostContent';
-import ModalAddUserToList from './ModalAddUserToList';
 import ModalEditProfileButton from './ModalEditProfileButton';
+import PostContainer from './PostContainer';
 const apiUrl = process.env.REACT_APP_API_URL;
-const baseUrl = process.env.REACT_APP_BASE_URL;
+//const baseUrl = process.env.REACT_APP_BASE_URL;
 
 
 const Home = () => {
@@ -39,110 +38,6 @@ const Home = () => {
 		loginCheck(myUserDataGlobal,setMyUserDataGlobal,navigate)
 	},[myUserDataGlobal,setMyUserDataGlobal,navigate])
 
-	//リツイートハンドル
-	const handleRepost = async (postId,post_ix,post_reposted) => {
-		const token = document.cookie.split('; ').reduce((acc, row) => {
-			const [key, value] = row.split('=');
-			if (key === 'token') {
-			acc = value;
-			}
-			return acc;
-		}, null);
-        try {
-            const response = await fetch(`${apiUrl}/postter/repost/`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Token ${token}`,
-                },
-                body: JSON.stringify({ post: postId })
-            });
-
-            if (response.ok) {
-				const data = await response.json();
-				//dtrictModeのせいで2回コールされて+-2されるけど気にしないよう。
-				if(post_reposted){
-					setPosts(()=>{posts[post_ix].repost_count-=1;return posts;})
-				}else{
-					setPosts(()=>{posts[post_ix].repost_count+=1;return posts;})
-				}
-				getUserData(setMyUserDataGlobal)
-				refreshPost()
-                setMessages(data.detail);
-            } else {
-                const data = await response.json();
-				if(post_reposted){
-					setPosts(()=>{posts[post_ix].repost_count-=1;return posts;})
-				}else{
-					setPosts(()=>{posts[post_ix].repost_count+=1;return posts;})
-				}
-				getUserData(setMyUserDataGlobal)
-				refreshPost()
-                setMessages(data.detail);
-            }
-        } catch (error) {
-            setMessages('An error occurred.');
-        }
-    };
-
-	//いいねハンドル
-	const handleLike = async (post_id,post_ix,post_liked) => {
-		const token = document.cookie.split('; ').reduce((acc, row) => {
-			const [key, value] = row.split('=');
-			if (key === 'token') {
-			acc = value;
-			}
-			return acc;
-		}, null);
-        const response = await fetch(`${apiUrl}/postter/like/`, {
-            method: 'POST',
-			headers: {
-                'Content-Type': 'application/json',
-				'Authorization': `Token ${token}`,
-            },
-			body: JSON.stringify({"post":post_id}),
-        });
-		const res = await response.json();
-		if(response.ok){
-			//dtrictModeのせいで2回コールされて+-2されるけど気にしないよう。
-			if(post_liked){
-				setPosts(()=>{posts[post_ix].like_count-=1;return posts;})
-			}else{
-				setPosts(()=>{posts[post_ix].like_count+=1;return posts;})
-			}
-			getUserData(setMyUserDataGlobal)
-			setMessages(`postId:${post_id}${res.message}`);
-			
-		}else{
-			setMessages(`postId:${post_id}${res}`);
-		}
-        
-    };
-
-	//ポスト消すハンドル
-	const handlePostDelete = async (postId) => {
-		const token = document.cookie.split('; ').reduce((acc, row) => {
-			const [key, value] = row.split('=');
-			if (key === 'token') {
-			acc = value;
-			}
-			return acc;
-		}, null);
-        const response = await fetch(`${apiUrl}/postter/post/${postId}/`, {
-            method: 'DELETE',
-			headers: {
-                'Content-Type': 'application/json',
-				'Authorization': `Token ${token}`,
-            }
-        });
-		if(response.ok){
-			setMessages(`id:${postId}ポストを削除しました`);
-			refreshPost()
-			
-		}else{
-			setMessages(`id:${postId}ポストの削除に失敗しました`);
-		}
-	};
 
 	//フォローハンドル
 	const handleFollow = async (following_id) => {
@@ -220,7 +115,7 @@ const Home = () => {
 		
 		if(response.ok){
 			setPosts([...posts, ...data.results])
-			setHasMore(data.next)
+			setHasMore(!!data.next)
 			setPageCount(pageCount+1)
 		}
 	}
@@ -304,86 +199,32 @@ const Home = () => {
 					    </>
 					)}
 					
-					<p className="mt-3 mb-3"><button className="btn btn-outline-success btn-sm" href={`/postter/add_member/${userData.id}/`}>リスト操作</button></p>
-				<div className="table table-responsive">
-					<table id='post_list' className="table-sm" style={{width: "100%"}}>
-						<tbody>
+					<p className="mt-3 mb-3"><Link className="btn btn-outline-success btn-sm" to={`/postter/add_member/${userData.id}/`}>リスト操作</Link></p>
+					<div className="">
 						<InfiniteScroll
 								loadMore={loadPost}
 								loader={<div key={0}>Loading ...</div>}
 								hasMore={hasMore}
 								threshold={5} >
 								{posts.map((postData,ix) => (
-									<>
-									
-										<tr className="text" key={ix}>
-										<td className="text" style={{width: "15%"}}>
-											<img className="rounded img-fluid mx-auto d-block" src={`${postData.owner.avatar_imgurl}`} id="avatar-image" width="40" height="40" alt="avatarimage"/>
-										</td>
-										<td className="text" style={{width: "80%"}}>
-											{postData.repost_user && (
-											<>
-											<p><img className="mr-2" src={`${baseUrl}/media/icon/repost_active.svg`} width="16" height="16" alt="repost"/><Link to={`/postter/${postData.repost_user.uid}/`}>{postData.repost_user.username}</Link>がリポストしました</p>
-											</>
-											)}
-											{postData.parent && (
-											<>
-											<p><img className="mr-2" src={`${baseUrl}/media/icon/reply.svg`} width="16" height="16" alt="reply"/><Link to={`/postter/post/${postData.parent}/`}>ポストID{postData.parent}</Link>へのリプライ</p>
-											</>
-											)}
-											<h6>
-												<Link to={`/postter/${postData.owner.uid}/`}><b>{postData.owner.username}</b></Link>
-												<span className="ml-1 text-secondary">@{postData.owner.uid}</span>
-												<span className="ml-1 text-secondary">{postData.created_at.split('.')[0].replace('T',' ')}</span>
-											</h6>
-											<p><PostContent content={postData.content}/></p>
-
-											<button className="mr-4 btn btn-link" style={{cursor:"pointer"}} onClick={() => handleLike(postData.id,ix,myUserDataGlobal.like.includes(postData.id))}>
-											{myUserDataGlobal.like.includes(postData.id) ? <img src={`${baseUrl}/media/icon/heart_active.svg`} width="16" height="16" alt="like"/> : <img src={`${baseUrl}/media/icon/heart_no_active.svg`} width="16" height="16" alt="like"/>}{postData.like_count}
-											</button>
-											
-											<button className="mr-4 btn btn-link" style={{cursor:"pointer"}} onClick={() => handleRepost(postData.id,ix,myUserDataGlobal.repost.includes(postData.id))}>
-											{myUserDataGlobal.repost.includes(postData.id) ? <img src={`${baseUrl}/media/icon/repost_active.svg`} width="16" height="16" alt="repost"/> : <img src={`${baseUrl}/media/icon/repost_no_active.svg`} width="16" height="16" alt="repost"/>}{postData.repost_count}
-											</button>
-
-	
-											<img src={`${baseUrl}/media/icon/view_count.svg`} width="16" height="16" alt="view"/>{postData.view_count}
-
-
-										</td>
-										<td className='text' style={{width: "5%"}}>
-											<div className="dropdown">
-												<button type="button" className="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">︙</button>
-												<div className="dropdown-menu">
-												{postData.owner.id === myUserDataGlobal.id && (
-													<>
-														<ModalAddUserToList class={"dropdown-item"} id={postData.owner.id}/>
-														<button className="dropdown-item btn btn-link" style={{cursor:"pointer"}} onClick={() => handlePostDelete(postData.id)}>ポストを削除する</button>
-													</>
-												)}
-												{postData.owner.id !== myUserDataGlobal.id && (
-													<>
-														<ModalAddUserToList class={"dropdown-item"} id={postData.owner.id}/>
-														<button className="dropdown-item btn btn-link" style={{cursor:"pointer"}} onClick={() => handleFollow(postData.owner.id)}>
-															{myUserDataGlobal.following.includes(postData.owner.id) ? "フォローを解除する" : "フォローする"}
-														</button>
-													</>
-												)}
-
-												</div>
-												
-
-											</div>
-										</td>
-									</tr>
-							</>
+									<div className="container" key={ix}>
+										<PostContainer
+										postData={postData}
+										myUserDataGlobal={myUserDataGlobal}
+										posts={posts}
+										setPosts={setPosts}
+										getUserData={getUserData}
+										setMyUserDataGlobal={setMyUserDataGlobal}
+										setMessages={setMessages}
+										refreshPost={refreshPost}
+										ix={ix}
+										/>
+									</div>
 							
 							))}
 							</InfiniteScroll>
 						
-						</tbody>
-					</table>
-				</div>
+					</div>
 				</div>
 			</div>
 		</div>
