@@ -23,10 +23,10 @@ const BlogDetail = () => {
 	}, [myBlogDataGlobal,id]);
 
 	useEffect(() => {
-		window.hljs.highlightAll();
+		if(data){
+			window.hljs.highlightAll();
+		}
 	}, [data]);
-
-	
 
 	const formatDateToJapanese = (dateString) => {
 		const date = new Date(dateString);
@@ -36,12 +36,6 @@ const BlogDetail = () => {
 	
 		return `${year}年${month}月${day}日`;
 	};
-
-	// const handleHighLight = async () => {
-    //     window.hljs.highlightAll();
-	// 	console.log(window.hljs)
-	// 	setData((prev)=>prev)
-	// }
 
 	const handleLike = async () => {
         const response = await fetch(`${apiUrl}/blog/${id}/like/`, {
@@ -62,8 +56,6 @@ const BlogDetail = () => {
 		return <div>Loading...</div>;
 	}
 
-	
-	
 
 	return (
 		<>
