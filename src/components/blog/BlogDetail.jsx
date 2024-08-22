@@ -42,7 +42,7 @@ const BlogDetail = () => {
             method: 'PATCH'
         });
         const res = await response.json();
-        setData({ ...data, likes: res.likes });
+        //setData({ ...data, likes: res.likes });
 		
 		const index = myBlogDataGlobal.findIndex(obj => obj.id === Number(id));
 		setMyBlogDataGlobal((prevData) => 
