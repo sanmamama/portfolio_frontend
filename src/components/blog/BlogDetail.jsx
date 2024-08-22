@@ -37,11 +37,11 @@ const BlogDetail = () => {
 		return `${year}年${month}月${day}日`;
 	};
 
-	const handleHighLight = async () => {
-        window.hljs.highlightAll();
-		console.log(window.hljs)
-		setData((prev)=>prev)
-	}
+	// const handleHighLight = async () => {
+    //     window.hljs.highlightAll();
+	// 	console.log(window.hljs)
+	// 	setData((prev)=>prev)
+	// }
 
 	const handleLike = async () => {
         const response = await fetch(`${apiUrl}/blog/${id}/like/`, {
@@ -111,7 +111,6 @@ const BlogDetail = () => {
 					<div className="markdownx-preview" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(data.content_html) }} />
 					<div className="text-center mb-3">
 						<button className="btn btn-outline-primary  mt-3" onClick={handleLike}>いいね！ ({data.likes})</button>
-						<button className="btn btn-outline-primary  mt-3" onClick={handleHighLight}>ハイライト</button>
 						
 					</div>
 			</div>
