@@ -96,14 +96,16 @@ const Home = () => {
 			}
 		)
 		const data = await response.json()
-		
+
 		if(response.ok){
-			setReplies([...replies, ...data.results])
-			setHasMore(data.next)
-			setPageCount(pageCount+1)
-		}else{
-			setReplies([])
-			setHasMore(false)
+			if(data){
+				setReplies([...replies, ...data.results])
+				setHasMore(!!data.next)
+				setPageCount(pageCount+1)
+			}else{
+				setReplies([])
+				setHasMore(false)
+			}
 		}
 	}
 
@@ -152,7 +154,7 @@ const Home = () => {
 			<div className="card">
 				<div className="card-body pt-3 pb-3 pl-3 pr-3">
 					{messages}
-					<div className="container">
+					<div className="container mb-1">
 						<PostContainer
 						postData={posts}
 						myUserDataGlobal={myUserDataGlobal}
@@ -166,7 +168,7 @@ const Home = () => {
 						/>
 					</div>
 					
-					<hr/>
+					
 					<form onSubmit={handlePostSubmit}>
 						<textarea 
 							className="form-control"
@@ -186,17 +188,19 @@ const Home = () => {
 								hasMore={hasMore}
 								threshold={5} >
 								{replies.map((replyData,ix) => (
-									<PostContainer
-									postData={replyData}
-									myUserDataGlobal={myUserDataGlobal}
-									posts={replies}
-									setPosts={setReplies}
-									getUserData={getUserData}
-									setMyUserDataGlobal={setMyUserDataGlobal}
-									setMessages={setMessages}
-									refreshPost={refreshPost}
-									ix={ix}
-									/>
+									<div className="container" key={ix}>
+										<PostContainer
+										postData={replyData}
+										myUserDataGlobal={myUserDataGlobal}
+										posts={replies}
+										setPosts={setReplies}
+										getUserData={getUserData}
+										setMyUserDataGlobal={setMyUserDataGlobal}
+										setMessages={setMessages}
+										refreshPost={refreshPost}
+										ix={ix}
+										/>
+									</div>
 							))}
 							</InfiniteScroll>
 				
