@@ -97,7 +97,7 @@ const Message = () => {
 		
 		if(response.ok){
 			setUserList(data.results)
-			console.log(data.results)
+			//console.log(data.results)
 			setHasMore(!!data.next)
 			setPageCount(2)
 		}
