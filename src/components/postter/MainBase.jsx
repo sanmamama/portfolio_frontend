@@ -2,7 +2,7 @@ import { Outlet } from 'react-router-dom';
 import Header from './Header';
 import Footer from './Footer';
 import LeftSideContent from './LeftSideContent';
-import RightSideContent from './RightSideContent';
+
 import {ScrollRestoration } from 'react-router-dom';
 
 const PostterBase = () => {
@@ -15,9 +15,11 @@ const PostterBase = () => {
 					<div className="content-wrapper">
 						<div className="container-fluid">
 							<div className="row">
-									<LeftSideContent/>		
+									<LeftSideContent/>
+									<div className="col-sm-9 pl-0 pr-0">
 										<Outlet />
-									<RightSideContent/>
+									</div>
+									
 							</div>
 						</div>
 					</div>       

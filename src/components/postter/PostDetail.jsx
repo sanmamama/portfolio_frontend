@@ -9,6 +9,7 @@ import InfiniteScroll from 'react-infinite-scroller';
 import PostContent from './PostContent';
 import ModalAddUserToList from './ModalAddUserToList';
 import ModalCreateReplyButton from './ModalCreateReplyButton';
+import PostContainer from './PostContainer';
 const apiUrl = process.env.REACT_APP_API_URL;
 const baseUrl = process.env.REACT_APP_BASE_URL;
 
@@ -283,76 +284,25 @@ const Home = () => {
 		return("loading...")
 	}
 
+
 	return (
-		<div className="col-sm-6 pl-0 pr-0">
 			<div className="card">
 				<div className="card-body pt-3 pb-3 pl-3 pr-3">
 					{messages}
-					<table>
-					<tr className="text">
-										<td className="text" style={{width: "15%"}}>
-											<img className="rounded img-fluid mx-auto d-block" src={`${posts.owner.avatar_imgurl}`} id="avatar-image" width="40" height="40" alt="avatarimage"/>
-										</td>
-										<td className="text" style={{width: "80%"}}>
-											{posts.repost_user && (
-											<>
-											<p><img className="mr-2" src={`${baseUrl}/media/icon/repost_active.svg`} width="16" height="16" alt="repost"/><Link to={`/postter/${posts.repost_user.uid}/`}>{posts.repost_user.username}</Link>がリポストしました</p>
-											</>
-											)}
-											{posts.parent && (
-											<>
-											<p><img className="mr-2" src={`${baseUrl}/media/icon/reply.svg`} width="16" height="16" alt="reply"/><Link to={`/postter/post/${posts.parent}/`}>ポストID{posts.parent}</Link>へのリプライ</p>
-											</>
-											)}
-											
-											<h6>
-												<Link to={`/postter/${posts.owner.uid}/`}><b>{posts.owner.username}</b></Link>
-												<span className="ml-1 text-secondary">@{posts.owner.uid}</span>
-												<span className="ml-1 text-secondary">{posts.created_at.split('.')[0].replace('T',' ')}</span>
-											</h6>
-											<p><PostContent content={posts.content}/></p>
-
-											<ModalCreateReplyButton postData={posts}/>
-
-											<button className="mr-4" style={{cursor:"pointer"}} onClick={() => handleLike(posts.id,-1,myUserDataGlobal.like.includes(posts.id))}>
-											{myUserDataGlobal.like.includes(posts.id) ? <img src={`${baseUrl}/media/icon/heart_active.svg` } width="16" height="16"  alt="like"/> : <img src={`${baseUrl}/media/icon/heart_no_active.svg`} width="16" height="16" alt="like"/>}{posts.like_count}
-											</button>
-											
-											<button className="mr-4" style={{cursor:"pointer"}} onClick={() => handleRepost(posts.id,-1,myUserDataGlobal.repost.includes(posts.id))}>
-											{myUserDataGlobal.repost.includes(posts.id) ? <img src={`${baseUrl}/media/icon/repost_active.svg`} width="16" height="16" alt="repost"/> : <img src={`${baseUrl}/media/icon/repost_no_active.svg`} width="16" height="16" alt="repost"/>}{posts.repost_count}
-											</button>
-
-	
-											<img src={`${baseUrl}/media/icon/view_count.svg`} width="16" height="16" alt="view"/>{posts.view_count}
-
-
-										</td>
-										<td className='text' style={{width: "5%"}}>
-											<div className="dropdown">
-												<button type="button" className="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">︙</button>
-												<div className="dropdown-menu">
-												{posts.owner.id === myUserDataGlobal.id && (
-													<>
-														<ModalAddUserToList className={"dropdown-item"} id={posts.owner.id}/>
-														<button className="dropdown-item" style={{cursor:"pointer"}} onClick={() => handlePostDelete(posts.id)}>ポストを削除する</button>
-													</>
-												)}
-												{posts.owner.id !== myUserDataGlobal.id && (
-													<>
-														<ModalAddUserToList className={"dropdown-item"} id={posts.owner.id}/>
-														<button className="dropdown-item" style={{cursor:"pointer"}} onClick={() => handleFollow(posts.owner.id)}>
-															{myUserDataGlobal.following.includes(posts.owner.id) ? "フォローを解除する" : "フォローする"}
-														</button>
-													</>
-												)}
-
-												</div>
-												
-
-									</div>
-								</td>
-							</tr>
-					</table>
+					<div className="container">
+						<PostContainer
+						postData={posts}
+						myUserDataGlobal={myUserDataGlobal}
+						posts={null}
+						setPosts={setPosts}
+						getUserData={getUserData}
+						setMyUserDataGlobal={setMyUserDataGlobal}
+						setMessages={setMessages}
+						refreshPost={refreshPost}
+						ix={0}
+						/>
+					</div>
+					
 					<hr/>
 					<form onSubmit={handlePostSubmit}>
 						<textarea 
@@ -442,7 +392,6 @@ const Home = () => {
 				
 				</div>
 			</div>
-		</div>
 	  );
 }
 

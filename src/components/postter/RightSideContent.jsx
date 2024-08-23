@@ -8,20 +8,13 @@ export const RightSideContent = () => {
 	const navigate = useNavigate();
 
 	const handleSubmit = (event) => {
-		event.preventDefault(); // ページ遷移を防ぐ
+		event.preventDefault();
 		if (query.trim()) {
 		  navigate(`/postter/search?q=${query}`);
 		}
 	  };
 
-	// //ポストフォームチェンジ
-	// const handlePostChange = (e) => {
-    //     const { name, value } = e.target;
-    //     setFormData((prevFormData) => ({
-    //         ...prevFormData,
-    //         [name]: value
-    //     }));
-    // };
+	
 
 	return (
 		<div className="col-sm-3 pl-1 pr-1 d-none d-sm-block">
@@ -35,12 +28,7 @@ export const RightSideContent = () => {
 					</form>
 				</div>
 			</div>
-			<div className="mb-1 card">
-				<div className="card-body pt-3 pb-3 pl-3 pr-3">
-					<h4>おすすめのユーザー</h4>
-						<p>あああああ</p>
-				</div>
-			</div>
+			
 		</div>
 	  );
 }

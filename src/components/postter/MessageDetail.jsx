@@ -171,7 +171,6 @@ const Message = () => {
 	}
 
 	return (
-		<div className="col-sm-6 pl-0 pr-0">
 			<div className="card">
 				<div className="card-body pt-3 pb-3 pl-3 pr-3">
 					{messages}
@@ -247,7 +246,6 @@ const Message = () => {
                 </form>
 				</div>
 			</div>
-		</div>
 	  );
 }
 

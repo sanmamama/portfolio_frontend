@@ -120,9 +120,10 @@ const Home = () => {
 	if(!myUserDataGlobal || !posts){
 		return("loading...")
 	}
+	
 
 	return (
-		<div className="col-sm-6 pl-0 pr-0">
+		
 			<div className="card">
 				<div className="card-body pt-3 pb-3 pl-3 pr-3">
 					{messages}
@@ -132,7 +133,7 @@ const Home = () => {
 						<button type="submit" className="mb-2 mt-2 btn btn-outline-primary btn-block">投稿する</button>
 					</form>
 
-					<div className="">
+					<div>
 							<InfiniteScroll
 								loadMore={loadPost}
 								loader={<div key={0}>Loading ...</div>}
@@ -157,7 +158,6 @@ const Home = () => {
 					</div>
 				</div>
 			</div>
-		</div>
 	  );
 }
 

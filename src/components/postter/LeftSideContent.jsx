@@ -1,12 +1,22 @@
-import React, { useContext} from 'react';
+import React, { useContext ,useState} from 'react';
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import {UserDataContext} from "./providers/UserDataProvider"
 import {NotificationContext} from "./providers/NotificationProvider"
 const baseUrl = process.env.REACT_APP_BASE_URL;
 
 const LeftSideContent = () => {
+	const [query, setQuery] = useState('');
+	const navigate = useNavigate();
 	const {myUserDataGlobal} = useContext(UserDataContext);
 	const {myNotificationGlobal} = useContext(NotificationContext);
+
+	const handleSubmit = (event) => {
+		event.preventDefault();
+		if (query.trim()) {
+			navigate(`/postter/search?q=${query}`);
+		}
+	};
 
 	if(myUserDataGlobal==null){
 		return("loading")
@@ -14,7 +24,7 @@ const LeftSideContent = () => {
 
 	return (
 		<div className="col-sm-3 pl-1 pr-1 d-none d-sm-block">
-			
+			<div className="">
 				<div className="card mb-1">
 					<div className="card-body pt-3 pb-3 pl-3 pr-3 ">
 						<h5 className="mb-4"><Link to="/postter/home"><img className="mr-3" src={`${baseUrl}/media/icon/home.svg`} width="16" height="16" alt="home"/>ホーム</Link></h5>
@@ -27,6 +37,18 @@ const LeftSideContent = () => {
 						
 					</div>
 				</div>
+
+				<div className="mb-1 card">
+					<div className="card-body pt-3 pb-3 pl-3 pr-3">
+						<form onSubmit={handleSubmit}>
+							<div className="form-group">
+							<input type="text" className="form-control" name="q" placeholder="検索" value={query} onChange={(e) => setQuery(e.target.value)}/>
+							</div>
+							<button type="submit" className="btn btn-primary">検索</button>
+						</form>
+					</div>
+				</div>
+
 				<div className="card mb-1">
 					<div className="card-body pt-3 pb-3 pl-3 pr-3">
 						<h4>プロフィール</h4>						
@@ -41,6 +63,7 @@ const LeftSideContent = () => {
 						
 					</div>
 				</div>
+			</div>
 		</div>
 	  );
 }

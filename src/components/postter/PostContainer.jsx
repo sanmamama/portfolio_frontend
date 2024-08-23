@@ -7,7 +7,8 @@ const apiUrl = process.env.REACT_APP_API_URL;
 const baseUrl = process.env.REACT_APP_BASE_URL;
 
 const PostContainer = ({ postData,myUserDataGlobal,posts,setPosts,getUserData,setMyUserDataGlobal,setMessages,refreshPost,ix }) => {
-  //リツイートハンドル
+  
+  //リポストハンドル
 	const handleRepost = async (postId,post_ix,post_reposted) => {
 		const token = document.cookie.split('; ').reduce((acc, row) => {
 			const [key, value] = row.split('=');
@@ -27,26 +28,18 @@ const PostContainer = ({ postData,myUserDataGlobal,posts,setPosts,getUserData,se
             });
 
             if (response.ok) {
-				const data = await response.json();
-				//dtrictModeのせいで2回コールされて+-2されるけど気にしないよう。
-				if(post_reposted){
-					setPosts(()=>{posts[post_ix].repost_count-=1;return posts;})
-				}else{
-					setPosts(()=>{posts[post_ix].repost_count+=1;return posts;})
-				}
-				getUserData(setMyUserDataGlobal)
-				//refreshPost()
-                setMessages(data.detail);
-            } else {
-                const data = await response.json();
-				if(post_reposted){
-					setPosts(()=>{posts[post_ix].repost_count-=1;return posts;})
-				}else{
-					setPosts(()=>{posts[post_ix].repost_count+=1;return posts;})
-				}
-				getUserData(setMyUserDataGlobal)
-				//refreshPost()
-                setMessages(data.detail);
+              const res = await response.json();
+
+              if(posts){
+                setPosts((posts)=>{posts[post_ix].repost_count=res.repost_count;return posts;})
+              }else{
+                setPosts((posts)=>{posts.repost_count=res.repost_count;return posts;})
+              }
+              
+              getUserData(setMyUserDataGlobal)
+              //setMessages(res.repost_count);
+            }else{
+              //setMessages(res.repost_count);
             }
         } catch (error) {
 
@@ -54,7 +47,7 @@ const PostContainer = ({ postData,myUserDataGlobal,posts,setPosts,getUserData,se
     };
 
 	//いいねハンドル
-	const handleLike = async (post_id,post_ix,post_liked) => {
+	const handleLike = async (post_id,post_ix) => {
 		const token = document.cookie.split('; ').reduce((acc, row) => {
 			const [key, value] = row.split('=');
 			if (key === 'token') {
@@ -71,18 +64,20 @@ const PostContainer = ({ postData,myUserDataGlobal,posts,setPosts,getUserData,se
 			body: JSON.stringify({"post":post_id}),
         });
 		const res = await response.json();
+
+
 		if(response.ok){
-			//dtrictModeのせいで2回コールされて+-2されるけど気にしないよう。
-			if(post_liked){
-				setPosts(()=>{posts[post_ix].like_count-=1;return posts;})
-			}else{
-				setPosts(()=>{posts[post_ix].like_count+=1;return posts;})
-			}
+      if(posts){
+        setPosts((posts)=>{posts[post_ix].like_count=res.like_count;return posts;})
+      }else{
+			  setPosts((posts)=>{posts.like_count=res.like_count;return posts;})
+      }
+
 			getUserData(setMyUserDataGlobal)
-			setMessages(`postId:${post_id}${res.message}`);
+			//setMessages(`postId:${post_id}   ${res.like_count}`);
 			
 		}else{
-			setMessages(`postId:${post_id}${res}`);
+			//setMessages(`postId:${post_id}${res}`);
 		}
         
     };
@@ -145,7 +140,7 @@ const PostContainer = ({ postData,myUserDataGlobal,posts,setPosts,getUserData,se
   }
 
   return (
-      <div>
+      <div className="">
 									<div className="row pb-2 pt-1">
 										{postData.repost_user && (
 											<>
@@ -210,9 +205,19 @@ const PostContainer = ({ postData,myUserDataGlobal,posts,setPosts,getUserData,se
 										<div className="row">
 											<div className="ml-1">
 												<Link className="no-link-style" to={`/postter/post/${postData.id}/`}>
-													<PostContent content={postData.content}/>
 													<PostContent content={postData.content_EN}/>
 												</Link>
+                        <a className="ml-1" data-toggle="collapse" href={"#collapse"+ix} aria-expanded="false" aria-controls={"collapse"+ix}>
+                          <img src={`${baseUrl}/media/icon/translate.svg`} width="32" height="32" alt="translate"/>
+                        </a>
+
+                          
+                        
+                        <div className="collapse mt-2 " id={"collapse"+ix}>
+                          <div className="card card-body">
+                            <PostContent content={postData.content}/>
+                          </div>
+                        </div>
 												
 											</div>
 										</div>
