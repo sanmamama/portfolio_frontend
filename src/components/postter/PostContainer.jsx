@@ -181,7 +181,9 @@ const PostContainer = ({ postData,myUserDataGlobal,posts,setPosts,getUserData,se
 											</div>
 
 											<div className="col-2 dropdown text-right pl-1 pr-0">
-												<button type="button" className="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">︙</button>
+                        <button type="button" className="btn btn-link p-0 border-0" style={{ boxShadow: 'none', textDecoration: 'none', color: 'inherit' }} data-toggle="dropdown" aria-expanded="false">
+                          <img src={`${baseUrl}/media/icon/3pleader.svg`} width="16" height="16" alt="more"/>
+                        </button>
 												<div className="dropdown-menu">
 												{postData.owner.id === myUserDataGlobal.id && (
 													<>
