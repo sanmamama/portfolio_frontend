@@ -184,7 +184,7 @@ const Message = () => {
 								<td className="text" style={{width: "80%"}}>
 									<h6>
 										<Link to={`/postter/${ListData.user.uid}/`}><b>{ListData.user.username}</b></Link>
-										<span className="ml-1 text-secondary">@{ListData.user.uid}</span>
+										<span className="ms-1 text-secondary">@{ListData.user.uid}</span>
 									</h6>
 									<p>{ListData.user.profile_statement}</p>
 								</td>

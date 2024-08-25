@@ -48,70 +48,72 @@ function Header() {
   return (
     <header>
       <nav className="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-        <Link className="navbar-brand" href="/">
-          さんまブログ
-        </Link>
-        
-        <button 
-          className="navbar-toggler" 
-          type="button" 
-          data-toggle="collapse" 
-          data-target="#navbarsExampleDefault" 
-          aria-controls="navbarsExampleDefault" 
-          aria-expanded="false" 
-          aria-label="Toggle navigation"
-        >
-          <span className="navbar-toggler-icon"></span>
-        </button>
+        <div className="container-fluid">
+          <Link className="navbar-brand" href="/">
+            さんまブログ
+          </Link>
+          
+          <button 
+            className="navbar-toggler" 
+            type="button" 
+            data-toggle="collapse" 
+            data-target="#navbarsExampleDefault" 
+            aria-controls="navbarsExampleDefault" 
+            aria-expanded="false" 
+            aria-label="Toggle navigation"
+          >
+            <span className="navbar-toggler-icon"></span>
+          </button>
 
-        <div className="collapse navbar-collapse" id="navbarsExampleDefault">
-          <ul className="navbar-nav mr-auto">
-            <li className="nav-item">
-              <NavLink 
-                className={({ isActive }) => "nav-link" + (isActive ? " active" : "")} 
-                to="/"
-                onClick={closeMenu}
-              >
-                ブログ
-              </NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink 
-                className={({ isActive }) => "nav-link" + (isActive ? " active" : "")} 
-                to="/profile"
-                onClick={closeMenu}
-              >
-                プロフィール
-              </NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink 
-                className={({ isActive }) => "nav-link" + (isActive ? " active" : "")} 
-                to="/portfolio"
-                onClick={closeMenu}
-              >
-                ポートフォリオ
-              </NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink 
-                className={({ isActive }) => "nav-link" + (isActive ? " active" : "")} 
-                to="/privacypolicy"
-                onClick={closeMenu}
-              >
-                プライバシーポリシー
-              </NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink 
-                className={({ isActive }) => "nav-link" + (isActive ? " active" : "")} 
-                to="/contact"
-                onClick={closeMenu}
-              >
-                問い合わせ
-              </NavLink>
-            </li>
-          </ul>
+          <div className="collapse navbar-collapse" id="navbarsExampleDefault">
+            <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+              <li className="nav-item">
+                <NavLink 
+                  className={({ isActive }) => "nav-link " + (isActive ? " active" : "")} 
+                  to="/"
+                  onClick={closeMenu} 
+                >
+                  ブログ
+                </NavLink>
+              </li>
+              <li className="nav-item">
+                <NavLink 
+                  className={({ isActive }) => "nav-link" + (isActive ? " active" : "")} 
+                  to="/profile"
+                  onClick={closeMenu}
+                >
+                  プロフィール
+                </NavLink>
+              </li>
+              <li className="nav-item">
+                <NavLink 
+                  className={({ isActive }) => "nav-link" + (isActive ? " active" : "")} 
+                  to="/portfolio"
+                  onClick={closeMenu}
+                >
+                  ポートフォリオ
+                </NavLink>
+              </li>
+              <li className="nav-item">
+                <NavLink 
+                  className={({ isActive }) => "nav-link" + (isActive ? " active" : "")} 
+                  to="/privacypolicy"
+                  onClick={closeMenu}
+                >
+                  プライバシーポリシー
+                </NavLink>
+              </li>
+              <li className="nav-item">
+                <NavLink 
+                  className={({ isActive }) => "nav-link" + (isActive ? " active" : "")} 
+                  to="/contact"
+                  onClick={closeMenu}
+                >
+                  問い合わせ
+                </NavLink>
+              </li>
+            </ul>
+          </div>
         </div>
       </nav>
 

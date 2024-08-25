@@ -204,9 +204,9 @@ class CustomModal extends React.Component {
                       <div className="col-8">
                         <p>
                           <span><b>{ListData.name}</b></span>
-                          <span className="ml-3 text-secondary">{ListData.user_ids.length}人のメンバー</span>
+                          <span className="ms-3 text-secondary">{ListData.user_ids.length}人のメンバー</span>
                         </p>
-                        <p><span className="ml-1 text-secondary">{ListData.description}</span></p>
+                        <p><span className="ms-1 text-secondary">{ListData.description}</span></p>
                         <p className="mt-2 text-secondary">{}</p>
                       </div>
                       <div className="col-4">
@@ -221,8 +221,9 @@ class CustomModal extends React.Component {
               </div>
             </InfiniteScroll>
 
-
-            <button className="mb-2 mt-2 btn btn-outline-danger btn-block" onClick={this.closeModal}>閉じる</button>
+            <div class="d-grid gap-2">
+              <button className="mb-2 mt-2 btn btn-outline-danger" onClick={this.closeModal}>閉じる</button>
+            </div>
           </div>
         </Modal>
       </div>

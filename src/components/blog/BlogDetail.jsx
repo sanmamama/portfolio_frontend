@@ -70,7 +70,7 @@ const BlogDetail = () => {
 			<div className="mb-1">
 				<span>
 					<img
-						className="mr-2 align-baseline"
+						className="me-2 align-baseline"
 						src={`${process.env.REACT_APP_BASE_URL}/media/icon/calendar.svg`}
 						width="16"
 						height="16"
@@ -79,10 +79,10 @@ const BlogDetail = () => {
 				</span>
 					<span className="mt-0 mb-0 text-secondary align-text-bottom">
 							{formatDateToJapanese(data.created_at)}</span>
-					<span className="ml-2 text-secondary mark align-text-bottom"><Link to={`/?category=${data.category.id}`}>{data.category.name}</Link></span>
+					<span className="ms-2 text-secondary mark align-text-bottom"><Link to={`/?category=${data.category.id}`}>{data.category.name}</Link></span>
 				{data.tag.map(
 				tag => (
-					<span className="ml-2 text-secondary custom-mark align-text-bottom" key={tag.id}><Link to={`/?tag=${tag.id}`}>{tag.name}</Link></span>
+					<span className="ms-2 text-secondary custom-mark align-text-bottom" key={tag.id}><Link to={`/?tag=${tag.id}`}>{tag.name}</Link></span>
 				))}
 			</div>
 

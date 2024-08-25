@@ -48,13 +48,13 @@ const Pagination = ({ currentPage, pageCount, addUrl }) => (
     pageCount > 1 && (
         <div className="text-center">
             {currentPage > 1 ? (
-                <span className="ml-2"><Link to={`/?page=${currentPage - 1}${addUrl}`}>prev</Link></span>
+                <span className="ms-2"><Link to={`/?page=${currentPage - 1}${addUrl}`}>prev</Link></span>
             ) : (
-                <span className="ml-2">prev</span>
+                <span className="ms-2">prev</span>
             )}
 
             {Array.from({ length: pageCount }).map((_, i) => (
-                <span className="ml-2" key={i}>
+                <span className="ms-2" key={i}>
                     {currentPage !== i + 1 ? (
                         <Link to={`/?page=${i + 1}${addUrl}`}>{i + 1}</Link>
                     ) : (
@@ -64,9 +64,9 @@ const Pagination = ({ currentPage, pageCount, addUrl }) => (
             ))}
 
             {currentPage < pageCount ? (
-                <span className="ml-2"><Link to={`/?page=${currentPage + 1}${addUrl}`}>next</Link></span>
+                <span className="ms-2"><Link to={`/?page=${currentPage + 1}${addUrl}`}>next</Link></span>
             ) : (
-                <span className="ml-2">next</span>
+                <span className="ms-2">next</span>
             )}
         </div>
     )
@@ -78,26 +78,32 @@ const BlogItem = ({ item,isSmallScreen }) => (
         <div className="d-flex flex-column bd-highlight">
 			<div>
                 <Link className="custom-link-style" to={`/detail/${item.id}`}>
-                    <div className="card-img-overlay pl-2 pr-2">
-                        <span className="text-secondary mark small">
-                            <Link to={`/?category=${item.category.name}`}>{item.category.name}</Link>
-                        </span>
+                    
+                    <div className="card text-bg-dark">
+                        <div className="image-container">
+                            <img src={item.img} alt={item.title} className="card-img"/>
+                        </div>
+                        
 
-                        {item.tag.map(tag => (
-                            <span className="ml-2 text-secondary custom-mark small" key={tag.id}>
-                                <Link to={`/?tag=${tag.name}`}>{tag.name}</Link>
+                        <div className="card-img-overlay pl-2 pr-2">
+                            <span className="text-secondary mark small">
+                                <Link to={`/?category=${item.category.name}`}>{item.category.name}</Link>
                             </span>
-                        ))}
-                    </div>
 
-                    <div className="image-container">
-                        <img src={item.img} alt={item.title} />
+                            {item.tag.map(tag => (
+                                <span className="ms-2 text-secondary custom-mark small" key={tag.id}>
+                                    <Link to={`/?tag=${tag.name}`}>{tag.name}</Link>
+                                </span>
+                            ))}
+                        </div>
+
+                        
                     </div>
 
                     <div>
                         <span>
                             <img
-                                className="mr-2 align-baseline"
+                                className="me-2 align-baseline"
                                 src={`${process.env.REACT_APP_BASE_URL}/media/icon/calendar.svg`}
                                 width="16"
                                 height="16"

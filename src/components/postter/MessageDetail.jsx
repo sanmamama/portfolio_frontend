@@ -179,8 +179,10 @@ const Message = () => {
 					<p className="text-center">{targetUserData.username} @{targetUserData.uid}</p>
 					<p className="text-center">{targetUserData.profile_statement}</p>
 					<form method="post" onSubmit={handleMessageSubmit}>
-					<textarea className="form-control" type="textarea" name="content" value={formData.content} onChange={handleMessageChange} placeholder="メッセージを入力"/>   
-					<button type="submit" className="mb-3 mt-2 btn btn-outline-primary btn-block">送信</button>
+					<textarea className="form-control" type="textarea" name="content" value={formData.content} onChange={handleMessageChange} placeholder="メッセージを入力"/>
+					<div class="d-grid gap-2">  
+						<button type="submit" className="mb-3 mt-2 btn btn-primary">送信</button>
+					</div>
                 	</form>
 					<div className="mt-3 mb-3 scrollable-div">
 					<InfiniteScroll
@@ -207,7 +209,7 @@ const Message = () => {
 									<div className="col-3">
 									</div>
 									<div className="col-7">
-										<p className="ml-1 text-right text-secondary">{MessageData.created_at.split('.')[0].replace('T',' ')}</p>
+										<p className="ms-1 text-right text-secondary">{MessageData.created_at.split('.')[0].replace('T',' ')}</p>
 									</div>
 									<div className="col-2">
 									</div>
@@ -231,7 +233,7 @@ const Message = () => {
 									<div className="col-2">
 									</div>
 									<div className="col-7">
-										<p className="ml-1 text-secondary">{MessageData.created_at.split('.')[0].replace('T',' ')}</p>
+										<p className="ms-1 text-secondary">{MessageData.created_at.split('.')[0].replace('T',' ')}</p>
 									</div>
 									<div className="col-3">
 									</div>

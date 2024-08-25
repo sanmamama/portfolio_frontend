@@ -130,7 +130,9 @@ const Home = () => {
 					
 					<form method="post" onSubmit={handlePostSubmit}>
 						<textarea className="form-control" type="textarea" name="content" value={formData.content} onChange={handlePostChange} placeholder="いまなにしてる？"/>
-						<button type="submit" className="mb-2 mt-2 btn btn-outline-primary btn-block">投稿する</button>
+						<div class="d-grid gap-2">
+							<button type="submit" className="mb-2 mt-2 btn btn-outline-primary">投稿する</button>
+						</div>
 					</form>
 
 					<div>

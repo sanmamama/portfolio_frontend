@@ -178,7 +178,9 @@ const Home = () => {
 							cols="50"
 							placeholder="返信をポストする"
 						/>
-						<button　className="mb-2 mt-2 btn btn-outline-primary btn-block" type="submit">返信</button>
+						<div class="d-grid gap-2">
+							<button　className="mb-2 mt-2 btn btn-outline-primary" type="submit">返信</button>
+						</div>
 						</form>
 					<hr/>
 					

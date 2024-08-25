@@ -175,8 +175,8 @@ const PostContainer = ({ postData,myUserDataGlobal,posts,setPosts,getUserData,se
 											<div className="col-10 pl-1 pr-0">
 												<h6>
 												<Link to={`/postter/${postData.owner.uid}/`}><b>{postData.owner.username}</b></Link>
-												<span className="ml-1 text-secondary">@{postData.owner.uid}</span>
-												<span className="ml-1 text-secondary">{postData.created_at.split('.')[0].replace('T',' ')}</span>
+												<span className="ms-1 text-secondary">@{postData.owner.uid}</span>
+												<span className="ms-1 text-secondary">{postData.created_at.split('.')[0].replace('T',' ')}</span>
 												</h6>
 											</div>
 
@@ -205,11 +205,11 @@ const PostContainer = ({ postData,myUserDataGlobal,posts,setPosts,getUserData,se
 										</div>
 
 										<div className="row">
-											<div className="ml-1">
+											<div className="ms-1">
 												<Link className="no-link-style" to={`/postter/post/${postData.id}/`}>
 													<PostContent content={postData.content_EN}/>
 												</Link>
-                        <a className="ml-1" data-toggle="collapse" href={"#collapse"+ix} aria-expanded="false" aria-controls={"collapse"+ix}>
+                        <a className="ms-1" data-toggle="collapse" href={"#collapse"+ix} aria-expanded="false" aria-controls={"collapse"+ix}>
                           <img src={`${baseUrl}/media/icon/translate.svg`} width="32" height="32" alt="translate"/>
                         </a>
 

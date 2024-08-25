@@ -137,7 +137,7 @@ const Message = () => {
 									</div>
 									<div className="col-10">
 										<b>{result.username}</b>
-										<span className="ml-1 text-secondary">@{result.uid}</span>
+										<span className="ms-1 text-secondary">@{result.uid}</span>
 										<p className="mt-2 text-secondary">{result.profile_statement}</p>
 									</div>
 								</div>
@@ -163,8 +163,8 @@ const Message = () => {
 												</div>
 												<div className="col-10">
 													<b>{MessageData.user_to.username}</b>
-													<span className="ml-1 text-secondary">@{MessageData.user_to.uid}</span>
-													<span className="ml-1 text-secondary">{MessageData.created_at.split('.')[0].replace('T',' ')}</span>
+													<span className="ms-1 text-secondary">@{MessageData.user_to.uid}</span>
+													<span className="ms-1 text-secondary">{MessageData.created_at.split('.')[0].replace('T',' ')}</span>
 													<p className="mt-2 text-secondary">{MessageData.content}</p>
 												</div>
 											</div>
@@ -179,8 +179,8 @@ const Message = () => {
 											</div>
 											<div className="col-10">
 												<b>{MessageData.user_from.username}</b>
-												<span className="ml-1 text-secondary">@{MessageData.user_from.uid}</span>
-												<span className="ml-1 text-secondary">{MessageData.created_at.split('.')[0].replace('T',' ')}</span>
+												<span className="ms-1 text-secondary">@{MessageData.user_from.uid}</span>
+												<span className="ms-1 text-secondary">{MessageData.created_at.split('.')[0].replace('T',' ')}</span>
 												<p className="mt-2 text-secondary">{MessageData.content}</p>
 											</div>
 										</div>

@@ -86,17 +86,19 @@ const ContactForm = () => {
         <>
         <form onSubmit={handleSubmit}>
             <div>
-                <label>お名前</label> {errors.name && <span className="ml-3" style={{ color: 'red' }}>{errors.name}</span>}
+                <label>お名前</label> {errors.name && <span className="ms-3" style={{ color: 'red' }}>{errors.name}</span>}
                 <input className="form-control" type="text" name="name" value={formData.name} onChange={handleChange} />
 
-                <label>メールアドレス</label> {errors.email && <span className="ml-3" style={{ color: 'red' }}>{errors.email}</span>}
+                <label>メールアドレス</label> {errors.email && <span className="ms-3" style={{ color: 'red' }}>{errors.email}</span>}
                 <input className="form-control" type="email" name="email" value={formData.email} onChange={handleChange} />
 				
-                <label>メッセージ</label> {errors.message && <span className="ml-3" style={{ color: 'red' }}>{errors.message}</span>}
+                <label>メッセージ</label> {errors.message && <span className="ms-3" style={{ color: 'red' }}>{errors.message}</span>}
                 <textarea className="form-control" name="message" value={formData.message} onChange={handleChange}></textarea>
 				
             </div>
-            <button className="mt-2 btn btn-outline-primary btn-block" type="submit">送信</button>
+            <div class="d-grid gap-2">
+                <button className="mt-2 btn btn-outline-primary" type="submit">送信</button>
+            </div>
         </form>
         <p>{messages}</p>
         </>

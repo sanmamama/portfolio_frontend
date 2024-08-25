@@ -143,9 +143,13 @@ this.closeModal()
               </div>
               <label>プロフィール</label>
               <textarea className="form-control" name="profile_statement" value={this.state.profile_statement} onChange={this.handleInputChange} rows="3" cols="50"/>
-              <button　className="mb-2 mt-2 btn btn-outline-primary btn-block" type="submit">更新する</button>
+              <div class="d-grid gap-2">
+                <button　className="mb-2 mt-2 btn btn-outline-primary" type="submit">更新する</button>
+              </div>
             </form>
-            <button className="mb-2 mt-4 btn btn-outline-danger btn-block" onClick={this.closeModal}>閉じる</button>
+            <div class="d-grid gap-2">
+              <button className="mb-2 mt-4 btn btn-outline-danger" onClick={this.closeModal}>閉じる</button>
+            </div>
           </div>
         </Modal>
       </div>

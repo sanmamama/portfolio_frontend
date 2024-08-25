@@ -69,10 +69,10 @@ const Message = () => {
 										<Link className="no-link-style" to={`/postter/memberlist/${ListData.id}/`}>
 										<div className="col" key={ix}>
 											<div className="row">
-														<p><span><b>{ListData.name}</b></span><span className="ml-3 text-secondary">{ListData.user_ids.length}人のメンバー</span></p>
+														<p><span><b>{ListData.name}</b></span><span className="ms-3 text-secondary">{ListData.user_ids.length}人のメンバー</span></p>
 											</div>
 											<div className="row">
-											<p><span className="ml-1 text-secondary">{ListData.description}</span></p>
+											<p><span className="ms-1 text-secondary">{ListData.description}</span></p>
 											</div>
 										</div>
 										</Link>

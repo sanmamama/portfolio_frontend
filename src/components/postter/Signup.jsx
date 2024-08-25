@@ -98,20 +98,21 @@ const SignupForm = () => {
             <div className="col-5">
                 <h2>会員登録</h2>
                 <form onSubmit={handleSubmit}>
-                    <label>メールアドレス</label><span className="ml-3 text-danger">{formError.email}</span>
+                    <label>メールアドレス</label><span className="ms-3 text-danger">{formError.email}</span>
                     <input className="form-control" type="email" name="email" value={formData.email} onChange={handleChange}/>
 
-                    <label>ユーザー名</label><span className="ml-3 text-danger">{formError.username}</span>
+                    <label>ユーザー名</label><span className="ms-3 text-danger">{formError.username}</span>
                     <input className="form-control" type="username" name="username" value={formData.username} onChange={handleChange}/>
                     
-                    <label>パスワード</label><span className="ml-3 text-danger">{formError.password1}</span>
+                    <label>パスワード</label><span className="ms-3 text-danger">{formError.password1}</span>
                     <input className="form-control" type="password" name="password1" value={formData.password1} onChange={handleChange}/>
                     
-                    <label>確認用パスワード</label><span className="ml-3 text-danger">{formError.password2}</span>
+                    <label>確認用パスワード</label><span className="ms-3 text-danger">{formError.password2}</span>
                     <input className="form-control" type="password" name="password2" value={formData.password2} onChange={handleChange}/>
                     
-				
-                    <button className="mt-2 btn btn-outline-primary btn-block" type="submit">送信</button>
+                    <div class="d-grid gap-2">
+                        <button className="mt-2 btn btn-outline-primary btn-block" type="submit">送信</button>
+                    </div>
                 </form>
 
                 <p>{messages}</p>

@@ -83,6 +83,10 @@
   background-color: lightblue; /* 任意の色に変更 */
 }
 
+a {
+  text-decoration: none; /* 下線を削除 */
+}
+
 .custom-link-style {
   color: inherit; /* テキストの色を継承 */
   text-decoration: none; /* 下線を削除 */

@@ -115,8 +115,8 @@ class CustomModal extends React.Component {
 								<td className="text" style={{width: "80%"}}>
 									<h6>
 										<b>{this.props.postData.owner.username}</b>
-										<span className="ml-1 text-secondary">@{this.props.postData.owner.uid}</span>
-										<span className="ml-1 text-secondary">{this.props.postData.created_at.split('.')[0].replace('T',' ')}</span>
+										<span className="ms-1 text-secondary">@{this.props.postData.owner.uid}</span>
+										<span className="ms-1 text-secondary">{this.props.postData.created_at.split('.')[0].replace('T',' ')}</span>
 									</h6>
 									<p><PostContent content={this.props.postData.content}/></p>
 								</td>
@@ -134,9 +134,13 @@ class CustomModal extends React.Component {
                 cols="50"
               />
               <br />
-              <button　className="mb-2 mt-2 btn btn-outline-primary btn-block" type="submit">返信</button>
+              <div class="d-grid gap-2">
+                <button　className="mb-2 mt-2 btn btn-outline-primary" type="submit">返信</button>
+              </div>
             </form>
-            <button className="mb-2 mt-2 btn btn-outline-danger btn-block" onClick={this.closeModal}>閉じる</button>
+            <div class="d-grid gap-2">
+              <button className="mb-2 mt-2 btn btn-outline-danger" onClick={this.closeModal}>閉じる</button>
+            </div>
           </div>
         </Modal>
       </>

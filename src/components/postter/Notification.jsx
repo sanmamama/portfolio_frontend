@@ -103,9 +103,9 @@ const Message = () => {
 												</div>
 											<div className="col-10">
 											
-											<p className="ml-1"><b>{NotificationData.sender.username}</b>さんにフォローされました</p>
-											<p className="ml-1 text-secondary"><PostContent content={NotificationData.content}/></p>
-											<p className="ml-1 text-secondary">{NotificationData.created_at.split('.')[0].replace('T',' ')}</p>
+											<p className="ms-1"><b>{NotificationData.sender.username}</b>さんにフォローされました</p>
+											<p className="ms-1 text-secondary"><PostContent content={NotificationData.content}/></p>
+											<p className="ms-1 text-secondary">{NotificationData.created_at.split('.')[0].replace('T',' ')}</p>
 											
 												</div>
 											</div>
@@ -122,9 +122,9 @@ const Message = () => {
 												</div>
 											<div className="col-10">
 											
-											<p className="ml-1"><b>{NotificationData.sender.username}</b>さんにいいねされました</p>
-											<p className="ml-1 text-secondary"><PostContent content={NotificationData.content}/></p>
-											<p className="ml-1 text-secondary">{NotificationData.created_at.split('.')[0].replace('T',' ')}</p>
+											<p className="ms-1"><b>{NotificationData.sender.username}</b>さんにいいねされました</p>
+											<p className="ms-1 text-secondary"><PostContent content={NotificationData.content}/></p>
+											<p className="ms-1 text-secondary">{NotificationData.created_at.split('.')[0].replace('T',' ')}</p>
 											
 											</div>
 										</div>
@@ -141,9 +141,9 @@ const Message = () => {
 												</div>
 											<div className="col-10">
 											
-											<p className="ml-1"><b>{NotificationData.sender.username}</b>さんにリポストされました</p>
-											<p className="ml-1 text-secondary"><PostContent content={NotificationData.content}/></p>
-											<p className="ml-1 text-secondary">{NotificationData.created_at.split('.')[0].replace('T',' ')}</p>
+											<p className="ms-1"><b>{NotificationData.sender.username}</b>さんにリポストされました</p>
+											<p className="ms-1 text-secondary"><PostContent content={NotificationData.content}/></p>
+											<p className="ms-1 text-secondary">{NotificationData.created_at.split('.')[0].replace('T',' ')}</p>
 											
 											</div>
 										</div>
@@ -160,9 +160,9 @@ const Message = () => {
 												</div>
 											<div className="col-10">
 											
-											<p className="ml-1"><b>{NotificationData.sender.username}</b>さんからメンションを受け取りました</p>
-											<p className="ml-1 text-secondary"><PostContent content={NotificationData.content}/></p>
-											<p className="ml-1 text-secondary">{NotificationData.created_at.split('.')[0].replace('T',' ')}</p>
+											<p className="ms-1"><b>{NotificationData.sender.username}</b>さんからメンションを受け取りました</p>
+											<p className="ms-1 text-secondary"><PostContent content={NotificationData.content}/></p>
+											<p className="ms-1 text-secondary">{NotificationData.created_at.split('.')[0].replace('T',' ')}</p>
 											
 											</div>
 										</div>
@@ -178,9 +178,9 @@ const Message = () => {
 													<p className="text-center">{NotificationData.notification_type}</p>
 												</div>
 											<div className="col-10">
-											<p className="ml-1"><b>{NotificationData.sender.username}</b>さんからダイレクトメッセージを受け取りました</p>
-											<p className="ml-1 text-secondary"><PostContent content={NotificationData.content}/></p>
-											<p className="ml-1 text-secondary">{NotificationData.created_at.split('.')[0].replace('T',' ')}</p>
+											<p className="ms-1"><b>{NotificationData.sender.username}</b>さんからダイレクトメッセージを受け取りました</p>
+											<p className="ms-1 text-secondary"><PostContent content={NotificationData.content}/></p>
+											<p className="ms-1 text-secondary">{NotificationData.created_at.split('.')[0].replace('T',' ')}</p>
 											
 											</div>
 										</div>
@@ -196,9 +196,9 @@ const Message = () => {
 													<p className="text-center">{NotificationData.notification_type}</p>
 												</div>
 											<div className="col-10">
-											<p className="ml-1"><b>{NotificationData.sender.username}</b>さんにリプライされました</p>
-											<p className="ml-1 text-secondary"><PostContent content={NotificationData.content}/></p>
-											<p className="ml-1 text-secondary">{NotificationData.created_at.split('.')[0].replace('T',' ')}</p>
+											<p className="ms-1"><b>{NotificationData.sender.username}</b>さんにリプライされました</p>
+											<p className="ms-1 text-secondary"><PostContent content={NotificationData.content}/></p>
+											<p className="ms-1 text-secondary">{NotificationData.created_at.split('.')[0].replace('T',' ')}</p>
 											
 											</div>
 										</div>

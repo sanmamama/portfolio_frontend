@@ -146,19 +146,21 @@ const LoginForm = () => {
                     <h2>ログイン</h2>
                     <form onSubmit={handleSubmit}>
                         <div>
-                            <label>メールアドレス</label><span className="ml-3 text-danger">{formError.email}</span>
+                            <label>メールアドレス</label><span className="ms-3 text-danger">{formError.email}</span>
                             <input className="form-control" type="email" name="email" autoComplete="email" value={formData.email} onChange={handleChange}/>    
-                            <label>パスワード</label><span className="ml-3 text-danger">{formError.password}</span>
+                            <label>パスワード</label><span className="ms-3 text-danger">{formError.password}</span>
                             <input className="form-control" type="password" name="password" autoComplete="password" value={formData.password} onChange={handleChange}/>
                         </div>
-                        <button className="mt-2 btn btn-outline-primary btn-block" type="submit">送信</button>
+                        <div class="d-grid gap-2">
+                            <button className="mt-2 btn btn-outline-primary" type="submit">送信</button>
+                        </div>
                     </form>
                     <p>{messages}</p>
                     <p>{formError.non_field_errors}</p>
                 </div>
 
-                <div className="mt-5">
-                    <button className="btn btn-primary btn-block" onClick={handleGuestLogin}>ゲストログイン</button>
+                <div className="mt-5 d-grid gap-2">
+                    <button className="btn btn-primary" onClick={handleGuestLogin}>ゲストログイン</button>
                 </div>
             </div>
             

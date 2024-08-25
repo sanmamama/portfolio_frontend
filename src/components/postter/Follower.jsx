@@ -181,7 +181,7 @@ const Home = () => {
 								<td className="text" style={{width: "80%"}}>
 									<h6>
 										<Link to={`/postter/${postData.follower.uid}/`}><b>{postData.follower.username}</b></Link>
-										<span className="ml-1 text-secondary">@{postData.follower.uid}</span>
+										<span className="ms-1 text-secondary">@{postData.follower.uid}</span>
 									</h6>
 									<p>{postData.follower.profile_statement}</p>
 								</td>

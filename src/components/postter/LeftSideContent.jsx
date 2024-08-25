@@ -27,13 +27,13 @@ const LeftSideContent = () => {
 			<div className="">
 				<div className="card mb-1">
 					<div className="card-body pt-3 pb-3 pl-3 pr-3 ">
-						<h5 className="mb-4"><Link to="/postter/home"><img className="mr-3" src={`${baseUrl}/media/icon/home.svg`} width="16" height="16" alt="home"/>ホーム</Link></h5>
+						<h5 className="mb-4"><Link to="/postter/home"><img className="me-3" src={`${baseUrl}/media/icon/home.svg`} width="16" height="16" alt="home"/>ホーム</Link></h5>
 						<h5 className="mb-4">
-							<Link to="/postter/notification/"><img className="mr-3"src={`${baseUrl}/media/icon/notify.svg`} width="16" height="16" alt="notify"/>通知</Link>
-							<span className="ml-3">{myNotificationGlobal > 0 && (myNotificationGlobal)}</span>
+							<Link to="/postter/notification/"><img className="me-3"src={`${baseUrl}/media/icon/notify.svg`} width="16" height="16" alt="notify"/>通知</Link>
+							<span className="ms-3">{myNotificationGlobal > 0 && (myNotificationGlobal)}</span>
 						</h5>
-						<h5 className="mb-4"><Link to="/postter/message/"><img className="mr-3"src={`${baseUrl}/media/icon/message.svg`} width="16" height="16" alt="message"/>メッセージ</Link></h5>
-						<h5 className="mb-4"><Link to="/postter/memberlist/"><img className="mr-3"src={`${baseUrl}/media/icon/memberlist.svg`} width="16" height="16" alt="memberlist"/>リスト</Link></h5>
+						<h5 className="mb-4"><Link to="/postter/message/"><img className="me-3"src={`${baseUrl}/media/icon/message.svg`} width="16" height="16" alt="message"/>メッセージ</Link></h5>
+						<h5 className="mb-4"><Link to="/postter/memberlist/"><img className="me-3"src={`${baseUrl}/media/icon/memberlist.svg`} width="16" height="16" alt="memberlist"/>リスト</Link></h5>
 						
 					</div>
 				</div>

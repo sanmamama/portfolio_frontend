@@ -179,9 +179,9 @@ const Home = () => {
 					<p className="text-secondary">@{userData.uid}</p>
 					<p> {userData.profile_statement} </p>
 					<p>
-					<span className="mr-3"><b>{ userData.post_count }</b>ポスト</span>
-					<span className="mr-3"><Link to={`/postter/${userData.uid}/following/`}><b>{ userData.following_count }</b>フォロー</Link></span>
-					<span className="mr-3"><Link to={`/postter/${userData.uid}/follower/`}><b>{ userData.follower_count }</b>フォロワー</Link></span>
+					<span className="me-3"><b>{ userData.post_count }</b>ポスト</span>
+					<span className="me-3"><Link to={`/postter/${userData.uid}/following/`}><b>{ userData.following_count }</b>フォロー</Link></span>
+					<span className="me-3"><Link to={`/postter/${userData.uid}/follower/`}><b>{ userData.follower_count }</b>フォロワー</Link></span>
 					</p>
 
 					{userData.id !== myUserDataGlobal.id && (
