@@ -53,16 +53,8 @@ function Header() {
             さんまブログ
           </Link>
           
-          <button 
-            className="navbar-toggler" 
-            type="button" 
-            data-toggle="collapse" 
-            data-target="#navbarsExampleDefault" 
-            aria-controls="navbarsExampleDefault" 
-            aria-expanded="false" 
-            aria-label="Toggle navigation"
-          >
-            <span className="navbar-toggler-icon"></span>
+          <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="ナビゲーションの切替">
+          <span class="navbar-toggler-icon"></span>
           </button>
 
           <div className="collapse navbar-collapse" id="navbarsExampleDefault">
@@ -71,7 +63,7 @@ function Header() {
                 <NavLink 
                   className={({ isActive }) => "nav-link " + (isActive ? " active" : "")} 
                   to="/"
-                  onClick={closeMenu} 
+                  onClick={closeMenu}
                 >
                   ブログ
                 </NavLink>
