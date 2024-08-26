@@ -86,13 +86,14 @@ class CustomModal extends React.Component {
             return response.json();
         })
         .then(data => {
-
+          this.closeModal()
+          this.props.refreshPost()
         })
         .catch(error => {
-
+          this.closeModal()
+          this.props.refreshPost()
         });
-    this.closeModal()
-    this.props.refreshPost()
+    
   }
 
   render() {
