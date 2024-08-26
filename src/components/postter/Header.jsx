@@ -1,8 +1,13 @@
 import { NavLink} from 'react-router-dom';
 import { useContext, useEffect } from 'react';
 import { UserDataContext } from "./providers/UserDataProvider";
+import { useTranslation } from 'react-i18next';
 
 function Header() {
+  const { t, i18n } = useTranslation();
+  const changeLanguage = (lng) => {
+    i18n.changeLanguage(lng);
+  };
   const { myUserDataGlobal, setMyUserDataGlobal } = useContext(UserDataContext);
 
   useEffect(() => {
@@ -36,8 +41,8 @@ function Header() {
         <div className="container-fluid">
           <a className="navbar-brand" href="/postter/home">postter</a>
           
-          <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="ナビゲーションの切替">
-          <span class="navbar-toggler-icon"></span>
+          <button type="button" className="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="ナビゲーションの切替">
+          <span className="navbar-toggler-icon"></span>
           </button>
 
           <div className="collapse navbar-collapse" id="navbarsExampleDefault">
@@ -50,7 +55,7 @@ function Header() {
                       to="/postter/home"
                       onClick={closeMenu}
                     >
-                      ホーム
+                      {t('home')}
                     </NavLink>
                   </li>
                   <li className="nav-item">
@@ -59,7 +64,7 @@ function Header() {
                       to="/postter/notification/"
                       onClick={closeMenu}
                     >
-                      通知
+                      {t('notification')}
                     </NavLink>
                   </li>
                   <li className="nav-item">
@@ -68,7 +73,7 @@ function Header() {
                       to="/postter/message"
                       onClick={closeMenu}
                     >
-                      メッセージ
+                      {t('message')}
                     </NavLink>
                   </li>
                   <li className="nav-item">
@@ -77,31 +82,37 @@ function Header() {
                       to="/postter/memberlist"
                       onClick={closeMenu}
                     >
-                      リスト
+                      {t('list')}
                     </NavLink>
                   </li>
                 </>
               )}
             </ul>
+
+            <button onClick={() => changeLanguage('en')}>English</button>
+            <button onClick={() => changeLanguage('ja')}>日本語</button>
+            
+            
+
             <ul className="navbar-nav">
               {myUserDataGlobal ? (
                 <>
                   <li className="nav-item">
                     <NavLink className="nav-link" to={`/postter/${myUserDataGlobal.uid}/`} onClick={closeMenu}>
-                      {myUserDataGlobal.username}としてログイン中
+                      {myUserDataGlobal.username}
                     </NavLink>
                   </li>
                   <li className="nav-item">
-                    <NavLink className="nav-link" to="/postter/logout" onClick={closeMenu}>ログアウト</NavLink>
+                    <NavLink className="nav-link" to="/postter/logout" onClick={closeMenu}>{t('logout')}</NavLink>
                   </li>
                 </>
               ) : (
                 <>
                   <li className="nav-item">
-                    <NavLink className="nav-link" to="/postter/login" onClick={closeMenu}>ログイン</NavLink>
+                    <NavLink className="nav-link" to="/postter/login" onClick={closeMenu}>{t('login')}</NavLink>
                   </li>
                   <li className="nav-item">
-                    <NavLink className="nav-link" to="/postter/signup" onClick={closeMenu}>会員登録</NavLink>
+                    <NavLink className="nav-link" to="/postter/signup" onClick={closeMenu}>{t('signup')}</NavLink>
                   </li>
                 </>
               )}

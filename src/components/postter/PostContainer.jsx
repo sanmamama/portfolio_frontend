@@ -3,11 +3,13 @@ import { Link } from 'react-router-dom';
 import PostContent from './PostContent';
 import ModalAddUserToList from './ModalAddUserToList';
 import ModalCreateReplyButton from './ModalCreateReplyButton';
+import { useTranslation } from 'react-i18next';
 const apiUrl = process.env.REACT_APP_API_URL;
 const baseUrl = process.env.REACT_APP_BASE_URL;
 
 const PostContainer = ({ postData,myUserDataGlobal,posts,setPosts,getUserData,setMyUserDataGlobal,setMessages,refreshPost,ix }) => {
-  
+  const { t,i18n } = useTranslation();
+
   //リポストハンドル
 	const handleRepost = async (postId,post_ix,post_reposted) => {
 		const token = document.cookie.split('; ').reduce((acc, row) => {
@@ -101,14 +103,15 @@ const PostContainer = ({ postData,myUserDataGlobal,posts,setPosts,getUserData,se
         });
 		const res = await response.json();
 		if(response.ok){
-			setMessages(`userId:${user_id}${res.message}`);
-			getUserData(setMyUserDataGlobal)
+      if(res.actionType === "follow"){
+        setMessages(`フォローしました`);
+      }else{
+        setMessages(`フォローを解除しました`);
+      }
 			
-		}else{
-			setMessages(`userId:${user_id}${res}`);
-		}
-        
-    };
+			getUserData(setMyUserDataGlobal)
+		}  
+  };
 
 	//ポスト消すハンドル
 	const handlePostDelete = async (postId,post_ix) => {
@@ -128,10 +131,10 @@ const PostContainer = ({ postData,myUserDataGlobal,posts,setPosts,getUserData,se
         });
 		if(response.ok){
 			refreshPost()
-			setMessages(`id:${postId}ポストを削除しました`);
+			setMessages(`ポストを削除しました`);
 			
 		}else{
-			setMessages(`id:${postId}ポストの削除に失敗しました`);
+			setMessages(`ポストの削除に失敗しました`);
 		}
 	};
 
@@ -140,11 +143,11 @@ const PostContainer = ({ postData,myUserDataGlobal,posts,setPosts,getUserData,se
   }
 
   return (
-      <div className="">
+      <div className="border-top">
 									<div className="row pb-2 pt-1">
 										{postData.repost_user && (
 											<>
-												<div className="col-1 text-right">
+												<div className="col-1 text-end">
 													
 												</div>
 												<div className="col-11 pl-0 pr-0" style={{fontSize:"14px"}}>
@@ -155,17 +158,17 @@ const PostContainer = ({ postData,myUserDataGlobal,posts,setPosts,getUserData,se
 										)}
 										{postData.parent && (
 											<>
-												<div className="col-1 text-right">
+												<div className="col-1 text-end">
 													
 												</div>
 												<div className="col-11 pl-0 pr-0" style={{fontSize:"14px"}}>
 												<img className="pl-0 pr-0" src={`${baseUrl}/media/icon/reply.svg`} width="16" height="16" alt="reply"/>
-													<Link to={`/postter/post/${postData.parent}/`}>ポストID{postData.parent}</Link>へのリプライ
+                          {t('reply')}:<Link to={`/postter/post/${postData.parent}/`}>{t('post')}ID{postData.parent}</Link>
 												</div>
 											</>
 										)}
 									</div>
-								<div className="row border-bottom">
+								<div className="row">
 									<div className="col pl-0 pr-0">
 										<img className="rounded img-fluid mx-auto d-block" src={postData.owner.avatar_imgurl} id="avatar-image" width="40" height="40" alt="avatarimage"/>
 									</div>
@@ -180,22 +183,22 @@ const PostContainer = ({ postData,myUserDataGlobal,posts,setPosts,getUserData,se
 												</h6>
 											</div>
 
-											<div className="col-2 dropdown text-right pl-1 pr-0">
-                        <button type="button" className="btn btn-link p-0 border-0" style={{ boxShadow: 'none', textDecoration: 'none', color: 'inherit' }} data-toggle="dropdown" aria-expanded="false">
+											<div className="col-2 dropdown text-end pl-1 pr-0">
+                        <button type="button" className="btn btn-link p-0 border-0" style={{ boxShadow: 'none', textDecoration: 'none', color: 'inherit' }} data-bs-toggle="dropdown" aria-expanded="false">
                           <img src={`${baseUrl}/media/icon/3pleader.svg`} width="16" height="16" alt="more"/>
                         </button>
 												<div className="dropdown-menu">
 												{postData.owner.id === myUserDataGlobal.id && (
 													<>
-														<ModalAddUserToList class={"dropdown-item"} id={postData.owner.id}/>
-														<button className="dropdown-item" style={{cursor:"pointer"}} onClick={() => handlePostDelete(postData.id)}>ポストを削除する</button>
+														<ModalAddUserToList t={t} class={"dropdown-item"} id={postData.owner.id}/>
+														<button className="dropdown-item" style={{cursor:"pointer"}} onClick={() => handlePostDelete(postData.id)}>{t('delete_post')}</button>
 													</>
 												)}
 												{postData.owner.id !== myUserDataGlobal.id && (
 													<>
-														<ModalAddUserToList class={"dropdown-item"} id={postData.owner.id}/>
+														<ModalAddUserToList t={t} class={"dropdown-item"} id={postData.owner.id}/>
 														<button className="btn btn-link dropdown-item" style={{cursor:"pointer"}} onClick={() => handleFollow(postData.owner.id,ix)}>
-															{myUserDataGlobal.following.includes(postData.owner.id) ? "フォローを解除する" : "フォローする"}
+															{myUserDataGlobal.following.includes(postData.owner.id) ? t('do_unfollow') : t('follow')}
 														</button>
 													</>
 												)}
@@ -207,9 +210,10 @@ const PostContainer = ({ postData,myUserDataGlobal,posts,setPosts,getUserData,se
 										<div className="row">
 											<div className="ms-1">
 												<Link className="no-link-style" to={`/postter/post/${postData.id}/`}>
-													<PostContent content={postData.content_EN}/>
+                          {i18n.language === "ja" ? <PostContent content={postData.content_JA}/>:<PostContent content={postData.content_EN}/>}
+
 												</Link>
-                        <a className="ms-1" data-toggle="collapse" href={"#collapse"+ix} aria-expanded="false" aria-controls={"collapse"+ix}>
+                        <a className="ms-1" data-bs-toggle="collapse" href={"#collapse"+ix} aria-expanded="false" aria-controls={"collapse"+ix}>
                           <img src={`${baseUrl}/media/icon/translate.svg`} width="32" height="32" alt="translate"/>
                         </a>
 

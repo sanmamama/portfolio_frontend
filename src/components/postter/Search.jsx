@@ -26,10 +26,19 @@ const Home = () => {
 	const [hasMore, setHasMore] = useState(true);
 	const navigate = useNavigate();
 
+	
 	//ログインチェック
 	useEffect(()=>{
 		loginCheck(myUserDataGlobal,setMyUserDataGlobal,navigate)
 	},[myUserDataGlobal,setMyUserDataGlobal,navigate])
+
+	//toast
+	useEffect(()=>{
+		if(messages !== ""){
+			const toastBootstrap = window.bootstrap.Toast.getOrCreateInstance(document.getElementById('liveToast'))
+			toastBootstrap.show()
+		}
+	},[messages])
 
 	const refreshPost = async() => {
 		setPosts([])
@@ -76,8 +85,16 @@ const Home = () => {
 	return (
 			<div className="card">
 				<div className="card-body pt-3 pb-3 pl-3 pr-3">
-					<p>「{q}」で検索中</p>
-					{messages}
+
+					<div class="toast-container position-fixed">
+						<div id="liveToast" class="toast position-fixed top-0 start-50 translate-middle-x m-1" role="alert" aria-live="assertive" aria-atomic="true">
+							<div class="toast-body">
+								{messages}
+							</div>
+						</div>
+					</div>
+
+					<p>検索結果：{q}</p>
 				<div className="table table-responsive">
 					<div>
 							<InfiniteScroll

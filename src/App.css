@@ -87,6 +87,10 @@ a {
   text-decoration: none; /* 下線を削除 */
 }
 
+.toast{
+  --bs-toast-font-size: 1rem;
+}
+
 .custom-link-style {
   color: inherit; /* テキストの色を継承 */
   text-decoration: none; /* 下線を削除 */

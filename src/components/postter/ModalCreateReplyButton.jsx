@@ -29,7 +29,8 @@ class CustomModal extends React.Component {
     super(props);
     this.state = {
       modalIsOpen: false,
-      newPost: ""
+      newPost: "",
+      t:this.props.t,
     };
 
     this.openModal = this.openModal.bind(this);

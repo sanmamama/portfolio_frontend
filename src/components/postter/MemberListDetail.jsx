@@ -25,6 +25,14 @@ const Message = () => {
 		loginCheck(myUserDataGlobal,setMyUserDataGlobal,navigate)
 	},[myUserDataGlobal,setMyUserDataGlobal,navigate])
 
+	//toast
+	useEffect(()=>{
+		if(messages !== ""){
+			const toastBootstrap = window.bootstrap.Toast.getOrCreateInstance(document.getElementById('liveToast'))
+			toastBootstrap.show()
+		}
+	},[messages])
+
 	//リストをモーダルウインドウで削除後のナビゲート
 	const navigateListView = () =>{
 		navigate("/postter/memberlist/")
@@ -161,7 +169,15 @@ const Message = () => {
 	return (
 			<div className="card">
 				<div className="card-body pt-3 pb-3 pl-3 pr-3">
-					{messages}
+					
+					<div class="toast-container position-fixed">
+						<div id="liveToast" class="toast position-fixed top-0 start-50 translate-middle-x m-1" role="alert" aria-live="assertive" aria-atomic="true">
+							<div class="toast-body">
+								{messages}
+							</div>
+						</div>
+					</div>
+
 					<Link to="/postter/memberlist">←メッセージ一覧へ</Link>
 					<p className="mt-3">{targetListData.name}</p>
 					<p>{targetListData.description}</p>

@@ -3,9 +3,10 @@ import { Link } from 'react-router-dom';
 
 const PostContent = ({ content }) => {
 
-  if(content === null){
+  if(content === null || content === "" || content === undefined){
     return
   }
+
   // 正規表現で<uid>...</uid>を検出してリンクに置換
   const renderContentWithLinks = (text) => {
     const regex = /<uid>(.*?)<\/uid>/g;

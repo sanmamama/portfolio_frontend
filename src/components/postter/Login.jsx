@@ -4,9 +4,13 @@ import { useNavigate } from "react-router-dom";
 import { useContext } from 'react';
 import { UserDataContext } from "./providers/UserDataProvider"
 import { getUserData } from "./GetUserData"
+import { useTranslation } from 'react-i18next';
+
 const apiUrl = process.env.REACT_APP_API_URL;
 
 const LoginForm = () => {
+    const { t } = useTranslation();
+
     const {setMyUserDataGlobal} = useContext(UserDataContext)
     const [formData, setFormData] = useState({
         email: '',
@@ -143,16 +147,16 @@ const LoginForm = () => {
         <div className="row justify-content-center">
             <div className="col-10">
                 <div>
-                    <h2>ログイン</h2>
+                    <h2>{t('login')}</h2>
                     <form onSubmit={handleSubmit}>
                         <div>
-                            <label>メールアドレス</label><span className="ms-3 text-danger">{formError.email}</span>
+                            <label>{t('email')}</label><span className="ms-3 text-danger">{formError.email}</span>
                             <input className="form-control" type="email" name="email" autoComplete="email" value={formData.email} onChange={handleChange}/>    
-                            <label>パスワード</label><span className="ms-3 text-danger">{formError.password}</span>
+                            <label>{t('password')}</label><span className="ms-3 text-danger">{formError.password}</span>
                             <input className="form-control" type="password" name="password" autoComplete="password" value={formData.password} onChange={handleChange}/>
                         </div>
                         <div class="d-grid gap-2">
-                            <button className="mt-2 btn btn-outline-primary" type="submit">送信</button>
+                            <button className="mt-2 btn btn-outline-primary" type="submit">{t('login')}</button>
                         </div>
                     </form>
                     <p>{messages}</p>
@@ -160,7 +164,7 @@ const LoginForm = () => {
                 </div>
 
                 <div className="mt-5 d-grid gap-2">
-                    <button className="btn btn-primary" onClick={handleGuestLogin}>ゲストログイン</button>
+                    <button className="btn btn-primary" onClick={handleGuestLogin}>{t('guest_login')}</button>
                 </div>
             </div>
             

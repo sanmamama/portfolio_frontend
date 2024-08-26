@@ -8,24 +8,31 @@ import PostContainer from './PostContainer';
 import { loginCheck } from './LoginCheck';
 import { notificationCheck } from './NotificationCheck';
 import { useNavigate } from "react-router-dom";
-
-
+import { useTranslation } from 'react-i18next';
 
 const apiUrl = process.env.REACT_APP_API_URL;
 //const baseUrl = process.env.REACT_APP_BASE_URL;
 
 const Home = () => {
+	const { t } = useTranslation();
 	const {myUserDataGlobal,setMyUserDataGlobal} = useContext(UserDataContext);
 	const {setMyNotificationGlobal} = useContext(NotificationContext);
 	const [formData, setFormData] = useState({
         content: ''
     });
 	const [messages, setMessages] = useState("");
-    const [setErrors] = useState("");
 	const [posts, setPosts] = useState([]);
 	const [pageCount, setPageCount] = useState(1);
 	const [hasMore, setHasMore] = useState(true);
 	const navigate = useNavigate();
+
+	//toast
+	useEffect(()=>{
+		if(messages !== ""){
+			const toastBootstrap = window.bootstrap.Toast.getOrCreateInstance(document.getElementById('liveToast'))
+			toastBootstrap.show()
+		}
+	},[messages])
 
 	//ログインチェック
 	useEffect(()=>{
@@ -65,7 +72,7 @@ const Home = () => {
             if(response.ok){
                 
             }else{
-                setMessages("投稿に失敗しました")
+                setMessages("ポストに失敗しました")
             }
             return response.json();
         })
@@ -74,12 +81,12 @@ const Home = () => {
                 'content':''
             }));
 			if(data.id){
-				setMessages(`postId:${data.id}投稿しました`)
+				setMessages(`ポストしました`)
 				refreshPost()
 			}
         })
         .catch(error => {
-            setErrors(error);
+            setMessages("ポストに失敗しました");
         });
     };
 	
@@ -120,18 +127,29 @@ const Home = () => {
 	if(!myUserDataGlobal || !posts){
 		return("loading...")
 	}
+
+	
 	
 
 	return (
 		
 			<div className="card">
 				<div className="card-body pt-3 pb-3 pl-3 pr-3">
-					{messages}
+				
+					<div class="toast-container position-fixed">
+						<div id="liveToast" class="toast position-fixed top-0 start-50 translate-middle-x m-1" role="alert" aria-live="assertive" aria-atomic="true">
+							<div class="toast-body">
+								{messages}
+							</div>
+						</div>
+					</div>
+
+					
 					
 					<form method="post" onSubmit={handlePostSubmit}>
-						<textarea className="form-control" type="textarea" name="content" value={formData.content} onChange={handlePostChange} placeholder="いまなにしてる？"/>
+						<textarea className="form-control" type="textarea" name="content" value={formData.content} onChange={handlePostChange} placeholder={t('post_area_placeholder')}/>
 						<div class="d-grid gap-2">
-							<button type="submit" className="mb-2 mt-2 btn btn-outline-primary">投稿する</button>
+							<button type="submit" className="mb-2 mt-2 btn btn-outline-primary">{t('do_post')}</button>
 						</div>
 					</form>
 

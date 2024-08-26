@@ -32,7 +32,8 @@ class CustomModal extends React.Component {
       uid: this.props.uid,
       username:this.props.username,
       profile_statement: this.props.profile_statement,
-      avatar:null
+      avatar:null,
+      t:this.props.t,
     };
 
     this.openModal = this.openModal.bind(this);

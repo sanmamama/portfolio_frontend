@@ -22,6 +22,14 @@ const Message = () => {
 	useEffect(()=>{
 		loginCheck(myUserDataGlobal,setMyUserDataGlobal,navigate)
 	},[myUserDataGlobal,setMyUserDataGlobal,navigate])
+
+	//toast
+	useEffect(()=>{
+		if(messages !== ""){
+			const toastBootstrap = window.bootstrap.Toast.getOrCreateInstance(document.getElementById('liveToast'))
+			toastBootstrap.show()
+		}
+	},[messages])
 	
 	const handleAddMember = async (user_id,list_id) => {
 		const token = document.cookie.split('; ').reduce((acc, row) => {
@@ -95,7 +103,15 @@ const Message = () => {
 	return (
 			<div className="card">
 				<div className="card-body pt-3 pb-3 pl-3 pr-3">
-					{messages}
+					
+					<div class="toast-container position-fixed">
+						<div id="liveToast" class="toast position-fixed top-0 start-50 translate-middle-x m-1" role="alert" aria-live="assertive" aria-atomic="true">
+							<div class="toast-body">
+								{messages}
+							</div>
+						</div>
+					</div>
+
 					<h4>リストを選択</h4>
 					<p><Link className="btn btn-sm btn-outline-primary" to="/postter/memberlist/create">新しいリストを作成</Link></p>					
 					<div className="table table-responsive">

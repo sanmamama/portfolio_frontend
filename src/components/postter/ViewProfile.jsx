@@ -8,11 +8,13 @@ import { useParams } from 'react-router-dom';
 import InfiniteScroll from 'react-infinite-scroller';
 import ModalEditProfileButton from './ModalEditProfileButton';
 import PostContainer from './PostContainer';
+import { useTranslation } from 'react-i18next';
 const apiUrl = process.env.REACT_APP_API_URL;
 //const baseUrl = process.env.REACT_APP_BASE_URL;
 
 
 const Home = () => {
+	const { t } = useTranslation();
 	const location = useLocation();
 	const { uid } = useParams();
 	
@@ -38,6 +40,13 @@ const Home = () => {
 		loginCheck(myUserDataGlobal,setMyUserDataGlobal,navigate)
 	},[myUserDataGlobal,setMyUserDataGlobal,navigate])
 
+	//toast
+	useEffect(()=>{
+		if(messages !== ""){
+			const toastBootstrap = window.bootstrap.Toast.getOrCreateInstance(document.getElementById('liveToast'))
+			toastBootstrap.show()
+		}
+	},[messages])
 
 	//フォローハンドル
 	const handleFollow = async (following_id) => {
@@ -58,7 +67,11 @@ const Home = () => {
         });
 		const res = await response.json();
 		if(response.ok){
-			setMessages(res.actionType);
+			if(res.actionType === "follow"){
+				setMessages(`フォローしました`);
+			}else{
+				setMessages(`フォローを解除しました`);
+			}
 			
 			if(res.actionType === "follow"){
 				
@@ -172,16 +185,24 @@ const Home = () => {
 	return (
 			<div className="card">
 				<div className="card-body pt-3 pb-3 pl-3 pr-3">
-					{messages}
+					
+					<div class="toast-container position-fixed">
+						<div id="liveToast" class="toast position-fixed top-0 start-50 translate-middle-x m-1" role="alert" aria-live="assertive" aria-atomic="true">
+							<div class="toast-body">
+								{messages}
+							</div>
+						</div>
+					</div>
+
 					<img className="rounded img-fluid mx-auto d-block" src={`${userData.avatar_imgurl}`} id="avatar-image" width="150" height="150" alt="avatarimage"/>
 					
 					<p className="mb-0"><b>{userData.username}</b></p>
 					<p className="text-secondary">@{userData.uid}</p>
 					<p> {userData.profile_statement} </p>
 					<p>
-					<span className="me-3"><b>{ userData.post_count }</b>ポスト</span>
-					<span className="me-3"><Link to={`/postter/${userData.uid}/following/`}><b>{ userData.following_count }</b>フォロー</Link></span>
-					<span className="me-3"><Link to={`/postter/${userData.uid}/follower/`}><b>{ userData.follower_count }</b>フォロワー</Link></span>
+					<span className="me-3"><b>{ userData.post_count }</b>{t('post')}</span>
+					<span className="me-3"><Link to={`/postter/${userData.uid}/following/`}><b>{ userData.following_count }</b>{t('follow')}</Link></span>
+					<span className="me-3"><Link to={`/postter/${userData.uid}/follower/`}><b>{ userData.follower_count }</b>{t('follower')}</Link></span>
 					</p>
 
 					{userData.id !== myUserDataGlobal.id && (

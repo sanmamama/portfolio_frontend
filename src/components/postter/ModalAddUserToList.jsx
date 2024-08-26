@@ -41,6 +41,7 @@ class CustomModal extends React.Component {
       hasMore: true,
       id:this.props.id,
       class:this.props.class,
+      t:this.props.t,
     };
 
     this.openModal = this.openModal.bind(this);
@@ -178,7 +179,7 @@ class CustomModal extends React.Component {
   render() {
     return (
       <div>
-        <button className={this.state.class+" btn btn-link no-link-style"} style={{cursor:"pointer"}} onClick={this.openModal}>リストに追加/削除</button>
+        <button className={this.state.class+" btn btn-link no-link-style"} style={{cursor:"pointer"}} onClick={this.openModal}>{this.state.t('add_or_remove_lists')}</button>
         <Modal
           isOpen={this.state.modalIsOpen}
           onRequestClose={this.closeModal}

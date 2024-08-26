@@ -30,7 +30,13 @@ const Home = () => {
 		loginCheck(myUserDataGlobal,setMyUserDataGlobal,navigate)
 	},[myUserDataGlobal,setMyUserDataGlobal,navigate])
 
-
+	//toast
+	useEffect(()=>{
+		if(messages !== ""){
+			const toastBootstrap = window.bootstrap.Toast.getOrCreateInstance(document.getElementById('liveToast'))
+			toastBootstrap.show()
+		}
+	},[messages])
 
 	//返信投稿
 	//ポストフォームチェンジ
@@ -153,7 +159,15 @@ const Home = () => {
 	return (
 			<div className="card">
 				<div className="card-body pt-3 pb-3 pl-3 pr-3">
-					{messages}
+
+					<div class="toast-container position-fixed">
+						<div id="liveToast" class="toast position-fixed top-0 start-50 translate-middle-x m-1" role="alert" aria-live="assertive" aria-atomic="true">
+							<div class="toast-body">
+								{messages}
+							</div>
+						</div>
+					</div>
+
 					<div className="container mb-1">
 						<PostContainer
 						postData={posts}
