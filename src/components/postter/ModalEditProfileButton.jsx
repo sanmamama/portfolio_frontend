@@ -113,11 +113,12 @@ class CustomModal extends React.Component {
       this.props.setUserData(data)
       //data.avatar_imgurl = baseUrl + data.avatar_imgurl
       this.props.setMyUserDataGlobal(data)
+      this.closeModal()
     })
     .catch(error => {
-
+      this.closeModal()
     });
-this.closeModal()
+
     
   }
 

@@ -108,11 +108,12 @@ class CustomModal extends React.Component {
         })
         .then(data => {
           this.props.setUserList([...this.props.userList, data])
+          this.closeModal()
         })
         .catch(error => {
-
+          this.closeModal()
         });
-    this.closeModal()
+    
     
   }
 
