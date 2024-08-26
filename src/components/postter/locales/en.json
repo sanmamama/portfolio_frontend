@@ -21,6 +21,7 @@
 	"post_area_placeholder" : "What are you doing now?",
 	"add_or_remove_lists" : "Add / remove from lists",
 	"delete_post" : "Delete post",
-	"reply" : "Reply"
+	"reply" : "Reply",
+	"repost" : "Repost"
 
 }

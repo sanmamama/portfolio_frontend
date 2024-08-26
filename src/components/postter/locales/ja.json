@@ -21,5 +21,6 @@
 	"post_area_placeholder" : "いまなにしてる？",
 	"add_or_remove_lists" : "リストに追加/削除",
 	"delete_post" : "ポストを削除する",
-	"reply" : "リプライ"
+	"reply" : "リプライ",
+	"repost" : "リポスト"
 }

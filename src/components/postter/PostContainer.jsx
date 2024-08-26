@@ -152,7 +152,7 @@ const PostContainer = ({ postData,myUserDataGlobal,posts,setPosts,getUserData,se
 												</div>
 												<div className="col-11 pl-0 pr-0" style={{fontSize:"14px"}}>
 													<img className="pl-0 pr-0" src={`${baseUrl}/media/icon/repost_active.svg`} width="16" height="16" alt="repost"/>
-													<Link to={`/postter/${postData.repost_user.uid}/`}>{postData.repost_user.username}</Link>がリポストしました
+													{t('repost')}:<Link to={`/postter/${postData.repost_user.uid}/`}>{postData.repost_user.username}</Link>
 												</div>
 											</>
 										)}
