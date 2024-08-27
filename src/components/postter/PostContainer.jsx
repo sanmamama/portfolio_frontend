@@ -45,10 +45,10 @@ const PostContainer = ({ postData,myUserDataGlobal,posts,setPosts,getUserData,se
 										)}
 									</div>
 								<div className="row">
-									<div className="col pl-0 pr-0">
+									<div className="col-fix pl-0 pr-0">
 										<img className="rounded img-fluid mx-auto d-block" src={postData.owner.avatar_imgurl} id="avatar-image" width="40" height="40" alt="avatarimage"/>
 									</div>
-									<div className="col-11">
+									<div className="col">
 
 										<div className="row">
 											<div className="col-10 pl-1 pr-0">

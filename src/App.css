@@ -142,3 +142,9 @@ a {
   padding-inline-start:1em;
 }
 
+.col-fix{
+  width: 8.5%;
+  min-width: 40px;
+  padding-right: 0px;
+  padding-left:0px;
+}
