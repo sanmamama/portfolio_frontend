@@ -29,11 +29,21 @@
 	"toast_unfollow" :"Unfollowed",
 	"toast_delete_post" :"Post Deleted",
 	"toast_delete_post_failed" :"Failed Post Delete",
-	"select_list" : "Select Lists",
+	"select_list" : "Select List",
 	"register" : "Register",
 	"unregister" : "Unregister",
 	"message_list" : "Message Lists",
 	"past_message" : "Past Messages",
 	"list_operation" : "List Operations",
-	"search_user" : "Search Users"
+	"search_user" : "Search Users",
+	"create_new_list":"Create New List",
+	"member_count" : " Members",
+	"edit_list" : "Edit List",
+	"change" : "Change",
+	"close" : "Close",
+	"list_name" : "List Name",
+	"list_description" : "List Description",
+	"delete_list" : "Delete List",
+	"create" : "Create"
+
 }

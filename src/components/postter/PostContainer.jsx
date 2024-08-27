@@ -106,7 +106,7 @@ const PostContainer = ({ postData,myUserDataGlobal,posts,setPosts,getUserData,se
 
 										<div className="row">
 											<div className="col-3">
-												<ModalCreateReplyButton refreshPost={refreshPost} postData={postData}/>
+												<ModalCreateReplyButton i18n={i18n} t={t} refreshPost={refreshPost} postData={postData}/>
 											</div>
 
 											<div className="col-3">

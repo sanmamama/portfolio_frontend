@@ -145,7 +145,7 @@ const ViewProfile = () => {
 					{userData.id === myUserDataGlobal.id && (
 						<>
 
-					<ModalEditProfileButton uid={myUserDataGlobal.uid} username={myUserDataGlobal.username} profile_statement={myUserDataGlobal.profile_statement}
+					<ModalEditProfileButton t={t} uid={myUserDataGlobal.uid} username={myUserDataGlobal.username} profile_statement={myUserDataGlobal.profile_statement}
 						setMyUserDataGlobal={setMyUserDataGlobal} setUserData={setUserData}
 					/>
 					    </>

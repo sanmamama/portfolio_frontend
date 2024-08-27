@@ -31,6 +31,7 @@ class CustomModal extends React.Component {
       modalIsOpen: false,
       newPost: "",
       t:this.props.t,
+      i18n:this.props.i18n
     };
 
     this.openModal = this.openModal.bind(this);
@@ -120,7 +121,18 @@ class CustomModal extends React.Component {
 										<span className="ms-1 text-secondary">@{this.props.postData.owner.uid}</span>
 										<span className="ms-1 text-secondary">{this.props.postData.created_at.split('.')[0].replace('T',' ')}</span>
 									</h6>
-									<p><PostContent content={this.props.postData.content}/></p>
+									<p>
+                  {this.state.i18n.language === "ja" ? <PostContent content={this.props.postData.content_JA}/>:<PostContent content={this.props.postData.content_EN}/>}
+                  <a className="ms-1" data-bs-toggle="collapse" href="#collapse" aria-expanded="false" aria-controls="collapse">
+                    <img src={`${baseUrl}/media/icon/translate.svg`} width="32" height="32" alt="translate"/>
+                  </a>
+                  </p>
+                  
+                  <div className="collapse mt-2 " id="collapse">
+                      <div className="card card-body">
+                          <PostContent content={this.props.postData.content}/>
+                      </div>
+                  </div>
 								</td>
 								<td className='text' style={{width: "5%"}}>
 								</td>
@@ -137,11 +149,11 @@ class CustomModal extends React.Component {
               />
               <br />
               <div class="d-grid gap-2">
-                <button　className="mb-2 mt-2 btn btn-outline-primary" type="submit">返信</button>
+                <button　className="mb-2 mt-2 btn btn-outline-primary" type="submit">{this.state.t("reply")}</button>
               </div>
             </form>
             <div class="d-grid gap-2">
-              <button className="mb-2 mt-2 btn btn-outline-danger" onClick={this.closeModal}>閉じる</button>
+              <button className="mb-2 mt-2 btn btn-outline-danger" onClick={this.closeModal}>{this.state.t("close")}</button>
             </div>
           </div>
         </Modal>

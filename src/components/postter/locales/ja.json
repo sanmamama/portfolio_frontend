@@ -35,5 +35,14 @@
 	"message_list" : "メッセージ一覧",
 	"past_message" : "過去のメッセージ",
 	"list_operation" : "リスト操作",
-	"search_user" : "ユーザを検索"
+	"search_user" : "ユーザを検索",
+	"create_new_list":"新しいリストを作成",
+	"member_count" : "人のメンバー",
+	"edit_list" : "リスト編集",
+	"change" : "変更する",
+	"close" : "閉じる",
+	"list_name" : "リストの名前",
+	"list_description" : "リストの説明",
+	"delete_list" : "リストを削除する",
+	"create" : "作成する"
 }

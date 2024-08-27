@@ -59,7 +59,7 @@ const Message = () => {
 			<div className="card">
 				<div className="card-body pt-3 pb-3 pl-3 pr-3">
 					<h4>{t('list')}</h4>
-				<ModalCreateListButton userList={userList} setUserList={setUserList}/>					
+				<ModalCreateListButton t={t} userList={userList} setUserList={setUserList}/>					
 				<div>
 							<InfiniteScroll
 								loadMore={loadMessageList}
@@ -71,7 +71,7 @@ const Message = () => {
 										<Link className="no-link-style" to={`/postter/memberlist/${ListData.id}/`}>
 										<div className="col" key={ix}>
 											<div className="row">
-														<p><span><b>{ListData.name}</b></span><span className="ms-3 text-secondary">{ListData.user_ids.length}人のメンバー</span></p>
+														<p><span><b>{ListData.name}</b></span><span className="ms-3 text-secondary">{ListData.user_ids.length}{t("member_count")}</span></p>
 											</div>
 											<div className="row">
 											<p><span className="ms-1 text-secondary">{ListData.description}</span></p>

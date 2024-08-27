@@ -188,8 +188,8 @@ class CustomModal extends React.Component {
           style={customStyles}
         >
           <div>
-            <h2>リストを選択</h2>
-            <ModalCreateListButton refreshList={this.refreshList} />
+            <h2>{this.state.t('select_list')}</h2>
+            <ModalCreateListButton t={this.state.t} refreshList={this.refreshList} />
             <InfiniteScroll
               loadMore={this.loadList}
               loader={<div key={0}>Loading ...</div>}
@@ -206,14 +206,14 @@ class CustomModal extends React.Component {
                       <div className="col-8">
                         <p>
                           <span><b>{ListData.name}</b></span>
-                          <span className="ms-3 text-secondary">{ListData.user_ids.length}人のメンバー</span>
+                          <span className="ms-3 text-secondary">{ListData.user_ids.length}{this.state.t("member_count")}</span>
                         </p>
                         <p><span className="ms-1 text-secondary">{ListData.description}</span></p>
                         <p className="mt-2 text-secondary">{}</p>
                       </div>
                       <div className="col-4">
                         
-                        {ListData.user_ids.includes(this.state.id) ? "登録を外す" : "登録する"}
+                        {ListData.user_ids.includes(this.state.id) ? this.state.t("unregister") : this.state.t("register")}
                         
                       </div>
                     </div>
@@ -224,7 +224,7 @@ class CustomModal extends React.Component {
             </InfiniteScroll>
 
             <div class="d-grid gap-2">
-              <button className="mb-2 mt-2 btn btn-outline-danger" onClick={this.closeModal}>閉じる</button>
+              <button className="mb-2 mt-2 btn btn-outline-danger" onClick={this.closeModal}>{this.state.t("register")}</button>
             </div>
           </div>
         </Modal>

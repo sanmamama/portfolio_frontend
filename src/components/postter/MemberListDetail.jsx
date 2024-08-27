@@ -184,7 +184,7 @@ const Message = () => {
 					<p className="mt-3">{targetListData.name}</p>
 					<p>{targetListData.description}</p>
 
-					<ModalEditListButton id={id} name={targetListData.name} description={targetListData.description} setTargetListData={setTargetListData} navigateListView={navigateListView}/>
+					<ModalEditListButton  t={t} id={id} name={targetListData.name} description={targetListData.description} setTargetListData={setTargetListData} navigateListView={navigateListView}/>
 					
 					<div className="table table-responsive mt-3">
 					<table id='post_list' className="table-sm" style={{width: "100%"}}>
