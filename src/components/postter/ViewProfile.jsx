@@ -9,30 +9,21 @@ import InfiniteScroll from 'react-infinite-scroller';
 import ModalEditProfileButton from './ModalEditProfileButton';
 import PostContainer from './PostContainer';
 import { useTranslation } from 'react-i18next';
+import {handleFollow} from './HandleFollow';
 const apiUrl = process.env.REACT_APP_API_URL;
 //const baseUrl = process.env.REACT_APP_BASE_URL;
 
 
-const Home = () => {
+const ViewProfile = () => {
 	const { t } = useTranslation();
 	const location = useLocation();
 	const { uid } = useParams();
-	
 	const {myUserDataGlobal,setMyUserDataGlobal} = useContext(UserDataContext);
-
 	const [userData,setUserData] = useState(null);
-
 	const [messages, setMessages] = useState("");
-
 	const [posts, setPosts] = useState([]);
 	const [pageCount, setPageCount] = useState(1);
 	const [hasMore, setHasMore] = useState(true);
-
-	const refreshPost = ()=>{
-		setPosts([])
-		setPageCount(1)
-		setHasMore(true)
-	}
 	const navigate = useNavigate();
 
 	//ログインチェック
@@ -48,63 +39,11 @@ const Home = () => {
 		}
 	},[messages])
 
-	//フォローハンドル
-	const handleFollow = async (following_id) => {
-		const token = document.cookie.split('; ').reduce((acc, row) => {
-			const [key, value] = row.split('=');
-			if (key === 'token') {
-			acc = value;
-			}
-			return acc;
-		}, null);
-        const response = await fetch(`${apiUrl}/postter/follow/`, {
-            method: 'POST',
-			headers: {
-                'Content-Type': 'application/json',
-				'Authorization': `Token ${token}`,
-            },
-			body: JSON.stringify({"following":following_id}),
-        });
-		const res = await response.json();
-		if(response.ok){
-			if(res.actionType === "follow"){
-				setMessages(`フォローしました`);
-			}else{
-				setMessages(`フォローを解除しました`);
-			}
-			
-			if(res.actionType === "follow"){
-				
-				setMyUserDataGlobal(prevData => ({
-					...prevData,
-					following_count: prevData.following_count + 1,
-					following: [...prevData.following, res.id]
-				}));
-
-				setUserData(()=>{
-					userData.follower_count+=1;
-					return userData
-				})
-				
-			}else{
-
-				setMyUserDataGlobal(prevData => ({
-					...prevData,
-					following_count: prevData.following_count - 1,
-					following: prevData.following.filter(id => id !== res.id)
-				}));
-
-				setUserData(()=>{
-					userData.follower_count-=1;
-					return userData
-				})
-			}
-			
-		}else{
-			setMessages(res);
-		}
-        
-    };
+	const refreshPost = ()=>{
+		setPosts([])
+		setPageCount(1)
+		setHasMore(true)
+	}
 
 	const loadPost = async() => {
 		const token = document.cookie.split('; ').reduce((acc, row) => {
@@ -132,10 +71,6 @@ const Home = () => {
 			setPageCount(pageCount+1)
 		}
 	}
-
-
-	
-
 
 	useEffect(() => {
 		const getTargetUserData = () => {
@@ -174,9 +109,6 @@ const Home = () => {
 		setHasMore(true)
 		},[location.pathname,uid])
 
-	
-
-	
 
 	if(!myUserDataGlobal || !userData || !posts){
 		return("loading...")
@@ -206,8 +138,8 @@ const Home = () => {
 					</p>
 
 					{userData.id !== myUserDataGlobal.id && (
-						<p className="mt-3 mb-3"><button className="btn btn-outline-success btn-sm" style={{cursor:"pointer"}} onClick={() => handleFollow(userData.id)}>
-						{myUserDataGlobal.following.includes(userData.id) ? "フォローを解除" : "フォローする"}
+						<p className="mt-3 mb-3"><button className="btn btn-outline-success btn-sm" style={{cursor:"pointer"}} onClick={() => handleFollow(userData.id,setMessages,t,setMyUserDataGlobal,userData,setUserData)}>
+						{myUserDataGlobal.following.includes(userData.id) ? t("do_unfollow") : t("do_follow")}
 						</button></p>
 					)}
 					{userData.id === myUserDataGlobal.id && (
@@ -219,7 +151,7 @@ const Home = () => {
 					    </>
 					)}
 					
-					<p className="mt-3 mb-3"><Link className="btn btn-outline-success btn-sm" to={`/postter/add_member/${userData.id}/`}>リスト操作</Link></p>
+					<p className="mt-3 mb-3"><Link className="btn btn-outline-success btn-sm" to={`/postter/add_member/${userData.id}/`}>{t("list_operation")}</Link></p>
 					<div className="">
 						<InfiniteScroll
 								loadMore={loadPost}
@@ -250,4 +182,4 @@ const Home = () => {
 	  );
 }
 
-export default Home;
+export default ViewProfile;

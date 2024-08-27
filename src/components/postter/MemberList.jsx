@@ -5,9 +5,11 @@ import InfiniteScroll from 'react-infinite-scroller';
 import ModalCreateListButton from './ModalCreateListButton';
 import { loginCheck } from './LoginCheck';
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from 'react-i18next';
 const apiUrl = process.env.REACT_APP_API_URL;
 
 const Message = () => {
+	const { t } = useTranslation();
 	const {myUserDataGlobal,setMyUserDataGlobal} = useContext(UserDataContext);
 	const [userList, setUserList] = useState([]);
 	const [pageCount, setPageCount] = useState(1);
@@ -56,7 +58,7 @@ const Message = () => {
 
 			<div className="card">
 				<div className="card-body pt-3 pb-3 pl-3 pr-3">
-					<h4>リスト</h4>
+					<h4>{t('list')}</h4>
 				<ModalCreateListButton userList={userList} setUserList={setUserList}/>					
 				<div>
 							<InfiniteScroll

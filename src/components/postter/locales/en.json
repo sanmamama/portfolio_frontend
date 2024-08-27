@@ -22,6 +22,17 @@
 	"add_or_remove_lists" : "Add / remove from lists",
 	"delete_post" : "Delete post",
 	"reply" : "Reply",
-	"repost" : "Repost"
-
+	"repost" : "Repost",
+	"post_reply" : "Post Reply",
+	"new_message" : "New Messages",
+	"toast_follow" : "Followed",
+	"toast_unfollow" :"Unfollowed",
+	"toast_delete_post" :"Post Deleted",
+	"toast_delete_post_failed" :"Failed Post Delete",
+	"select_list" : "Select Lists",
+	"register" : "Register",
+	"unregister" : "Unregister",
+	"message_list" : "Message Lists",
+	"past_message" : "Past Messages",
+	"list_operation" : "List Operations"
 }

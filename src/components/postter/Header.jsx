@@ -89,8 +89,8 @@ function Header() {
               )}
             </ul>
 
-            <button onClick={() => changeLanguage('en')}>English</button>
-            <button onClick={() => changeLanguage('ja')}>日本語</button>
+            <button className="btn btn-primary me-1" onClick={() => changeLanguage('en')}>English</button>
+            <button className="btn btn-primary" onClick={() => changeLanguage('ja')}>日本語</button>
             
             
 

@@ -7,11 +7,13 @@ import { loginCheck } from './LoginCheck';
 import { useNavigate } from "react-router-dom";
 import InfiniteScroll from 'react-infinite-scroller';
 import ModalAddUserToList from './ModalAddUserToList';
+import { useTranslation } from 'react-i18next';
 const apiUrl = process.env.REACT_APP_API_URL;
 const baseUrl = process.env.REACT_APP_BASE_URL;
 
 
 const Home = () => {
+	const { t } = useTranslation();
 	const { uid } = useParams();
 	const {myUserDataGlobal,setMyUserDataGlobal} = useContext(UserDataContext);
 	const [userData,setUserData] = useState(null);
@@ -55,13 +57,14 @@ const Home = () => {
         });
 		const res = await response.json();
 		if(response.ok){
-        	setMessages(res.message);
+			if(res.actionType === "follow"){
+				setMessages(`フォローしました`);
+			}else{
+				setMessages(`フォローを解除しました`);
+			}
 			getUserData(setMyUserDataGlobal)
 			refreshFollow()
-		}else{
-			setMessages(res);
 		}
-        
     };
 
 	const loadFollow = async(page) => {
@@ -178,7 +181,7 @@ const Home = () => {
 					<p className="mb-0"><b>{userData.username}</b></p>
 					<p className="text-secondary">@{userData.uid}</p>
 
-					<p className="mt-3 mb-3">フォロワー</p>
+					<p className="mt-3 mb-3">{t('follower')}</p>
 				<div className="table table-responsive">
 					<table id='post_list' className="table-sm" style={{width: "100%"}}>
 						<tbody>
@@ -201,18 +204,18 @@ const Home = () => {
 								</td>
 								<td className='text' style={{width: "5%"}}>
 									<div className="dropdown">
-										<button type="button" className="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">︙</button>
+										<button type="button" className="btn btn-primary btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">︙</button>
 										<div className="dropdown-menu">
 										{postData.follower.id === myUserDataGlobal.id && (
 											<>
-											<ModalAddUserToList class={"dropdown-item"} id={postData.follower.id}/>
+											<ModalAddUserToList t={t} class={"dropdown-item"} id={postData.follower.id}/>
 											</>
 										)}
 										{postData.follower.id !== myUserDataGlobal.id && (
 											<>
-												<ModalAddUserToList class={"dropdown-item"} id={postData.follower.id}/>
+												<ModalAddUserToList t={t} class={"dropdown-item"} id={postData.follower.id}/>
 												<button className="dropdown-item btn btn-link" style={{cursor:"pointer"}} onClick={() => handleFollow(postData.follower.id)}>
-													{myUserDataGlobal.following.includes(postData.follower.id) ? "このユーザーのフォローを解除する" : "このユーザーをフォローする"}
+													{myUserDataGlobal.following.includes(postData.follower.id) ? t('do_unfollow') : t('do_follow')}
 												</button>
 											</>
 										)}

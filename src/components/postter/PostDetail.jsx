@@ -5,6 +5,7 @@ import { loginCheck } from './LoginCheck';
 import { useNavigate } from "react-router-dom";
 import { getUserData } from "./GetUserData"
 import { useParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import InfiniteScroll from 'react-infinite-scroller';
 
 import PostContainer from './PostContainer';
@@ -13,6 +14,7 @@ const apiUrl = process.env.REACT_APP_API_URL;
 
 
 const Home = () => {
+	const { t } = useTranslation();
 	const location = useLocation();
 	const { post_id } = useParams();
 
@@ -190,13 +192,12 @@ const Home = () => {
 							onChange={handleInputChange}
 							rows="2"
 							cols="50"
-							placeholder="返信をポストする"
+							placeholder={t('post_reply')}
 						/>
 						<div class="d-grid gap-2">
-							<button　className="mb-2 mt-2 btn btn-outline-primary" type="submit">返信</button>
+							<button　className="mb-2 mt-2 btn btn-outline-primary" type="submit">{t('post_reply')}</button>
 						</div>
 						</form>
-					<hr/>
 					
 							<InfiniteScroll
 								loadMore={loadReply}

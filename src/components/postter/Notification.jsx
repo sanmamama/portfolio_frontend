@@ -5,9 +5,11 @@ import InfiniteScroll from 'react-infinite-scroller';
 import { loginCheck } from './LoginCheck';
 import PostContent from './PostContent';
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from 'react-i18next';
 const apiUrl = process.env.REACT_APP_API_URL;
 
 const Message = () => {
+	const { t } = useTranslation();
 	const {myUserDataGlobal,setMyUserDataGlobal} = useContext(UserDataContext);
 	const [NotificationList, setNotificationList] = useState([]);
 	const [pageCount, setPageCount] = useState(1);
@@ -83,7 +85,7 @@ const Message = () => {
 	return (
 			<div className="card">
 				<div className="card-body pt-3 pb-3 pl-3 pr-3">
-					<h4>通知</h4>
+					<h4 className="mb-3">{t('notification')}</h4>
 					<div>
 						<InfiniteScroll
 							loadMore={loadNotificationList}

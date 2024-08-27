@@ -5,10 +5,12 @@ import InfiniteScroll from 'react-infinite-scroller';
 import { useParams } from 'react-router-dom';
 import { loginCheck } from './LoginCheck';
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from 'react-i18next';
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
 const Message = () => {
+	const { t } = useTranslation();
 	const id = parseInt(useParams().id, 10);
 
 	const {myUserDataGlobal,setMyUserDataGlobal} = useContext(UserDataContext);
@@ -112,7 +114,7 @@ const Message = () => {
 						</div>
 					</div>
 
-					<h4>リストを選択</h4>
+					<h4>{t("select_list")}</h4>
 					<p><Link className="btn btn-sm btn-outline-primary" to="/postter/memberlist/create">新しいリストを作成</Link></p>					
 					<div className="table table-responsive">
 
@@ -136,7 +138,7 @@ const Message = () => {
 									</td>
 									<td>
 										<button style={{cursor:"pointer"}} onClick={() => handleAddMember(id,ListData.id)}>
-											{ListData.user_ids.includes(id) ? "登録を外す" : "登録する"}
+											{ListData.user_ids.includes(id) ? t("unregister") : t("register")}
 														
 										</button>
 									</td>					

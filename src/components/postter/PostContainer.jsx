@@ -4,139 +4,15 @@ import PostContent from './PostContent';
 import ModalAddUserToList from './ModalAddUserToList';
 import ModalCreateReplyButton from './ModalCreateReplyButton';
 import { useTranslation } from 'react-i18next';
-const apiUrl = process.env.REACT_APP_API_URL;
+import {handleRepost} from './HandleRepost';
+import {handleLike} from './HandleLike';
+import {handleFollow} from './HandleFollow';
+import {handlePostDelete} from './HandlePostDelete';
+
 const baseUrl = process.env.REACT_APP_BASE_URL;
 
 const PostContainer = ({ postData,myUserDataGlobal,posts,setPosts,getUserData,setMyUserDataGlobal,setMessages,refreshPost,ix }) => {
   const { t,i18n } = useTranslation();
-
-  //リポストハンドル
-	const handleRepost = async (postId,post_ix,post_reposted) => {
-		const token = document.cookie.split('; ').reduce((acc, row) => {
-			const [key, value] = row.split('=');
-			if (key === 'token') {
-			acc = value;
-			}
-			return acc;
-		}, null);
-        try {
-            const response = await fetch(`${apiUrl}/postter/repost/`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Token ${token}`,
-                },
-                body: JSON.stringify({ post: postId })
-            });
-
-            if (response.ok) {
-              const res = await response.json();
-
-              if(posts){
-                setPosts((posts)=>{posts[post_ix].repost_count=res.repost_count;return posts;})
-              }else{
-                setPosts((posts)=>{posts.repost_count=res.repost_count;return posts;})
-              }
-              
-              getUserData(setMyUserDataGlobal)
-              //setMessages(res.repost_count);
-            }else{
-              //setMessages(res.repost_count);
-            }
-        } catch (error) {
-
-        }
-    };
-
-	//いいねハンドル
-	const handleLike = async (post_id,post_ix) => {
-		const token = document.cookie.split('; ').reduce((acc, row) => {
-			const [key, value] = row.split('=');
-			if (key === 'token') {
-			acc = value;
-			}
-			return acc;
-		}, null);
-        const response = await fetch(`${apiUrl}/postter/like/`, {
-            method: 'POST',
-			headers: {
-                'Content-Type': 'application/json',
-				'Authorization': `Token ${token}`,
-            },
-			body: JSON.stringify({"post":post_id}),
-        });
-		const res = await response.json();
-
-
-		if(response.ok){
-      if(posts){
-        setPosts((posts)=>{posts[post_ix].like_count=res.like_count;return posts;})
-      }else{
-			  setPosts((posts)=>{posts.like_count=res.like_count;return posts;})
-      }
-
-			getUserData(setMyUserDataGlobal)
-			//setMessages(`postId:${post_id}   ${res.like_count}`);
-			
-		}else{
-			//setMessages(`postId:${post_id}${res}`);
-		}
-        
-    };
-
-	//フォローハンドル
-	const handleFollow = async (user_id) => {
-		const token = document.cookie.split('; ').reduce((acc, row) => {
-			const [key, value] = row.split('=');
-			if (key === 'token') {
-			acc = value;
-			}
-			return acc;
-		}, null);
-        const response = await fetch(`${apiUrl}/postter/follow/`, {
-            method: 'POST',
-			headers: {
-                'Content-Type': 'application/json',
-				'Authorization': `Token ${token}`,
-            },
-			body: JSON.stringify({"following":user_id}),
-        });
-		const res = await response.json();
-		if(response.ok){
-      if(res.actionType === "follow"){
-        setMessages(`フォローしました`);
-      }else{
-        setMessages(`フォローを解除しました`);
-      }
-			
-			getUserData(setMyUserDataGlobal)
-		}  
-  };
-
-	//ポスト消すハンドル
-	const handlePostDelete = async (postId,post_ix) => {
-		const token = document.cookie.split('; ').reduce((acc, row) => {
-			const [key, value] = row.split('=');
-			if (key === 'token') {
-			acc = value;
-			}
-			return acc;
-		}, null);
-        const response = await fetch(`${apiUrl}/postter/post/${postId}/`, {
-            method: 'DELETE',
-			headers: {
-                'Content-Type': 'application/json',
-				'Authorization': `Token ${token}`,
-            }
-        });
-		if(response.ok){
-			refreshPost()
-			setMessages(`ポストを削除しました`);
-			
-		}else{
-			setMessages(`ポストの削除に失敗しました`);
-		}
-	};
 
   if(postData === null){
     return
@@ -191,14 +67,14 @@ const PostContainer = ({ postData,myUserDataGlobal,posts,setPosts,getUserData,se
 												{postData.owner.id === myUserDataGlobal.id && (
 													<>
 														<ModalAddUserToList t={t} class={"dropdown-item"} id={postData.owner.id}/>
-														<button className="dropdown-item" style={{cursor:"pointer"}} onClick={() => handlePostDelete(postData.id)}>{t('delete_post')}</button>
+														<button className="dropdown-item" style={{cursor:"pointer"}} onClick={() => handlePostDelete(postData.id,t,refreshPost,setMessages)}>{t('delete_post')}</button>
 													</>
 												)}
 												{postData.owner.id !== myUserDataGlobal.id && (
 													<>
 														<ModalAddUserToList t={t} class={"dropdown-item"} id={postData.owner.id}/>
-														<button className="btn btn-link dropdown-item" style={{cursor:"pointer"}} onClick={() => handleFollow(postData.owner.id,ix)}>
-															{myUserDataGlobal.following.includes(postData.owner.id) ? t('do_unfollow') : t('follow')}
+														<button className="btn btn-link dropdown-item" style={{cursor:"pointer"}} onClick={() => handleFollow(postData.owner.id,setMessages,t,setMyUserDataGlobal)}>
+															{myUserDataGlobal.following.includes(postData.owner.id) ? t('do_unfollow') : t('do_follow')}
 														</button>
 													</>
 												)}
@@ -234,13 +110,13 @@ const PostContainer = ({ postData,myUserDataGlobal,posts,setPosts,getUserData,se
 											</div>
 
 											<div className="col-3">
-												<button className="btn btn-link" style={{cursor:"pointer"}} onClick={() => handleLike(postData.id,ix,myUserDataGlobal.like.includes(postData.id))}>
+												<button className="btn btn-link" style={{cursor:"pointer"}} onClick={() => handleLike(posts,postData.id,ix,getUserData,setPosts,setMyUserDataGlobal)}>
 												{myUserDataGlobal.like.includes(postData.id) ? <img src={`${baseUrl}/media/icon/heart_active.svg`} width="16" height="16" alt="like"/> : <img src={`${baseUrl}/media/icon/heart_no_active.svg`} width="16" height="16" alt="like"/>}{postData.like_count}
 												</button>
 											</div>
 
 											<div className="col-3">
-												<button className="btn btn-link" style={{cursor:"pointer"}} onClick={() => handleRepost(postData.id,ix,myUserDataGlobal.repost.includes(postData.id))}>
+												<button className="btn btn-link" style={{cursor:"pointer"}} onClick={() => handleRepost(posts,postData.id,ix,getUserData,setPosts,setMyUserDataGlobal)}>
 												{myUserDataGlobal.repost.includes(postData.id) ? <img src={`${baseUrl}/media/icon/repost_active.svg`} width="16" height="16"  alt="repost"/> : <img src={`${baseUrl}/media/icon/repost_no_active.svg`} width="16" height="16"  alt="repost"/>}{postData.repost_count}
 												</button>
 											</div>

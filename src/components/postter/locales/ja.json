@@ -22,5 +22,17 @@
 	"add_or_remove_lists" : "リストに追加/削除",
 	"delete_post" : "ポストを削除する",
 	"reply" : "リプライ",
-	"repost" : "リポスト"
+	"repost" : "リポスト",
+	"post_reply" : "返信する",
+	"new_message" : "新しいメッセージ",
+	"toast_follow" : "フォローしました",
+	"toast_unfollow" :"フォローを解除しました",
+	"toast_delete_post" :"ポストを削除しました",
+	"toast_delete_post_failed" :"ポストの削除に失敗しました",
+	"select_list" : "リストを選択",
+	"register" : "登録する",
+	"unregister" : "登録を外す",
+	"message_list" : "メッセージ一覧",
+	"past_message" : "過去のメッセージ",
+	"list_operation" : "リスト操作"
 }

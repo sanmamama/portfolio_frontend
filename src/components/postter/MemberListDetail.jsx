@@ -7,10 +7,12 @@ import { useParams } from 'react-router-dom';
 import ModalEditListButton from './ModalEditListButton';
 import { loginCheck } from './LoginCheck';
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from 'react-i18next';
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
 const Message = () => {
+	const { t } = useTranslation();
 	const navigate = useNavigate();
 	const { id } = useParams();
 	const {myUserDataGlobal,setMyUserDataGlobal} = useContext(UserDataContext);
@@ -178,7 +180,7 @@ const Message = () => {
 						</div>
 					</div>
 
-					<Link to="/postter/memberlist">←メッセージ一覧へ</Link>
+					<Link to="/postter/memberlist">←{t("message_list")}</Link>
 					<p className="mt-3">{targetListData.name}</p>
 					<p>{targetListData.description}</p>
 
@@ -217,7 +219,7 @@ const Message = () => {
 											<>
 												<button className="dropdown-item" style={{cursor:"pointer"}} onClick={() => handleDelete(id,ListData.user.id)}>このユーザーをリストから削除</button>
 												<button className="dropdown-item" style={{cursor:"pointer"}} onClick={() => handleFollow(ListData.user.id)}>
-													{myUserDataGlobal.following.includes(ListData.user.id) ? "このユーザーのフォローを解除する" : "このユーザーをフォローする"}
+													{myUserDataGlobal.following.includes(ListData.user.id) ? t("unfollow") : t("follow")}
 												</button>
 											</>
 										)}

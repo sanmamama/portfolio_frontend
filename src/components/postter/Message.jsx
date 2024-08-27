@@ -4,9 +4,11 @@ import {UserDataContext} from "./providers/UserDataProvider"
 import InfiniteScroll from 'react-infinite-scroller';
 import { loginCheck } from './LoginCheck';
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from 'react-i18next';
 const apiUrl = process.env.REACT_APP_API_URL;
 
 const Message = () => {
+	const { t } = useTranslation();
 	const {myUserDataGlobal,setMyUserDataGlobal} = useContext(UserDataContext);
 	const [userList, setUserList] = useState([]);
 	const [pageCount, setPageCount] = useState(1);
@@ -124,7 +126,7 @@ const Message = () => {
 	return (
 			<div className="card">
 				<div className="card-body pt-3 pb-3 pl-3 pr-3">
-					<h4>新規メッセージ</h4>
+					<h4>{t('new_message')}</h4>
 					<input className="mt-3 mb-3 form-control" type="text" value={query} onChange={(e) => setQuery(e.target.value)} placeholder="ユーザーを検索"/>
 					<div>
 						{results.map((result,ix) => (
@@ -146,7 +148,7 @@ const Message = () => {
 							</div>
 					))}
 					</div>
-					<h4 className="mt-3 mb-3">過去のメッセージ</h4>
+					<h4 className="mt-3 mb-3">{t("past_message")}</h4>
 					<div>
 						<InfiniteScroll
 							loadMore={loadMessageList}
