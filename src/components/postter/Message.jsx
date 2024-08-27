@@ -127,7 +127,7 @@ const Message = () => {
 			<div className="card">
 				<div className="card-body pt-3 pb-3 pl-3 pr-3">
 					<h4>{t('new_message')}</h4>
-					<input className="mt-3 mb-3 form-control" type="text" value={query} onChange={(e) => setQuery(e.target.value)} placeholder="ユーザーを検索"/>
+					<input className="mt-3 mb-3 form-control" type="text" value={query} onChange={(e) => setQuery(e.target.value)} placeholder={t("search_user")}/>
 					<div>
 						{results.map((result,ix) => (
 							<div key={ix}>

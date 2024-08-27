@@ -34,5 +34,6 @@
 	"unregister" : "Unregister",
 	"message_list" : "Message Lists",
 	"past_message" : "Past Messages",
-	"list_operation" : "List Operations"
+	"list_operation" : "List Operations",
+	"search_user" : "Search Users"
 }

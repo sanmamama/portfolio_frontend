@@ -34,5 +34,6 @@
 	"unregister" : "登録を外す",
 	"message_list" : "メッセージ一覧",
 	"past_message" : "過去のメッセージ",
-	"list_operation" : "リスト操作"
+	"list_operation" : "リスト操作",
+	"search_user" : "ユーザを検索"
 }
