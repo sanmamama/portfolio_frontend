@@ -125,7 +125,7 @@ class CustomModal extends React.Component {
   render() {
     return (
       <div>
-        <button className="btn btn-outline-success btn-sm" onClick={this.openModal}>プロフィール編集</button>
+        <button className="btn btn-outline-success btn-sm" onClick={this.openModal}>{this.state.t("edit_profile")}</button>
         <Modal
           isOpen={this.state.modalIsOpen}
           onRequestClose={this.closeModal}
@@ -133,24 +133,24 @@ class CustomModal extends React.Component {
           style={customStyles}
         >
           <div>
-            <h2>プロフィール編集</h2>
+            <h2>{this.state.t("edit_profile")}</h2>
             <form onSubmit={this.handleListSubmit}>
-              <label>ユーザーID</label>
+              <label>{this.state.t("user_id")}</label>
 						  <input className="form-control" type="text" name="uid" value={this.state.uid} onChange={this.handleInputChange}/>
-              <label>ユーザー名</label>
+              <label>{this.state.t("user_name")}</label>
               <input className="form-control" type="text" name="username" value={this.state.username} onChange={this.handleInputChange}/>
-              <label>プロフィール画像</label>
+              <label>{this.state.t("profile_img")}</label>
               <div>
                 <input type="file" id="avatar" name="avatar" onChange={this.handleFileChange} />
               </div>
-              <label>プロフィール</label>
+              <label>{this.state.t("self_introduction")}</label>
               <textarea className="form-control" name="profile_statement" value={this.state.profile_statement} onChange={this.handleInputChange} rows="3" cols="50"/>
               <div class="d-grid gap-2">
-                <button　className="mb-2 mt-2 btn btn-outline-primary" type="submit">更新する</button>
+                <button　className="mb-2 mt-2 btn btn-outline-primary" type="submit">{this.state.t("change")}</button>
               </div>
             </form>
             <div class="d-grid gap-2">
-              <button className="mb-2 mt-4 btn btn-outline-danger" onClick={this.closeModal}>閉じる</button>
+              <button className="mb-2 mt-4 btn btn-outline-danger" onClick={this.closeModal}>{this.state.t("close")}</button>
             </div>
           </div>
         </Modal>

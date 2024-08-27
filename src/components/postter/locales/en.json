@@ -44,6 +44,10 @@
 	"list_name" : "List Name",
 	"list_description" : "List Description",
 	"delete_list" : "Delete List",
-	"create" : "Create"
-
+	"create" : "Create",
+	"edit_profile" : "Edit Profile",
+	"user_id" : "User ID",
+	"username" : "User Name",
+	"profile_img" : "User Image",
+	"self_introduction" : "Self Introduction"
 }

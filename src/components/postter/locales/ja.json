@@ -44,5 +44,10 @@
 	"list_name" : "リストの名前",
 	"list_description" : "リストの説明",
 	"delete_list" : "リストを削除する",
-	"create" : "作成する"
+	"create" : "作成する",
+	"edit_profile" : "Edit Profile",
+	"user_id" : "User ID",
+	"username" : "User Name",
+	"profile_img" : "User Image",
+	"self_introduction" : "Self Introduction"
 }
