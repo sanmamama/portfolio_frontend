@@ -6,6 +6,7 @@ import { useParams } from 'react-router-dom';
 import { loginCheck } from './LoginCheck';
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
+import ModalCreateListButton from './ModalCreateListButton';
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
@@ -115,7 +116,7 @@ const Message = () => {
 					</div>
 
 					<h4>{t("select_list")}</h4>
-					<p><Link className="btn btn-sm btn-outline-primary" to="/postter/memberlist/create">{t("create_new_list")}</Link></p>					
+					<ModalCreateListButton t={t} userList={userList} setUserList={setUserList}/>					
 					<div className="table table-responsive">
 
 					<table className="table">
