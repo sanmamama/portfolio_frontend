@@ -45,9 +45,11 @@
 	"list_description" : "リストの説明",
 	"delete_list" : "リストを削除する",
 	"create" : "作成する",
-	"edit_profile" : "Edit Profile",
-	"user_id" : "User ID",
-	"username" : "User Name",
-	"profile_img" : "User Image",
-	"self_introduction" : "Self Introduction"
+	"edit_profile" : "プロフィール編集",
+	"user_id" : "ユーザID",
+	"username" : "ユーザ名",
+	"profile_img" : "ユーザイメージ",
+	"self_introduction" : "自己紹介文",
+	"send" : "送信",
+	"enter_message":"メッセージを入力"
 }

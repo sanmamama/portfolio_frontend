@@ -3,9 +3,11 @@ import { Link } from 'react-router-dom';
 import {UserDataContext} from "./providers/UserDataProvider"
 import InfiniteScroll from 'react-infinite-scroller';
 import { useParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 const apiUrl = process.env.REACT_APP_API_URL;
 
 const Message = () => {
+	const { t } = useTranslation();
 	const { ids } = useParams();
 	const [,toId] = ids.split('-');
 	const {myUserDataGlobal} = useContext(UserDataContext);
@@ -183,14 +185,14 @@ const Message = () => {
 						</div>
 					</div>
 
-					<Link to="/postter/message">←メッセージ一覧へ</Link>
+					<Link to="/postter/message">←{t("message_list")}</Link>
 					<img className="rounded img-fluid mx-auto d-block" src={`${targetUserData.avatar_imgurl}`} id="avatar-image" width="100" height="100" alt="avatarimage"/>
 					<p className="text-center">{targetUserData.username} @{targetUserData.uid}</p>
 					<p className="text-center">{targetUserData.profile_statement}</p>
 					<form method="post" onSubmit={handleMessageSubmit}>
-					<textarea className="form-control" type="textarea" name="content" value={formData.content} onChange={handleMessageChange} placeholder="メッセージを入力"/>
+					<textarea className="form-control" type="textarea" name="content" value={formData.content} onChange={handleMessageChange} placeholder={t("enter_message")}/>
 					<div class="d-grid gap-2">  
-						<button type="submit" className="mb-3 mt-2 btn btn-primary">送信</button>
+						<button type="submit" className="mb-3 mt-2 btn btn-primary">{t("send")}</button>
 					</div>
                 	</form>
 					<div className="mt-3 mb-3 scrollable-div">

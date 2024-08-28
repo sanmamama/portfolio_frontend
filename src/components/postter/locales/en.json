@@ -49,5 +49,7 @@
 	"user_id" : "User ID",
 	"username" : "User Name",
 	"profile_img" : "User Image",
-	"self_introduction" : "Self Introduction"
+	"self_introduction" : "Self Introduction",
+	"send" : "Send",
+	"enter_message":"Enter your message"
 }
