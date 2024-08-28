@@ -71,6 +71,7 @@ function Header() {
     .then(data => {
       //setMyUserDataGlobal(data)
     })
+    closeMenu()
   }
 
   return (
