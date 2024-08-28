@@ -110,7 +110,7 @@ const SignupForm = () => {
                     <label>確認用パスワード</label><span className="ms-3 text-danger">{formError.password2}</span>
                     <input className="form-control" type="password" name="password2" value={formData.password2} onChange={handleChange}/>
                     
-                    <div class="d-grid gap-2">
+                    <div className="d-grid gap-2">
                         <button className="mt-2 btn btn-outline-primary btn-block" type="submit">送信</button>
                     </div>
                 </form>

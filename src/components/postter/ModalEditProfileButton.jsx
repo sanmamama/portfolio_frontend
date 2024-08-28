@@ -145,11 +145,11 @@ class CustomModal extends React.Component {
               </div>
               <label>{this.state.t("self_introduction")}</label>
               <textarea className="form-control" name="profile_statement" value={this.state.profile_statement} onChange={this.handleInputChange} rows="3" cols="50"/>
-              <div class="d-grid gap-2">
+              <div className="d-grid gap-2">
                 <button　className="mb-2 mt-2 btn btn-outline-primary" type="submit">{this.state.t("change")}</button>
               </div>
             </form>
-            <div class="d-grid gap-2">
+            <div className="d-grid gap-2">
               <button className="mb-2 mt-4 btn btn-outline-danger" onClick={this.closeModal}>{this.state.t("close")}</button>
             </div>
           </div>

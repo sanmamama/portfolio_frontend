@@ -155,7 +155,7 @@ const LoginForm = () => {
                             <label>{t('password')}</label><span className="ms-3 text-danger">{formError.password}</span>
                             <input className="form-control" type="password" name="password" autoComplete="password" value={formData.password} onChange={handleChange}/>
                         </div>
-                        <div class="d-grid gap-2">
+                        <div className="d-grid gap-2">
                             <button className="mt-2 btn btn-outline-primary" type="submit">{t('login')}</button>
                         </div>
                     </form>

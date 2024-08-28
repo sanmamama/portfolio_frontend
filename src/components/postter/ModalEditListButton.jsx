@@ -154,11 +154,11 @@ class CustomModal extends React.Component {
 						  <input className="form-control" type="text" name="name" value={this.state.name} onChange={this.handleInputChange}/>
               <label>{this.state.t("list_description")}</label>
               <textarea className="form-control" name="description" value={this.state.description} onChange={this.handleInputChange} rows="3" cols="50"/>
-              <div class="d-grid gap-2">
+              <div className="d-grid gap-2">
                 <button className="mb-2 mt-2 btn btn-outline-primary" type="submit">{this.state.t("change")}</button>
               </div>
             </form>
-            <div class="d-grid gap-2">
+            <div className="d-grid gap-2">
               <button className="btn btn-danger" onClick={this.handleListDelete}>{this.state.t("delete_list")}</button>
               <button className="mb-2 mt-4 btn btn-outline-danger" onClick={this.closeModal}>{this.state.t("close")}</button>
             </div>

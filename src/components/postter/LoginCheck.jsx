@@ -1,6 +1,7 @@
 const apiUrl = process.env.REACT_APP_API_URL;
 
-export const loginCheck = (myUserDataGlobal,setMyUserDataGlobal,navigate) => {
+export const loginCheck = (setMyUserDataGlobal,navigate,changeLanguage) => {
+
 	const token = document.cookie.split('; ').reduce((acc, row) => {
 		const [key, value] = row.split('=');
 		if (key === 'token') {
@@ -20,11 +21,15 @@ export const loginCheck = (myUserDataGlobal,setMyUserDataGlobal,navigate) => {
 			setMyUserDataGlobal(null)
 			navigate("/postter/login")
 		}
+
 		return response.json()
 		})
 	.then(data => {
-		if(!myUserDataGlobal){
+		try{
 			setMyUserDataGlobal(data[0])
+			changeLanguage(data[0]['locale'])
+		}catch{
+			
 		}
 		});
 }

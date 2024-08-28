@@ -1,14 +1,24 @@
 import { NavLink} from 'react-router-dom';
 import { useContext, useEffect } from 'react';
 import { UserDataContext } from "./providers/UserDataProvider";
+import {NotificationContext} from "./providers/NotificationProvider"
 import { useTranslation } from 'react-i18next';
+import { loginCheck } from './LoginCheck';
+import { notificationCheck } from './NotificationCheck';
+import { useNavigate } from "react-router-dom";
+const apiUrl = process.env.REACT_APP_API_URL;
 
 function Header() {
+  const navigate = useNavigate();
   const { t, i18n } = useTranslation();
-  const changeLanguage = (lng) => {
-    i18n.changeLanguage(lng);
-  };
   const { myUserDataGlobal, setMyUserDataGlobal } = useContext(UserDataContext);
+  const {setMyNotificationGlobal} = useContext(NotificationContext);
+
+  //ログインチェック
+	useEffect(()=>{
+		loginCheck(setMyUserDataGlobal,navigate,i18n.changeLanguage)
+		notificationCheck(setMyNotificationGlobal)
+	},[setMyUserDataGlobal,setMyNotificationGlobal,navigate,i18n.changeLanguage])
 
   useEffect(() => {
 
@@ -34,6 +44,34 @@ function Header() {
       navBar.classList.remove('show');
     }
   };
+
+  const handleChange = (locale) => {
+    i18n.changeLanguage(locale)
+		const token = document.cookie.split('; ').reduce((acc, row) => {
+			const [key, value] = row.split('=');
+			if (key === 'token') {
+			acc = value;
+			}
+			return acc;
+		}, null);
+
+    const formDataObj = new FormData();
+        formDataObj.append("locale", locale);
+
+    fetch(`${apiUrl}/postter/user/`, {
+        method: 'PATCH',
+        headers: {
+          'Authorization': `Token ${token}`,
+        },
+        body: formDataObj,
+    })
+    .then(response => {
+        return response.json();
+    })
+    .then(data => {
+      //setMyUserDataGlobal(data)
+    })
+  }
 
   return (
     <header>
@@ -89,8 +127,8 @@ function Header() {
               )}
             </ul>
 
-            <button className="btn btn-primary me-1" onClick={() => changeLanguage('en')}>English</button>
-            <button className="btn btn-primary" onClick={() => changeLanguage('ja')}>日本語</button>
+            <button className="btn btn-primary me-1" onClick={() => handleChange('en')}>English</button>
+            <button className="btn btn-primary" onClick={() => handleChange('ja')}>日本語</button>
             
             
 

@@ -223,7 +223,7 @@ class CustomModal extends React.Component {
               </div>
             </InfiniteScroll>
 
-            <div class="d-grid gap-2">
+            <div className="d-grid gap-2">
               <button className="mb-2 mt-2 btn btn-outline-danger" onClick={this.closeModal}>{this.state.t("register")}</button>
             </div>
           </div>

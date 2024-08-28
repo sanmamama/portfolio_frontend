@@ -3,8 +3,6 @@ import { Link} from 'react-router-dom';
 import {UserDataContext} from "./providers/UserDataProvider"
 import { getUserData } from "./GetUserData"
 import { useParams } from 'react-router-dom';
-import { loginCheck } from './LoginCheck';
-import { useNavigate } from "react-router-dom";
 import InfiniteScroll from 'react-infinite-scroller';
 import ModalAddUserToList from './ModalAddUserToList';
 import { useTranslation } from 'react-i18next';
@@ -23,12 +21,7 @@ const Home = () => {
 	const [posts, setPosts] = useState([]);
 	const [pageCount, setPageCount] = useState(1);
 	const [hasMore, setHasMore] = useState(true);
-	const navigate = useNavigate();
 
-	//ログインチェック
-	useEffect(()=>{
-		loginCheck(myUserDataGlobal,setMyUserDataGlobal,navigate)
-	},[myUserDataGlobal,setMyUserDataGlobal,navigate])
 
 	//toast
 	useEffect(()=>{

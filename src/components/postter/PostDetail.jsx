@@ -1,8 +1,6 @@
 import React, { useEffect, useState ,useContext,useCallback } from 'react';
 import { useLocation } from 'react-router-dom';
 import {UserDataContext} from "./providers/UserDataProvider"
-import { loginCheck } from './LoginCheck';
-import { useNavigate } from "react-router-dom";
 import { getUserData } from "./GetUserData"
 import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -25,12 +23,7 @@ const Home = () => {
 	const [replies, setReplies] = useState([]);
 	const [pageCount, setPageCount] = useState(1);
 	const [hasMore, setHasMore] = useState(true);
-	const navigate = useNavigate();
 
-	//ログインチェック
-	useEffect(()=>{
-		loginCheck(myUserDataGlobal,setMyUserDataGlobal,navigate)
-	},[myUserDataGlobal,setMyUserDataGlobal,navigate])
 
 	//toast
 	useEffect(()=>{
@@ -162,9 +155,9 @@ const Home = () => {
 			<div className="card">
 				<div className="card-body pt-3 pb-3 pl-3 pr-3">
 
-					<div class="toast-container position-fixed">
-						<div id="liveToast" class="toast position-fixed top-0 start-50 translate-middle-x m-1" role="alert" aria-live="assertive" aria-atomic="true">
-							<div class="toast-body">
+					<div className="toast-container position-fixed">
+						<div id="liveToast" className="toast position-fixed top-0 start-50 translate-middle-x m-1" role="alert" aria-live="assertive" aria-atomic="true">
+							<div className="toast-body">
 								{messages}
 							</div>
 						</div>

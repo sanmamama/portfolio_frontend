@@ -1,26 +1,22 @@
-import React, { useEffect, useState ,useContext } from 'react';
+import React, { useState ,useContext } from 'react';
 import { Link } from 'react-router-dom';
 import {UserDataContext} from "./providers/UserDataProvider"
 import InfiniteScroll from 'react-infinite-scroller';
-import { loginCheck } from './LoginCheck';
+
 import PostContent from './PostContent';
-import { useNavigate } from "react-router-dom";
+
 import { useTranslation } from 'react-i18next';
 const apiUrl = process.env.REACT_APP_API_URL;
 
 const Message = () => {
 	const { t } = useTranslation();
-	const {myUserDataGlobal,setMyUserDataGlobal} = useContext(UserDataContext);
+	const {myUserDataGlobal} = useContext(UserDataContext);
 	const [NotificationList, setNotificationList] = useState([]);
 	const [pageCount, setPageCount] = useState(1);
 	const [hasMore, setHasMore] = useState(true);
 
-	const navigate = useNavigate();
 
-	//ログインチェック
-	useEffect(()=>{
-		loginCheck(myUserDataGlobal,setMyUserDataGlobal,navigate)
-	},[myUserDataGlobal,setMyUserDataGlobal,navigate])
+
 
 
 	// const refreshNotificationList = async() => {

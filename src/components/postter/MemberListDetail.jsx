@@ -5,7 +5,6 @@ import { getUserData } from "./GetUserData"
 import InfiniteScroll from 'react-infinite-scroller';
 import { useParams } from 'react-router-dom';
 import ModalEditListButton from './ModalEditListButton';
-import { loginCheck } from './LoginCheck';
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
 
@@ -22,10 +21,6 @@ const Message = () => {
 	const [hasMore, setHasMore] = useState(true);
 	const [targetListData, setTargetListData] = useState(null);
 
-	//ログインチェック
-	useEffect(()=>{
-		loginCheck(myUserDataGlobal,setMyUserDataGlobal,navigate)
-	},[myUserDataGlobal,setMyUserDataGlobal,navigate])
 
 	//toast
 	useEffect(()=>{
@@ -172,9 +167,9 @@ const Message = () => {
 			<div className="card">
 				<div className="card-body pt-3 pb-3 pl-3 pr-3">
 					
-					<div class="toast-container position-fixed">
-						<div id="liveToast" class="toast position-fixed top-0 start-50 translate-middle-x m-1" role="alert" aria-live="assertive" aria-atomic="true">
-							<div class="toast-body">
+					<div className="toast-container position-fixed">
+						<div id="liveToast" className="toast position-fixed top-0 start-50 translate-middle-x m-1" role="alert" aria-live="assertive" aria-atomic="true">
+							<div className="toast-body">
 								{messages}
 							</div>
 						</div>

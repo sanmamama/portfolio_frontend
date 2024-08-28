@@ -3,8 +3,6 @@ import { Link } from 'react-router-dom';
 import {UserDataContext} from "./providers/UserDataProvider"
 import InfiniteScroll from 'react-infinite-scroller';
 import { useParams } from 'react-router-dom';
-import { loginCheck } from './LoginCheck';
-import { useNavigate } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
 import ModalCreateListButton from './ModalCreateListButton';
 
@@ -14,17 +12,13 @@ const Message = () => {
 	const { t } = useTranslation();
 	const id = parseInt(useParams().id, 10);
 
-	const {myUserDataGlobal,setMyUserDataGlobal} = useContext(UserDataContext);
+	const {myUserDataGlobal} = useContext(UserDataContext);
 	const [messages, setMessages] = useState("");
 	const [userList, setUserList] = useState([]);
 	const [pageCount, setPageCount] = useState(1);
 	const [hasMore, setHasMore] = useState(true);
-	const navigate = useNavigate();
 
-	//ログインチェック
-	useEffect(()=>{
-		loginCheck(myUserDataGlobal,setMyUserDataGlobal,navigate)
-	},[myUserDataGlobal,setMyUserDataGlobal,navigate])
+
 
 	//toast
 	useEffect(()=>{
@@ -107,9 +101,9 @@ const Message = () => {
 			<div className="card">
 				<div className="card-body pt-3 pb-3 pl-3 pr-3">
 					
-					<div class="toast-container position-fixed">
-						<div id="liveToast" class="toast position-fixed top-0 start-50 translate-middle-x m-1" role="alert" aria-live="assertive" aria-atomic="true">
-							<div class="toast-body">
+					<div className="toast-container position-fixed">
+						<div id="liveToast" className="toast position-fixed top-0 start-50 translate-middle-x m-1" role="alert" aria-live="assertive" aria-atomic="true">
+							<div className="toast-body">
 								{messages}
 							</div>
 						</div>

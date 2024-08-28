@@ -2,26 +2,19 @@ import React, { useEffect, useState ,useContext, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import {UserDataContext} from "./providers/UserDataProvider"
 import InfiniteScroll from 'react-infinite-scroller';
-import { loginCheck } from './LoginCheck';
-import { useNavigate } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
 const apiUrl = process.env.REACT_APP_API_URL;
 
 const Message = () => {
 	const { t } = useTranslation();
-	const {myUserDataGlobal,setMyUserDataGlobal} = useContext(UserDataContext);
+	const {myUserDataGlobal} = useContext(UserDataContext);
 	const [userList, setUserList] = useState([]);
 	const [pageCount, setPageCount] = useState(1);
 	const [hasMore, setHasMore] = useState(true);
 	
 	const [query, setQuery] = useState('');
   	const [results, setResults] = useState([]);
-	const navigate = useNavigate();
 
-	//ログインチェック
-	useEffect(()=>{
-		loginCheck(myUserDataGlobal,setMyUserDataGlobal,navigate)
-	},[myUserDataGlobal,setMyUserDataGlobal,navigate])
 
 	
 	const fetchResults = useCallback(async (searchQuery) => {
