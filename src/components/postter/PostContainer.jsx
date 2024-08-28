@@ -90,7 +90,7 @@ const PostContainer = ({ postData,myUserDataGlobal,posts,setPosts,getUserData,se
 
 												</Link>
                         <a className="ms-1" data-bs-toggle="collapse" href={"#collapse"+ix} aria-expanded="false" aria-controls={"collapse"+ix}>
-                          <img src={`${baseUrl}/media/icon/translate.svg`} width="32" height="32" alt="translate"/>
+                          <img src={`${baseUrl}/media/icon/original_text.svg`} width="16" height="16" alt="original_text"/>
                         </a>
 
                           
