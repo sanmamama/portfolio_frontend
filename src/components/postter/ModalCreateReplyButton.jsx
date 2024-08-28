@@ -124,7 +124,7 @@ class CustomModal extends React.Component {
 									<p>
                   {this.state.i18n.language === "ja" ? <PostContent content={this.props.postData.content_JA}/>:<PostContent content={this.props.postData.content_EN}/>}
                   <a className="ms-1" data-bs-toggle="collapse" href="#collapse" aria-expanded="false" aria-controls="collapse">
-                    <img src={`${baseUrl}/media/icon/translate.svg`} width="32" height="32" alt="translate"/>
+                    <img src={`${baseUrl}/media/icon/original_text.svg`} width="16" height="16" alt="original_text"/>
                   </a>
                   </p>
                   
