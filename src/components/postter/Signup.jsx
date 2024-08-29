@@ -1,9 +1,11 @@
 
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 const apiUrl = process.env.REACT_APP_API_URL;
 const baseUrl = process.env.REACT_APP_BASE_URL;
 
 const SignupForm = () => {
+    const { i18n,t } = useTranslation();
     const [formData, setFormData] = useState({
         email: '',
         username: '',
@@ -95,26 +97,34 @@ const SignupForm = () => {
 
     return (
         <div>
+                <div className="row mb-3">
+                        <div className="col text-center">
+                            <button className="btn btn-primary me-1" onClick={() => i18n.changeLanguage('en')}>English</button>
+                        </div>
+                        <div className="col text-center">
+                            <button className="btn btn-primary" onClick={() => i18n.changeLanguage('ja')}>日本語</button>
+                        </div>
+                </div>
                 <div className="container text-center">
                         <img className="img-fluid mb-4" src={`${baseUrl}/media/logo/postter.png`} width="200" height="200" alt="postter"/>
                         <h2>会員登録</h2>
                 </div>
                 
                 <form onSubmit={handleSubmit}>
-                    <label>メールアドレス</label><span className="ms-3 text-danger">{formError.email}</span>
+                    <label>{t("email")}</label><span className="ms-3 text-danger">{formError.email}</span>
                     <input className="form-control" type="email" name="email" value={formData.email} onChange={handleChange}/>
 
-                    <label>ユーザー名</label><span className="ms-3 text-danger">{formError.username}</span>
+                    <label>{t("username")}</label><span className="ms-3 text-danger">{formError.username}</span>
                     <input className="form-control" type="username" name="username" value={formData.username} onChange={handleChange}/>
                     
-                    <label>パスワード</label><span className="ms-3 text-danger">{formError.password1}</span>
+                    <label>{t("password")}</label><span className="ms-3 text-danger">{formError.password1}</span>
                     <input className="form-control" type="password" name="password1" value={formData.password1} onChange={handleChange}/>
                     
                     <label>確認用パスワード</label><span className="ms-3 text-danger">{formError.password2}</span>
                     <input className="form-control" type="password" name="password2" value={formData.password2} onChange={handleChange}/>
                     
                     <div className="d-grid gap-2">
-                        <button className="mt-2 btn btn-outline-primary btn-block" type="submit">登録</button>
+                        <button className="mt-2 btn btn-outline-primary btn-block" type="submit">{t("register")}</button>
                     </div>
                 </form>
 

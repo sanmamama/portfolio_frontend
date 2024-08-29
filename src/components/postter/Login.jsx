@@ -5,12 +5,12 @@ import { useContext } from 'react';
 import { UserDataContext } from "./providers/UserDataProvider"
 import { getUserData } from "./GetUserData"
 import { useTranslation } from 'react-i18next';
-const baseUrl = process.env.REACT_APP_BASE_URL;
 
+const baseUrl = process.env.REACT_APP_BASE_URL;
 const apiUrl = process.env.REACT_APP_API_URL;
 
 const LoginForm = () => {
-    const { t } = useTranslation();
+    const { i18n,t } = useTranslation();
 
     const {setMyUserDataGlobal} = useContext(UserDataContext)
     const [formData, setFormData] = useState({
@@ -147,6 +147,14 @@ const LoginForm = () => {
     return (
         <div>
                 <div>
+                    <div className="row mb-3">
+                        <div className="col text-center">
+                            <button className="btn btn-primary me-1" onClick={() => i18n.changeLanguage('en')}>English</button>
+                        </div>
+                        <div className="col text-center">
+                            <button className="btn btn-primary" onClick={() => i18n.changeLanguage('ja')}>日本語</button>
+                        </div>
+                    </div>
                     <div className="container text-center">
                         <img className="img-fluid mb-4" src={`${baseUrl}/media/logo/postter.png`} width="200" height="200" alt="postter"/>
                     </div>
@@ -176,6 +184,8 @@ const LoginForm = () => {
                 <div className="mt-3 d-grid gap-2">
                     <button className="btn btn-primary" onClick={handleGuestLogin}>{t('guest_login')}</button>
                 </div>
+
+                
             
         </div>
     );
