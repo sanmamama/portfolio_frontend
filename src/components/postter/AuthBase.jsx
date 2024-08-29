@@ -8,8 +8,9 @@ const PostterBase = () => {
 			<div>
 				<ScrollRestoration/>
 					<Header />
-					<br/><br/><br/>	
-					<Outlet />
+					<div className="container container-body">
+						<Outlet />
+					</div>
 					<Footer />
 			</div>
 			);

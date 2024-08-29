@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { useNavigate } from "react-router-dom";
+import { useNavigate,Link } from "react-router-dom";
 import { useContext } from 'react';
 import { UserDataContext } from "./providers/UserDataProvider"
 import { getUserData } from "./GetUserData"
@@ -161,6 +161,10 @@ const LoginForm = () => {
                     </form>
                     <p>{messages}</p>
                     <p>{formError.non_field_errors}</p>
+                </div>
+                
+                <div className="mt-5 d-grid gap-2">
+                    <Link className="btn btn-primary" to="/postter/signup">{t('signup')}</Link>
                 </div>
 
                 <div className="mt-5 d-grid gap-2">

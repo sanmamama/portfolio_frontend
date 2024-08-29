@@ -5,13 +5,42 @@ import {UserDataContext} from "./providers/UserDataProvider"
 import {NotificationContext} from "./providers/NotificationProvider"
 import { useTranslation } from 'react-i18next';
 const baseUrl = process.env.REACT_APP_BASE_URL;
+const apiUrl = process.env.REACT_APP_API_URL;
 
 const LeftSideContent = () => {
-	const { t } = useTranslation();
+	const { i18n,t } = useTranslation();
 	const [query, setQuery] = useState('');
 	const navigate = useNavigate();
 	const {myUserDataGlobal} = useContext(UserDataContext);
 	const {myNotificationGlobal} = useContext(NotificationContext);
+
+	const handleChange = (locale) => {
+		i18n.changeLanguage(locale)
+			const token = document.cookie.split('; ').reduce((acc, row) => {
+				const [key, value] = row.split('=');
+				if (key === 'token') {
+				acc = value;
+				}
+				return acc;
+			}, null);
+	
+		const formDataObj = new FormData();
+			formDataObj.append("locale", locale);
+	
+		fetch(`${apiUrl}/postter/user/`, {
+			method: 'PATCH',
+			headers: {
+			  'Authorization': `Token ${token}`,
+			},
+			body: formDataObj,
+		})
+		.then(response => {
+			return response.json();
+		})
+		.then(data => {
+
+		})
+	  }
 
 	const handleSubmit = (event) => {
 		event.preventDefault();
@@ -36,7 +65,10 @@ const LeftSideContent = () => {
 						</h5>
 						<h5 className="mb-4"><Link to="/postter/message/"><img className="me-3"src={`${baseUrl}/media/icon/message.svg`} width="16" height="16" alt="message"/>{t('message')}</Link></h5>
 						<h5 className="mb-4"><Link to="/postter/memberlist/"><img className="me-3"src={`${baseUrl}/media/icon/memberlist.svg`} width="16" height="16" alt="memberlist"/>{t('list')}</Link></h5>
-						
+						<button className="btn btn-primary me-1" onClick={() => handleChange('en')}>English</button>
+						<button className="btn btn-primary" onClick={() => handleChange('ja')}>日本語</button>
+						<hr/>
+						<h5><Link to="/postter/logout">{t('logout')}</Link></h5>
 					</div>
 				</div>
 

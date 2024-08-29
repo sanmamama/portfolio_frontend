@@ -148,3 +148,13 @@ a {
   padding-right: 0px;
   padding-left:0px;
 }
+
+.container-body {
+  margin-top: 70px;
+}
+
+@media (min-width: 576px) {
+  .container-body {
+    margin-top: 3px;
+  }
+}

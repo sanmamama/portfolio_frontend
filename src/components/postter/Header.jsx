@@ -69,14 +69,13 @@ function Header() {
         return response.json();
     })
     .then(data => {
-      //setMyUserDataGlobal(data)
+      closeMenu()
     })
-    closeMenu()
   }
 
   return (
     <header>
-      <nav className="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+      <nav className="navbar navbar-expand-md navbar-dark fixed-top bg-dark d-sm-none">
         <div className="container-fluid">
           <a className="navbar-brand" href="/postter/home">postter</a>
           
@@ -124,12 +123,15 @@ function Header() {
                       {t('list')}
                     </NavLink>
                   </li>
+                  <li className="nav-item">
+                    <button className="btn btn-primary me-1" onClick={() => handleChange('en')}>English</button>
+                    <button className="btn btn-primary" onClick={() => handleChange('ja')}>日本語</button>
+                  </li>
                 </>
               )}
             </ul>
 
-            <button className="btn btn-primary me-1" onClick={() => handleChange('en')}>English</button>
-            <button className="btn btn-primary" onClick={() => handleChange('ja')}>日本語</button>
+            
             
             
 
