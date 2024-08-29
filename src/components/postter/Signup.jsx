@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 const apiUrl = process.env.REACT_APP_API_URL;
-
+const baseUrl = process.env.REACT_APP_BASE_URL;
 
 const SignupForm = () => {
     const [formData, setFormData] = useState({
@@ -94,9 +94,12 @@ const SignupForm = () => {
 
 
     return (
-        <div className="row justify-content-center">
-            <div className="col-5">
-                <h2>会員登録</h2>
+        <div>
+                <div className="container text-center">
+                        <img className="img-fluid mb-4" src={`${baseUrl}/media/logo/postter.png`} width="200" height="200" alt="postter"/>
+                        <h2>会員登録</h2>
+                </div>
+                
                 <form onSubmit={handleSubmit}>
                     <label>メールアドレス</label><span className="ms-3 text-danger">{formError.email}</span>
                     <input className="form-control" type="email" name="email" value={formData.email} onChange={handleChange}/>
@@ -111,13 +114,13 @@ const SignupForm = () => {
                     <input className="form-control" type="password" name="password2" value={formData.password2} onChange={handleChange}/>
                     
                     <div className="d-grid gap-2">
-                        <button className="mt-2 btn btn-outline-primary btn-block" type="submit">送信</button>
+                        <button className="mt-2 btn btn-outline-primary btn-block" type="submit">登録</button>
                     </div>
                 </form>
 
                 <p>{messages}</p>
                 <p>{formError.non_field_errors}</p>
-            </div>
+
         </div>
     );
 };

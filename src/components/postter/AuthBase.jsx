@@ -8,10 +8,16 @@ const PostterBase = () => {
 			<div>
 				<ScrollRestoration/>
 					<Header />
-					<div className="container container-body">
-						<Outlet />
+					<div className="d-flex justify-content-center align-items-center vh-100">
+            			<div className="col-10 max-width-400">
+							<div className="container container-body">
+								<Outlet />
+								
+							</div>
+							<Footer />
+						</div>
 					</div>
-					<Footer />
+					
 			</div>
 			);
 }
