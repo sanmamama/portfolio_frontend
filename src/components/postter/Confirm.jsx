@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter as useLocation} from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from 'react-i18next';
 const apiUrl = process.env.REACT_APP_API_URL;
 
 function Contact() {
@@ -23,6 +24,7 @@ function useQuery() {
 }
 
 const ContactForm = () => {
+    const { i18n } = useTranslation();
     const [messages, setMessages] = useState("");
     const [responseData, setResponseData] = useState([]);
     const [errors, setErrors] = useState("");
@@ -36,6 +38,7 @@ const ContactForm = () => {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
+                'accept-language':i18n.language,
             },
             body: JSON.stringify({key}),
         })
@@ -56,7 +59,7 @@ const ContactForm = () => {
         .catch(error => {
             setErrors(error);
         });
-    }, [key,navigate]);
+    }, [key,navigate,i18n]);
 
 
     return (

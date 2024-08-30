@@ -10,7 +10,7 @@ const apiUrl = process.env.REACT_APP_API_URL;
 //const baseUrl = process.env.REACT_APP_BASE_URL;
 
 const Home = () => {
-	const { t } = useTranslation();
+	const { i18n,t } = useTranslation();
 	const {myUserDataGlobal,setMyUserDataGlobal} = useContext(UserDataContext);
 	const [formData, setFormData] = useState({
         content: ''
@@ -52,6 +52,7 @@ const Home = () => {
             headers: {
                 'Content-Type': 'application/json',
 				'Authorization': `Token ${token}`,
+				'accept-language':i18n.language,
             },
             body: JSON.stringify(formData),
         })
@@ -59,7 +60,7 @@ const Home = () => {
             if(response.ok){
                 
             }else{
-                setMessages("ポストに失敗しました")
+                setMessages(t("post_fail"))
             }
             return response.json();
         })
@@ -68,13 +69,13 @@ const Home = () => {
                 'content':''
             }));
 			if(data.id){
-				setMessages(`ポストしました`)
+				setMessages(t("post_success"))
 				refreshPost()
 			}
         })
-        .catch(error => {
-            setMessages("ポストに失敗しました");
-        });
+        // .catch(error => {
+        //     setMessages("ポストに失敗しました");
+        // });
     };
 	
 

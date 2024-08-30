@@ -5,7 +5,7 @@ const apiUrl = process.env.REACT_APP_API_URL;
 const baseUrl = process.env.REACT_APP_BASE_URL;
 
 const SignupForm = () => {
-    const { t } = useTranslation();
+    const { i18n,t } = useTranslation();
     const [formData, setFormData] = useState({
         email: '',
         username: '',
@@ -37,6 +37,8 @@ const SignupForm = () => {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
+                'accept-language':i18n.language,
+
             },
             body: JSON.stringify(formData),
         })

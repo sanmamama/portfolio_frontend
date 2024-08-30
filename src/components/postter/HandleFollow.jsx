@@ -2,7 +2,7 @@ import { getUserData } from "./GetUserData"
 const apiUrl = process.env.REACT_APP_API_URL;
 
 //フォローハンドル
-export const handleFollow = async (userId,setMessages,t,setMyUserDataGlobal,userData,setUserData) => {
+export const handleFollow = async (userId,setMessages,t,setMyUserDataGlobal,userData,setUserData,locale) => {
 	const token = document.cookie.split('; ').reduce((acc, row) => {
 		const [key, value] = row.split('=');
 		if (key === 'token') {
@@ -15,6 +15,7 @@ export const handleFollow = async (userId,setMessages,t,setMyUserDataGlobal,user
 		headers: {
 			'Content-Type': 'application/json',
 			'Authorization': `Token ${token}`,
+			'accept-language':locale,
 		},
 		body: JSON.stringify({"following":userId}),
 	});

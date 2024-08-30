@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next';
 const apiUrl = process.env.REACT_APP_API_URL;
 
 const Message = () => {
-	const { t } = useTranslation();
+	const { i18n,t } = useTranslation();
 	const { ids } = useParams();
 	const [,toId] = ids.split('-');
 	const {myUserDataGlobal} = useContext(UserDataContext);
@@ -53,6 +53,7 @@ const Message = () => {
             headers: {
                 'Content-Type': 'application/json',
 				'Authorization': `Token ${token}`,
+				'accept-language':i18n.language,
             },
             body: JSON.stringify(formData),
         })

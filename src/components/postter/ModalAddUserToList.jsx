@@ -198,33 +198,32 @@ class CustomModal extends React.Component {
               useWindow={false}
             >
               <div>
-              
                   {this.state.userList.map((ListData, ix) => (
-                    <div>
-                    <button className="btn btn-link no-link-style w-100" style={{ cursor: "pointer" }} onClick={() => this.handleAddMember(this.state.id, ListData.id)}>
-                    <div className="row">
-                      <div className="col-8">
+                    <div className="border-bottom" key={ix}>
+                    
+                    
+                    <div className="row align-items-center">
+                      <div className="col-8 text-start">
                         <p>
                           <span><b>{ListData.name}</b></span>
                           <span className="ms-3 text-secondary">{ListData.user_ids.length}{this.state.t("member_count")}</span>
                         </p>
                         <p><span className="ms-1 text-secondary">{ListData.description}</span></p>
-                        <p className="mt-2 text-secondary">{}</p>
                       </div>
                       <div className="col-4">
-                        
-                        {ListData.user_ids.includes(this.state.id) ? this.state.t("unregister") : this.state.t("register")}
-                        
+                        <button className="btn btn-link" onClick={() => this.handleAddMember(this.state.id, ListData.id)}>
+                          {ListData.user_ids.includes(this.state.id) ? this.state.t("unregister") : this.state.t("register")}
+                          </button>
                       </div>
                     </div>
-                    </button>
+
                     </div>
                   ))}
               </div>
             </InfiniteScroll>
 
             <div className="d-grid gap-2">
-              <button className="mb-2 mt-2 btn btn-outline-danger" onClick={this.closeModal}>{this.state.t("register")}</button>
+              <button className="mb-2 mt-2 btn btn-outline-danger" onClick={this.closeModal}>{this.state.t("close")}</button>
             </div>
           </div>
         </Modal>

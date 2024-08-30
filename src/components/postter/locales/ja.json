@@ -56,5 +56,10 @@
 	"search_result":"検索結果",
 	"language_change":"言語切替",
 	"aka1" : "",
-	"aka2" : "としてログイン中"
+	"aka2" : "としてログイン中",
+	"post_success":"ポストに成功しました",
+	"post_fail":"ポストに失敗しました",
+	"repost_success":"リポストに成功しました",
+	"repost_fail":"リポストに失敗しました",
+	"repost_cancel":"リポストをキャンセルしました"
 }

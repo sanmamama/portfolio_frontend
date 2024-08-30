@@ -56,5 +56,9 @@
 	"search_result":"Search Result",
 	"language_change":"Change Language",
 	"aka1" : "Logged in as ",
-	"aka2" : ""
+	"aka2" : "",
+	"post_success":"Post successfully",
+	"post_fail":"Post failed",
+	"repost_success":"Repost successfully",
+	"repost_fail":"Repost failed"
 }

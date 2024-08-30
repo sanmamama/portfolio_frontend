@@ -67,13 +67,13 @@ const PostContainer = ({ postData,myUserDataGlobal,posts,setPosts,getUserData,se
 												{postData.owner.id === myUserDataGlobal.id && (
 													<>
 														<ModalAddUserToList t={t} class={"dropdown-item"} id={postData.owner.id}/>
-														<button className="dropdown-item" style={{cursor:"pointer"}} onClick={() => handlePostDelete(postData.id,t,refreshPost,setMessages)}>{t('delete_post')}</button>
+														<button className="dropdown-item" style={{cursor:"pointer"}} onClick={() => handlePostDelete(postData.id,t,refreshPost,setMessages,i18n.language)}>{t('delete_post')}</button>
 													</>
 												)}
 												{postData.owner.id !== myUserDataGlobal.id && (
 													<>
 														<ModalAddUserToList t={t} class={"dropdown-item"} id={postData.owner.id}/>
-														<button className="btn btn-link dropdown-item" style={{cursor:"pointer"}} onClick={() => handleFollow(postData.owner.id,setMessages,t,setMyUserDataGlobal)}>
+														<button className="btn btn-link dropdown-item" style={{cursor:"pointer"}} onClick={() => handleFollow(postData.owner.id,setMessages,t,setMyUserDataGlobal,i18n.language)}>
 															{myUserDataGlobal.following.includes(postData.owner.id) ? t('do_unfollow') : t('do_follow')}
 														</button>
 													</>
@@ -110,13 +110,13 @@ const PostContainer = ({ postData,myUserDataGlobal,posts,setPosts,getUserData,se
 											</div>
 
 											<div className="col-3">
-												<button className="btn btn-link" style={{cursor:"pointer"}} onClick={() => handleLike(posts,postData.id,ix,getUserData,setPosts,setMyUserDataGlobal)}>
+												<button className="btn btn-link" style={{cursor:"pointer"}} onClick={() => handleLike(posts,postData.id,ix,getUserData,setPosts,setMyUserDataGlobal,i18n.language)}>
 												{myUserDataGlobal.like.includes(postData.id) ? <img src={`${baseUrl}/media/icon/heart_active.svg`} width="16" height="16" alt="like"/> : <img src={`${baseUrl}/media/icon/heart_no_active.svg`} width="16" height="16" alt="like"/>}{postData.like_count}
 												</button>
 											</div>
 
 											<div className="col-3">
-												<button className="btn btn-link" style={{cursor:"pointer"}} onClick={() => handleRepost(posts,postData.id,ix,getUserData,setPosts,setMyUserDataGlobal)}>
+												<button className="btn btn-link" style={{cursor:"pointer"}} onClick={() => handleRepost(posts,postData.id,ix,getUserData,setPosts,setMyUserDataGlobal,i18n.language,setMessages,t)}>
 												{myUserDataGlobal.repost.includes(postData.id) ? <img src={`${baseUrl}/media/icon/repost_active.svg`} width="16" height="16"  alt="repost"/> : <img src={`${baseUrl}/media/icon/repost_no_active.svg`} width="16" height="16"  alt="repost"/>}{postData.repost_count}
 												</button>
 											</div>

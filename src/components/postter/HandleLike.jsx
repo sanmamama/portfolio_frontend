@@ -1,7 +1,7 @@
 const apiUrl = process.env.REACT_APP_API_URL;
 
 
-export const handleLike = async (posts,postId,postIx,getUserData,setPosts,setMyUserDataGlobal) => {
+export const handleLike = async (posts,postId,postIx,getUserData,setPosts,setMyUserDataGlobal,locale) => {
 	const token = document.cookie.split('; ').reduce((acc, row) => {
 		const [key, value] = row.split('=');
 		if (key === 'token') {
@@ -14,6 +14,7 @@ export const handleLike = async (posts,postId,postIx,getUserData,setPosts,setMyU
 		headers: {
 			'Content-Type': 'application/json',
 			'Authorization': `Token ${token}`,
+			'accept-language':locale,
 		},
 		body: JSON.stringify({"post":postId}),
 	});

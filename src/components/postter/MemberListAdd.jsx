@@ -9,7 +9,7 @@ import ModalCreateListButton from './ModalCreateListButton';
 const apiUrl = process.env.REACT_APP_API_URL;
 
 const Message = () => {
-	const { t } = useTranslation();
+	const { i18n,t } = useTranslation();
 	const id = parseInt(useParams().id, 10);
 
 	const {myUserDataGlobal} = useContext(UserDataContext);
@@ -41,6 +41,7 @@ const Message = () => {
 			headers: {
                 'Content-Type': 'application/json',
 				'Authorization': `Token ${token}`,
+				'accept-language':i18n.language,
             },
 			body: JSON.stringify({
 				"user":user_id,

@@ -143,11 +143,11 @@ function Header() {
                   <li className="nav-item">
                     <NavLink className="nav-link" to="/postter/logout" onClick={closeMenu}>{t('logout')}</NavLink>
                   </li>
-                  <li class="nav-item dropdown">
-                    <button class="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                  <li className="nav-item dropdown">
+                    <button className="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                       {t("language_change")}
                     </button>
-                    <ul class="dropdown-menu  dropdown-menu-dark">
+                    <ul className="dropdown-menu  dropdown-menu-dark">
                     <button className="btn dropdown-item" onClick={() => handleChange('en')}>English</button>
                     <button className="btn dropdown-item" onClick={() => handleChange('ja')}>日本語</button>
                     </ul>
@@ -161,11 +161,11 @@ function Header() {
                   <li className="nav-item">
                     <NavLink className="nav-link" to="/postter/signup" onClick={closeMenu}>{t('signup')}</NavLink>
                   </li>
-                  <li class="nav-item dropdown">
-                    <button class="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                  <li className="nav-item dropdown">
+                    <button className="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                       {t("language_change")}
                     </button>
-                    <ul class="dropdown-menu  dropdown-menu-dark">
+                    <ul className="dropdown-menu  dropdown-menu-dark">
                     <button className="btn dropdown-item" onClick={() => i18n.changeLanguage('en')}>English</button>
                     <button className="btn dropdown-item" onClick={() => i18n.changeLanguage('ja')}>日本語</button>
                     </ul>

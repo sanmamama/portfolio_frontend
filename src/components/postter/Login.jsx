@@ -10,7 +10,7 @@ const baseUrl = process.env.REACT_APP_BASE_URL;
 const apiUrl = process.env.REACT_APP_API_URL;
 
 const LoginForm = () => {
-    const { t } = useTranslation();
+    const { i18n,t } = useTranslation();
 
     const {setMyUserDataGlobal} = useContext(UserDataContext)
     const [formData, setFormData] = useState({
@@ -33,6 +33,7 @@ const LoginForm = () => {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
+                'accept-language':i18n.language,
             },
         })
         .then(response => {
@@ -78,6 +79,7 @@ const LoginForm = () => {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
+                'accept-language':i18n.language,
             },
             body: JSON.stringify(formData),
         })

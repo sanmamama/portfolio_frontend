@@ -13,7 +13,7 @@ const apiUrl = process.env.REACT_APP_API_URL;
 
 
 const ViewProfile = () => {
-	const { t } = useTranslation();
+	const { i18n,t } = useTranslation();
 	const location = useLocation();
 	const { uid } = useParams();
 	const {myUserDataGlobal,setMyUserDataGlobal} = useContext(UserDataContext);
@@ -132,7 +132,7 @@ const ViewProfile = () => {
 					</p>
 
 					{userData.id !== myUserDataGlobal.id && (
-						<p className="mt-3 mb-3"><button className="btn btn-outline-success btn-sm" style={{cursor:"pointer"}} onClick={() => handleFollow(userData.id,setMessages,t,setMyUserDataGlobal,userData,setUserData)}>
+						<p className="mt-3 mb-3"><button className="btn btn-outline-success btn-sm" style={{cursor:"pointer"}} onClick={() => handleFollow(userData.id,setMessages,t,setMyUserDataGlobal,userData,setUserData,i18n.language)}>
 						{myUserDataGlobal.following.includes(userData.id) ? t("do_unfollow") : t("do_follow")}
 						</button></p>
 					)}

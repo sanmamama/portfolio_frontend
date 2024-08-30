@@ -12,7 +12,7 @@ const apiUrl = process.env.REACT_APP_API_URL;
 
 
 const Home = () => {
-	const { t } = useTranslation();
+	const { i18n,t } = useTranslation();
 	const location = useLocation();
 	const { post_id } = useParams();
 
@@ -54,6 +54,7 @@ const Home = () => {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
+					'accept-language':i18n.language,
 					'Authorization': `Token ${token}`,
 				},
 				body: JSON.stringify({content:newPost,parent:post_id}),

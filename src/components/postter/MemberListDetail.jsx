@@ -11,7 +11,7 @@ import { useTranslation } from 'react-i18next';
 const apiUrl = process.env.REACT_APP_API_URL;
 
 const Message = () => {
-	const { t } = useTranslation();
+	const { i18n,t } = useTranslation();
 	const navigate = useNavigate();
 	const { id } = useParams();
 	const {myUserDataGlobal,setMyUserDataGlobal} = useContext(UserDataContext);
@@ -49,6 +49,7 @@ const Message = () => {
 			headers: {
                 'Content-Type': 'application/json',
 				'Authorization': `Token ${token}`,
+				'accept-language':i18n.language,
             },
         });
 		if(response.ok){
@@ -75,6 +76,7 @@ const Message = () => {
 			headers: {
                 'Content-Type': 'application/json',
 				'Authorization': `Token ${token}`,
+				'accept-language':i18n.language,
             },
 			body: JSON.stringify({"following":user_id}),
         });

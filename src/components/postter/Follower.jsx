@@ -11,7 +11,7 @@ const baseUrl = process.env.REACT_APP_BASE_URL;
 
 
 const Home = () => {
-	const { t } = useTranslation();
+	const { i18n,t } = useTranslation();
 	const { uid } = useParams();
 	const {myUserDataGlobal,setMyUserDataGlobal} = useContext(UserDataContext);
 	const [userData,setUserData] = useState(null);
@@ -45,6 +45,7 @@ const Home = () => {
 			headers: {
                 'Content-Type': 'application/json',
 				'Authorization': `Token ${token}`,
+                'accept-language':i18n.language,
             },
 			body: JSON.stringify({"following":following_id}),
         });
@@ -162,9 +163,9 @@ const Home = () => {
 			<div className="card">
 				<div className="card-body pt-3 pb-3 pl-3 pr-3">
 					
-					<div class="toast-container position-fixed">
-						<div id="liveToast" class="toast position-fixed top-0 start-50 translate-middle-x m-1" role="alert" aria-live="assertive" aria-atomic="true">
-							<div class="toast-body">
+					<div className="toast-container position-fixed">
+						<div id="liveToast" className="toast position-fixed top-0 start-50 translate-middle-x m-1" role="alert" aria-live="assertive" aria-atomic="true">
+							<div className="toast-body">
 								{messages}
 							</div>
 						</div>
