@@ -211,7 +211,7 @@ class CustomModal extends React.Component {
                         <p><span className="ms-1 text-secondary">{ListData.description}</span></p>
                       </div>
                       <div className="col-4">
-                        <button className="btn btn-link" onClick={() => this.handleAddMember(this.state.id, ListData.id)}>
+                        <button className="btn btn-outline-primary" onClick={() => this.handleAddMember(this.state.id, ListData.id)}>
                           {ListData.user_ids.includes(this.state.id) ? this.state.t("unregister") : this.state.t("register")}
                           </button>
                       </div>
