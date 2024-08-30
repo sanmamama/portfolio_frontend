@@ -51,5 +51,10 @@
 	"profile_img" : "ユーザイメージ",
 	"self_introduction" : "自己紹介文",
 	"send" : "送信",
-	"enter_message":"メッセージを入力"
+	"enter_message":"メッセージを入力",
+	"confirm_password":"パスワード確認",
+	"search_result":"検索結果",
+	"language_change":"言語切替",
+	"aka1" : "",
+	"aka2" : "としてログイン中"
 }

@@ -14,8 +14,10 @@ const PostterBase = () => {
 					<div className="content-wrapper">
 						<div className="container-fluid">
 							<div className="row">
-									<LeftSideContent/>
-									<div className="col-sm-9 pl-0 pr-0">
+									<div className="col-md-3 pl-1 pr-1 d-none d-md-block">
+										<LeftSideContent/>
+									</div>
+									<div className="col-md-9 pl-0 pr-0">
 										<Outlet />
 									</div>
 									

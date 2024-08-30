@@ -5,42 +5,16 @@ import {UserDataContext} from "./providers/UserDataProvider"
 import {NotificationContext} from "./providers/NotificationProvider"
 import { useTranslation } from 'react-i18next';
 const baseUrl = process.env.REACT_APP_BASE_URL;
-const apiUrl = process.env.REACT_APP_API_URL;
+//const apiUrl = process.env.REACT_APP_API_URL;
 
 const LeftSideContent = () => {
-	const { i18n,t } = useTranslation();
+	const { t } = useTranslation();
 	const [query, setQuery] = useState('');
 	const navigate = useNavigate();
 	const {myUserDataGlobal} = useContext(UserDataContext);
 	const {myNotificationGlobal} = useContext(NotificationContext);
 
-	const handleChange = (locale) => {
-		i18n.changeLanguage(locale)
-			const token = document.cookie.split('; ').reduce((acc, row) => {
-				const [key, value] = row.split('=');
-				if (key === 'token') {
-				acc = value;
-				}
-				return acc;
-			}, null);
-	
-		const formDataObj = new FormData();
-			formDataObj.append("locale", locale);
-	
-		fetch(`${apiUrl}/postter/user/`, {
-			method: 'PATCH',
-			headers: {
-			  'Authorization': `Token ${token}`,
-			},
-			body: formDataObj,
-		})
-		.then(response => {
-			return response.json();
-		})
-		.then(data => {
 
-		})
-	  }
 
 	const handleSubmit = (event) => {
 		event.preventDefault();
@@ -54,7 +28,7 @@ const LeftSideContent = () => {
 	}
 
 	return (
-		<div className="col-sm-3 pl-1 pr-1 d-none d-sm-block">
+		
 			<div className="">
 				<div className="card mb-1">
 					<div className="card-body pt-3 pb-3 pl-3 pr-3 ">
@@ -65,21 +39,17 @@ const LeftSideContent = () => {
 						</h5>
 						<h5 className="mb-4"><Link to="/postter/message/"><img className="me-3"src={`${baseUrl}/media/icon/message.svg`} width="16" height="16" alt="message"/>{t('message')}</Link></h5>
 						<h5 className="mb-4"><Link to="/postter/memberlist/"><img className="me-3"src={`${baseUrl}/media/icon/memberlist.svg`} width="16" height="16" alt="memberlist"/>{t('list')}</Link></h5>
-						<button className="btn btn-primary me-1" onClick={() => handleChange('en')}>English</button>
-						<button className="btn btn-primary" onClick={() => handleChange('ja')}>日本語</button>
-						<hr/>
-						<h5><Link to="/postter/logout">{t('logout')}</Link></h5>
 					</div>
 				</div>
 
 				<div className="mb-1 card">
 					<div className="card-body pt-3 pb-3 pl-3 pr-3">
-						<form onSubmit={handleSubmit}>
-							<div className="form-group">
-							<input type="text" className="form-control" name="q" placeholder={t('search')} value={query} onChange={(e) => setQuery(e.target.value)}/>
-							</div>
-							<button type="submit" className="btn btn-primary">{t('search')}</button>
-						</form>
+						<div className="form-group">
+							<form className="d-flex" role="search" onSubmit={handleSubmit}>
+								<input type="text" className="form-control me-2" name="q" placeholder={t('search')} value={query} onChange={(e) => setQuery(e.target.value)}/>
+								<button type="submit" className="btn btn-outline-success no-wrap-button">{t('search')}</button>
+							</form>
+						</div>
 					</div>
 				</div>
 
@@ -98,7 +68,7 @@ const LeftSideContent = () => {
 					</div>
 				</div>
 			</div>
-		</div>
+
 	  );
 }
 

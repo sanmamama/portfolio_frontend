@@ -5,6 +5,7 @@ import { getUserData } from "./GetUserData"
 import InfiniteScroll from 'react-infinite-scroller';
 import { useLocation } from 'react-router-dom';
 import PostContainer from './PostContainer';
+import { useTranslation } from 'react-i18next';
 const apiUrl = process.env.REACT_APP_API_URL;
 //const baseUrl = process.env.REACT_APP_BASE_URL;
 
@@ -14,6 +15,7 @@ function useQuery() {
 }
 
 const Home = () => {
+	const { t } = useTranslation();
 	const query = useQuery();
 	const q = query.get('q');
 	//const { q } = useParams();
@@ -88,8 +90,8 @@ const Home = () => {
 						</div>
 					</div>
 
-					<p>検索結果：{q}</p>
-				<div className="table table-responsive">
+					<p className="ms-2">{t("search_result")}：{q}</p>
+
 					<div>
 							<InfiniteScroll
 								loadMore={loadPost}
@@ -115,7 +117,6 @@ const Home = () => {
 						</div>
 					</div>
 				</div>
-			</div>
 	  );
 }
 

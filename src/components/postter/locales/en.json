@@ -51,5 +51,10 @@
 	"profile_img" : "User Image",
 	"self_introduction" : "Self Introduction",
 	"send" : "Send",
-	"enter_message":"Enter your message"
+	"enter_message":"Enter your message",
+	"confirm_password":"Confirm Password",
+	"search_result":"Search Result",
+	"language_change":"Change Language",
+	"aka1" : "Logged in as ",
+	"aka2" : ""
 }

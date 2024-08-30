@@ -12,7 +12,6 @@ const PostterBase = () => {
             			<div className="col-10 max-width-400">
 							<div className="container container-body">
 								<Outlet />
-								
 							</div>
 							<Footer />
 						</div>
