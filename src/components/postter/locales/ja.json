@@ -61,5 +61,7 @@
 	"post_fail":"ポストに失敗しました",
 	"repost_success":"リポストに成功しました",
 	"repost_fail":"リポストに失敗しました",
-	"repost_cancel":"リポストをキャンセルしました"
+	"repost_cancel":"リポストをキャンセルしました",
+	"notification_none":"通知はありません",
+	"list_none":"リストはありません"
 }

@@ -82,6 +82,7 @@ const Message = () => {
 			<div className="card">
 				<div className="card-body pt-3 pb-3 pl-3 pr-3">
 					<h4 className="mb-3">{t('notification')}</h4>
+					{NotificationList.length ? "":t("notification_none")}
 					<div>
 						<InfiniteScroll
 							loadMore={loadNotificationList}

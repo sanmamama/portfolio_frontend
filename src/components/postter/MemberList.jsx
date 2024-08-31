@@ -52,7 +52,8 @@ const Message = () => {
 			<div className="card">
 				<div className="card-body pt-3 pb-3 pl-3 pr-3">
 					<h4>{t('list')}</h4>
-				<ModalCreateListButton t={t} userList={userList} setUserList={setUserList}/>					
+				<ModalCreateListButton t={t} userList={userList} setUserList={setUserList}/>
+				{userList.length ? "":t("list_none")}				
 				<div>
 							<InfiniteScroll
 								loadMore={loadMessageList}

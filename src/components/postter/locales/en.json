@@ -60,5 +60,8 @@
 	"post_success":"Post successfully",
 	"post_fail":"Post failed",
 	"repost_success":"Repost successfully",
-	"repost_fail":"Repost failed"
+	"repost_fail":"Repost failed",
+	"repost_cancel":"Canceled Repost",
+	"notification_none":"No notifications",
+	"list_none":"No lists"
 }
