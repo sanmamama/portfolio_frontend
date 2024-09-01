@@ -63,5 +63,17 @@
 	"repost_fail":"リポストに失敗しました",
 	"repost_cancel":"リポストをキャンセルしました",
 	"notification_none":"通知はありません",
-	"list_none":"リストはありません"
+	"list_none":"リストはありません",
+	"follow_by":"",
+	"follow_by2":"さんにフォローされました",
+	"like_by":"",
+	"like_by2":"さんがあなたのポストをいいねしました",
+	"repost_by":"",
+	"repost_by2":"さんがあなたのポストをリポストしました",
+	"reply_by":"",
+	"reply_by2":"さんがあなたのポストにリプライしました",
+	"mention_by":"",
+	"mention_by2":"さんがあなたにメンションを送りました",
+	"message_by":"",
+	"message_by2":"さんからダイレクトメッセージを受け取りました"
 }

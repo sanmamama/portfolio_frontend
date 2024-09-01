@@ -63,5 +63,17 @@
 	"repost_fail":"Repost failed",
 	"repost_cancel":"Canceled Repost",
 	"notification_none":"No notifications",
-	"list_none":"No lists"
+	"list_none":"No lists",
+	"follow_by":"Followed by ",
+	"follow_by2":"",
+	"like_by":"",
+	"like_by2":" liked the post",
+	"repost_by":"",
+	"repost_by2":" reposted the post",
+	"reply_by":"",
+	"reply_by2":" replied the post",
+	"mention_by":"",
+	"mention_by2":" sent a mention",
+	"message_by":"Direct message from ",
+	"message_by2":""
 }
