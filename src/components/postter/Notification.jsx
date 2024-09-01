@@ -9,7 +9,7 @@ import { useTranslation } from 'react-i18next';
 const apiUrl = process.env.REACT_APP_API_URL;
 
 const Message = () => {
-	const { t } = useTranslation();
+	const { i18n,t } = useTranslation();
 	const {myUserDataGlobal} = useContext(UserDataContext);
 	const [NotificationList, setNotificationList] = useState([]);
 	const [pageCount, setPageCount] = useState(1);
@@ -103,6 +103,7 @@ const Message = () => {
 											<div className="col-10">
 											
 											<p className="ms-1">{t("follow_by")}<b>{NotificationData.sender.username}</b>{t("follow_by2")}</p>
+											<p className="ms-1 text-secondary">{i18n.language === "ja" ? <PostContent content={NotificationData.content_JA}/>:<PostContent content={NotificationData.content_EN}/>}</p>
 											<p className="ms-1 text-secondary"><PostContent content={NotificationData.content}/></p>
 											<p className="ms-1 text-secondary">{NotificationData.created_at.split('.')[0].replace('T',' ')}</p>
 											
@@ -122,6 +123,7 @@ const Message = () => {
 											<div className="col-10">
 											
 											<p className="ms-1">{t("like_by")}<b>{NotificationData.sender.username}</b>{t("like_by2")}</p>
+											<p className="ms-1 text-secondary">{i18n.language === "ja" ? <PostContent content={NotificationData.content_JA}/>:<PostContent content={NotificationData.content_EN}/>}</p>
 											<p className="ms-1 text-secondary"><PostContent content={NotificationData.content}/></p>
 											<p className="ms-1 text-secondary">{NotificationData.created_at.split('.')[0].replace('T',' ')}</p>
 											
@@ -141,6 +143,7 @@ const Message = () => {
 											<div className="col-10">
 											
 											<p className="ms-1">{t("repost_by")}<b>{NotificationData.sender.username}</b>{t("repost_by2")}</p>
+											<p className="ms-1 text-secondary">{i18n.language === "ja" ? <PostContent content={NotificationData.content_JA}/>:<PostContent content={NotificationData.content_EN}/>}</p>
 											<p className="ms-1 text-secondary"><PostContent content={NotificationData.content}/></p>
 											<p className="ms-1 text-secondary">{NotificationData.created_at.split('.')[0].replace('T',' ')}</p>
 											
@@ -160,6 +163,7 @@ const Message = () => {
 											<div className="col-10">
 											
 											<p className="ms-1">{t("mention_by")}<b>{NotificationData.sender.username}</b>{t("mention_by2")}</p>
+											<p className="ms-1 text-secondary">{i18n.language === "ja" ? <PostContent content={NotificationData.content_JA}/>:<PostContent content={NotificationData.content_EN}/>}</p>
 											<p className="ms-1 text-secondary"><PostContent content={NotificationData.content}/></p>
 											<p className="ms-1 text-secondary">{NotificationData.created_at.split('.')[0].replace('T',' ')}</p>
 											
@@ -178,6 +182,7 @@ const Message = () => {
 												</div>
 											<div className="col-10">
 											<p className="ms-1">{t("message_by")}<b>{NotificationData.sender.username}</b>{t("message_by2")}</p>
+											<p className="ms-1 text-secondary">{i18n.language === "ja" ? <PostContent content={NotificationData.content_JA}/>:<PostContent content={NotificationData.content_EN}/>}</p>
 											<p className="ms-1 text-secondary"><PostContent content={NotificationData.content}/></p>
 											<p className="ms-1 text-secondary">{NotificationData.created_at.split('.')[0].replace('T',' ')}</p>
 											
@@ -196,6 +201,7 @@ const Message = () => {
 												</div>
 											<div className="col-10">
 											<p className="ms-1">{t("reply_by")}<b>{NotificationData.sender.username}</b>{t("reply_by2")}</p>
+											<p className="ms-1 text-secondary">{i18n.language === "ja" ? <PostContent content={NotificationData.content_JA}/>:<PostContent content={NotificationData.content_EN}/>}</p>
 											<p className="ms-1 text-secondary"><PostContent content={NotificationData.content}/></p>
 											<p className="ms-1 text-secondary">{NotificationData.created_at.split('.')[0].replace('T',' ')}</p>
 											
