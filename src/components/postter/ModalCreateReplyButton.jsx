@@ -74,7 +74,7 @@ class CustomModal extends React.Component {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-				'Authorization': `Token ${token}`,
+				        'Authorization': `Token ${token}`,
             },
             body: JSON.stringify({content:this.state.newPost.trim(),parent:this.props.postData.id}),
         })
