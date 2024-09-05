@@ -1,29 +1,18 @@
 
 import React, { useEffect, useState } from 'react';
-import { BrowserRouter as useLocation} from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
+
 const apiUrl = process.env.REACT_APP_API_URL;
 
-function Contact() {
-    return (
-        <div className="col-sm-9">
-            <div className="container container-m">
-                <div className="row">
-                    <div className="w-100">
-                        <ContactForm />
-                    </div>
-                </div>
-            </div>
-        </div>
-    );
-}
 
 function useQuery() {
-	return new URLSearchParams(useLocation().search);
+    const location = useLocation(); // useLocationから正しく値を取得する
+    return new URLSearchParams(location.search);
 }
 
-const ContactForm = () => {
+const Confirm = () => {
     const { i18n } = useTranslation();
     const [messages, setMessages] = useState("");
     const [responseData, setResponseData] = useState([]);
@@ -34,6 +23,7 @@ const ContactForm = () => {
 
 
     useEffect(() => {
+        console.log("aaaaa")
         fetch(`${apiUrl}/auth/registration/verify-email/`, {
             method: 'POST',
             headers: {
@@ -63,12 +53,18 @@ const ContactForm = () => {
 
 
     return (
-        <>
-        <p>{messages}</p>
-        <p>{JSON.stringify(errors)}</p>
-        <p>{JSON.stringify(responseData)}</p>
-        </>
+        <div className="col-sm-9">
+            <div className="container container-m">
+                <div className="row">
+                    <div className="w-100">
+                        <p>{messages}</p>
+                        <p>{JSON.stringify(errors)}</p>
+                        <p>{JSON.stringify(responseData)}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
     );
 };
 
-export default Contact;
+export default Confirm;
