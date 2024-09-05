@@ -23,7 +23,6 @@ const Confirm = () => {
 
 
     useEffect(() => {
-        console.log("aaaaa")
         fetch(`${apiUrl}/auth/registration/verify-email/`, {
             method: 'POST',
             headers: {
