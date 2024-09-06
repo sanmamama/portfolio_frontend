@@ -140,9 +140,7 @@ function Header() {
                     {t("aka1")}{myUserDataGlobal.username}{t("aka2")}
                     </NavLink>
                   </li>
-                  <li className="nav-item">
-                    <NavLink className="nav-link" to="/postter/logout" onClick={closeMenu}>{t('logout')}</NavLink>
-                  </li>
+                  
                   <li className="nav-item dropdown">
                     <button className="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                       {t("language_change")}
@@ -151,6 +149,10 @@ function Header() {
                     <button className="btn dropdown-item" onClick={() => handleChange('en')}>English</button>
                     <button className="btn dropdown-item" onClick={() => handleChange('ja')}>日本語</button>
                     </ul>
+                  </li>
+                  <hr/>
+                  <li className="nav-item">
+                    <NavLink className="nav-link" to="/postter/logout" onClick={closeMenu}>{t('logout')}</NavLink>
                   </li>
                 </>
               ) : (
