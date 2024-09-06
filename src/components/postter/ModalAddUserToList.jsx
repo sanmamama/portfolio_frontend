@@ -180,7 +180,7 @@ class CustomModal extends React.Component {
   render() {
     return (
       <div>
-        <button className={this.state.class+" btn btn-link no-link-style"} style={{cursor:"pointer"}} onClick={this.openModal}>{this.state.t('add_or_remove_lists')}</button>
+        <button className={this.state.class} style={{cursor:"pointer"}} onClick={this.openModal}>{this.state.t('add_or_remove_lists')}</button>
         <Modal
           isOpen={this.state.modalIsOpen}
           onRequestClose={this.closeModal}

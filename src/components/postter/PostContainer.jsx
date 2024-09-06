@@ -66,13 +66,13 @@ const PostContainer = ({ postData,myUserDataGlobal,posts,setPosts,getUserData,se
 												<div className="dropdown-menu">
 												{postData.owner.id === myUserDataGlobal.id && (
 													<>
-														<ModalAddUserToList t={t} class={"dropdown-item"} id={postData.owner.id}/>
+														<ModalAddUserToList t={t} class={"dropdown-item btn btn-link no-link-style"} id={postData.owner.id}/>
 														<button className="dropdown-item" style={{cursor:"pointer"}} onClick={() => handlePostDelete(postData.id,t,refreshPost,setMessages,i18n.language)}>{t('delete_post')}</button>
 													</>
 												)}
 												{postData.owner.id !== myUserDataGlobal.id && (
 													<>
-														<ModalAddUserToList t={t} class={"dropdown-item"} id={postData.owner.id}/>
+														<ModalAddUserToList t={t} class={"dropdown-item btn btn-link no-link-style"} id={postData.owner.id}/>
 														<button className="btn btn-link dropdown-item" style={{cursor:"pointer"}} onClick={() => handleFollow(postData.owner.id,setMessages,t,setMyUserDataGlobal,i18n.language)}>
 															{myUserDataGlobal.following.includes(postData.owner.id) ? t('do_unfollow') : t('do_follow')}
 														</button>

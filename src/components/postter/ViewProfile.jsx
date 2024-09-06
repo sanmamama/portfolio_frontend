@@ -8,6 +8,7 @@ import ModalEditProfileButton from './ModalEditProfileButton';
 import PostContainer from './PostContainer';
 import { useTranslation } from 'react-i18next';
 import {handleFollow} from './HandleFollow';
+import ModalAddUserToList from './ModalAddUserToList';
 const apiUrl = process.env.REACT_APP_API_URL;
 //const baseUrl = process.env.REACT_APP_BASE_URL;
 
@@ -132,9 +133,9 @@ const ViewProfile = () => {
 					</p>
 
 					{userData.id !== myUserDataGlobal.id && (
-						<p className="mt-3 mb-3"><button className="btn btn-outline-success btn-sm" style={{cursor:"pointer"}} onClick={() => handleFollow(userData.id,setMessages,t,setMyUserDataGlobal,userData,setUserData,i18n.language)}>
+						<button className="btn btn-outline-success btn-sm" style={{cursor:"pointer"}} onClick={() => handleFollow(userData.id,setMessages,t,setMyUserDataGlobal,userData,setUserData,i18n.language)}>
 						{myUserDataGlobal.following.includes(userData.id) ? t("do_unfollow") : t("do_follow")}
-						</button></p>
+						</button>
 					)}
 					{userData.id === myUserDataGlobal.id && (
 						<>
@@ -145,7 +146,8 @@ const ViewProfile = () => {
 					    </>
 					)}
 					
-					<p className="mt-3 mb-3"><Link className="btn btn-outline-success btn-sm" to={`/postter/add_member/${userData.id}/`}>{t("list_operation")}</Link></p>
+					<ModalAddUserToList t={t} class={"btn btn-outline-primary btn-sm mt-3 mb-3"} id={userData.id}/>
+
 					<div className="">
 						<InfiniteScroll
 								loadMore={loadPost}
