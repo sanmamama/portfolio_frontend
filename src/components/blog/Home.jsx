@@ -79,7 +79,7 @@ const BlogItem = ({ item,isSmallScreen }) => (
 			<div>
                 <Link className="custom-link-style" to={`/detail/${item.id}`}>
                     
-                    <div className="card text-bg-dark">
+                    <div className="card text-bg-dark border-0">
                         <div className="image-container">
                             <img src={item.img} alt={item.title} className="card-img"/>
                         </div>
