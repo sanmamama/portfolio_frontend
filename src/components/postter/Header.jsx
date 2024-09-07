@@ -1,4 +1,4 @@
-import { NavLink,useLocation} from 'react-router-dom';
+import { NavLink} from 'react-router-dom';
 import { useContext, useEffect } from 'react';
 import { UserDataContext } from "./providers/UserDataProvider";
 import {NotificationContext} from "./providers/NotificationProvider"
@@ -13,13 +13,13 @@ function Header() {
   const { t, i18n } = useTranslation();
   const { myUserDataGlobal, setMyUserDataGlobal } = useContext(UserDataContext);
   const {setMyNotificationGlobal} = useContext(NotificationContext);
-  const location = useLocation();
+
 
   //ログインチェック
 	useEffect(()=>{
 		loginCheck(setMyUserDataGlobal,navigate,i18n.changeLanguage)
 		notificationCheck(setMyNotificationGlobal)
-	},[setMyUserDataGlobal,setMyNotificationGlobal,navigate,i18n.changeLanguage,location])
+	},[setMyUserDataGlobal,setMyNotificationGlobal,navigate,i18n.changeLanguage])
 
   useEffect(() => {
 

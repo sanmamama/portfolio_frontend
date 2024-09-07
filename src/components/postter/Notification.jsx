@@ -1,8 +1,9 @@
-import React, { useState ,useContext } from 'react';
+import React, { useState ,useContext} from 'react';
 import { Link } from 'react-router-dom';
 import {UserDataContext} from "./providers/UserDataProvider"
 import InfiniteScroll from 'react-infinite-scroller';
-
+import { notificationCheck } from './NotificationCheck';
+import {NotificationContext} from "./providers/NotificationProvider"
 import PostContent from './PostContent';
 
 import { useTranslation } from 'react-i18next';
@@ -14,10 +15,7 @@ const Message = () => {
 	const [NotificationList, setNotificationList] = useState([]);
 	const [pageCount, setPageCount] = useState(1);
 	const [hasMore, setHasMore] = useState(true);
-
-
-
-
+	const {setMyNotificationGlobal} = useContext(NotificationContext);
 
 	// const refreshNotificationList = async() => {
 	// 	const token = document.cookie.split('; ').reduce((acc, row) => {
@@ -70,6 +68,7 @@ const Message = () => {
 			setNotificationList([...NotificationList, ...data.results])
 			setHasMore(data.next)
 			setPageCount(pageCount+1)
+			notificationCheck(setMyNotificationGlobal)
 		}
 	}
 	
