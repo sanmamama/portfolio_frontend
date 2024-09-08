@@ -141,7 +141,7 @@ const Message = () => {
 							</div>
 					))}
 					</div>
-					{userList.length ? <h4 className="mt-4 mb-3">{t("past_message")}</h4>:""}
+					{userList.length ? <h4 className="mt-4 mb-3">{t("past_message")}</h4>:t("message_none")}
 					<div>
 						<InfiniteScroll
 							loadMore={loadMessageList}
