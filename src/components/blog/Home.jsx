@@ -167,34 +167,50 @@ const App = () => {
                 const month = String(createdAtDate.getMonth() + 1).padStart(2, '0'); // 月は 0 ベースなので +1 する
                 const yearMonth = `${year}${month}`;
 
-                console.log(item)
+                if(q){
+                    return (
+                        item.content_html.includes(q) ||
+                        item.title.includes(q) ||
+                        item.category.name.includes(q) ||
+                        item.tag.includes(q)
+                    );
+                }
+                if(selectedCategory || selectedTag || selectedYearMonth){
+                    return (
+                        item.category.name === selectedCategory ||
+                        item.tag.some((tag) => selectedTag.includes(tag.name)) ||
+                        yearMonth === selectedYearMonth
+                    );
+                }
 
-                return (
-                    item.category.name === selectedCategory ||
-                    item.tag.some((tag) => selectedTag.includes(tag.name)) ||
-                    yearMonth === selectedYearMonth ||
-                    item.content_html.includes(q) ||
-                    item.title.includes(q) ||
-                    item.category.name.includes(q) ||
-                    item.tag.includes(q)
-                );
+                return true
             })
 
             if(filteredBlogs.length){
                 setBlog(filteredBlogs);
             }else{
-                setBlog(myBlogDataGlobal);
+                setBlog(null);
             }
         }catch{
             return
         }
-        
-        //fetchItems();
+
     }, [location.search,selectedPage,selectedCategory,selectedTag,selectedYearMonth,myBlogDataGlobal,q]);
 
 
     if (!blog) {
-        return <div>Loading...</div>;
+        return(
+            <>
+                <div className="col-sm-9">
+                    <div className="container container-m">
+                        <div className="row">
+                            記事がありません
+                        </div>
+                    </div>
+                </div>
+                <SidebarContent />
+            </>
+        );
     }
 
     let addUrl = `${selectedCategory ? `&category=${selectedCategory}` : ''}${selectedTag ? `&tag=${selectedTag}` : ''}${selectedYearMonth ? `&date=${selectedYearMonth}` : ''}`;
