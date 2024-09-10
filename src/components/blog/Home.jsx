@@ -3,6 +3,7 @@ import { Link,useLocation } from 'react-router-dom';
 import SidebarContent from './HomeSidebar';
 import {BlogDataContext} from "./providers/BlogDataProvider"
 
+
 // カスタムフック: ウィンドウサイズが `576px` 以下かどうかをチェック
 const useIsSmallScreen = () => {
     const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 576);
@@ -138,8 +139,6 @@ const BlogItem = ({ item,isSmallScreen }) => (
 const App = () => {
     const {myBlogDataGlobal} = useContext(BlogDataContext);
     const [blog, setBlog] = useState(null);
-    //const [pageCount, setPageCount] = useState(null);
-    //const [currentPage, setCurrentPage] = useState(null);
     const [pageCount] = useState(null);
     const [currentPage] = useState(null);
 
@@ -148,25 +147,19 @@ const App = () => {
 	//ページ遷移
 	const location = useLocation();
 
+
+
     // URLパラメータからフィルタ状態を取得
     const query = useQuery();
     const selectedPage = parseInt(query.get('page') || 1, 10);
     const selectedCategory = query.get('category') || '';
     const selectedTag = query.get('tag') || '';
     const selectedYearMonth = query.get('date') || '';
+    const q = query.get('q') || '';
 
+    
 
     useEffect(() => {
-        // const fetchItems = async () => {
-        //     const response = await fetch(
-        //         `${process.env.REACT_APP_API_URL}/blog/?page=${selectedPage}&category=${selectedCategory}&tag=${selectedTag}&date=${selectedYearMonth}`
-        //     );
-        //     const data = await response.json();
-        //     //setBlog(data.results);
-        //     setCurrentPage(selectedPage);
-        //     setPageCount(Math.ceil(data.count / 6));
-        // };
-
         try{
             const filteredBlogs = myBlogDataGlobal.filter((item) => {
                 const createdAtDate = new Date(item.created_at);
@@ -174,10 +167,16 @@ const App = () => {
                 const month = String(createdAtDate.getMonth() + 1).padStart(2, '0'); // 月は 0 ベースなので +1 する
                 const yearMonth = `${year}${month}`;
 
+                console.log(item)
+
                 return (
                     item.category.name === selectedCategory ||
                     item.tag.some((tag) => selectedTag.includes(tag.name)) ||
-                    yearMonth === selectedYearMonth
+                    yearMonth === selectedYearMonth ||
+                    item.content_html.includes(q) ||
+                    item.title.includes(q) ||
+                    item.category.name.includes(q) ||
+                    item.tag.includes(q)
                 );
             })
 
@@ -191,7 +190,7 @@ const App = () => {
         }
         
         //fetchItems();
-    }, [location.search,selectedPage,selectedCategory,selectedTag,selectedYearMonth,myBlogDataGlobal]);
+    }, [location.search,selectedPage,selectedCategory,selectedTag,selectedYearMonth,myBlogDataGlobal,q]);
 
 
     if (!blog) {
