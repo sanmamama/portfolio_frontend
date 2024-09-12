@@ -19,7 +19,7 @@ function Portfolio() {
         </ul>
         <hr/>
 
-				<p><a className= "me-2" href="/postter">Postter</a>準備中ですのでアクセスできません</p>
+				<p><a href="/postter">Postter</a></p>
         <p>多言語対応のSNSプラットフォームアプリです。ユーザーが投稿する内容を、DeepL APIを使用して自動的に複数の言語に翻訳し、他言語のユーザーにもシームレスに共有できるSNSアプリを開発しました。</p>
         <p>代表的な機能</p>
         <ul>
