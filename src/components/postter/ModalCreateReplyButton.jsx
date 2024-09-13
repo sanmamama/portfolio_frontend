@@ -122,7 +122,13 @@ class CustomModal extends React.Component {
 										<span className="ms-1 text-secondary">{this.props.postData.created_at.split('.')[0].replace('T',' ')}</span>
 									</h6>
 									<p>
-                  {this.state.i18n.language === "ja" ? <PostContent content={this.props.postData.content_JA}/>:<PostContent content={this.props.postData.content_EN}/>}
+                  {this.state.i18n.language === "ja" ? (
+													<PostContent content={this.props.postData.content_JA} />
+													) : this.state.i18n.language === "zh" ? (
+													<PostContent content={this.props.postData.content_ZH} />
+													) : (
+													<PostContent content={this.props.postData.content_EN} />
+									)}
                   <a className="ms-1" data-bs-toggle="collapse" href="#collapse" aria-expanded="false" aria-controls="collapse">
                     <img src={`${baseUrl}/media/icon/original_text.svg`} width="16" height="16" alt="original_text"/>
                   </a>
