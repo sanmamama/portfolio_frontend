@@ -149,6 +149,7 @@ function Header() {
                     <ul className="dropdown-menu  dropdown-menu-dark">
                     <button className="btn dropdown-item" onClick={() => handleChange('en')}>English</button>
                     <button className="btn dropdown-item" onClick={() => handleChange('ja')}>日本語</button>
+                    <button className="btn dropdown-item" onClick={() => handleChange('zh')}>中文</button>
                     </ul>
                   </li>
                   <hr/>
@@ -171,6 +172,7 @@ function Header() {
                     <ul className="dropdown-menu  dropdown-menu-dark">
                     <button className="btn dropdown-item" onClick={() => i18n.changeLanguage('en')}>English</button>
                     <button className="btn dropdown-item" onClick={() => i18n.changeLanguage('ja')}>日本語</button>
+                    <button className="btn dropdown-item" onClick={() => i18n.changeLanguage('zh')}>中文</button>
                     </ul>
                   </li>
                 </>

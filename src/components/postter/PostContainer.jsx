@@ -86,7 +86,13 @@ const PostContainer = ({ postData,myUserDataGlobal,posts,setPosts,getUserData,se
 										<div className="row">
 											<div className="ms-1">
 												<Link className="no-link-style" to={`/postter/post/${postData.id}/`}>
-                          {i18n.language === "ja" ? <PostContent content={postData.content_JA}/>:<PostContent content={postData.content_EN}/>}
+												{i18n.language === "ja" ? (
+													<PostContent content={postData.content_JA} />
+													) : i18n.language === "zh" ? (
+													<PostContent content={postData.content_ZH} />
+													) : (
+													<PostContent content={postData.content_EN} />
+												)}
 
 												</Link>
                         <a className="ms-1" data-bs-toggle="collapse" href={"#collapse"+ix} aria-expanded="false" aria-controls={"collapse"+ix}>
