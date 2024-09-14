@@ -1,70 +1,87 @@
-# Getting Started with Create React App
+# さんまままによるポートフォリオ
+画像を貼る
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## アプリ概要
+**ブログアプリ「さんまブログ」**  
+説明
 
-## Available Scripts
+**SNSアプリ「Postter」** 
+説明
 
-In the project directory, you can run:
 
-### `npm start`
+**アプリURL:**  
+URL
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## 開発背景
+### アプリをつくった背景
+体力的な面も精神的な面も含めてエネルギーは本来やりたいことなどに使えると幸せなのではないかと元々考えていました。
+そこで自炊をしている友人が料理について、「料理をすること自体は楽しいけど、日々献立を考えるのは地味に面倒」とボヤいてたのをきっかけに献立に関するアプリを作成してみようと思いました。
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### ユーザーが抱える課題
+- 一人暮らしであり、自炊等で料理をする機会から必然的に献立を考えざるを得なくなることが多くなる
+- ただ、献立を考える際に料理アプリで検索しても自分の難易度に合わないレシピを含めた沢山のものが出てきて、情報量が多くなってしまいがち
+- よって献立をどうするか悩みやすく、決める手間というのは想像以上に多い
+- そのようなことから料理自体が面倒になり、結果的に外食で済ますことや惣菜を買うといったことがあり、食費がかさんでしまうことに悩んでいる
 
-### `npm test`
+### 解決方法
+自分の作成経験のあるレシピ内で探すなど、あえて情報量を少なくして献立を考える手間を省く
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### 望むこと
+- 料理をする前の献立を考えるリソースを減らして、料理をすることに集中してもらう
+- 食材を買う際にも、本サービスの利用により何を買うか迷わなくなるようになっていくこと
 
-### `npm run build`
+## 機能一覧
+- ログイン機能
+- レシピ登録機能(編集含む)
+- 自分のレシピ検索機能
+- 他ユーザーのレシピ一覧
+- 他ユーザーのレシピ検索機能
+- プロフィール編集機能
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## 画面紹介(一部)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+|        **ホームページ**        |         **検索結果**          |      **ユーザー一覧**       |
+|:---------------------------:|:--------------------------:|:---------------------------:|
+| <img src="public/README2/index.png" alt="ホームページ" width="200"> | <img src="public/README2/search_result.png" alt="検索結果" width="200"> | <img src="public/README2/user_all.png" alt="レシピ一覧" width="200"> |
+|        **レシピ登録**        |         **レシピ編集**         |         **レシピ詳細**         |
+| <img src="public/README2/recipe_new.png" alt="レシピ登録" width="200"> | <img src="public/README2/recipe_edit.png" alt="レシピ編集" width="200"> | <img src="public/README2/recipe_show.png" alt="レシピ詳細" width="200"> |
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
+## ER図
+![ER図](public/README/er-image.png)
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## インフラ構成図
+![インフラ図](public/README/infra-image.png)
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## 主な使用技術
+| カテゴリー | 使用技術 | 
+|:-----------|:------------|
+| フロントエンド | HTML/CSS, JavaScript | 
+| バックエンド | Ruby3.1.2, Rails7.0.6 |
+| データベース | MySQL8.0.33 |
+| 本番環境 | AWS（VPC, EC2, RDS, ALB, ACM, Route53, S3） |
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## 工夫した点
+<details>
+  <summary>1.配列を活用した食材リストの一括操作</summary>
+  
+  - 食材を追加や編集を行う際に一つずつデータ処理するのではなく、配列を用いて一気に食材リストを登録や更新できるようにしました
+</details>
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+<details>
+  <summary>2.直感的に操作</summary>
+  
+  - ヘッダーに他のサイトなどでもよく見かけるアイコンを用いる等のことを行い直感的に操作できるようにしました
+</details>
 
-## Learn More
+<details>
+  <summary>3.手軽に献立を検索するコンセプト</summary>
+  
+  - ログイン直後のページで登録した自分のレシピの表示やすぐに検索をできるようにと、手軽に献立を検索するコンセプトに沿うようにしました。
+</details>
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+<details>
+  <summary>4.女性好みのデザイン配色</summary>
+  
+  - デザイン面でミントグリーンやオレンジ色などを使って、雰囲気を柔らかく女性の好みにも合致しやすいように配色を寄せました。
+</details>
