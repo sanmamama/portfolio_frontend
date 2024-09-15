@@ -1,8 +1,8 @@
 フロントエンドのリポジトリです。バックエンドのリポジトリは<a href=https://github.com/sanmamama/rest>こちら</a>です。  
 
 # ポートフォリオサイト
-![service_blog](https://github.com/sanmamama/react/blob/main/public/blog.png)
-![service_postter](https://github.com/sanmamama/react/blob/main/public/postter.png)
+![service_blog](https://github.com/sanmamama/portfolio_frontend/blob/main/public/blog.png)
+![service_postter](https://github.com/sanmamama/portfolio_frontend/blob/main/public/postter.png)
 
 ## アプリ概要
 **ブログアプリ**  
