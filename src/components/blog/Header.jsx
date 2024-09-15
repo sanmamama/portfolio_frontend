@@ -1,11 +1,14 @@
-import React, { useEffect ,useContext } from 'react';
+import React, { useEffect , useState, useContext } from 'react';
 import { NavLink ,Link } from 'react-router-dom';
 import {BlogDataContext} from "./providers/BlogDataProvider"
+import { useNavigate } from 'react-router-dom';
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
 function Header() {
   const {myBlogDataGlobal,setMyBlogDataGlobal} = useContext(BlogDataContext);
+  const [query, setQuery] = useState('');
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleDocumentClick = (event) => {
@@ -37,6 +40,14 @@ function Header() {
       }
 }, [myBlogDataGlobal,setMyBlogDataGlobal]);
 
+const handleSubmit = (event) => {
+  event.preventDefault();
+  if (query.trim()) {
+      navigate(`/?q=${query}`);
+  }
+  setQuery("")
+  closeMenu()
+};
 
   const closeMenu = () => {
     const navBar = document.getElementById('navbarsExampleDefault');
@@ -105,8 +116,18 @@ function Header() {
                 </NavLink>
               </li>
             </ul>
+
+            <div class="ms-auto">
+                <form class="d-flex" role="search" onSubmit={handleSubmit}>
+                  <input type="text" className="form-control me-2" name="q" placeholder="記事を検索" value={query} onChange={(e) => setQuery(e.target.value)}/>
+                  <button type="submit" className="btn btn-success no-wrap-button">検索</button>
+                </form>
+            </div>
+
+            
           </div>
         </div>
+        
       </nav>
 
       <div className="jumbotron">

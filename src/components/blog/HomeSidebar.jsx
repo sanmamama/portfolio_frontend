@@ -2,8 +2,6 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import {BlogDataContext} from "./providers/BlogDataProvider"
-import { useNavigate } from 'react-router-dom';
-
 //const apiUrl = process.env.REACT_APP_API_URL;
 
 const SidebarContent = () => {
@@ -11,8 +9,7 @@ const SidebarContent = () => {
     const [tags, setTags] = useState([]);
     const [archives, setArchives] = useState([]);
     const {myBlogDataGlobal} = useContext(BlogDataContext);
-    const [query, setQuery] = useState('');
-    const navigate = useNavigate();
+
     
 
     // useEffect(() => {
@@ -35,12 +32,7 @@ const SidebarContent = () => {
         }
         }, [myBlogDataGlobal]);
 
-    const handleSubmit = (event) => {
-            event.preventDefault();
-            if (query.trim()) {
-                navigate(`/?q=${query}`);
-            }
-    };
+
 
     const calculateCategories = (posts) => {
         const categoryCount = {};
@@ -106,16 +98,6 @@ const SidebarContent = () => {
                 </div>
             </div>
             
-            <div className="mt-1 card">
-				<div className="card-body pt-3 pb-3 pl-3 pr-3">
-                    <div className="form-group">
-                        <form className="d-flex" role="search" onSubmit={handleSubmit}>
-                            <input type="text" className="form-control me-2" name="q" placeholder="検索" value={query} onChange={(e) => setQuery(e.target.value)}/>
-                            <button type="submit" className="btn btn-outline-success no-wrap-button">検索</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
 
             <div className="card mt-1">
                 <div className="card-body">
