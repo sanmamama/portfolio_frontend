@@ -1,8 +1,8 @@
 フロントエンドのリポジトリです。バックエンドのリポジトリは<a href=https://github.com/sanmamama/rest>こちら</a>です。  
 
 # ポートフォリオサイト　-　ブログ/SNSアプリ
-![service_blog](https://github.com/sanmamama/portfolio_frontend/blob/main/public/images/blog.png)　
-![service_postter](https://github.com/sanmamama/portfolio_frontend/blob/main/public/images/postter.png)
+![service_blog](https://github.com/sanmamama/portfolio_frontend/blob/main/public/images/readme/blog.png)　
+![service_postter](https://github.com/sanmamama/portfolio_frontend/blob/main/public/images/readme/postter.png)
 
 ## アプリ概要
 **ブログアプリ**  
@@ -31,14 +31,14 @@
 ## 主な機能の使い方
 **ブログアプリ**
 
-|        **記事の投稿**        |         **記事の検索**          |      **カテゴリ等一覧表示機能**       |
+|        **記事の閲覧**        |         **記事の検索**          |      **カテゴリ等別一覧表示機能**       |
 |:---------------------------:|:--------------------------:|:---------------------------:|
-| <img src="public/README2/index.png" alt="ホームページ" width="200"> | <img src="public/README2/search_result.png" alt="検索結果" width="200"> | <img src="public/README2/user_all.png" alt="レシピ一覧" width="200"> |
+| <img src="public/readme/view.png" alt="記事の閲覧" width="200"> | <img src="public/readme/search.png" alt="記事の検索" width="200"> | <img src="public/readme/listview.png" alt="カテゴリ等別一覧表示機能" width="200"> |
 
 **SNSアプリ**  
 |        **ポスト機能**        |         **言語切替機能**          |      **メッセージ機能**       |
 |:---------------------------:|:--------------------------:|:---------------------------:|
-| <img src="public/README2/index.png" alt="ホームページ" width="200"> | <img src="public/README2/search_result.png" alt="検索結果" width="200"> | <img src="public/README2/user_all.png" alt="レシピ一覧" width="200"> |
+| <img src="public/readme/post.png" alt="ポスト機能" width="200"> | <img src="public/readme/translate.png" alt="言語切替機能" width="200"> | <img src="public/readme/message.png" alt="メッセージ機能" width="200"> |
 
 ## その他機能一覧  
 **ブログアプリ**  
