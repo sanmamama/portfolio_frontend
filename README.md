@@ -1,15 +1,15 @@
 フロントエンドのリポジトリです。バックエンドのリポジトリは<a href=https://github.com/sanmamama/rest>こちら</a>です。  
 
-# ポートフォリオサイト
-![service_blog](https://github.com/sanmamama/portfolio_frontend/blob/main/public/images/blog.png)
+# ポートフォリオ ～ ブログ/SNSアプリ
+![service_blog](https://github.com/sanmamama/portfolio_frontend/blob/main/public/images/blog.png)　
 ![service_postter](https://github.com/sanmamama/portfolio_frontend/blob/main/public/images/postter.png)
 
 ## アプリ概要
 **ブログアプリ**  
-一般的なブログアプリで、自身のプロフィールや学習記録、技術的な記事の発信のために開発しました。
+一般的なブログアプリで記事の投稿・閲覧・編集・削除の基本的な機能を持ちます。自身のプロフィールや学習記録、技術的な記事の発信のために開発しました。
 
 ***代表的な機能***   
-・投稿作成・編集機能（Markdownサポート）  
+・Markdownサポートの記事投稿・編集機能(Django Admin使用)  
 ・記事をカテゴリーやタグで分類し、整理するカテゴリー・タグ機能  
 ・ユーザーがブログ内の記事をキーワードで検索できる機能  
 
@@ -23,10 +23,10 @@
 
 ## アプリURL:  
 **ブログアプリ**  
-URL  
+[https://www.sanmamama.com/](https://www.sanmamama.com/)  
 
 **SNSアプリ**  
-URL  
+[https://www.sanmamama.com/postter](https://www.sanmamama.com/postter)  
 
 ## 開発背景
 ### 概要
@@ -36,16 +36,6 @@ URL
 **SNSアプリ**  
 グローバルなSNSの可能性を探求するため、既存のXアプリを基にしたSNSアプリを開発しました。言語の壁を超え、全てのポストが自分の言語に翻訳されて表示される仕組みを取り入れることで、
 より広範なコミュニケーションが可能になると考えました。このアイデアを実現するために、SNSアプリの特化を行いました。
-
-### 課題
-- 一人暮らしであり、自炊等で料理をする機会から必然的に献立を考えざるを得なくなることが多くなる
-- ただ、献立を考える際に料理アプリで検索しても自分の難易度に合わないレシピを含めた沢山のものが出てきて、情報量が多くなってしまいがち
-- よって献立をどうするか悩みやすく、決める手間というのは想像以上に多い
-- そのようなことから料理自体が面倒になり、結果的に外食で済ますことや惣菜を買うといったことがあり、食費がかさんでしまうことに悩んでいる
-
-### 解決方法
-自分の作成経験のあるレシピ内で探すなど、あえて情報量を少なくして献立を考える手間を省く
-
 
 ## 機能一覧
 - ログイン機能
@@ -63,7 +53,6 @@ URL
 |        **レシピ登録**        |         **レシピ編集**         |         **レシピ詳細**         |
 | <img src="public/README2/recipe_new.png" alt="レシピ登録" width="200"> | <img src="public/README2/recipe_edit.png" alt="レシピ編集" width="200"> | <img src="public/README2/recipe_show.png" alt="レシピ詳細" width="200"> |
 
-
 ## ER図
 ![ER図](public/README/er-image.png)
 
@@ -73,10 +62,19 @@ URL
 ## 主な使用技術
 | カテゴリー | 使用技術 | 
 |:-----------|:------------|
-| フロントエンド | HTML/CSS, JavaScript | 
-| バックエンド | Ruby3.1.2, Rails7.0.6 |
-| データベース | MySQL8.0.33 |
-| 本番環境 | AWS（VPC, EC2, RDS, ALB, ACM, Route53, S3） |
+| フロントエンド | React18.3.1, HTML/CSS, JavaScript | 
+| バックエンド | Django5.0.6, Python3.12.4 |
+| データベース | SQLite |
+| 本番環境 | VPS(Ubuntu) |
+
+### 課題
+- 一人暮らしであり、自炊等で料理をする機会から必然的に献立を考えざるを得なくなることが多くなる
+- ただ、献立を考える際に料理アプリで検索しても自分の難易度に合わないレシピを含めた沢山のものが出てきて、情報量が多くなってしまいがち
+- よって献立をどうするか悩みやすく、決める手間というのは想像以上に多い
+- そのようなことから料理自体が面倒になり、結果的に外食で済ますことや惣菜を買うといったことがあり、食費がかさんでしまうことに悩んでいる
+
+### 解決方法
+自分の作成経験のあるレシピ内で探すなど、あえて情報量を少なくして献立を考える手間を省く
 
 ## 工夫した点
 <details>
