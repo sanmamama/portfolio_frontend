@@ -66,7 +66,7 @@
 ![ER図](public/README/er-image.png)
 
 ## インフラ構成図
-![インフラ図](public/README/infra-image.png)
+![インフラ図](public/images/readme/infra-image.png)
 
 ## 主な使用技術
 | カテゴリー | 使用技術 | 
