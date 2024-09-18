@@ -33,12 +33,12 @@
 
 |        **記事の閲覧**        |         **記事の検索**          |      **カテゴリ等別一覧表示機能**       |
 |:---------------------------:|:--------------------------:|:---------------------------:|
-| <img src="public/readme/view.png" alt="記事の閲覧" width="200"> | <img src="public/readme/search.png" alt="記事の検索" width="200"> | <img src="public/readme/listview.png" alt="カテゴリ等別一覧表示機能" width="200"> |
+| <img src="public/images/readme/view.gif" alt="記事の閲覧" width="200"> | <img src="public/images/readme/search.gif" alt="記事の検索" width="200"> | <img src="public/images/readme/listview.gif" alt="カテゴリ等別一覧表示機能" width="200"> |
 
 **SNSアプリ**  
 |        **ポスト機能**        |         **言語切替機能**          |      **メッセージ機能**       |
 |:---------------------------:|:--------------------------:|:---------------------------:|
-| <img src="public/readme/post.png" alt="ポスト機能" width="200"> | <img src="public/readme/translate.png" alt="言語切替機能" width="200"> | <img src="public/readme/message.png" alt="メッセージ機能" width="200"> |
+| <img src="public/images/readme/post.gif" alt="ポスト機能" width="200"> | <img src="public/images/readme/translate.gif" alt="言語切替機能" width="200"> | <img src="public/images/readme/message.gif" alt="メッセージ機能" width="200"> |
 
 ## その他機能一覧  
 **ブログアプリ**  
@@ -74,7 +74,8 @@
 | フロントエンド | React18.3.1, HTML/CSS, JavaScript | 
 | バックエンド | Django5.0.6, Python3.12.4 |
 | データベース | SQLite |
-| 本番環境 | VPS(Ubuntu) |
+| CI / CD | GitHub Actions |
+| インフラ | VPS(Ubuntu) / Nginx / Gunicorn / Certbot |
 
 
 ## 開発背景
