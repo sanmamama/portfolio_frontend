@@ -10,7 +10,7 @@ import { useTranslation } from 'react-i18next';
 const apiUrl = process.env.REACT_APP_API_URL;
 
 const Message = () => {
-	const { i18n,t } = useTranslation();
+	const { t } = useTranslation();
 	const {myUserDataGlobal} = useContext(UserDataContext);
 	const [NotificationList, setNotificationList] = useState([]);
 	const [pageCount, setPageCount] = useState(1);
