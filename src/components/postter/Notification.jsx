@@ -111,7 +111,7 @@ const Message = () => {
 									)}
 									{NotificationData.notification_type === "like" && (
 										<>
-											<Link className="no-link-style" to={`/postter/post/${NotificationData.post}/`}>
+											<Link className="no-link-style" to={`/postter/post/${NotificationData.post.id}/`}>
 											<div className="row">
 												<div className="col-2">
 													<img className="rounded img-fluid mx-auto d-block" src={`${NotificationData.sender.avatar_imgurl}`} id="avatar-image" width="40" height="40" alt="avatarimage"/>
@@ -132,7 +132,7 @@ const Message = () => {
 									)}
 									{NotificationData.notification_type === "repost" && (
 										<>
-											<Link className="no-link-style" to={`/postter/post/${NotificationData.post}/`}>
+											<Link className="no-link-style" to={`/postter/post/${NotificationData.post.id}/`}>
 											<div className="row">
 												<div className="col-2">
 													<img className="rounded img-fluid mx-auto d-block" src={`${NotificationData.sender.avatar_imgurl}`} id="avatar-image" width="40" height="40" alt="avatarimage"/>
@@ -153,7 +153,7 @@ const Message = () => {
 									)}
 									{NotificationData.notification_type === "mention" && (
 										<>
-											<Link className="no-link-style" to={`/postter/post/${NotificationData.post}/`}>
+											<Link className="no-link-style" to={`/postter/post/${NotificationData.post.id}/`}>
 											<div className="row">
 												<div className="col-2">
 													<img className="rounded img-fluid mx-auto d-block" src={`${NotificationData.sender.avatar_imgurl}`} id="avatar-image" width="40" height="40" alt="avatarimage"/>
