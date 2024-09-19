@@ -63,7 +63,12 @@
 - 通知機能
 
 ## ER図
-![ER図](public/README/er-image.png)
+**ブログアプリ**    
+![ブログアプリER図](public/images/readme/blog_er.dio.drawio.png)    
+  
+**SNSアプリ**    
+![SNSアプリER図](public/images/readme/postter_er.dio.drawio.png)    
+
 
 ## インフラ構成図
 ![インフラ図](public/images/readme/infra-image.png)
