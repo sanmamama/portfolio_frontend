@@ -92,7 +92,7 @@ const Message = () => {
 								<div key={ix}>
 												
 									{NotificationData.notification_type === "follow" && (
-										<>
+
 											<Link className="no-link-style" to={`/postter/${NotificationData.sender.uid}/`}>
 											<div className="row">
 												<div className="col-2">
@@ -107,10 +107,10 @@ const Message = () => {
 												</div>
 											</div>
 											</Link>
-										</>
+
 									)}
 									{NotificationData.notification_type === "like" && (
-										<>
+
 											<Link className="no-link-style" to={`/postter/post/${NotificationData.post.id}/`}>
 											<div className="row">
 												<div className="col-2">
@@ -128,10 +128,10 @@ const Message = () => {
 											</div>
 										</div>
 										</Link>
-										</>
+
 									)}
 									{NotificationData.notification_type === "repost" && (
-										<>
+
 											<Link className="no-link-style" to={`/postter/post/${NotificationData.post.id}/`}>
 											<div className="row">
 												<div className="col-2">
@@ -149,10 +149,10 @@ const Message = () => {
 											</div>
 										</div>
 										</Link>
-										</>
+
 									)}
 									{NotificationData.notification_type === "mention" && (
-										<>
+
 											<Link className="no-link-style" to={`/postter/post/${NotificationData.post.id}/`}>
 											<div className="row">
 												<div className="col-2">
@@ -170,10 +170,9 @@ const Message = () => {
 											</div>
 										</div>
 										</Link>
-										</>
 									)}
 									{NotificationData.notification_type === "message" && (
-										<>
+
 										<Link className="no-link-style" to={`/postter/message/${myUserDataGlobal.id}-${NotificationData.sender.id}/`}>
 											<div className="row">
 												<div className="col-2">
@@ -190,10 +189,10 @@ const Message = () => {
 											</div>
 										</div>
 										</Link>
-										</>
+
 									)}
 									{NotificationData.notification_type === "reply" && (
-										<>
+
 											<Link className="no-link-style" to={`/postter/post/${NotificationData.parent}/`}>
 											<div className="row">
 												<div className="col-2">
@@ -210,7 +209,7 @@ const Message = () => {
 											</div>
 										</div>
 										</Link>
-										</>
+
 									)}
 
 								</div>
