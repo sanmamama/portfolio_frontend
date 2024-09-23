@@ -1,4 +1,4 @@
-フロントエンドのリポジトリです。バックエンドのリポジトリは<a href=https://github.com/sanmamama/rest>こちら</a>です。  
+フロントエンドのリポジトリです。バックエンドのリポジトリは<a href=https://github.com/sanmamama/portfolio_backend>こちら</a>です。  
 
 # ポートフォリオサイト　-　ブログ/SNSアプリ
 ![service_blog](https://github.com/sanmamama/portfolio_frontend/blob/main/public/images/readme/blog.png)　
