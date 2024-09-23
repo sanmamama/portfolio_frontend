@@ -81,5 +81,4 @@
 | CI / CD | GitHub Actions |
 | インフラ | VPS(Ubuntu) / Nginx / Gunicorn / Certbot |
 
-## 工夫した点
 
