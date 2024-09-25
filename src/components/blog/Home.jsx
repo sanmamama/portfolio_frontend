@@ -204,7 +204,7 @@ const App = () => {
                 <div className="col-sm-9">
                     <div className="container container-m">
                         <div className="row">
-                            記事がありません
+                            記事が見つかりません
                         </div>
                     </div>
                 </div>

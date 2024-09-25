@@ -53,7 +53,7 @@ const BlogDetail = () => {
 	}
 
 	if (!data) {
-		return <div>記事がありません</div>;
+		return <div>記事が見つかりません</div>;
 	}
 
 
