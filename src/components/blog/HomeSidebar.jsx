@@ -93,8 +93,27 @@ const SidebarContent = () => {
                         alt="profile"
                     />
                     <p>さんまままです。</p>
-                    <p><Link to="https://x.com/sanmamama_">X(旧Twitter)</Link></p>
-                    <p><Link to="https://github.com/sanmamama/">GitHub</Link></p>
+                    <p>
+                        <Link to="https://x.com/sanmamama_">
+                            <img
+                                    className="me-2 align-baseline"
+                                    src={`${process.env.REACT_APP_BASE_URL}/media/icon/x_logo.png`}
+                                    width="32"
+                                    height="32"
+                                    alt="X_logo"
+                            />
+                        </Link>
+
+                        <Link to="https://github.com/sanmamama/">
+                            <img
+                                    className="me-2 align-baseline"
+                                    src={`${process.env.REACT_APP_BASE_URL}/media/icon/github_logo.png`}
+                                    width="32"
+                                    height="32"
+                                    alt="GitHub_logo"
+                            />
+                        </Link>
+                    </p>
                 </div>
             </div>
             
