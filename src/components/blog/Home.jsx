@@ -136,11 +136,19 @@ const BlogItem = ({ item,isSmallScreen }) => (
     </div>
 );
 
+const formatDate = (dateString) => {
+    const year = dateString.slice(0, 4);
+    const month = dateString.slice(4, 6);
+    
+    return `${year}年${parseInt(month, 10)}月`;
+  };
+
 const App = () => {
     const {myBlogDataGlobal} = useContext(BlogDataContext);
     const [blog, setBlog] = useState(null);
     const [pageCount] = useState(null);
     const [currentPage] = useState(null);
+    const [articleCount,setArticleCount] = useState("");
 
     const isSmallScreen = useIsSmallScreen();
 
@@ -156,6 +164,7 @@ const App = () => {
     const selectedTag = query.get('tag') || '';
     const selectedYearMonth = query.get('date') || '';
     const q = query.get('q') || '';
+    
 
     
 
@@ -188,6 +197,7 @@ const App = () => {
 
             if(filteredBlogs.length){
                 setBlog(filteredBlogs);
+                setArticleCount(filteredBlogs.length)
             }else{
                 setBlog(null);
             }
@@ -224,9 +234,14 @@ const App = () => {
 							<Link to="/">トップ</Link>
 							{selectedCategory ? (<> ＞ {selectedCategory}(カテゴリ)</>):""}
 							{selectedTag ? (<> ＞ {selectedTag}(タグ)</>):""}
-							{selectedYearMonth ? (<> ＞ {selectedYearMonth}(アーカイブ)</>):""}
+							{selectedYearMonth ? (<> ＞ {formatDate(selectedYearMonth)}(アーカイブ)</>):""}
 						</div>
 					:""}
+                    {q ? 
+                        <p>
+                        「{q}」{articleCount}件の記事が見つかりました
+                        </p>
+                    : ""}
 
                 <div className="container container-m">
                     <div className="row">
