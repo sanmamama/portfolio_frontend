@@ -8,9 +8,10 @@ import PostContent from './PostContent';
 
 import { useTranslation } from 'react-i18next';
 const apiUrl = process.env.REACT_APP_API_URL;
+const baseUrl = process.env.REACT_APP_BASE_URL;
 
 const Message = () => {
-	const { t } = useTranslation();
+	const { t,i18n } = useTranslation();
 	const {myUserDataGlobal} = useContext(UserDataContext);
 	const [NotificationList, setNotificationList] = useState([]);
 	const [pageCount, setPageCount] = useState(1);
@@ -121,7 +122,24 @@ const Message = () => {
 											
 											<p className="ms-1">{t("like_by")}<b>{NotificationData.sender.username}</b>{t("like_by2")}</p>
 											<p className="ms-1 text-secondary">
-												<PostContent content={NotificationData.post.content}/>
+												{i18n.language === "ja" ? (
+													<PostContent content={NotificationData.post.content_JA} />
+													) : i18n.language === "zh" ? (
+													<PostContent content={NotificationData.post.content_ZH} />
+													) : (
+													<PostContent content={NotificationData.post.content_EN} />
+												)}
+
+												<a className="ms-1" data-bs-toggle="collapse" href={"#collapse"+ix} aria-expanded="false" aria-controls={"collapse"+ix}>
+												<img src={`${baseUrl}/media/icon/original_text.svg`} width="16" height="16" alt="original_text"/>
+												</a>
+
+												<div className="collapse mt-2 " id={"collapse"+ix}>
+													<div className="card card-body">
+														<PostContent content={NotificationData.post.content}/>
+													</div>
+												</div>
+
 											</p>
 											<p className="ms-1 text-secondary">{NotificationData.created_at.split('.')[0].replace('T',' ')}</p>
 											
@@ -142,7 +160,23 @@ const Message = () => {
 											
 											<p className="ms-1">{t("repost_by")}<b>{NotificationData.sender.username}</b>{t("repost_by2")}</p>
 											<p className="ms-1 text-secondary">
-												<PostContent content={NotificationData.post.content}/>
+												{i18n.language === "ja" ? (
+													<PostContent content={NotificationData.post.content_JA} />
+													) : i18n.language === "zh" ? (
+													<PostContent content={NotificationData.post.content_ZH} />
+													) : (
+													<PostContent content={NotificationData.post.content_EN} />
+												)}
+
+												<a className="ms-1" data-bs-toggle="collapse" href={"#collapse"+ix} aria-expanded="false" aria-controls={"collapse"+ix}>
+												<img src={`${baseUrl}/media/icon/original_text.svg`} width="16" height="16" alt="original_text"/>
+												</a>
+
+												<div className="collapse mt-2 " id={"collapse"+ix}>
+													<div className="card card-body">
+														<PostContent content={NotificationData.post.content}/>
+													</div>
+												</div>
 											</p>
 											<p className="ms-1 text-secondary">{NotificationData.created_at.split('.')[0].replace('T',' ')}</p>
 											
@@ -163,7 +197,24 @@ const Message = () => {
 											
 											<p className="ms-1">{t("mention_by")}<b>{NotificationData.sender.username}</b>{t("mention_by2")}</p>
 											<p className="ms-1 text-secondary">
-												<PostContent content={NotificationData.post.content}/>
+												{i18n.language === "ja" ? (
+													<PostContent content={NotificationData.post.content_JA} />
+													) : i18n.language === "zh" ? (
+													<PostContent content={NotificationData.post.content_ZH} />
+													) : (
+													<PostContent content={NotificationData.post.content_EN} />
+												)}
+
+												<a className="ms-1" data-bs-toggle="collapse" href={"#collapse"+ix} aria-expanded="false" aria-controls={"collapse"+ix}>
+												<img src={`${baseUrl}/media/icon/original_text.svg`} width="16" height="16" alt="original_text"/>
+												</a>
+
+												<div className="collapse mt-2 " id={"collapse"+ix}>
+													<div className="card card-body">
+														<PostContent content={NotificationData.post.content}/>
+													</div>
+												</div>
+
 											</p>
 											<p className="ms-1 text-secondary">{NotificationData.created_at.split('.')[0].replace('T',' ')}</p>
 											
@@ -202,7 +253,23 @@ const Message = () => {
 											<div className="col-10">
 											<p className="ms-1">{t("reply_by")}<b>{NotificationData.sender.username}</b>{t("reply_by2")}</p>
 											<p className="ms-1 text-secondary">
-												<PostContent content={NotificationData.post.content}/>
+												{i18n.language === "ja" ? (
+													<PostContent content={NotificationData.post.content_JA} />
+													) : i18n.language === "zh" ? (
+													<PostContent content={NotificationData.post.content_ZH} />
+													) : (
+													<PostContent content={NotificationData.post.content_EN} />
+												)}
+
+												<a className="ms-1" data-bs-toggle="collapse" href={"#collapse"+ix} aria-expanded="false" aria-controls={"collapse"+ix}>
+												<img src={`${baseUrl}/media/icon/original_text.svg`} width="16" height="16" alt="original_text"/>
+												</a>
+
+												<div className="collapse mt-2 " id={"collapse"+ix}>
+													<div className="card card-body">
+														<PostContent content={NotificationData.post.content}/>
+													</div>
+												</div>
 											</p>
 											<p className="ms-1 text-secondary">{NotificationData.created_at.split('.')[0].replace('T',' ')}</p>
 											
