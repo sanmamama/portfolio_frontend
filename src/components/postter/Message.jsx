@@ -4,9 +4,10 @@ import {UserDataContext} from "./providers/UserDataProvider"
 import InfiniteScroll from 'react-infinite-scroller';
 import { useTranslation } from 'react-i18next';
 const apiUrl = process.env.REACT_APP_API_URL;
+const baseUrl = process.env.REACT_APP_BASE_URL;
 
 const Message = () => {
-	const { t } = useTranslation();
+	const { t,i18n } = useTranslation();
 	const {myUserDataGlobal} = useContext(UserDataContext);
 	const [userList, setUserList] = useState([]);
 	const [pageCount, setPageCount] = useState(1);
@@ -160,7 +161,24 @@ const Message = () => {
 													<b>{MessageData.user_to.username}</b>
 													<span className="ms-1 text-secondary">@{MessageData.user_to.uid}</span>
 													<span className="ms-1 text-secondary">{MessageData.created_at.split('.')[0].replace('T',' ')}</span>
-													<p className="mt-2 text-secondary">{MessageData.content}</p>
+													<p className="mt-2 text-secondary">
+														{i18n.language === "ja" ? (
+														MessageData.content_JA
+														) : i18n.language === "zh" ? (
+														MessageData.content_ZH
+														) : (
+														MessageData.content_EN
+														)}
+
+														<a className="ms-1" data-bs-toggle="collapse" href={"#collapse"+ix} aria-expanded="false" aria-controls={"collapse"+ix}>
+															<img src={`${baseUrl}/media/icon/original_text.svg`} width="16" height="16" alt="original_text"/>
+														</a>
+										
+														<div className="collapse mt-2 " id={"collapse"+ix}>
+															{MessageData.content}
+														</div>
+
+													</p>
 												</div>
 											</div>
 										</Link>

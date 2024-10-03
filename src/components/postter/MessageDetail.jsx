@@ -4,6 +4,8 @@ import {UserDataContext} from "./providers/UserDataProvider"
 import InfiniteScroll from 'react-infinite-scroller';
 import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+
+const baseUrl = process.env.REACT_APP_BASE_URL;
 const apiUrl = process.env.REACT_APP_API_URL;
 
 const Message = () => {
@@ -211,7 +213,24 @@ const Message = () => {
 									<div className="col-3">
 									</div>
 									<div className="col-7 bg-custom-1">
-										<p className="mt-2 text-end">{MessageData.content}</p>
+										<p className="mt-2 text-end">
+												{i18n.language === "ja" ? (
+													MessageData.content_JA
+													) : i18n.language === "zh" ? (
+													MessageData.content_ZH
+													) : (
+													MessageData.content_EN
+												)}
+
+										
+											<a className="ms-1" data-bs-toggle="collapse" href={"#collapse"+ix} aria-expanded="false" aria-controls={"collapse"+ix}>
+												<img src={`${baseUrl}/media/icon/original_text.svg`} width="16" height="16" alt="original_text"/>
+											</a>
+										
+										<div className="collapse mt-2 " id={"collapse"+ix}>
+											{MessageData.content}
+										</div>
+										</p>
 									</div>
 									<div className="col-2">
 										<img className="rounded img-fluid mx-auto d-block" src={`${MessageData.user_from.avatar_imgurl}`} id="avatar-image" width="40" height="40" alt="avatarimage"/>
@@ -236,7 +255,24 @@ const Message = () => {
 										<img className="rounded img-fluid mx-auto d-block" src={`${MessageData.user_from.avatar_imgurl}`} id="avatar-image" width="40" height="40" alt="avatarimage"/>
 									</div>
 									<div className="col-7 bg-custom-2">
-										<p className="mt-2">{MessageData.content}</p>
+										<p className="mt-2">
+												{i18n.language === "ja" ? (
+													MessageData.content_JA
+													) : i18n.language === "zh" ? (
+													MessageData.content_ZH
+													) : (
+													MessageData.content_EN
+												)}
+
+										
+											<a className="ms-1" data-bs-toggle="collapse" href={"#collapse"+ix} aria-expanded="false" aria-controls={"collapse"+ix}>
+												<img src={`${baseUrl}/media/icon/original_text.svg`} width="16" height="16" alt="original_text"/>
+											</a>
+										
+										<div className="collapse mt-2 " id={"collapse"+ix}>
+											{MessageData.content}
+										</div>
+										</p>
 									</div>
 									<div className="col-3">
 									</div>

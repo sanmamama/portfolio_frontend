@@ -131,7 +131,7 @@ const Message = () => {
 												)}
 
 												<a className="ms-1" data-bs-toggle="collapse" href={"#collapse"+ix} aria-expanded="false" aria-controls={"collapse"+ix}>
-												<img src={`${baseUrl}/media/icon/original_text.svg`} width="16" height="16" alt="original_text"/>
+													<img src={`${baseUrl}/media/icon/original_text.svg`} width="16" height="16" alt="original_text"/>
 												</a>
 
 												<div className="collapse mt-2 " id={"collapse"+ix}>
@@ -233,7 +233,24 @@ const Message = () => {
 											<div className="col-10">
 											<p className="ms-1">{t("message_by")}<b>{NotificationData.sender.username}</b>{t("message_by2")}</p>
 											<p className="ms-1 text-secondary">
-													<PostContent content={NotificationData.message.content} />
+												{i18n.language === "ja" ? (
+													<PostContent content={NotificationData.message.content_JA} />
+													) : i18n.language === "zh" ? (
+													<PostContent content={NotificationData.message.content_ZH} />
+													) : (
+													<PostContent content={NotificationData.message.content_EN} />
+												)}
+
+												<a className="ms-1" data-bs-toggle="collapse" href={"#collapse"+ix} aria-expanded="false" aria-controls={"collapse"+ix}>
+													<img src={`${baseUrl}/media/icon/original_text.svg`} width="16" height="16" alt="original_text"/>
+												</a>
+
+												<div className="collapse mt-2 " id={"collapse"+ix}>
+													<div className="card card-body">
+														<PostContent content={NotificationData.message.content}/>
+													</div>
+												</div>
+
 											</p>
 											<p className="ms-1 text-secondary">{NotificationData.created_at.split('.')[0].replace('T',' ')}</p>
 											
