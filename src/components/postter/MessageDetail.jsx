@@ -61,7 +61,7 @@ const Message = () => {
             if(response.ok){
                 
             }else{
-                setMessages("メッセージの送信に失敗しました")
+                setMessages(t("message_failed_send"))
             }
             return response.json();
         })
@@ -71,7 +71,7 @@ const Message = () => {
 				'content':''
             }));
 			if(data.id){
-				setMessages(`postId:${data.id}メッセージを送信しました`)
+				setMessages(t("message_sent"))
 				refreshMessage()
 			}
         })

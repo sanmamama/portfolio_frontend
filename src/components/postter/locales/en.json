@@ -76,5 +76,7 @@
 	"mention_by":"",
 	"mention_by2":" sent a mention",
 	"message_by":"Direct message from ",
-	"message_by2":""
+	"message_by2":"",
+	"message_sent":"Message sent",
+	"message_failed_send":"Failed to send message"
 }

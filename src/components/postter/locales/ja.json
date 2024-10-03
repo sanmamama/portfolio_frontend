@@ -76,5 +76,7 @@
 	"mention_by":"",
 	"mention_by2":"さんがあなたにメンションを送りました",
 	"message_by":"",
-	"message_by2":"さんからダイレクトメッセージを受け取りました"
+	"message_by2":"さんからダイレクトメッセージを受け取りました",
+	"message_sent":"メッセージを送信しました",
+	"message_failed_send":"メッセージの送信に失敗しました"
 }
