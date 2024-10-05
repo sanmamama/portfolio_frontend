@@ -52,6 +52,10 @@ const BlogDetail = () => {
 		);
 	}
 
+	if (data === null) {
+		return <div>loading...</div>;
+	}
+
 	if (!data) {
 		return <div>記事が見つかりません</div>;
 	}
