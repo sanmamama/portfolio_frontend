@@ -60,7 +60,7 @@ const handleSubmit = (event) => {
     <header>
       <nav className="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
         <div className="container-fluid">
-          <Link className="navbar-brand" href="/">
+          <Link className="navbar-brand" to="/">
             さんまブログ
           </Link>
           
