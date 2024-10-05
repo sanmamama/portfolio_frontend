@@ -200,6 +200,7 @@ const App = () => {
                 setArticleCount(filteredBlogs.length)
             }else{
                 setBlog(null);
+                setArticleCount(0)
             }
         }catch{
             return
@@ -208,19 +209,38 @@ const App = () => {
     }, [location.search,selectedPage,selectedCategory,selectedTag,selectedYearMonth,myBlogDataGlobal,q]);
 
 
+    
     if (!blog) {
-        return(
-            <>
-                <div className="col-sm-9">
-                    <div className="container container-m">
-                        <div className="row">
-                            記事が見つかりません
+        if (articleCount === "") {
+            return(
+                <>
+                    <div className="col-sm-9">
+                        <div className="container container-m">
+                            <div className="row">
+                            loading...
+                            </div>
                         </div>
                     </div>
-                </div>
-                <SidebarContent />
-            </>
-        );
+                    <SidebarContent />
+                </>
+            );
+        }
+        else{
+            return(
+                <>
+                    <div className="col-sm-9">
+                        <div className="container container-m">
+                            <div className="row">
+                            記事が見つかりません
+                            </div>
+                        </div>
+                    </div>
+                    <SidebarContent />
+                </>
+            );
+        }
+
+
     }
 
     let addUrl = `${selectedCategory ? `&category=${selectedCategory}` : ''}${selectedTag ? `&tag=${selectedTag}` : ''}${selectedYearMonth ? `&date=${selectedYearMonth}` : ''}`;
