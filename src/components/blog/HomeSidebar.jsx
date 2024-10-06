@@ -83,9 +83,8 @@ const SidebarContent = () => {
     };
 
     return (
-        <div className="col-sm-3 d-none d-sm-block">
-            <div className="card">
-                <div className="card-body">
+        <div className="col-sm-3 ps-4 pe-4">
+                <div>
                     <h4>プロフィール</h4>
                     <img
                         className="img-fluid"
@@ -115,11 +114,8 @@ const SidebarContent = () => {
                         </Link>
                     </p>
                 </div>
-            </div>
-            
-
-            <div className="card mt-1">
-                <div className="card-body">
+                    <hr/>
+                <div>
                     <h4>カテゴリー</h4>
                     <ul>
                         {categories.map(([id, { name, count }]) => (
@@ -145,7 +141,6 @@ const SidebarContent = () => {
                         )).reverse()}
                     </ul>
                 </div>
-            </div>
         </div>
     );
 };
