@@ -232,6 +232,7 @@ const App = () => {
                         <div className="container container-m">
                             <div className="row">
                             記事が見つかりません
+                            <hr className="mt-3 mb-3 d-sm-none d-block"/>
                             </div>
                         </div>
                     </div>
