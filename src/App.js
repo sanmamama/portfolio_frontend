@@ -2,6 +2,7 @@
 import './App.css';
 import React from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import NotFound from './components/NotFound';
 import BlogBase from './components/blog/BlogBase';
 import Home from './components/blog/Home';
 import Profile from './components/blog/Profile';
@@ -9,7 +10,6 @@ import Portfolio from './components/blog/Portfolio';
 import PrivacyPolicy from './components/blog/PrivacyPolicy';
 import Contact from './components/blog/Contact';
 import BlogDetail from './components/blog/BlogDetail';
-
 import AuthBase from './components/postter/AuthBase';
 import MainBase from './components/postter/MainBase';
 import Login from './components/postter/Login';
@@ -29,7 +29,6 @@ import Search from './components/postter/Search';
 import Notification from './components/postter/Notification';
 import PostDetail from './components/postter/PostDetail';
 
-
 import {UserDataProvider} from "./components/postter/providers/UserDataProvider"
 import {FollowDataProvider} from "./components/postter/providers/FollowDataProvider"
 import {NotificationProvider} from "./components/postter/providers/NotificationProvider"
@@ -46,6 +45,7 @@ const router = createBrowserRouter([
       { path: "privacypolicy", element: <PrivacyPolicy /> },
       { path: "contact", element: <Contact /> },
       { path: "detail/:id", element: <BlogDetail /> },
+      { path: "*", element: <NotFound />,},
     ],
   },
   {
@@ -65,6 +65,7 @@ const router = createBrowserRouter([
       { path: "memberlist/:id", element: <MemberListDetail /> },
       { path: "notification", element: <Notification /> },
       { path: "search", element: <Search /> },
+      //{ path: "*", element: <NotFound />,},
     ],
   },
   {
@@ -75,6 +76,7 @@ const router = createBrowserRouter([
       { path: "logout", element: <Logout /> },
       { path: "signup", element: <Signup /> },
       { path: "confirm", element: <Confirm /> },
+      //{ path: "*", element: <NotFound />,},
     ],
   },
 ]);
