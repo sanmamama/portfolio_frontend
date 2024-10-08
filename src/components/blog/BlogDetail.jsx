@@ -4,6 +4,7 @@ import { useParams} from 'react-router-dom';
 import DOMPurify from 'dompurify';
 import { Link } from 'react-router-dom';
 import {BlogDataContext} from "./providers/BlogDataProvider"
+import NotFound from '../NotFound'
 const apiUrl = process.env.REACT_APP_API_URL;
 
 
@@ -57,7 +58,7 @@ const BlogDetail = () => {
 	}
 
 	if (!data) {
-		return <div>記事が見つかりません</div>;
+		return <NotFound />;
 	}
 
 
