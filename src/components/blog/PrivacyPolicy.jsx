@@ -68,7 +68,7 @@ function PrivacyPolicy() {
 
 	  </div>
       </div>
-	<div className="col-sm-3">
+	<div className="col-sm-3 d-none d-sm-block">
       <div>
         <h4>目次</h4>
         <p className="mt-3"><a href="#1">1. 個人情報の収集について</a></p>
