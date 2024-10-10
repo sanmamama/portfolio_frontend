@@ -73,32 +73,40 @@ const BookList = () => {
 
   //https://www.googleapis.com/books/v1/volumes?q=isbn:9784274228797
 
-  // 本のリストを表示
+  const BookRating = ({ rating }) => {
+	// ratingがnullまたは未定義の場合の処理
+	if (rating === null || rating === undefined) {
+	  return "";
+	}
+  
+	// ratingの数だけ★を表示
+	const stars = Array(rating).fill('★'); // ratingの数だけ★を配列に入れる
+  
+	return (
+		<>
+		{stars.map((star, index) => (
+		  <span className="mark" key={index}>{star}</span> // ★を表示
+		))}
+		</>
+	);
+  };
+  
   return (
     <div className="table-responsive">
 		<table className="table table-hover table-bordered text-nowrap">
-			<thead>
-			<tr key={0} className="text-center">
-				<td>書影</td>
-				<td>タイトル</td>
-				<td>著者</td>
-				<td>評価</td>
-				<td>ジャンル</td>
-				<td>読了日</td>
-				<td>進捗</td>
-				
-			</tr>
-			</thead>
 			<tbody>
 			{books.map((book,ix) => (
 				<tr key={ix}>
-					<td className="text-center">{book.thumbnail ? <img src={book.thumbnail} alt={book.title} height={100} /> : ""}<span className="fs-6"><br/>Powered by<br/>Google Books</span></td>
-					<td><b>{book.title}</b></td>
-					<td>{book.author}</td>
-					<td>{book.rating ? <span className="mark">{book.rating}</span>:""}</td>
-					<td><span className="custom-mark">{book.genre}</span></td>
-					<td>{book.read_date}</td>
-					<td>{book.status}</td>
+					<td>
+						<p className="text-center">{book.thumbnail ? <img src={book.thumbnail} alt={book.title} height={100} /> : ""}<br/>Powered by<br/>Google Books</p>
+					</td>
+					<td>
+						<b>{book.title}</b><BookRating rating={book.rating}/><br/>
+						{book.author} / {book.publisher}<br/>
+						<span className="custom-mark">{book.genre}</span><br/>
+						{book.read_date} {book.status} <br/>
+						{book.review}
+					</td>
 				</tr>
 			))}
 			</tbody>
