@@ -1,15 +1,17 @@
 
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
+import InfiniteScroll from 'react-infinite-scroller';
 const apiUrl = process.env.REACT_APP_API_URL;
 
 const BookList = () => {
 	const [books, setBooks] = useState([]);
 	const [error, setError] = useState(null);
+	const [hasMore, setHasMore] = useState(true);
 
-	useEffect(() => {
-		const fetchBooks = async () => {
+
+		const fetchBooks = async (page) => {
 			try {
-				const response = await fetch(`${apiUrl}/book/`, 
+				const response = await fetch(`${apiUrl}/book/?page=${page}`, 
 					{
 						method: 'GET',
 						headers: {
@@ -23,11 +25,11 @@ const BookList = () => {
 				}
 
 				const data = await response.json();
-				const books = data["results"];
+				const books2 = data["results"];
 
 				// それぞれの本から書影を取得し、thumbnailを追加する
 				const updatedBooks = await Promise.all(
-					books.map(async (book) => {
+					books2.map(async (book) => {
 						const googleResponse = await fetch(
 							`https://www.googleapis.com/books/v1/volumes?q=isbn:${book.isbn}`,
 							{
@@ -50,14 +52,15 @@ const BookList = () => {
 					})
 				);
 
-				setBooks(updatedBooks);
+				//setBooks(updatedBooks);
+				
+				setBooks([...books, ...updatedBooks]);
+				setHasMore(data.next)
 
 			} catch (error) {
 				setError(error.message);
 			}
 		};
-		fetchBooks();
-	}, []);
 
 
   
@@ -97,22 +100,31 @@ const BookList = () => {
   
   return (
     <div className="table-responsive">
-		<table className="table table-hover table-bordered">
+		<table className="table table-hover">
 			<tbody>
-			{books.map((book,ix) => (
-				<tr key={ix}>
-					<td>
-						<p className="text-center">{book.thumbnail ? <img src={book.thumbnail} alt={book.title} height={100} /> : ""}<br/>Powered by<br/>Google Books</p>
-					</td>
-					<td>
-						<BookRating rating={book.rating}/>
-						<b>{book.title}</b><br/>
-						{book.author} / {book.publisher}<br/>
-						<span className="custom-mark">{book.status}</span>{book.read_date}  <br/>
-						{book.review}
-					</td>
-				</tr>
-			))}
+				<InfiniteScroll
+					loadMore={fetchBooks}
+					loader={<div key={0}>Loading ...</div>}
+					hasMore={hasMore}
+					useWindow={true}
+					threshold={5} >
+								
+				
+					{books.map((book,ix) => (
+						<tr key={ix}>
+							<td>
+								<p className="text-center fs-6">{book.thumbnail ? <img src={book.thumbnail} alt={book.title} height={100} /> : ""}<br/>Powered by<br/>Google Books</p>
+							</td>
+							<td>
+								<BookRating rating={book.rating}/>
+								<b>{book.title}</b><br/>
+								{book.author} / {book.publisher}<br/>
+								<span className="custom-mark">{book.status}</span>{book.read_date}  <br/>
+								{book.review}
+							</td>
+						</tr>
+					))}
+				</InfiniteScroll>
 			</tbody>
 		</table>
 	</div>
