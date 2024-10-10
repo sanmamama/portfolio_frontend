@@ -87,7 +87,7 @@ function Profile() {
                     </div>
             </div>
 
-            <h3 className="anchor" id="4"><b>5.読書記録</b></h3> 
+            <h3 className="anchor" id="5"><b>5.読書記録</b></h3> 
             <hr/>
             <BookList/>
         </div>
@@ -102,6 +102,7 @@ function Profile() {
         <p className="mt-3"><a href="#2">2.自己PR</a></p>
         <p className="mt-3"><a href="#3">3.経歴</a></p>
         <p className="mt-3"><a href="#4">4.資格・スキル</a></p>
+        <p className="mt-3"><a href="#5">5.読書記録</a></p>
       </div>
     </div>
     </>
