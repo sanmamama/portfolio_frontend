@@ -1,4 +1,5 @@
 //import React, { useState, useEffect } from 'react';
+import BookList from './BookList';
 
 function Profile() {
     return (
@@ -84,8 +85,11 @@ function Profile() {
                     <div className="col">
                       <p>応用情報技術者試験合格</p>
                     </div>
-                  </div>
+            </div>
 
+            <h3 className="anchor" id="4"><b>5.読書記録</b></h3> 
+            <hr/>
+            <BookList/>
         </div>
       </div>
     </div>
