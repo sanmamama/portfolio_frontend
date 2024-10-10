@@ -99,9 +99,7 @@ const BookList = () => {
   };
   
   return (
-    <div className="table-responsive">
-		<table className="table table-hover">
-			<tbody>
+    <div className="d-flex align-items-center justify-content-center">
 				<InfiniteScroll
 					loadMore={fetchBooks}
 					loader={<div key={0}>Loading ...</div>}
@@ -111,22 +109,20 @@ const BookList = () => {
 								
 				
 					{books.map((book,ix) => (
-						<tr key={ix}>
-							<td>
-								<p className="text-center fs-6">{book.thumbnail ? <img src={book.thumbnail} alt={book.title} height={100} /> : ""}<br/>Powered by<br/>Google Books</p>
-							</td>
-							<td>
+						<div className="row border" key={ix}>
+							<div className="col-3 d-flex align-items-center justify-content-center">
+								<p className="text-center lh-1">{book.thumbnail ? <><img src={book.thumbnail} alt={book.title} height={100} /><br/><span style={{fontSize:"10px"}}>Powered by Google Books</span></> : <span className="" style={{fontSize:"10px"}}>No Image</span>}<br/></p>
+							</div>
+							<div className="col-9">
 								<BookRating rating={book.rating}/>
 								<b>{book.title}</b><br/>
 								{book.author} / {book.publisher}<br/>
 								<span className="custom-mark">{book.status}</span>{book.read_date}  <br/>
 								{book.review}
-							</td>
-						</tr>
+							</div>
+						</div>
 					))}
 				</InfiniteScroll>
-			</tbody>
-		</table>
 	</div>
   );
 };
