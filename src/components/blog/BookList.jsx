@@ -42,7 +42,7 @@ const BookList = () => {
 
 					// Google Books API から書影が取得できた場合、thumbnail を追加
 					if (googleData.totalItems) {
-						const thumbnail = googleData.items[0]?.volumeInfo?.imageLinks?.thumbnail;
+						const thumbnail = googleData.items[0]?.volumeInfo?.imageLinks?.thumbnail.replace("http://","https://");
 					return { ...book, thumbnail: thumbnail || null };
 					} else {
 					return { ...book, thumbnail: null }; 
