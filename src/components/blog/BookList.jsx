@@ -92,7 +92,7 @@ const BookList = () => {
 			<tbody>
 			{books.map((book,ix) => (
 				<tr key={ix}>
-					<td className="text-center"><img src={book.thumbnail} alt={book.title} height={100} /><span className="fs-6"><br/>Powered by<br/>Google Books</span></td>
+					<td className="text-center">{book.thumbnail ? <img src={book.thumbnail} alt={book.title} height={100} /> : ""}<span className="fs-6"><br/>Powered by<br/>Google Books</span></td>
 					<td><b>{book.title}</b></td>
 					<td>{book.author}</td>
 					<td>{book.rating ? <span className="mark">{book.rating}</span>:""}</td>
