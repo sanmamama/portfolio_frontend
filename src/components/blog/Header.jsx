@@ -64,8 +64,8 @@ const handleSubmit = (event) => {
             さんまブログ
           </Link>
           
-          <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="ナビゲーションの切替">
-          <span class="navbar-toggler-icon"></span>
+          <button type="button" className="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="ナビゲーションの切替">
+          <span className="navbar-toggler-icon"></span>
           </button>
 
           <div className="collapse navbar-collapse" id="navbarsExampleDefault">
@@ -117,8 +117,8 @@ const handleSubmit = (event) => {
               </li>
             </ul>
 
-            <div class="ms-auto">
-                <form class="d-flex" role="search" onSubmit={handleSubmit}>
+            <div className="ms-auto">
+                <form className="d-flex" role="search" onSubmit={handleSubmit}>
                   <input type="text" className="form-control me-2" name="q" placeholder="記事を検索" value={query} onChange={(e) => setQuery(e.target.value)}/>
                   <button type="submit" className="btn btn-success no-wrap-button">検索</button>
                 </form>
