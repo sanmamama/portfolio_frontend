@@ -84,16 +84,20 @@ const BookList = () => {
   
 	return (
 		<>
+		<span className="mark">
 		{stars.map((star, index) => (
-		  <span className="mark" key={index}>{star}</span> // ★を表示
+			<>
+				{star}
+			</>
 		))}
+		</span><br/>
 		</>
 	);
   };
   
   return (
     <div className="table-responsive">
-		<table className="table table-hover table-bordered text-nowrap">
+		<table className="table table-hover table-bordered">
 			<tbody>
 			{books.map((book,ix) => (
 				<tr key={ix}>
@@ -101,10 +105,10 @@ const BookList = () => {
 						<p className="text-center">{book.thumbnail ? <img src={book.thumbnail} alt={book.title} height={100} /> : ""}<br/>Powered by<br/>Google Books</p>
 					</td>
 					<td>
-						<b>{book.title}</b><BookRating rating={book.rating}/><br/>
+						<BookRating rating={book.rating}/>
+						<b>{book.title}</b><br/>
 						{book.author} / {book.publisher}<br/>
-						<span className="custom-mark">{book.genre}</span><br/>
-						{book.read_date} {book.status} <br/>
+						<span className="custom-mark">{book.status}</span>{book.read_date}  <br/>
 						{book.review}
 					</td>
 				</tr>
