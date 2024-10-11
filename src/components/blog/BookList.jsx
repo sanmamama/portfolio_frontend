@@ -45,9 +45,10 @@ const BookList = () => {
 					// Google Books API から書影が取得できた場合、thumbnail を追加
 					if (googleData.totalItems) {
 						const thumbnail = googleData.items[0]?.volumeInfo?.imageLinks?.thumbnail.replace("http://","https://");
-					return { ...book, thumbnail: thumbnail || null };
+						const infoLink = googleData.items[0]?.volumeInfo?.infoLink.replace("http://","https://");
+					return { ...book, thumbnail: thumbnail || null, infoLink: infoLink || null };
 					} else {
-					return { ...book, thumbnail: null }; 
+					return { ...book, thumbnail: null, infoLink: null }; 
 					}
 					})
 				);
@@ -111,7 +112,19 @@ const BookList = () => {
 					{books.map((book,ix) => (
 						<div className="row border" key={ix}>
 							<div className="col-3 d-flex align-items-center justify-content-center">
-								<p className="text-center lh-1">{book.thumbnail ? <><img src={book.thumbnail} alt={book.title} height={100} /><br/><span style={{fontSize:"10px"}}>Powered by Google Books</span></> : <span className="" style={{fontSize:"10px"}}>No Image</span>}<br/></p>
+								<p className="text-center lh-1">{book.thumbnail ? 
+									<>
+									<a href={book.infoLink}>
+										<img src={book.thumbnail} alt={book.title} height={100} />
+									</a>
+									<br/>
+									<span style={{fontSize:"10px"}}>Powered by Google Books</span>
+									</>
+
+									:
+									<span className="" style={{fontSize:"10px"}}>No Image</span>}<br/>
+								</p>
+
 							</div>
 							<div className="col-9">
 								<BookRating rating={book.rating}/>
