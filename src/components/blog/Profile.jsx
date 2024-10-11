@@ -12,6 +12,12 @@ function Profile() {
             <span className="mt-0 mb-0 text-secondary">最終更新日：2024年8月18日</span>
             <h3><b>プロフィール</b></h3>
 
+            <img
+              className="img-fluid"
+              src={`${process.env.REACT_APP_BASE_URL}/media/profile.jpg`}
+              alt="profile"
+            />
+
             <h3 className="anchor" id="1"><b>1.自己紹介</b></h3>
             
             <hr/>
