@@ -9,7 +9,7 @@ function Profile() {
       <div className="row">
         <div className="row">
 			    <div className="col">
-            <span className="mt-0 mb-0 text-secondary">最終更新日：2024年8月18日</span>
+            <span className="mt-0 mb-0 text-secondary">最終更新日：2024年10月11日</span>
             <h3><b>プロフィール</b></h3>
 
             <img

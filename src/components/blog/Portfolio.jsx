@@ -6,7 +6,7 @@ function Portfolio() {
               <div className="container container-m">
       <div className="row">
         <div>
-        <span className="mt-0 mb-0 text-secondary">最終更新日：2024年9月10日</span>
+        <span className="mt-0 mb-0 text-secondary">最終更新日：2024年10月11日</span>
 				<h3 className="mb-3"><b>ポートフォリオ</b></h3>
 
 				<p><a href="/">さんまブログ</a></p>

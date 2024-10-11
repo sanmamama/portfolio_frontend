@@ -7,7 +7,7 @@ function PrivacyPolicy() {
 		<div className="col-sm-9">
               <div className="container container-m">
 
-		<p className="mt-0 mb-0 text-secondary">最終更新日：2024年8月18日</p>
+		<p className="mt-0 mb-0 text-secondary">最終更新日：2024年10月11日</p>
 
 				<h3><b>プライバシーポリシー</b></h3>
 
