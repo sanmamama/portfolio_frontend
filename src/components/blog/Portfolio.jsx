@@ -12,7 +12,7 @@ function Portfolio() {
 				<p><a href="/">さんまブログ</a></p>
         <img
               className="img-fluid"
-              src={`${process.env.REACT_APP_BASE_URL}/media/blog.jpg`}
+              src={`${process.env.REACT_APP_BASE_URL}/media/blog.png`}
               alt="blog"
         />
 				<p>このブログです。一般的なブログアプリで、自身のプロフィールや学習記録、技術的な記事の発信のために開発しました。</p>
@@ -27,7 +27,7 @@ function Portfolio() {
 				<p><a href="/postter">Postter</a></p>
         <img
               className="img-fluid"
-              src={`${process.env.REACT_APP_BASE_URL}/media/postter.jpg`}
+              src={`${process.env.REACT_APP_BASE_URL}/media/postter.png`}
               alt="postter"
         />
         <p>多言語対応のSNSプラットフォームアプリです。ユーザーが投稿する内容を、DeepL APIを使用して自動的に複数の言語に翻訳し、他言語のユーザーにもシームレスに共有できるSNSアプリを開発しました。</p>
