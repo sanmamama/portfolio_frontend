@@ -80,10 +80,15 @@ function Profile() {
             <hr/>
             <div className="row">
                     <div className="col">
+                      <p>2009年</p>
+                      <p>2020年</p>
                       <p>2023年</p>
                     </div>
                     <div className="col">
+                      <p>普通自動車第一種免許取得</p>
+                      <p>図書館司書資格取得</p>
                       <p>応用情報技術者試験合格</p>
+                      
                     </div>
             </div>
 
