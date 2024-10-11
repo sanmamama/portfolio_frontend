@@ -128,7 +128,7 @@ const BookList = () => {
 							</div>
 							<div className="col-9">
 								<BookRating rating={book.rating}/>
-								<b>{book.title}</b><br/>
+								<a href={book.infoLink}><b>{book.title}</b></a><br/>
 								{book.author} / {book.publisher}<br/>
 								<span className="custom-mark">{book.status}</span>{book.read_date}  <br/>
 								{book.review}
