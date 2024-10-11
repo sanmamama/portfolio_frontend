@@ -10,11 +10,33 @@ function Portfolio() {
 				<h3 className="mb-3"><b>ポートフォリオ</b></h3>
 
 				<p><a href="/">さんまブログ</a></p>
-        <img
+        <div className="row">
+          <div className="col">
+            <img
               className="img-fluid"
               src={`${process.env.REACT_APP_BASE_URL}/media/blog.png`}
+              width="200" 
               alt="blog"
-        />
+            />
+          </div>
+          <div className="col">
+            <img
+              className="img-fluid"
+              src={`${process.env.REACT_APP_BASE_URL}/media/post.gif`}
+              width="200" 
+              alt="post"
+            />
+          </div>
+          <div className="col">
+            <img
+              className="img-fluid"
+              src={`${process.env.REACT_APP_BASE_URL}/media/search.gif`}
+              width="200" 
+              alt="search"
+            />
+          </div>
+        </div>
+        
 				<p>このブログです。一般的なブログアプリで、自身のプロフィールや学習記録、技術的な記事の発信のために開発しました。</p>
         <p>代表的な機能</p>
         <ul>
@@ -25,11 +47,33 @@ function Portfolio() {
         <hr/>
 
 				<p><a href="/postter">Postter</a></p>
-        <img
+        <div className="row">
+          <div className="col">
+            <img
               className="img-fluid"
               src={`${process.env.REACT_APP_BASE_URL}/media/postter.png`}
+              width="200" 
               alt="postter"
-        />
+            />
+          </div>
+          <div className="col">
+            <img
+              className="img-fluid"
+              src={`${process.env.REACT_APP_BASE_URL}/media/translate.gif`}
+              width="200" 
+              alt="translate"
+            />
+          </div>
+          <div className="col">
+            <img
+              className="img-fluid"
+              src={`${process.env.REACT_APP_BASE_URL}/media/message.gif`}
+              width="200" 
+              alt="message"
+            />
+          </div>
+        </div>
+        
         <p>多言語対応のSNSプラットフォームアプリです。ユーザーが投稿する内容を、DeepL APIを使用して自動的に複数の言語に翻訳し、他言語のユーザーにもシームレスに共有できるSNSアプリを開発しました。</p>
         <p>代表的な機能</p>
         <ul>
