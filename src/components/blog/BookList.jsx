@@ -48,7 +48,7 @@ const BookList = () => {
 						const infoLink = googleData.items[0]?.volumeInfo?.infoLink.replace("http://","https://");
 					return { ...book, thumbnail: thumbnail || null, infoLink: infoLink || null };
 					} else {
-					return { ...book, thumbnail: null, infoLink: null }; 
+						return { ...book, thumbnail: null, infoLink: null }; 
 					}
 					})
 				);
@@ -112,7 +112,7 @@ const BookList = () => {
 					{books.map((book,ix) => (
 						<div className="row border" key={ix}>
 							<div className="col-3 d-flex align-items-center justify-content-center">
-								<p className="text-center lh-1">{book.thumbnail ? 
+								<p className="text-center lh-1 mb-0">{book.thumbnail ? 
 									<>
 									<a href={book.infoLink}>
 										<img src={book.thumbnail} alt={book.title} height={100} />
