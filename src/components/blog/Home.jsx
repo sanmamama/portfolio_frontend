@@ -3,6 +3,7 @@ import { Link,useLocation } from 'react-router-dom';
 import SidebarContent from './HomeSidebar';
 import {BlogDataContext} from "./providers/BlogDataProvider"
 
+const baseUrl = process.env.REACT_APP_BASE_URL;
 
 // カスタムフック: ウィンドウサイズが `576px` 以下かどうかをチェック
 const useIsSmallScreen = () => {
@@ -113,6 +114,9 @@ const BlogItem = ({ item,isSmallScreen }) => (
                         </span>
                         <span className="text-secondary align-text-bottom">
                             {formatDateToJapanese(item.created_at)}
+                        </span>
+                        <span className="ms-2 align-text-bottom">
+                            <img src={`${baseUrl}/media/icon/heart_active.svg`} width="18" height="18" alt="like"/>{item.likes}
                         </span>
                     </div>
 
