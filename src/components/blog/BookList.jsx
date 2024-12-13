@@ -11,6 +11,9 @@ const BookList = () => {
 
 		const fetchBooks = async (page) => {
 			try {
+				// 0.2秒待機
+				await new Promise((resolve) => setTimeout(resolve, 200));
+
 				const response = await fetch(`${apiUrl}/book/?page=${page}`, 
 					{
 						method: 'GET',
