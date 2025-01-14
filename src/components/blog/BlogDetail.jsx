@@ -84,10 +84,10 @@ const BlogDetail = () => {
 				</span>
 					<span className="mt-0 mb-0 text-secondary align-text-bottom">
 							{formatDateToJapanese(data.created_at)}</span>
-					<span className="ms-2 text-secondary mark align-text-bottom"><Link to={`/?category=${data.category.id}`}>{data.category.name}</Link></span>
+					<span className="ms-2 text-secondary mark align-text-bottom"><Link to={`/?category=${data.category.name}`}>{data.category.name}</Link></span>
 				{data.tag.map(
 				tag => (
-					<span className="ms-2 text-secondary custom-mark align-text-bottom" key={tag.id}><Link to={`/?tag=${tag.id}`}>{tag.name}</Link></span>
+					<span className="ms-2 text-secondary custom-mark align-text-bottom" key={tag.id}><Link to={`/?tag=${tag.name}`}>{tag.name}</Link></span>
 				))}
 			</div>
 
