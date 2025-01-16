@@ -10,7 +10,7 @@ import { useTranslation } from 'react-i18next';
 import {handleFollow} from './HandleFollow';
 import ModalAddUserToList from './ModalAddUserToList';
 const apiUrl = process.env.REACT_APP_API_URL;
-//const baseUrl = process.env.REACT_APP_BASE_URL;
+const baseUrl = process.env.REACT_APP_BASE_URL;
 
 
 const ViewProfile = () => {
@@ -121,7 +121,7 @@ const ViewProfile = () => {
 						</div>
 					</div>
 
-					<img className="rounded img-fluid mx-auto d-block" src={`${userData.avatar_imgurl}`} id="avatar-image" width="150" height="150" alt="avatarimage"/>
+					<img className="rounded img-fluid mx-auto d-block" src={`${baseUrl}${userData.avatar_imgurl}`} id="avatar-image" width="150" height="150" alt="avatarimage"/>
 					
 					<p className="mb-0"><b>{userData.username}</b></p>
 					<p className="text-secondary">@{userData.uid}</p>

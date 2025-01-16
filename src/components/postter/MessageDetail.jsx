@@ -189,7 +189,7 @@ const Message = () => {
 					</div>
 
 					<Link to="/postter/message">←{t("message_list")}</Link>
-					<img className="rounded img-fluid mx-auto d-block" src={`${targetUserData.avatar_imgurl}`} id="avatar-image" width="100" height="100" alt="avatarimage"/>
+					<img className="rounded img-fluid mx-auto d-block" src={`${baseUrl}${targetUserData.avatar_imgurl}`} id="avatar-image" width="100" height="100" alt="avatarimage"/>
 					<p className="text-center">{targetUserData.username} @{targetUserData.uid}</p>
 					<p className="text-center">{targetUserData.profile_statement}</p>
 					<form method="post" onSubmit={handleMessageSubmit}>
@@ -233,7 +233,7 @@ const Message = () => {
 										</p>
 									</div>
 									<div className="col-2">
-										<img className="rounded img-fluid mx-auto d-block" src={`${MessageData.user_from.avatar_imgurl}`} id="avatar-image" width="40" height="40" alt="avatarimage"/>
+										<img className="rounded img-fluid mx-auto d-block" src={`${baseUrl}${MessageData.user_from.avatar_imgurl}`} id="avatar-image" width="40" height="40" alt="avatarimage"/>
 									</div>
 								</div>
 								<div className="row">
@@ -252,7 +252,7 @@ const Message = () => {
 							<>
 								<div className="row">
 									<div className="col-2">
-										<img className="rounded img-fluid mx-auto d-block" src={`${MessageData.user_from.avatar_imgurl}`} id="avatar-image" width="40" height="40" alt="avatarimage"/>
+										<img className="rounded img-fluid mx-auto d-block" src={`${baseUrl}${MessageData.user_from.avatar_imgurl}`} id="avatar-image" width="40" height="40" alt="avatarimage"/>
 									</div>
 									<div className="col-7 bg-custom-2">
 										<p className="mt-2">

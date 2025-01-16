@@ -97,7 +97,7 @@ const Message = () => {
 											<Link className="no-link-style" to={`/postter/${NotificationData.sender.uid}/`}>
 											<div className="row">
 												<div className="col-2">
-													<img className="rounded img-fluid mx-auto d-block" src={`${NotificationData.sender.avatar_imgurl}`} id="avatar-image" width="40" height="40" alt="avatarimage"/>
+													<img className="rounded img-fluid mx-auto d-block" src={`${baseUrl}${NotificationData.sender.avatar_imgurl}`} id="avatar-image" width="40" height="40" alt="avatarimage"/>
 													<p className="text-center">{NotificationData.notification_type}</p>
 												</div>
 											<div className="col-10">
@@ -115,7 +115,7 @@ const Message = () => {
 											<Link className="no-link-style" to={`/postter/post/${NotificationData.post.id}/`}>
 											<div className="row">
 												<div className="col-2">
-													<img className="rounded img-fluid mx-auto d-block" src={`${NotificationData.sender.avatar_imgurl}`} id="avatar-image" width="40" height="40" alt="avatarimage"/>
+													<img className="rounded img-fluid mx-auto d-block" src={`${baseUrl}${NotificationData.sender.avatar_imgurl}`} id="avatar-image" width="40" height="40" alt="avatarimage"/>
 													<p className="text-center">{NotificationData.notification_type}</p>
 												</div>
 											<div className="col-10">
@@ -153,7 +153,7 @@ const Message = () => {
 											<Link className="no-link-style" to={`/postter/post/${NotificationData.post.id}/`}>
 											<div className="row">
 												<div className="col-2">
-													<img className="rounded img-fluid mx-auto d-block" src={`${NotificationData.sender.avatar_imgurl}`} id="avatar-image" width="40" height="40" alt="avatarimage"/>
+													<img className="rounded img-fluid mx-auto d-block" src={`${baseUrl}${NotificationData.sender.avatar_imgurl}`} id="avatar-image" width="40" height="40" alt="avatarimage"/>
 													<p className="text-center">{NotificationData.notification_type}</p>
 												</div>
 											<div className="col-10">
@@ -190,7 +190,7 @@ const Message = () => {
 											<Link className="no-link-style" to={`/postter/post/${NotificationData.post.id}/`}>
 											<div className="row">
 												<div className="col-2">
-													<img className="rounded img-fluid mx-auto d-block" src={`${NotificationData.sender.avatar_imgurl}`} id="avatar-image" width="40" height="40" alt="avatarimage"/>
+													<img className="rounded img-fluid mx-auto d-block" src={`${baseUrl}${NotificationData.sender.avatar_imgurl}`} id="avatar-image" width="40" height="40" alt="avatarimage"/>
 													<p className="text-center">{NotificationData.notification_type}</p>
 												</div>
 											<div className="col-10">
@@ -227,7 +227,7 @@ const Message = () => {
 										<Link className="no-link-style" to={`/postter/message/${myUserDataGlobal.id}-${NotificationData.sender.id}/`}>
 											<div className="row">
 												<div className="col-2">
-													<img className="rounded img-fluid mx-auto d-block" src={`${NotificationData.sender.avatar_imgurl}`} id="avatar-image" width="40" height="40" alt="avatarimage"/>
+													<img className="rounded img-fluid mx-auto d-block" src={`${baseUrl}${NotificationData.sender.avatar_imgurl}`} id="avatar-image" width="40" height="40" alt="avatarimage"/>
 													<p className="text-center">{NotificationData.notification_type}</p>
 												</div>
 											<div className="col-10">
@@ -264,7 +264,7 @@ const Message = () => {
 											<Link className="no-link-style" to={`/postter/post/${NotificationData.parent}/`}>
 											<div className="row">
 												<div className="col-2">
-													<img className="rounded img-fluid mx-auto d-block" src={`${NotificationData.sender.avatar_imgurl}`} id="avatar-image" width="40" height="40" alt="avatarimage"/>
+													<img className="rounded img-fluid mx-auto d-block" src={`${baseUrl}${NotificationData.sender.avatar_imgurl}`} id="avatar-image" width="40" height="40" alt="avatarimage"/>
 													<p className="text-center">{NotificationData.notification_type}</p>
 												</div>
 											<div className="col-10">

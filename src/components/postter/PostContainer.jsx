@@ -46,7 +46,7 @@ const PostContainer = ({ postData,myUserDataGlobal,posts,setPosts,getUserData,se
 									</div>
 								<div className="row flex-nowrap">
 									<div className="col-fix pl-0 pr-0">
-										<img className="rounded img-fluid mx-auto d-block" src={postData.owner.avatar_imgurl} id="avatar-image" width="40" height="40" alt="avatarimage"/>
+										<img className="rounded img-fluid mx-auto d-block" src={`${baseUrl}${postData.owner.avatar_imgurl}`} id="avatar-image" width="40" height="40" alt="avatarimage"/>
 									</div>
 									<div className="col">
 

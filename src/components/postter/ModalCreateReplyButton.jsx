@@ -113,7 +113,7 @@ class CustomModal extends React.Component {
           <table id='post_list' className="table-sm" style={{width: "100%"}}>
 								<tr className="text">
 								<td className="text" style={{width: "15%"}}>
-									<img className="rounded img-fluid mx-auto d-block" src={this.props.postData.owner.avatar_imgurl} id="avatar-image" width="40" height="40"  alt="avatarimage"/>
+									<img className="rounded img-fluid mx-auto d-block" src={`${baseUrl}${this.props.postData.owner.avatar_imgurl}`} id="avatar-image" width="40" height="40"  alt="avatarimage"/>
 								</td>
 								<td className="text" style={{width: "80%"}}>
 									<h6>

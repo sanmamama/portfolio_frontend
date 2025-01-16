@@ -57,7 +57,7 @@ const LeftSideContent = () => {
 					<div className="card-body pt-3 pb-3 pl-3 pr-3">
 						<h4>{t('profile')}</h4>						
 							
-						<img className="img-fluid" src={myUserDataGlobal.avatar_imgurl}  alt="avatarimage"/>
+						<img className="img-fluid" src={`${baseUrl}${myUserDataGlobal.avatar_imgurl}`}  alt="avatarimage"/>
 						<p className="mt-0 mb-0"><b><Link to={`/postter/${myUserDataGlobal.uid}/`}>{myUserDataGlobal.username}</Link></b></p>
 						<p className="mt-0 mb-0 text-secondary">@{myUserDataGlobal.uid}</p>
 						<p className="mt-0 mb-3"> {myUserDataGlobal.profile_statement}</p>

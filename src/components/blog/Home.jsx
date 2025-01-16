@@ -134,6 +134,7 @@ const BlogItem = ({ item,isSmallScreen }) => (
                         </span>
                     </div>
                 </Link>
+                
 				{isSmallScreen && <hr />}
             </div>
         </div>

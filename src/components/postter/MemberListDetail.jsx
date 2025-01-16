@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
 
 const apiUrl = process.env.REACT_APP_API_URL;
+const baseUrl = process.env.REACT_APP_BASE_URL;
 
 const Message = () => {
 	const { i18n,t } = useTranslation();
@@ -194,7 +195,7 @@ const Message = () => {
 								{userList.map((ListData,ix) => (
 								<tr className="text" key={ix}>
 								<td className="text" style={{width: "15%"}}>
-									<img className="rounded img-fluid mx-auto d-block" src={ListData.user.avatar_imgurl} id="avatar-image" width="40" height="40" alt="avatarimage"/>
+									<img className="rounded img-fluid mx-auto d-block" src={`${baseUrl}${ListData.user.avatar_imgurl}`} id="avatar-image" width="40" height="40" alt="avatarimage"/>
 								</td>
 								<td className="text" style={{width: "80%"}}>
 									<h6>
