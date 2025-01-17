@@ -59,25 +59,7 @@ jobs:
         target: "/root/portfolio"
           
 
-    - name: アップロードしたcss,js,mediaファイルを移動する
-      uses: appleboy/ssh-action@v0.1.2
-      with:
-        host: 118.27.2.129
-        username: root
-        key: ${{ secrets.SSH_PRIVATE_KEY }}
-        passphrase: ${{ secrets.SSH_PASSPHRASE }}
-        port: 22
-        script: |
-          rm -rf /root/rest/static/css
-          rm -rf /root/rest/static/js
-          rm -rf /root/rest/static/media
-          mv /root/rest/static/build/static/css /root/rest/static/
-          mv /root/rest/static/build/static/js /root/rest/static/
-          mv /root/rest/static/build/static/media /root/rest/static/
-          rm -rf /root/rest/static/build/static/
-          ls
-
-        # - name: サーバでコマンドを実行
+    # - name: アップロードしたcss,js,mediaファイルを移動する
     #   uses: appleboy/ssh-action@v0.1.2
     #   with:
     #     host: 118.27.2.129
@@ -86,8 +68,26 @@ jobs:
     #     passphrase: ${{ secrets.SSH_PASSPHRASE }}
     #     port: 22
     #     script: |
-    #       cd /root/portfolio
-    #       docker load < backend.tar.gz
-    #       docker-compose down
-    #       docker-compose up -d
+    #       rm -rf /root/rest/static/css
+    #       rm -rf /root/rest/static/js
+    #       rm -rf /root/rest/static/media
+    #       mv /root/rest/static/build/static/css /root/rest/static/
+    #       mv /root/rest/static/build/static/js /root/rest/static/
+    #       mv /root/rest/static/build/static/media /root/rest/static/
+    #       rm -rf /root/rest/static/build/static/
+    #       ls
+
+    - name: サーバでコマンドを実行
+      uses: appleboy/ssh-action@v0.1.2
+      with:
+        host: 118.27.2.129
+        username: root
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        passphrase: ${{ secrets.SSH_PASSPHRASE }}
+        port: 22
+        script: |
+          cd /root/portfolio
+          sudo docker load < frontend.tar.gz
+          sudo docker-compose down
+          sudo docker-compose up -d
 
