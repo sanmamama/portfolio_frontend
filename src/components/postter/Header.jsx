@@ -78,6 +78,7 @@ function Header() {
     <header>
       <nav className="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
         <div className="container-fluid">
+          <a className="navbar-brand" href="/">←ブログに戻る</a>
           <a className="navbar-brand" href="/postter/home">postter</a>
           
           <button type="button" className="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="ナビゲーションの切替">
