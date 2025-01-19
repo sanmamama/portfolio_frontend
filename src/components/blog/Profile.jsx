@@ -9,7 +9,7 @@ function Profile() {
       <div className="row">
         <div className="row">
 			    <div className="col">
-            <span className="mt-0 mb-0 text-secondary">最終更新日：2024年10月11日</span>
+            <span className="mt-0 mb-0 text-secondary">最終更新日：2024年12月28日</span>
             <h3><b>プロフィール</b></h3>
 
             <img
@@ -66,15 +66,15 @@ function Profile() {
               <div className="wp-block-columns is-layout-flex wp-container-core-columns-is-layout-1 wp-block-columns-is-layout-flex">
                   <div className="row">
                     <div className="col">
-                      <p>2007年4月</p>
-                      <p>2011年3月</p>
-                      <p>2013年4月</p>
-                      <p>2023年8月</p>
+                      <p>2007年</p>
+                      <p>2011年</p>
+                      <p>2013年</p>
+                      <p>2023年</p>
                       <p>現在に至る</p>
                     </div>
                     <div className="col">
-                      <p>北海道工業大学入学</p>
-                      <p>北海道工業大学卒業</p>
+                      <p>工業大学工学部入学</p>
+                      <p>工業大学工学部卒業</p>
                       <p>町役場入庁</p>
                       <p>町役場退庁</p>
                     </div>
