@@ -12,12 +12,14 @@ function Profile() {
 			    <div className="col">
             <span className="mt-0 mb-0 text-secondary">最終更新日：2025年2月24日</span>
             <h3><b>プロフィール</b></h3>
-
+            <p>
             <img
               className="img-fluid"
               src={`${process.env.REACT_APP_BASE_URL}/media/profile.jpg`}
               alt="profile"
             />
+            </p>
+            <p>
             <Link to="https://x.com/sanmamama_">
                 <img
                         className="me-2 align-baseline"
@@ -37,6 +39,7 @@ function Profile() {
                         alt="GitHub_logo"
                 />
             </Link>
+            </p>
 
             <h3 className="anchor" id="1"><b>1.自己紹介</b></h3>
             

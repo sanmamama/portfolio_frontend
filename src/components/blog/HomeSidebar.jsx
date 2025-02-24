@@ -91,7 +91,7 @@ const SidebarContent = () => {
                         src={`${process.env.REACT_APP_BASE_URL}/media/profile.jpg`}
                         alt="profile"
                     />
-                    <p>さんまままです。元地方公務員を10年ほどやっていました。現在はITエンジニアを目指して奮闘中です。</p>
+                    <p>さんまままといいます。1988年生まれ、北海道在住。大学を卒業後、地方公務員として10年間勤務し、1年半ほど主夫を経て今後エンジニアとして活動予定です。</p>
                     <p>
                         <Link to="https://x.com/sanmamama_">
                             <img
