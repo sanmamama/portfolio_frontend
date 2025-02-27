@@ -166,3 +166,14 @@ a {
 .no-wrap-button {
   white-space: nowrap;
 }
+
+.body-toc {
+  overflow-x: hidden;
+}
+
+.toc a {
+  display: block;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
+}
