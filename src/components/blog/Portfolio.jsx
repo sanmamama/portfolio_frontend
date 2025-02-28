@@ -6,7 +6,7 @@ function Portfolio() {
               <div className="container container-m">
       <div className="row">
         <div>
-        <span className="mt-0 mb-0 text-secondary">最終更新日：2024年10月11日</span>
+        <span className="mt-0 mb-0 text-secondary">最終更新日：2025年2月28日</span>
 				<h3 className="mb-3"><b>ポートフォリオ</b></h3>
 
 				<p><a href="/">さんまブログ</a></p>
@@ -43,6 +43,7 @@ function Portfolio() {
           <li>投稿作成・編集機能（Markdownサポート）</li>
           <li>記事をカテゴリーやタグで分類し、整理するカテゴリー・タグ機能</li>
           <li>ユーザーがブログ内の記事をキーワードで検索できる機能</li>
+          <li>React+Django Rest Framework+PostgreSQL</li>
         </ul>
         <hr/>
 
@@ -80,7 +81,38 @@ function Portfolio() {
           <li>投稿作成時にDeepLを使って自動翻訳された内容をプレビュー</li>
           <li>翻訳された投稿に対するコメントやリプライも、自動的に投稿者の言語に翻訳</li>
           <li>言語選択機能によりユーザーが希望する言語（英語と日本語のみ対応）でフィードを閲覧可能</li>
+          <li>React+Django Rest Framework+PostgreSQL</li>
         </ul>
+
+        <p><a href="/bookpersona">BookPersona</a></p>
+        <div className="row">
+          <div className="col">
+            <img
+              className="img-fluid"
+              src={`${process.env.REACT_APP_BASE_URL}/media/bookpersona.png`}
+              width="200" 
+              alt="postter"
+            />
+          </div>
+          <div className="col">
+            
+          </div>
+          <div className="col">
+            
+          </div>
+        </div>
+        
+        <p>本の内容からあなたの性格を分析し性格診断結果を表示するWebアプリです。</p>
+        <p>代表的な機能</p>
+        <ul>
+          <li>Google APIを使用して本の情報を取得</li>
+          <li>Gemini APIを使用して本の情報から性格を推定</li>
+          <li>性格診断結果を表示</li>
+          <li>JakartaEE+Glassfish</li>
+        </ul>
+
+
+
         </div>
     </div></div>
     </div>
