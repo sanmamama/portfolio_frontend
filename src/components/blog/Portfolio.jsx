@@ -91,11 +91,16 @@ function Portfolio() {
               className="img-fluid"
               src={`${process.env.REACT_APP_BASE_URL}/media/bookpersona.png`}
               width="200" 
-              alt="postter"
+              alt="bookpersona"
             />
           </div>
           <div className="col">
-            
+          <img
+              className="img-fluid"
+              src={`${process.env.REACT_APP_BASE_URL}/media/bookpersona.gif`}
+              width="200" 
+              alt="bookpersona"
+            />
           </div>
           <div className="col">
             
