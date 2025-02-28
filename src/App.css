@@ -177,3 +177,11 @@ a {
   overflow-wrap: break-word;
   white-space: normal;
 }
+
+.markdownx-preview {
+  overflow-x: auto; /* 水平方向にスクロールを許可 */
+  word-wrap: break-word; /* 単語の途中でも改行 */
+  overflow-wrap: break-word; /* 長い単語を折り返し */
+  white-space: normal; /* テキストを折り返し */
+  max-width: 100%; /* 親要素からはみ出さない */
+}
