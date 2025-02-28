@@ -83,6 +83,7 @@ function Portfolio() {
           <li>言語選択機能によりユーザーが希望する言語（英語と日本語のみ対応）でフィードを閲覧可能</li>
           <li>React+Django Rest Framework+PostgreSQL</li>
         </ul>
+        <hr/>
 
         <p><a href="/bookpersona">BookPersona</a></p>
         <div className="row">
