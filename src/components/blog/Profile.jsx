@@ -12,7 +12,6 @@ function Profile() {
 			    <div className="col">
             <span className="mt-0 mb-0 text-secondary">最終更新日：2025年3月20日</span>
             <h3><b>プロフィール</b></h3>
-            <a class="twitter-timeline" data-width="240" href="https://twitter.com/sanmamama_?ref_src=twsrc%5Etfw">Tweets by sanmamama_</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
             <p>
             <img
               className="img-fluid"
