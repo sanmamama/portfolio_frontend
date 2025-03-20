@@ -70,7 +70,7 @@ const BookList = () => {
   
 
   if (!books) {
-    return <div>Loading...</div>;
+    return <div>書籍の情報を読み込んでいます。しばらくお待ち下さい。</div>;
   }
 
 
@@ -106,7 +106,7 @@ const BookList = () => {
     <div className="d-flex align-items-center justify-content-center">
 				<InfiniteScroll
 					loadMore={fetchBooks}
-					loader={<div key={0}>Loading ...</div>}
+					loader={<div key={0}>書籍の情報を読み込んでいます。しばらくお待ち下さい。</div>}
 					hasMore={hasMore}
 					useWindow={true}
 					threshold={5} >

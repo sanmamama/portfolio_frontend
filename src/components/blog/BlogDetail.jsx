@@ -54,7 +54,7 @@ const BlogDetail = () => {
 	}
 
 	if (data === null) {
-		return <div>loading...</div>;
+		return <div>記事を読み込んでいます。しばらくお待ち下さい。</div>;
 	}
 
 	if (!data) {

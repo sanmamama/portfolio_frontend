@@ -222,7 +222,7 @@ const App = () => {
                     <div className="col-sm-9">
                         <div className="container container-m">
                             <div className="row">
-                            loading...
+                            記事を読み込んでいます。しばらくお待ち下さい。
                             </div>
                         </div>
                     </div>
