@@ -22,18 +22,13 @@ function Portfolio() {
           <div className="col">
             <img
               className="img-fluid"
-              src={`${process.env.REACT_APP_BASE_URL}/media/post.gif`}
+              src={`${process.env.REACT_APP_BASE_URL}/media/search.gif`}
               width="200" 
               alt="post"
             />
           </div>
           <div className="col">
-            <img
-              className="img-fluid"
-              src={`${process.env.REACT_APP_BASE_URL}/media/search.gif`}
-              width="200" 
-              alt="search"
-            />
+            
           </div>
         </div>
         
