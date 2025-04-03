@@ -14,6 +14,12 @@ const BlogDetail = () => {
 	const {myBlogDataGlobal,setMyBlogDataGlobal} = useContext(BlogDataContext);
 
 	useEffect(() => {
+		if (window.twttr && window.twttr.widgets) {
+			window.twttr.widgets.load();
+		}
+	}, [data.content_html]);
+
+	useEffect(() => {
 		try{
 			const index = myBlogDataGlobal.findIndex(obj => obj.id === Number(id));
 			setData(myBlogDataGlobal[index])
