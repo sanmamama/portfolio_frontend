@@ -14,12 +14,6 @@ const BlogDetail = () => {
 	const {myBlogDataGlobal,setMyBlogDataGlobal} = useContext(BlogDataContext);
 
 	useEffect(() => {
-		if (window.twttr && window.twttr.widgets) {
-			window.twttr.widgets.load();
-		}
-	}, [data.content_html]);
-
-	useEffect(() => {
 		try{
 			const index = myBlogDataGlobal.findIndex(obj => obj.id === Number(id));
 			setData(myBlogDataGlobal[index])
@@ -32,7 +26,11 @@ const BlogDetail = () => {
 	useEffect(() => {
 		if(data){
 			window.hljs.highlightAll();
+			if (data.content_html && window.twttr && window.twttr.widgets) {
+				window.twttr.widgets.load();
+			}
 		}
+		
 	}, [data]);
 
 	const formatDateToJapanese = (dateString) => {
