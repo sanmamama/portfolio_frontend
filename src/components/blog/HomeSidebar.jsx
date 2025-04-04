@@ -116,6 +116,10 @@ const SidebarContent = () => {
                 </div>
                     <hr/>
                 <div>
+                <a class="twitter-timeline" href="https://twitter.com/sanmamama_?ref_src=twsrc%5Etfw">Tweets by sanmamama_</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+                </div>
+                    <hr/>
+                <div>
                     <h4>カテゴリー</h4>
                     <ul>
                         {categories.map(([id, { name, count }]) => (
