@@ -58,7 +58,7 @@ const handleSubmit = (event) => {
 
   return (
     <header>
-      <nav className="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+      <nav className="navbar navbar-expand-lg navbar-dark fixed-top bg-dark">
         <div className="container-fluid">
           <Link className="navbar-brand" to="/">
             さんまブログ
@@ -106,7 +106,7 @@ const handleSubmit = (event) => {
                   プライバシーポリシー
                 </NavLink>
               </li>
-              <li className="nav-item">
+              {/* <li className="nav-item">
                 <NavLink 
                   className={({ isActive }) => "nav-link" + (isActive ? " active" : "")} 
                   to="/contact"
@@ -114,7 +114,7 @@ const handleSubmit = (event) => {
                 >
                   問い合わせ
                 </NavLink>
-              </li>
+              </li> */}
             </ul>
 
             <div className="ms-auto">
