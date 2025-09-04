@@ -46,29 +46,34 @@ const useQuery = () => new URLSearchParams(window.location.search);
 // ページネーションリンクの作成
 const Pagination = ({ currentPage, pageCount, addUrl }) => (
     pageCount > 1 && (
-        <div className="text-center">
-            {currentPage > 1 ? (
-                <span className="ms-2"><Link to={`/?page=${currentPage - 1}${addUrl}`}>prev</Link></span>
-            ) : (
-                <span className="ms-2">prev</span>
-            )}
+        <>
+            
+            <div className="text-center">
+                {currentPage > 1 ? (
+                    <span className="ms-2"><Link to={`/?page=${currentPage - 1}${addUrl}`}>prev</Link></span>
+                ) : (
+                    <span className="ms-2">prev</span>
+                )}
 
-            {Array.from({ length: pageCount }).map((_, i) => (
-                <span className="ms-2" key={i}>
-                    {currentPage !== i + 1 ? (
-                        <Link to={`/?page=${i + 1}${addUrl}`}>{i + 1}</Link>
-                    ) : (
-                        <span>{i + 1}</span>
-                    )}
-                </span>
-            ))}
+                {Array.from({ length: pageCount }).map((_, i) => (
+                    <span className="ms-2" key={i}>
+                        {currentPage !== i + 1 ? (
+                            <Link to={`/?page=${i + 1}${addUrl}`}>{i + 1}</Link>
+                        ) : (
+                            <span>{i + 1}</span>
+                        )}
+                    </span>
+                ))}
 
-            {currentPage < pageCount ? (
-                <span className="ms-2"><Link to={`/?page=${currentPage + 1}${addUrl}`}>next</Link></span>
-            ) : (
-                <span className="ms-2">next</span>
-            )}
-        </div>
+                {currentPage < pageCount ? (
+                    <span className="ms-2"><Link to={`/?page=${currentPage + 1}${addUrl}`}>next</Link></span>
+                ) : (
+                    <span className="ms-2">next</span>
+                )}
+
+                <hr/>
+            </div>
+        </>
     )
 );
 
