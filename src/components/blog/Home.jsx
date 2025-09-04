@@ -44,7 +44,7 @@ const truncateTo100Chars = (value) => {
 const useQuery = () => new URLSearchParams(window.location.search);
 
 // ページネーションリンクの作成
-const Pagination = ({ currentPage, pageCount, addUrl = "", size, maxButtons = 4 }) => {
+const Pagination = ({ currentPage, pageCount, addUrl = "", size, maxButtons = 4, isSmallScreen}) => {
   if (pageCount <= 1) return null;
 
   // addUrl は "&..." を想定。空なら "" のまま使う
@@ -64,6 +64,7 @@ const Pagination = ({ currentPage, pageCount, addUrl = "", size, maxButtons = 4 
   const sizeClass = size ? ` pagination-${size}` : "";
 
   return (
+    <>
     <nav aria-label="Pagination">
       <ul className={`pagination justify-content-center${sizeClass} my-3`}>
         {/* Prev */}
@@ -108,6 +109,8 @@ const Pagination = ({ currentPage, pageCount, addUrl = "", size, maxButtons = 4 
         </li>
       </ul>
     </nav>
+    {isSmallScreen && <hr />}
+    </>
   );
 };
 
@@ -315,7 +318,7 @@ const App = () => {
                     </div>
 
                     {/* ★ ページネーション */}
-                    <Pagination currentPage={currentPage} pageCount={pageCount} addUrl={addUrl} />
+                    <Pagination currentPage={currentPage} pageCount={pageCount} addUrl={addUrl} isSmallScreen={isSmallScreen} />
                 </div>
             </div>
 
