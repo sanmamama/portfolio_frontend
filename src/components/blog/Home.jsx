@@ -44,38 +44,72 @@ const truncateTo100Chars = (value) => {
 const useQuery = () => new URLSearchParams(window.location.search);
 
 // ページネーションリンクの作成
-const Pagination = ({ currentPage, pageCount, addUrl }) => (
-    pageCount > 1 && (
-        <>
-            
-            <div className="text-center">
-                {currentPage > 1 ? (
-                    <span className="ms-2"><Link to={`/?page=${currentPage - 1}${addUrl}`}>prev</Link></span>
-                ) : (
-                    <span className="ms-2">prev</span>
-                )}
+const Pagination = ({ currentPage, pageCount, addUrl = "", size, maxButtons = 4 }) => {
+  if (pageCount <= 1) return null;
 
-                {Array.from({ length: pageCount }).map((_, i) => (
-                    <span className="ms-2" key={i}>
-                        {currentPage !== i + 1 ? (
-                            <Link to={`/?page=${i + 1}${addUrl}`}>{i + 1}</Link>
-                        ) : (
-                            <span>{i + 1}</span>
-                        )}
-                    </span>
-                ))}
+  // addUrl は "&..." を想定。空なら "" のまま使う
+  const q = (p) => `/?page=${p}${addUrl}`;
 
-                {currentPage < pageCount ? (
-                    <span className="ms-2"><Link to={`/?page=${currentPage + 1}${addUrl}`}>next</Link></span>
-                ) : (
-                    <span className="ms-2">next</span>
-                )}
+  // 表示ウィンドウ計算（先頭/末尾は常に出し、間は省略可）
+  const start = Math.max(2, currentPage - maxButtons);
+  const end   = Math.min(pageCount - 1, currentPage + maxButtons);
 
-                <hr/>
-            </div>
-        </>
-    )
-);
+  const pages = [];
+  pages.push(1);
+  if (start > 2) pages.push("left-ellipsis");
+  for (let i = start; i <= end; i++) pages.push(i);
+  if (end < pageCount - 1) pages.push("right-ellipsis");
+  if (pageCount > 1) pages.push(pageCount);
+
+  const sizeClass = size ? ` pagination-${size}` : "";
+
+  return (
+    <nav aria-label="Pagination">
+      <ul className={`pagination justify-content-center${sizeClass} my-3`}>
+        {/* Prev */}
+        <li className={`page-item ${currentPage === 1 ? "disabled" : ""}`}>
+          {currentPage === 1 ? (
+            <span className="page-link" aria-hidden="true">‹</span>
+          ) : (
+            <Link className="page-link" to={q(currentPage - 1)} aria-label="Previous">‹</Link>
+          )}
+        </li>
+
+        {/* 数字 & 省略 */}
+        {pages.map((p, idx) => {
+          if (p === "left-ellipsis" || p === "right-ellipsis") {
+            return (
+              <li key={p + idx} className="page-item disabled">
+                <span className="page-link">…</span>
+              </li>
+            );
+          }
+          const active = p === currentPage;
+          return (
+            <li key={p} className={`page-item ${active ? "active" : ""}`}>
+              {active ? (
+                <span className="page-link">
+                  {p} <span className="visually-hidden">(current)</span>
+                </span>
+              ) : (
+                <Link className="page-link" to={q(p)}>{p}</Link>
+              )}
+            </li>
+          );
+        })}
+
+        {/* Next */}
+        <li className={`page-item ${currentPage === pageCount ? "disabled" : ""}`}>
+          {currentPage === pageCount ? (
+            <span className="page-link" aria-hidden="true">›</span>
+          ) : (
+            <Link className="page-link" to={q(currentPage + 1)} aria-label="Next">›</Link>
+          )}
+        </li>
+      </ul>
+    </nav>
+  );
+};
 
 // ブログアイテムの表示
 const BlogItem = ({ item,isSmallScreen }) => (

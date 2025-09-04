@@ -185,3 +185,10 @@ a {
   white-space: normal; /* テキストを折り返し */
   max-width: 100%; /* 親要素からはみ出さない */
 }
+
+/* ページネーションのアクティブ色を灰色に変更 */
+.page-item.active .page-link {
+  background-color: #6c757d; /* Bootstrapのsecondary色 */
+  border-color: #6c757d;
+  color: #fff;
+}
