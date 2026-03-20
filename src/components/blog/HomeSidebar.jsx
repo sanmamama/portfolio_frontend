@@ -91,7 +91,7 @@ const SidebarContent = () => {
                         src={`${process.env.REACT_APP_BASE_URL}/media/profile.jpg`}
                         alt="profile"
                     />
-                    <p>さんまままです。ギリギリ昭和生まれ。現在エンジニア2年目として活動中です。</p>
+                    <p>さんまままです。ギリギリ昭和生まれ。現在エンジニア2年目として活動中です。 </p>
                     <p>
                         <Link to="https://x.com/sanmamama_">
                             <img
