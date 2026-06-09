@@ -80,7 +80,7 @@ function Portfolio() {
         </ul>
         <hr/>
 
-        <p><a href="/bookpersona">BookPersona</a></p>
+        <p><a href="/bookpersona">BookPersona(公開停止中)</a></p>
         <div className="row">
           <div className="col">
             <img
