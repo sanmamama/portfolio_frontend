@@ -103,9 +103,12 @@ const BlogDetail = () => {
 				<img className="img-fluid" src = {data.img} width="400" height="150" alt="data"/>
 			</div>
 
-			<div>
-				<h4 className="mt-2 mb-2">目次</h4>
-				<div className="pt-2 border body-toc" dangerouslySetInnerHTML={{ __html: data.toc_html }} />			
+			<div className="d-block d-sm-none">
+    			<h4 className="mt-2 mb-2">目次</h4>
+    				<div
+        				className="pt-2 border body-toc"
+        				dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(data.toc_html) }}
+    				/>
 			</div>
 
 			<div className="markdownx">
