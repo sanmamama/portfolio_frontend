@@ -106,10 +106,10 @@ const BlogDetail = () => {
 			<div className="d-block d-sm-none">
     			<h4 className="mt-2 mb-2">目次</h4>
     				<div
-        				className="pt-2 border body-toc"
+        				className="pt-2 border body-toc" 
         				dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(data.toc_html) }}
     				/>
-			</div>
+			</div> 
 
 			<div className="markdownx">
 					<div className="markdownx-preview" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(data.content_html) }} />
