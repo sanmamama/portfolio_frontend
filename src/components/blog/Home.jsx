@@ -185,6 +185,60 @@ const formatDate = (dateString) => {
     return `${year}年${parseInt(month, 10)}月`;
 };
 
+// 読み込み中の記事一覧
+const BlogListSkeleton = ({ isSmallScreen }) => (
+    <>
+        <div role="status" className="visually-hidden">
+            記事を読み込んでいます。
+        </div>
+
+        <div className="row" aria-hidden="true">
+            {Array.from({ length: PAGE_SIZE }, (_, index) => (
+                <div className="col-md-6 pl-2 pr-2" key={index}>
+                    {/* サムネイル部分の仮表示 */}
+                    <div
+                        style={{
+                            height: 150,
+                            backgroundColor: '#e9ecef',
+                            borderRadius: 4
+                        }}
+                    />
+
+                    {/* 日付部分の仮表示 */}
+                    <div
+                        style={{
+                            width: '45%',
+                            height: 20,
+                            marginTop: 8,
+                            backgroundColor: '#e9ecef'
+                        }}
+                    />
+
+                    {/* タイトル部分の仮表示 */}
+                    <div
+                        className="mt-3 mb-3"
+                        style={{
+                            height: 48,
+                            backgroundColor: '#e9ecef'
+                        }}
+                    />
+
+                    {/* 本文概要部分の仮表示 */}
+                    <div
+                        className="mb-4"
+                        style={{
+                            height: 120,
+                            backgroundColor: '#f1f3f5'
+                        }}
+                    />
+
+                    {isSmallScreen && <hr />}
+                </div>
+            ))}
+        </div>
+    </>
+);
+
 const App = () => {
     const {myBlogDataGlobal} = useContext(BlogDataContext);
     const [blog, setBlog] = useState(null);              // 表示用（スライス済み）
@@ -268,11 +322,9 @@ const App = () => {
         if (articleCount === "") {
             return(
                 <>
-                    <div className="col-sm-9">
+                    <div className="col-sm-9" aria-busy="true">
                         <div className="container container-m">
-                            <div className="row">
-                            記事を読み込んでいます。しばらくお待ち下さい。
-                            </div>
+                            <BlogListSkeleton isSmallScreen={isSmallScreen} />
                         </div>
                     </div>
                     <SidebarContent />
