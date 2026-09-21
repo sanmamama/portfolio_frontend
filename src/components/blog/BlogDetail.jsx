@@ -100,7 +100,12 @@ const BlogDetail = () => {
 			</div>
 
 			<div className="text-center">
-				<img className="img-fluid" src = {data.img} width="400" height="150" alt="data"/>
+				<img
+					className="img-fluid"
+					src={data.thumbnail || data.img}
+					width="400"
+					alt={data.title}
+				/>
 			</div>
 
 			<div className="d-block d-sm-none">

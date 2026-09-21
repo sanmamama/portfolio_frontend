@@ -122,7 +122,12 @@ const BlogItem = ({ item,isSmallScreen }) => (
                 <Link className="custom-link-style" to={`/detail/${item.id}`}>
                     <div className="card text-bg-dark border-0">
                         <div className="image-container">
-                            <img src={item.img} alt={item.title} className="card-img"/>
+                            <img
+                                src={item.thumbnail || item.img}
+                                alt={item.title}
+                                className="card-img"
+                                loading="lazy"
+                            />
                         </div>
                         <div className="card-img-overlay pl-2 pr-2">
                             <span className="text-secondary mark small">
