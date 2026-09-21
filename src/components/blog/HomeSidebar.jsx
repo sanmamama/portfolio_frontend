@@ -4,11 +4,34 @@ import { Link } from 'react-router-dom';
 import {BlogDataContext} from "./providers/BlogDataProvider"
 //const apiUrl = process.env.REACT_APP_API_URL;
 
+// サイドバーの一覧用スケルトン
+const SidebarListSkeleton = ({ rows }) => (
+    <ul aria-hidden="true">
+        {Array.from({ length: rows }, (_, index) => (
+            <li key={index} style={{ lineHeight: '1.5' }}>
+                <span
+                    style={{
+                        display: 'inline-block',
+                        width: `${65 + (index % 3) * 10}%`,
+                        height: '0.85em',
+                        backgroundColor: '#e9ecef',
+                        borderRadius: 3
+                    }}
+                />
+            </li>
+        ))}
+    </ul>
+);
+
 const SidebarContent = () => {
     const [categories, setCategories] = useState([]);
     const [tags, setTags] = useState([]);
     const [archives, setArchives] = useState([]);
     const {myBlogDataGlobal} = useContext(BlogDataContext);
+
+    const isLoading = myBlogDataGlobal == null || !isSidebarReady;
+    const [isSidebarReady, setIsSidebarReady] = useState(false);
+    
 
     
 
@@ -25,12 +48,16 @@ const SidebarContent = () => {
     // }, []);
 
     useEffect(() => {
-        if(myBlogDataGlobal){
-            calculateCategories(myBlogDataGlobal);
-            calculateTags(myBlogDataGlobal);
-            calculateArchives(myBlogDataGlobal);
+        if (myBlogDataGlobal == null) {
+            setIsSidebarReady(false);
+            return;
         }
-        }, [myBlogDataGlobal]);
+
+        calculateCategories(myBlogDataGlobal);
+        calculateTags(myBlogDataGlobal);
+        calculateArchives(myBlogDataGlobal);
+        setIsSidebarReady(true);
+    }, [myBlogDataGlobal]);
 
 
 
@@ -89,6 +116,8 @@ const SidebarContent = () => {
                     <img
                         className="img-fluid"
                         src={`${process.env.REACT_APP_BASE_URL}/media/profile.jpg`}
+                        width="282"
+                        height="282"
                         alt="profile"
                     />
                     <p>さんまままです。ギリギリ昭和生まれ。現在エンジニア2年目として活動中です。 </p>
@@ -115,31 +144,57 @@ const SidebarContent = () => {
                     </p>
                 </div>
                     <hr/>
-                <div>
+                <div aria-busy={isLoading}>
+                    {isLoading && (
+                        <span role="status" className="visually-hidden">
+                            カテゴリー・タグ・アーカイブを読み込んでいます。
+                        </span>
+                    )}
+
                     <h4>カテゴリー</h4>
-                    <ul>
-                        {categories.map(([id, { name, count }]) => (
-                            <li key={id}>
-                                <Link to={`/?category=${name}`}>{name} ({count})</Link>
-                            </li>
-                        ))}
-                    </ul>
+                    {isLoading ? (
+                        <SidebarListSkeleton rows={7} />
+                    ) : (
+                        <ul>
+                            {categories.map(([id, { name, count }]) => (
+                                <li key={id}>
+                                    <Link to={`/?category=${name}`}>
+                                        {name} ({count})
+                                    </Link>
+                                </li>
+                            ))}
+                        </ul>
+                    )}
+
                     <h4>タグ</h4>
-                    <ul>
-                        {tags.map(([id, { name, count }]) => (
-                            <li key={id}>
-                                <Link to={`/?tag=${name}`}>{name} ({count})</Link>
-                            </li>
-                        ))}
-                    </ul>
+                    {isLoading ? (
+                        <SidebarListSkeleton rows={27} />
+                    ) : (
+                        <ul>
+                            {tags.map(([id, { name, count }]) => (
+                                <li key={id}>
+                                    <Link to={`/?tag=${name}`}>
+                                        {name} ({count})
+                                    </Link>
+                                </li>
+                            ))}
+                        </ul>
+                    )}
+
                     <h4>アーカイブ</h4>
-                    <ul>
-                        {archives.map(([month, count]) => (
-                            <li key={month}>
-                                <Link to={`/?date=${month}`}>{formatMonth(month)} ({count})</Link>
-                            </li>
-                        )).reverse()}
-                    </ul>
+                    {isLoading ? (
+                        <SidebarListSkeleton rows={17} />
+                    ) : (
+                        <ul>
+                            {archives.map(([month, count]) => (
+                                <li key={month}>
+                                    <Link to={`/?date=${month}`}>
+                                        {formatMonth(month)} ({count})
+                                    </Link>
+                                </li>
+                            )).reverse()}
+                        </ul>
+                    )}
                 </div>
         </div>
     );
