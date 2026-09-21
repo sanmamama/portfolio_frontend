@@ -27,10 +27,12 @@ const SidebarContent = () => {
     const [categories, setCategories] = useState([]);
     const [tags, setTags] = useState([]);
     const [archives, setArchives] = useState([]);
+    const [isSidebarReady, setIsSidebarReady] = useState(false);
+
     const {myBlogDataGlobal} = useContext(BlogDataContext);
 
     const isLoading = myBlogDataGlobal == null || !isSidebarReady;
-    const [isSidebarReady, setIsSidebarReady] = useState(false);
+    
     
 
     
