@@ -61,7 +61,7 @@ const handleSubmit = (event) => {
       <nav className="navbar navbar-expand-lg navbar-dark fixed-top bg-dark">
         <div className="container-fluid">
           <Link className="navbar-brand" to="/">
-            さんまブログ
+            さんまのテックブログ
           </Link>
           
           <button type="button" className="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="ナビゲーションの切替">
