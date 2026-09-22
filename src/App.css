@@ -215,3 +215,28 @@ a {
 .markdownx-preview tbody tr:nth-child(even) {
   background-color: #fafafa;
 }
+
+/* 本文の段落 */
+.markdownx .markdownx-preview p {
+  line-height: 1.85;
+  margin-bottom: 1.25em;
+}
+
+/* 箇条書き・番号付きリスト */
+.markdownx .markdownx-preview li {
+  line-height: 1.85;
+}
+
+.markdownx .markdownx-preview li + li {
+  margin-top: 0.4em;
+}
+
+.markdownx .markdownx-preview ul,
+.markdownx .markdownx-preview ol {
+  margin-bottom: 1.25em;
+}
+
+/* リスト内の段落は余白を控えめにする */
+.markdownx .markdownx-preview li > p {
+  margin-bottom: 0.4em;
+}
