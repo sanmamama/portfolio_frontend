@@ -130,13 +130,7 @@ const handleSubmit = (event) => {
         
       </nav>
 
-      <div className="jumbotron">
-        <div className="container">
-          <h1 className="display-5"><Link className="text-dark text-decoration-none" to="/">さんまブログ</Link></h1>
-          <p>このブログでは私のプロフィールや学習記録・技術的な記事の発信やポートフォリオを公開しています。</p>
-          <p></p>
-        </div>
-      </div>
+      <div className="jumbotron" aria-hidden="true" />
     </header>
   );
 }
