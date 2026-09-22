@@ -95,6 +95,28 @@ const BlogDetail = () => {
 		return <NotFound />;
 	}
 
+	const currentTagIds = new Set(
+    	(data.tag || []).map(tag => tag.id)
+	);
+
+	const relatedPosts = (myBlogDataGlobal || [])
+		.filter(post => post.id !== data.id && !post.is_draft)
+		.map(post => ({
+			post,
+			sharedTagCount: (post.tag || []).filter(
+				tag => currentTagIds.has(tag.id)
+			).length,
+			sameCategory: post.category?.id === data.category?.id,
+		}))
+		.filter(item => item.sharedTagCount > 0 || item.sameCategory)
+		.sort((a, b) =>
+			b.sharedTagCount - a.sharedTagCount ||
+			Number(b.sameCategory) - Number(a.sameCategory) ||
+			new Date(b.post.created_at) - new Date(a.post.created_at)
+		)
+		.slice(0, 3)
+		.map(item => item.post);
+
 
 	return (
 		<>
@@ -154,6 +176,44 @@ const BlogDetail = () => {
 						
 					</div>
 			</div>
+			{relatedPosts.length > 0 && (
+				<section className="mt-5" aria-labelledby="related-posts-heading">
+					<h2 id="related-posts-heading" className="h4 mb-3">
+						関連記事
+					</h2>
+
+					<div className="row g-3">
+						{relatedPosts.map(post => (
+							<div className="col-12 col-md-4" key={post.id}>
+								<Link
+									to={`/detail/${post.id}`}
+									className="card h-100 text-dark text-decoration-none"
+								>
+									<img
+										src={post.thumbnail || post.img}
+										alt=""
+										loading="lazy"
+										width="400"
+										height="225"
+										className="card-img-top"
+										style={{
+											aspectRatio: '16 / 9',
+											objectFit: 'cover',
+											height: 'auto',
+										}}
+									/>
+
+									<div className="card-body">
+										<h3 className="h6 mb-0">
+											{post.title}
+										</h3>
+									</div>
+								</Link>
+							</div>
+						))}
+					</div>
+				</section>
+			)}
 		</div>
 
 
