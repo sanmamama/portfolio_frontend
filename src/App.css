@@ -296,3 +296,42 @@ a {
 .blog-card-title a:hover {
   text-decoration: underline !important;
 }
+
+.blog-list-item {
+  position: relative;
+
+  /* 既存の区切り線・余白 */
+  padding-bottom: 1.5rem;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid #dee2e6;
+}
+
+/* カテゴリー・タグは記事リンクより手前に配置 */
+.blog-list-item .article-label {
+  position: relative;
+  z-index: 2;
+}
+
+/* 白い半透明の膜。クリック操作は妨げない */
+.blog-list-item::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  background-color: rgba(255, 255, 255, 0.2);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s ease;
+}
+
+@media (hover: hover) {
+  .blog-list-item:hover::after {
+    opacity: 1;
+  }
+}
+
+/* キーボード操作でも記事の選択位置を示す */
+.blog-card-title .stretched-link:focus-visible::after {
+  outline: 2px solid #084298;
+  outline-offset: 3px;
+}

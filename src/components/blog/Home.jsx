@@ -117,7 +117,7 @@ const Pagination = ({ currentPage, pageCount, addUrl = "", size, maxButtons = 4,
 // ブログアイテムの表示
 const BlogItem = ({ item, isSmallScreen }) => (
     <div className="col-md-6 pl-2 pr-2">
-        <article className="mb-4">
+        <article className="blog-list-item">
             <Link
                 className="d-block mb-3"
                 to={`/detail/${item.id}`}
@@ -193,7 +193,6 @@ const BlogItem = ({ item, isSmallScreen }) => (
             </p>
         </article>
 
-        {isSmallScreen && <hr />}
     </div>
 );
 
