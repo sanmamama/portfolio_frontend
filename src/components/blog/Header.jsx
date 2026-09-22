@@ -2,13 +2,16 @@ import React, { useEffect , useState, useContext } from 'react';
 import { NavLink ,Link } from 'react-router-dom';
 import {BlogDataContext} from "./providers/BlogDataProvider"
 import { useNavigate } from 'react-router-dom';
+import { NavLink, Link, useMatch } from 'react-router-dom';
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
 function Header() {
+  const isBlogDetail = useMatch('/detail/:id');
   const {myBlogDataGlobal,setMyBlogDataGlobal} = useContext(BlogDataContext);
   const [query, setQuery] = useState('');
   const navigate = useNavigate();
+  
 
   useEffect(() => {
     const handleDocumentClick = (event) => {
@@ -130,7 +133,11 @@ const handleSubmit = (event) => {
         
       </nav>
 
-      <div className="jumbotron" aria-hidden="true" />
+      {isBlogDetail ? (
+        <div className="header-nav-spacer" aria-hidden="true" />
+      ) : (
+        <div className="jumbotron" aria-hidden="true" />
+      )}
     </header>
   );
 }
