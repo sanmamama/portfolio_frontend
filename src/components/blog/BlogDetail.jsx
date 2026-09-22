@@ -141,7 +141,7 @@ const BlogDetail = () => {
 
 			<div className="d-flex flex-wrap gap-2 mb-4">
 				<Link
-					className="badge bg-light text-dark border text-decoration-none fw-normal"
+					className="article-label article-category"
 					to={`/?category=${encodeURIComponent(data.category.name)}`}
 				>
 					{data.category.name}
@@ -150,7 +150,7 @@ const BlogDetail = () => {
 				{data.tag.map((tag) => (
 					<Link
 						key={tag.id}
-						className="badge bg-light text-dark border text-decoration-none fw-normal"
+						className="article-label article-tag"
 						to={`/?tag=${encodeURIComponent(tag.name)}`}
 					>
 						{tag.name}

@@ -253,3 +253,35 @@ a {
   line-height: 1.4;
   overflow-wrap: anywhere;
 }
+
+.article-label {
+  display: inline-block;
+  padding: 0.3rem 0.65rem;
+  border: 1px solid;
+  border-radius: 0.3rem;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  text-decoration: none;
+}
+
+.article-category {
+  color: #664d03;
+  background-color: #fff3cd;
+  border-color: #e8ce80;
+}
+
+.article-tag {
+  color: #084298;
+  background-color: #e7f1ff;
+  border-color: #b6d4fe;
+}
+
+.article-label:hover {
+  color: inherit;
+  text-decoration: underline;
+}
+
+.article-label:focus-visible {
+  outline: 2px solid #212529;
+  outline-offset: 2px;
+}
