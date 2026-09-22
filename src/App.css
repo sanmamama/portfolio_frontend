@@ -219,7 +219,7 @@ a {
 /* 本文の段落 */
 .markdownx .markdownx-preview p {
   line-height: 1.85;
-  margin-bottom: 1.25em;
+  margin-bottom: 1em;
 }
 
 /* 箇条書き・番号付きリスト */
