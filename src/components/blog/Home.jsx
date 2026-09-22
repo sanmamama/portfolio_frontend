@@ -115,67 +115,85 @@ const Pagination = ({ currentPage, pageCount, addUrl = "", size, maxButtons = 4,
 };
 
 // ブログアイテムの表示
-const BlogItem = ({ item,isSmallScreen }) => (
+const BlogItem = ({ item, isSmallScreen }) => (
     <div className="col-md-6 pl-2 pr-2">
-        <div className="d-flex flex-column bd-highlight">
-			<div>
-                <Link className="custom-link-style" to={`/detail/${item.id}`}>
-                    <div className="card text-bg-dark border-0">
-                        <div className="image-container">
-                            <img
-                                src={item.thumbnail || item.img}
-                                alt={item.title}
-                                className="card-img"
-                                loading="lazy"
-                            />
-                        </div>
-                        <div className="card-img-overlay pl-2 pr-2">
-                            <span className="text-secondary mark small">
-                                <Link to={`/?category=${item.category.name}`}>{item.category.name}</Link>
-                            </span>
-                            {item.tag.map(tag => (
-                                <span className="ms-2 text-secondary custom-mark small" key={tag.id}>
-                                    <Link to={`/?tag=${tag.name}`}>{tag.name}</Link>
-                                </span>
-                            ))}
-                        </div>
+        <article className="mb-4">
+            <Link
+                className="d-block mb-3"
+                to={`/detail/${item.id}`}
+            >
+                <div className="card text-bg-dark border-0">
+                    <div className="image-container">
+                        <img
+                            src={item.thumbnail || item.img}
+                            alt={item.title}
+                            className="card-img"
+                            loading="lazy"
+                        />
                     </div>
+                </div>
+            </Link>
 
-                    <div>
-                        <span>
-                            <img
-                                className="me-2 align-baseline"
-                                src={`${process.env.REACT_APP_BASE_URL}/media/icon/calendar.svg`}
-                                width="16"
-                                height="16"
-                                alt="calendar"
-                            />
-                        </span>
-                        <span className="text-secondary align-text-bottom">
-                            {formatDateToJapanese(item.created_at)}
-                        </span>
-                        <span className="ms-2 align-text-bottom">
-                            <img src={`${baseUrl}/media/icon/heart_active.svg`} width="18" height="18" alt="like"/>{item.likes}
-                        </span>
-                    </div>
-
-                    <div>
-                        <h5>
-                            <p className="mt-3 mb-3">
-                                <b>{item.title}</b>
-                            </p>
-                        </h5>
-                    </div>
-
-                    <div className="mb-4">
-                        <span className="text-secondary">
-                            {truncateTo100Chars(item.content_html)}
-                        </span>
-                    </div>
+            <h2 className="blog-card-title mb-2">
+                <Link
+                    className="text-dark text-decoration-none"
+                    to={`/detail/${item.id}`}
+                >
+                    {item.title}
                 </Link>
-				{isSmallScreen && <hr />}
+            </h2>
+
+            <div className="d-flex flex-wrap align-items-center gap-3 text-secondary small mb-2">
+                <span className="d-inline-flex align-items-center">
+                    <img
+                        className="me-2"
+                        src={`${baseUrl}/media/icon/calendar.svg`}
+                        width="16"
+                        height="16"
+                        alt=""
+                    />
+                    <time dateTime={item.created_at}>
+                        {formatDateToJapanese(item.created_at)}
+                    </time>
+                </span>
+
+                <span className="d-inline-flex align-items-center">
+                    <img
+                        className="me-1"
+                        src={`${baseUrl}/media/icon/heart_active.svg`}
+                        width="18"
+                        height="18"
+                        alt="いいね"
+                    />
+                    {item.likes}
+                </span>
             </div>
-        </div>
+
+            <div className="d-flex flex-wrap gap-2 mb-3">
+                <Link
+                    className="article-label article-category"
+                    to={`/?category=${encodeURIComponent(item.category.name)}`}
+                >
+                    {item.category.name}
+                </Link>
+
+                {item.tag.map((tag) => (
+                    <Link
+                        key={tag.id}
+                        className="article-label article-tag"
+                        to={`/?tag=${encodeURIComponent(tag.name)}`}
+                    >
+                        {tag.name}
+                    </Link>
+                ))}
+            </div>
+
+            <p className="text-secondary mb-0">
+                {truncateTo100Chars(item.content_html)}
+            </p>
+        </article>
+
+        {isSmallScreen && <hr />}
     </div>
 );
 
@@ -195,42 +213,71 @@ const BlogListSkeleton = ({ isSmallScreen }) => (
         <div className="row" aria-hidden="true">
             {Array.from({ length: PAGE_SIZE }, (_, index) => (
                 <div className="col-md-6 pl-2 pr-2" key={index}>
-                    {/* サムネイル部分の仮表示 */}
-                    <div
-                        style={{
-                            height: 150,
-                            backgroundColor: '#e9ecef',
-                            borderRadius: 4
-                        }}
-                    />
+                    <div className="mb-4">
+                        {/* サムネイル */}
+                        <div
+                            className="mb-3"
+                            style={{
+                                height: 150,
+                                backgroundColor: '#e9ecef',
+                                borderRadius: 4
+                            }}
+                        />
 
-                    {/* 日付部分の仮表示 */}
-                    <div
-                        style={{
-                            width: '45%',
-                            height: 20,
-                            marginTop: 8,
-                            backgroundColor: '#e9ecef'
-                        }}
-                    />
+                        {/* タイトル：2行分 */}
+                        <div
+                            className="mb-2"
+                            style={{
+                                height: 60,
+                                backgroundColor: '#e9ecef',
+                                borderRadius: 4
+                            }}
+                        />
 
-                    {/* タイトル部分の仮表示 */}
-                    <div
-                        className="mt-3 mb-3"
-                        style={{
-                            height: 48,
-                            backgroundColor: '#e9ecef'
-                        }}
-                    />
+                        {/* 公開日・いいね数 */}
+                        <div className="d-flex align-items-center gap-3 mb-2">
+                            <div
+                                style={{
+                                    width: 140,
+                                    height: 21,
+                                    backgroundColor: '#e9ecef',
+                                    borderRadius: 4
+                                }}
+                            />
+                            <div
+                                style={{
+                                    width: 40,
+                                    height: 21,
+                                    backgroundColor: '#e9ecef',
+                                    borderRadius: 4
+                                }}
+                            />
+                        </div>
 
-                    {/* 本文概要部分の仮表示 */}
-                    <div
-                        className="mb-4"
-                        style={{
-                            height: 120,
-                            backgroundColor: '#f1f3f5'
-                        }}
-                    />
+                        {/* カテゴリー・タグ */}
+                        <div className="d-flex flex-wrap gap-2 mb-3">
+                            {[100, 90, 60].map((width, labelIndex) => (
+                                <div
+                                    key={labelIndex}
+                                    style={{
+                                        width,
+                                        height: 33,
+                                        backgroundColor: '#e9ecef',
+                                        borderRadius: 5
+                                    }}
+                                />
+                            ))}
+                        </div>
+
+                        {/* 本文の抜粋 */}
+                        <div
+                            style={{
+                                height: 120,
+                                backgroundColor: '#f1f3f5',
+                                borderRadius: 4
+                            }}
+                        />
+                    </div>
 
                     {isSmallScreen && <hr />}
                 </div>

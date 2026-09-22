@@ -285,3 +285,14 @@ a {
   outline: 2px solid #212529;
   outline-offset: 2px;
 }
+
+.blog-card-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+.blog-card-title a:hover {
+  text-decoration: underline !important;
+}
