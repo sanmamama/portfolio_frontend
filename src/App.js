@@ -1,38 +1,55 @@
 
 import './App.css';
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import NotFound from './components/NotFound';
 import BlogBase from './components/blog/BlogBase';
 import Home from './components/blog/Home';
-import Profile from './components/blog/Profile';
-import Portfolio from './components/blog/Portfolio';
-import PrivacyPolicy from './components/blog/PrivacyPolicy';
-import Contact from './components/blog/Contact';
-import BlogDetail from './components/blog/BlogDetail';
-import AuthBase from './components/postter/AuthBase';
-import MainBase from './components/postter/MainBase';
-import Login from './components/postter/Login';
-import Logout from './components/postter/Logout';
-import Signup from './components/postter/Signup';
-import Confirm from './components/postter/Confirm';
-import PostterHome from './components/postter/Home';
-import ViewProfile from './components/postter/ViewProfile';
-import Following from './components/postter/Following';
-import Follower from './components/postter/Follower';
-import Message from './components/postter/Message';
-import MessageDetail from './components/postter/MessageDetail';
-import MemberList from './components/postter/MemberList';
-import MemberListDetail from './components/postter/MemberListDetail';
-import MemberListAdd from './components/postter/MemberListAdd';
-import Search from './components/postter/Search';
-import Notification from './components/postter/Notification';
-import PostDetail from './components/postter/PostDetail';
-
 import {UserDataProvider} from "./components/postter/providers/UserDataProvider"
 import {FollowDataProvider} from "./components/postter/providers/FollowDataProvider"
 import {NotificationProvider} from "./components/postter/providers/NotificationProvider"
 import {BlogDataProvider} from "./components/blog/providers/BlogDataProvider"
+
+// 画面を初めて開いたときに読み込む。
+// 待機表示は、その画面の部分だけに表示する。
+const lazyPage = (loader) => {
+  const Component = lazy(loader);
+
+  return function LazyPage(props) {
+    return (
+      <Suspense fallback={<div role="status">読み込み中です…</div>}>
+        <Component {...props} />
+      </Suspense>
+    );
+  };
+};
+
+const Profile = lazyPage(() => import('./components/blog/Profile'));
+const Portfolio = lazyPage(() => import('./components/blog/Portfolio'));
+const PrivacyPolicy = lazyPage(() => import('./components/blog/PrivacyPolicy'));
+const Contact = lazyPage(() => import('./components/blog/Contact'));
+const BlogDetail = lazyPage(() => import('./components/blog/BlogDetail'));
+
+const AuthBase = lazyPage(() => import('./components/postter/AuthBase'));
+const MainBase = lazyPage(() => import('./components/postter/MainBase'));
+const Login = lazyPage(() => import('./components/postter/Login'));
+const Logout = lazyPage(() => import('./components/postter/Logout'));
+const Signup = lazyPage(() => import('./components/postter/Signup'));
+const Confirm = lazyPage(() => import('./components/postter/Confirm'));
+const PostterHome = lazyPage(() => import('./components/postter/Home'));
+const ViewProfile = lazyPage(() => import('./components/postter/ViewProfile'));
+const Following = lazyPage(() => import('./components/postter/Following'));
+const Follower = lazyPage(() => import('./components/postter/Follower'));
+const Message = lazyPage(() => import('./components/postter/Message'));
+const MessageDetail = lazyPage(() => import('./components/postter/MessageDetail'));
+const MemberList = lazyPage(() => import('./components/postter/MemberList'));
+const MemberListDetail = lazyPage(() => import('./components/postter/MemberListDetail'));
+const MemberListAdd = lazyPage(() => import('./components/postter/MemberListAdd'));
+const Search = lazyPage(() => import('./components/postter/Search'));
+const Notification = lazyPage(() => import('./components/postter/Notification'));
+const PostDetail = lazyPage(() => import('./components/postter/PostDetail'));
+
+
 
 const router = createBrowserRouter([
   {
