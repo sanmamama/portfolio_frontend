@@ -122,37 +122,43 @@ const BlogDetail = () => {
 		<>
 		
 		<div className="col-sm-9 order-1 order-sm-1">
-			<div className="mb-3">
-				<Link to="/">トップ </Link>
-				<Link to={`/?category=${data.category.name}`}>＞ {data.category.name} </Link>
-				＞ {data.title}
-				
+			<h1 className="blog-article-title mb-3">
+				{data.title}
+			</h1>
 
+			<div className="d-flex align-items-center text-secondary mb-2">
+				<img
+					className="me-2"
+					src={`${process.env.REACT_APP_BASE_URL}/media/icon/calendar.svg`}
+					width="16"
+					height="16"
+					alt=""
+				/>
+				<time dateTime={data.created_at}>
+					{formatDateToJapanese(data.created_at)}
+				</time>
 			</div>
-			<div className="mb-1">
-				<span>
-					<img
-						className="me-2 align-baseline"
-						src={`${process.env.REACT_APP_BASE_URL}/media/icon/calendar.svg`}
-						width="16"
-						height="16"
-						alt="calendar"
-                    />
-				</span>
-					<span className="mt-0 mb-0 text-secondary align-text-bottom">
-							{formatDateToJapanese(data.created_at)}</span>
-					<span className="ms-2 text-secondary mark align-text-bottom"><Link to={`/?category=${data.category.name}`}>{data.category.name}</Link></span>
-				{data.tag.map(
-				tag => (
-					<span className="ms-2 text-secondary custom-mark align-text-bottom" key={tag.id}><Link to={`/?tag=${tag.name}`}>{tag.name}</Link></span>
+
+			<div className="d-flex flex-wrap gap-2 mb-4">
+				<Link
+					className="badge bg-light text-dark border text-decoration-none fw-normal"
+					to={`/?category=${encodeURIComponent(data.category.name)}`}
+				>
+					{data.category.name}
+				</Link>
+
+				{data.tag.map((tag) => (
+					<Link
+						key={tag.id}
+						className="badge bg-light text-dark border text-decoration-none fw-normal"
+						to={`/?tag=${encodeURIComponent(tag.name)}`}
+					>
+						{tag.name}
+					</Link>
 				))}
 			</div>
 
-			<div>
-				<h4 className="mb-3"><b>{data.title}</b></h4>
-			</div>
-
-			<div className="text-center">
+			<div className="text-center mb-4">
 				<img
 					className="img-fluid"
 					src={data.thumbnail || data.img}
@@ -160,6 +166,7 @@ const BlogDetail = () => {
 					alt={data.title}
 				/>
 			</div>
+
 
 			<div className="d-block d-sm-none">
     			<h4 className="mt-2 mb-2">目次</h4>
