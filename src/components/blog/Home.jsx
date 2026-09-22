@@ -116,12 +116,9 @@ const Pagination = ({ currentPage, pageCount, addUrl = "", size, maxButtons = 4,
 
 // ブログアイテムの表示
 const BlogItem = ({ item, isSmallScreen }) => (
-    <div className="col-md-6 pl-2 pr-2">
+    <div className="col-md-6 pl-2 pr-2 d-flex">
         <article className="blog-list-item">
-            <Link
-                className="d-block mb-3"
-                to={`/detail/${item.id}`}
-            >
+            <div className="mb-3">
                 <div className="card text-bg-dark border-0">
                     <div className="image-container">
                         <img
@@ -132,11 +129,11 @@ const BlogItem = ({ item, isSmallScreen }) => (
                         />
                     </div>
                 </div>
-            </Link>
+            </div>
 
             <h2 className="blog-card-title mb-2">
                 <Link
-                    className="text-dark text-decoration-none"
+                    className="text-dark text-decoration-none stretched-link"
                     to={`/detail/${item.id}`}
                 >
                     {item.title}

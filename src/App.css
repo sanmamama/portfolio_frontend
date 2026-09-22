@@ -277,8 +277,15 @@ a {
 }
 
 .article-label:hover {
-  color: inherit;
   text-decoration: underline;
+}
+
+.article-category:hover {
+  color: #664d03;
+}
+
+.article-tag:hover {
+  color: #084298;
 }
 
 .article-label:focus-visible {
@@ -298,12 +305,23 @@ a {
 }
 
 .blog-list-item {
+  width: 100%;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
   position: relative;
 
   /* 既存の区切り線・余白 */
   padding-bottom: 1.5rem;
   margin-bottom: 2rem;
   border-bottom: 1px solid #dee2e6;
+}
+
+/* 2列表示ではタイトルを最低2行分確保 */
+@media (min-width: 768px) {
+  .blog-card-title {
+    min-height: 3em;
+  }
 }
 
 /* カテゴリー・タグは記事リンクより手前に配置 */
