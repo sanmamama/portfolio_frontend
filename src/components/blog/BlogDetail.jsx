@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useRef  } from 'react';
 import { useParams} from 'react-router-dom';
 import DOMPurify from 'dompurify';
 import { Link } from 'react-router-dom';
@@ -12,6 +12,7 @@ const BlogDetail = () => {
 	const { id } = useParams();
 	const [data, setData] = useState(null);
 	const {myBlogDataGlobal,setMyBlogDataGlobal} = useContext(BlogDataContext);
+	const contentRef = useRef(null);
 
 	useEffect(() => {
 		try{
@@ -24,13 +25,42 @@ const BlogDetail = () => {
 	}, [myBlogDataGlobal,id]);
 
 	useEffect(() => {
-		if(data){
-			window.hljs.highlightAll();
-			if (data.content_html && window.twttr && window.twttr.widgets) {
-				window.twttr.widgets.load();
-			}
+		if (!data) return;
+
+		if (data.content_html && window.twttr && window.twttr.widgets) {
+			window.twttr.widgets.load();
 		}
-		
+
+		const container = contentRef.current;
+		if (!container) return;
+
+		const codeBlocks = container.querySelectorAll('pre code');
+
+		// コードがない記事では読み込まない
+		if (codeBlocks.length === 0) return;
+
+		let cancelled = false;
+
+		Promise.all([
+			import('highlight.js/lib/common'),
+			import('highlight.js/styles/atom-one-dark.css'),
+		])
+			.then(([{ default: hljs }]) => {
+				if (cancelled) return;
+
+				codeBlocks.forEach((block) => {
+					if (!block.dataset.highlighted) {
+						hljs.highlightElement(block);
+					}
+				});
+			})
+			.catch((error) => {
+				console.error('コードの色付けに失敗しました:', error);
+			});
+
+		return () => {
+			cancelled = true;
+		};
 	}, [data]);
 
 	const formatDateToJapanese = (dateString) => {
@@ -38,7 +68,7 @@ const BlogDetail = () => {
 		const year = date.getFullYear();
 		const month = date.getMonth() + 1;
 		const day = date.getDate();
-	
+
 		return `${year}年${month}月${day}日`;
 	};
 
@@ -68,6 +98,7 @@ const BlogDetail = () => {
 
 	return (
 		<>
+		
 		<div className="col-sm-9 order-1 order-sm-1">
 			<div className="mb-3">
 				<Link to="/">トップ </Link>
@@ -117,7 +148,7 @@ const BlogDetail = () => {
 			</div> 
 
 			<div className="markdownx">
-					<div className="markdownx-preview" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(data.content_html) }} />
+					<div ref={contentRef} className="markdownx-preview" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(data.content_html) }} />
 					<div className="text-center mb-3">
 						<button className="btn btn-outline-primary  mt-3" onClick={handleLike}>いいね！ ({data.likes})</button>
 						
