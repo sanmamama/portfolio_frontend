@@ -38,7 +38,7 @@
 }
 
 .jumbotron {
-  background-image: url("../public/header.png");
+  background-image: url("../public/header.webp");
   background-size: cover;
   background-position: center 60%;
   padding:3rem 1rem 3rem 1rem; 
