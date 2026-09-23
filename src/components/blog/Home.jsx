@@ -44,11 +44,24 @@ const truncateTo100Chars = (value) => {
 const useQuery = () => new URLSearchParams(window.location.search);
 
 // ページネーションリンクの作成
-const Pagination = ({ currentPage, pageCount, addUrl = "", size, maxButtons = 4, isSmallScreen}) => {
+const Pagination = ({
+  currentPage,
+  pageCount,
+  size,
+  maxButtons = 4,
+  isSmallScreen
+}) => {
+  const location = useLocation();
+
   if (pageCount <= 1) return null;
 
-  // addUrl は "&..." を想定。空なら "" のまま使う
-  const q = (p) => `/?page=${p}${addUrl}`;
+  // 検索・カテゴリー・タグなどを保持してページ番号だけ変更
+  const q = (p) => {
+    const params = new URLSearchParams(location.search);
+    params.set("page", String(p));
+
+    return `${location.pathname}?${params.toString()}`;
+  };
 
   // 表示ウィンドウ計算（先頭/末尾は常に出し、間は省略可）
   const start = Math.max(2, currentPage - maxButtons);
