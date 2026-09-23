@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect, useContext, useRef  } from 'react';
+import React, { useState, useEffect, useContext, useRef, useMemo  } from 'react';
 import { useParams} from 'react-router-dom';
 import DOMPurify from 'dompurify';
 import { Link } from 'react-router-dom';
@@ -160,6 +160,36 @@ const BlogDetail = () => {
 		);
 	}
 
+	const { previousArticle, nextArticle } = useMemo(() => {
+		if (!Array.isArray(myBlogDataGlobal)) {
+			return { previousArticle: null, nextArticle: null };
+		}
+
+		// 古い記事 → 新しい記事の順。同日時の場合はID順
+		const sortedArticles = [...myBlogDataGlobal]
+			.filter((article) => !article.is_draft)
+			.sort((a, b) => {
+			const dateDifference =
+				new Date(a.created_at).getTime() -
+				new Date(b.created_at).getTime();
+
+			return dateDifference || Number(a.id) - Number(b.id);
+			});
+
+		const index = sortedArticles.findIndex(
+			(article) => Number(article.id) === Number(id)
+		);
+
+		if (index === -1) {
+			return { previousArticle: null, nextArticle: null };
+		}
+
+		return {
+			previousArticle: sortedArticles[index - 1] || null,
+			nextArticle: sortedArticles[index + 1] || null,
+		};
+		}, [myBlogDataGlobal, id]);
+
 	if (data === null) {
 		return <div>記事を読み込んでいます。しばらくお待ち下さい。</div>;
 	}
@@ -256,6 +286,41 @@ const BlogDetail = () => {
 						
 					</div>
 			</div>
+
+			{(previousArticle || nextArticle) && (
+				<nav className="article-pagination" aria-label="前後の記事">
+					{previousArticle && (
+					<Link
+						className="article-pagination-link article-pagination-previous"
+						to={`/detail/${previousArticle.id}`}
+						rel="prev"
+					>
+						<span className="article-pagination-label">
+						← 前の記事
+						</span>
+						<span className="article-pagination-title">
+						{previousArticle.title}
+						</span>
+					</Link>
+					)}
+
+					{nextArticle && (
+					<Link
+						className="article-pagination-link article-pagination-next"
+						to={`/detail/${nextArticle.id}`}
+						rel="next"
+					>
+						<span className="article-pagination-label">
+						次の記事 →
+						</span>
+						<span className="article-pagination-title">
+						{nextArticle.title}
+						</span>
+					</Link>
+					)}
+				</nav>
+				)}
+				
 			{relatedPosts.length > 0 && (
 				<section className="mt-5" aria-labelledby="related-posts-heading">
 					<h2 id="related-posts-heading" className="h4 mb-3">
