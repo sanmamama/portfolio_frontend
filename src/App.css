@@ -353,3 +353,49 @@ a {
   outline: 2px solid #084298;
   outline-offset: 3px;
 }
+
+/* コピー操作用の領域をコードの上に確保 */
+.code-block-wrapper {
+  position: relative;
+  padding-top: 2.75rem;
+  margin-bottom: 1.25rem;
+  background-color: #282c34;
+  border: 1px solid #444b57;
+  border-radius: 0.375rem;
+  overflow: hidden;
+}
+
+.code-block-wrapper pre {
+  margin: 0;
+  overflow-x: auto;
+}
+
+.code-copy-button {
+  position: absolute;
+  top: 0.4rem;
+  right: 0.5rem;
+  padding: 0.3rem 0.65rem;
+  border: 1px solid #737d8c;
+  border-radius: 0.25rem;
+  background-color: #343b46;
+  color: #fff;
+  font: inherit;
+  font-size: 0.8rem;
+  line-height: 1.5;
+  cursor: pointer;
+}
+
+@media (hover: hover) {
+  .code-copy-button:hover {
+    background-color: #485261;
+  }
+}
+
+.code-copy-button:focus-visible {
+  outline: 2px solid #9ec5fe;
+  outline-offset: 2px;
+}
+
+.code-copy-button:disabled {
+  cursor: wait;
+}

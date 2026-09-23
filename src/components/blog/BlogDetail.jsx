@@ -25,6 +25,79 @@ const BlogDetail = () => {
 	}, [myBlogDataGlobal,id]);
 
 	useEffect(() => {
+		const container = contentRef.current;
+		if (!container || !data?.content_html) return;
+
+		let disposed = false;
+		const cleanups = [];
+
+		container.querySelectorAll('pre').forEach((pre) => {
+			const code = pre.querySelector('code');
+			if (!code) return;
+
+			const button = document.createElement('button');
+			button.type = 'button';
+			button.className = 'code-copy-button';
+			button.textContent = 'コピー';
+			button.setAttribute('aria-label', 'このコードをコピー');
+			button.setAttribute('aria-live', 'polite');
+
+			let resetTimer;
+
+			const handleCopy = async () => {
+			button.disabled = true;
+			clearTimeout(resetTimer);
+
+			try {
+				await navigator.clipboard.writeText(code.textContent || '');
+
+				if (disposed) return;
+
+				button.textContent = 'コピーしました';
+			} catch (error) {
+				if (disposed) return;
+
+				button.textContent = 'コピーできませんでした';
+				console.error('コードのコピーに失敗しました:', error);
+			} finally {
+				if (!disposed) {
+				button.disabled = false;
+				resetTimer = setTimeout(() => {
+					button.textContent = 'コピー';
+				}, 2000);
+				}
+			}
+			};
+
+			// コードが横に長くてもボタンが流れないよう、
+			// preの外側に専用の枠を作る
+			const wrapper = document.createElement('div');
+			wrapper.className = 'code-block-wrapper';
+
+			pre.before(wrapper);
+			wrapper.append(button, pre);
+
+			button.addEventListener('click', handleCopy);
+
+			cleanups.push(() => {
+			clearTimeout(resetTimer);
+			button.removeEventListener('click', handleCopy);
+			button.remove();
+
+			// 元のDOM構造に戻す
+			if (wrapper.parentNode) {
+				wrapper.replaceWith(pre);
+			}
+			});
+		});
+
+		return () => {
+			disposed = true;
+			cleanups.forEach((cleanup) => cleanup());
+		};
+		}, [data]);
+
+	useEffect(() => {
 		if (!data) return;
 
 		if (data.content_html && window.twttr && window.twttr.widgets) {
