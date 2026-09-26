@@ -8,6 +8,7 @@ import NotFound from '../NotFound'
 const apiUrl = process.env.REACT_APP_API_URL;
 
 
+
 const BlogDetail = () => {
 	const { id } = useParams();
 	const [data, setData] = useState(null);
@@ -135,6 +136,22 @@ const BlogDetail = () => {
 			cancelled = true;
 		};
 	}, [data]);
+
+	const sanitizedContent = useMemo(() => {
+		if (!data?.content_html) {
+			return '';
+		}
+
+		return DOMPurify.sanitize(data.content_html, {
+			ADD_TAGS: ['iframe'],
+			ADD_ATTR: [
+				'allow',
+				'allowfullscreen',
+				'loading',
+				'referrerpolicy',
+			],
+		});
+	}, [data?.content_html]);
 
 	const formatDateToJapanese = (dateString) => {
 		const date = new Date(dateString);
@@ -280,7 +297,13 @@ const BlogDetail = () => {
 			</div> 
 
 			<div className="markdownx">
-					<div ref={contentRef} className="markdownx-preview" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(data.content_html) }} />
+					<div
+						ref={contentRef}
+						className="markdownx-preview"
+						dangerouslySetInnerHTML={{
+							__html: sanitizedContent
+						}}
+					/>
 					<div className="text-center mb-3">
 						<button className="btn btn-outline-primary  mt-3" onClick={handleLike}>いいね！ ({data.likes})</button>
 						
@@ -320,7 +343,7 @@ const BlogDetail = () => {
 					)}
 				</nav>
 				)}
-				
+
 			{relatedPosts.length > 0 && (
 				<section className="mt-5" aria-labelledby="related-posts-heading">
 					<h2 id="related-posts-heading" className="h4 mb-3">
