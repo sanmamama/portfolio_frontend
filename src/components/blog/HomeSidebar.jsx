@@ -113,39 +113,65 @@ const SidebarContent = () => {
 
     return (
         <div className="col-sm-3 ps-4 pe-4">
-                <div>
+                <div className="sidebar-profile">
                     <h4>プロフィール</h4>
+
                     <img
-                        className="img-fluid"
+                        className="img-fluid sidebar-profile-image"
                         src={`${process.env.REACT_APP_BASE_URL}/media/profile.jpg`}
                         width="282"
                         height="282"
-                        alt="profile"
+                        alt="プロフィール"
                     />
-                    <p>元地方公務員のエンジニア、さんまの技術ブログ。登録セキスペ（RISS）として、日々の開発や学習で調べたこと、試したことを記録しています。 </p>
-                    <p>
-                        <Link to="https://x.com/sanmamama_">
-                            <img
-                                    className="me-2 align-baseline"
-                                    src={`${process.env.REACT_APP_BASE_URL}/media/icon/x_logo.png`}
-                                    width="32"
-                                    height="32"
-                                    alt="X_logo"
-                            />
-                        </Link>
 
-                        <Link to="https://github.com/sanmamama/">
-                            <img
-                                    className="me-2 align-baseline"
-                                    src={`${process.env.REACT_APP_BASE_URL}/media/icon/github_logo.png`}
-                                    width="32"
-                                    height="32"
-                                    alt="GitHub_logo"
-                            />
-                        </Link>
+                    <h5 className="mt-3 fw-bold">
+                        さんま
+                    </h5>
+
+                    <p className="sidebar-profile-description">
+                        元地方公務員のITエンジニア。
+                        業務システム開発から、Windows Server・Linux・AWSなどの
+                        インフラまで幅広く携わっています。
                     </p>
+
+                    <Link
+                        to="/profile"
+                        className="btn btn-outline-dark btn-sm w-100 mb-3"
+                    >
+                        プロフィールを見る
+                    </Link>
+
+                    <div className="sidebar-profile-links">
+                        <a
+                            href="https://x.com/sanmamama_"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            aria-label="X"
+                        >
+                            <img
+                                src={`${process.env.REACT_APP_BASE_URL}/media/icon/x_logo.png`}
+                                width="30"
+                                height="30"
+                                alt="X"
+                            />
+                        </a>
+
+                        <a
+                            href="https://github.com/sanmamama/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            aria-label="GitHub"
+                        >
+                            <img
+                                src={`${process.env.REACT_APP_BASE_URL}/media/icon/github_logo.png`}
+                                width="30"
+                                height="30"
+                                alt="GitHub"
+                            />
+                        </a>
+                    </div>
                 </div>
-                    <hr/>
+                <hr/>
                 <div aria-busy={isLoading}>
                     {isLoading && (
                         <span role="status" className="visually-hidden">

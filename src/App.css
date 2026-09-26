@@ -700,3 +700,28 @@ a {
 
     overflow-wrap: break-word;
 }
+
+
+.sidebar-profile-image {
+    display: block;
+    width: 100%;
+    height: auto;
+    margin-top: 1rem;
+}
+
+.sidebar-profile-description {
+    font-size: 0.95rem;
+    line-height: 1.7;
+}
+
+.sidebar-profile-links {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 1rem;
+}
+
+.sidebar-profile-links a {
+    display: inline-flex;
+    align-items: center;
+}
