@@ -115,7 +115,6 @@ function Profile() {
               <ul>
                 <li>応用情報技術者</li>
                 <li>情報処理安全確保支援士</li>
-                <li>図書館司書</li>
               </ul>
 
 
