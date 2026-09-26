@@ -1,117 +1,184 @@
-//import React, { useState, useEffect } from 'react';
 import BookList from './BookList';
-import { Link } from 'react-router-dom';
 
 function Profile() {
-    return (
-      <>
+  return (
+    <>
       <div className="col-sm-9">
-              <div className="container container-m">
-      <div className="row">
-        <div className="row">
-			    <div className="col">
-            <h3><b>プロフィール</b></h3>
-            <p>
-            <img
-              className="img-fluid"
-              src={`${process.env.REACT_APP_BASE_URL}/media/profile.jpg`}
-              alt="profile"
-            />
-            </p>
-            <p>
-            <Link to="https://x.com/sanmamama_">
+        <div className="container container-m">
+          <div className="row">
+            <div className="col">
+
+              <h3><b>プロフィール</b></h3>
+
+              <p>
                 <img
-                        className="me-2 align-baseline"
-                        src={`${process.env.REACT_APP_BASE_URL}/media/icon/x_logo.png`}
-                        width="32"
-                        height="32"
-                        alt="X_logo"
+                  className="img-fluid"
+                  src={`${process.env.REACT_APP_BASE_URL}/media/profile.jpg`}
+                  alt="プロフィール"
                 />
-            </Link>
+              </p>
 
-            <Link to="https://github.com/sanmamama/">
-                <img
-                        className="me-2 align-baseline"
-                        src={`${process.env.REACT_APP_BASE_URL}/media/icon/github_logo.png`}
-                        width="32"
-                        height="32"
-                        alt="GitHub_logo"
-                />
-            </Link>
-            </p>
+              <p>
+                <a
+                  href="https://x.com/sanmamama_"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <img
+                    className="me-2 align-baseline"
+                    src={`${process.env.REACT_APP_BASE_URL}/media/icon/x_logo.png`}
+                    width="32"
+                    height="32"
+                    alt="X"
+                  />
+                </a>
 
-            <h3 className="anchor" id="1"><b>1.自己紹介</b></h3>
-            
-            <hr/>
-            <p>こんにちは！さんまままです。</p>
+                <a
+                  href="https://github.com/sanmamama/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <img
+                    className="me-2 align-baseline"
+                    src={`${process.env.REACT_APP_BASE_URL}/media/icon/github_logo.png`}
+                    width="32"
+                    height="32"
+                    alt="GitHub"
+                  />
+                </a>
+              </p>
 
-            <p>1988年生まれ、北の大学を卒業後、地方公務員として10年間勤務し、現在はエンジニア1年目として活動しています。</p>
 
-            <p>公務員時代に、業務効率化への関心からITに興味を持ち、2023年に応用情報技術者試験に合格、2024年に情報処理安全確保支援士試験合格。現在までC言語・C++・アセンブリ(8086,x86)・Perl・Java・JavaScript(React)、Python(Django)などを習得し、開発に取り組んできました。ユーザーに寄り添った、使いやすいシステムを作ることを目指しています。</p>
+              {/* 自己紹介 */}
+              <h3 className="anchor" id="profile">
+                <b>1. 自己紹介</b>
+              </h3>
+              <hr />
+
+              <p>
+                こんにちは！さんまままです。
+              </p>
+
+              <p>
+                地方公務員として約10年間勤務した後、ITエンジニアへ転職しました。
+                現在は業務システム・Webシステムの開発から、
+                Windows Server・Linux・AWSなどのインフラ構築・運用まで幅広く携わっています。
+              </p>
+
+              <p>
+                このブログでは、実務や資格学習、個人開発を通して得た知識を、
+                自分自身の備忘録も兼ねて発信しています。
+              </p>
 
 
+              {/* 技術・経験 */}
+              <h3 className="anchor" id="skills">
+                <b>2. 技術・経験</b>
+              </h3>
+              <hr />
 
-            <h3 className="anchor" id="2"><b>2.経歴</b></h3>
-            
-            <hr/>
-            <p>
-              <div className="wp-block-columns is-layout-flex wp-container-core-columns-is-layout-1 wp-block-columns-is-layout-flex">
-                  <div className="row">
-                    <div className="col">
-                      <p>2007年</p>
-                      <p>2011年</p>
-                      <p>2013年</p>
-                      <p>2023年</p>
-                      <p>2025年</p>
-                      <p>現在に至る</p>
-                    </div>
-                    <div className="col">
-                      <p>大学(工学部)入学</p>
-                      <p>大学卒業</p>
-                      <p>町役場入庁</p>
-                      <p>町役場退庁</p>
-                      <p>パッケージソフト・Web系自社開発会社入社</p>
-                    </div>
-                  </div>
-              </div>
-            </p>
-            <h3 className="anchor" id="3"><b>3.資格・スキル</b></h3>
-            
-            <hr/>
-            <div className="row">
-                    <div className="col">
-                      <p>2009年</p>
-                      <p>2020年</p>
-                      <p>2023年</p>
-                      <p>2024年</p>
-                    </div>
-                    <div className="col">
-                      <p>普通自動車第一種免許取得</p>
-                      <p>図書館司書資格取得</p>
-                      <p>応用情報技術者試験合格</p>
-                      <p>情報処理安全確保支援士試験合格</p>
-                    </div>
+              <h5><b>実務</b></h5>
+              <ul>
+                <li>Java / Delphi / VB.NET</li>
+                <li>PostgreSQL</li>
+                <li>Windows Server / Active Directory</li>
+                <li>Linux</li>
+                <li>AWS</li>
+                <li>業務システムの設計・開発・テスト・運用</li>
+                <li>サーバ・ネットワーク環境の設計・構築・運用</li>
+              </ul>
+
+              <h5 className="mt-4"><b>個人開発</b></h5>
+              <ul>
+                <li>Python / Django / Django REST Framework</li>
+                <li>JavaScript / React</li>
+                <li>PostgreSQL</li>
+                <li>Nginx</li>
+                <li>Docker</li>
+                <li>VPS上でのWebサービス構築・運用</li>
+              </ul>
+
+              <h5 className="mt-4"><b>その他の経験</b></h5>
+              <ul>
+                <li>C / C++</li>
+                <li>Perl</li>
+                <li>x86アセンブリ</li>
+              </ul>
+
+
+              {/* 資格 */}
+              <h3 className="anchor" id="certifications">
+                <b>3. 資格</b>
+              </h3>
+              <hr />
+
+              <ul>
+                <li>応用情報技術者</li>
+                <li>情報処理安全確保支援士</li>
+                <li>図書館司書</li>
+              </ul>
+
+
+              {/* 個人開発 */}
+              <h3 className="anchor" id="development">
+                <b>4. 個人開発</b>
+              </h3>
+              <hr />
+
+              <p>
+                Django / Django REST Framework / React / PostgreSQL / Nginx
+                などを使用したWebサービスを個人で設計・開発し、VPS上で運用しています。
+              </p>
+
+              <p>
+                フロントエンド・バックエンドだけでなく、
+                データベースやWebサーバ、Docker、デプロイ環境なども含め、
+                Webサービス全体を自分で構築・運用しています。
+              </p>
+
+
+              {/* 読書記録 */}
+              <h3 className="anchor" id="books">
+                <b>5. 読書記録</b>
+              </h3>
+              <hr />
+
+              <BookList />
+
             </div>
-
-            <h3 className="anchor" id="4"><b>4.読書記録</b></h3> 
-            <hr/>
-            <BookList/>
+          </div>
         </div>
       </div>
-    </div>
-    </div>
-    </div>
-    <div className="col-sm-3 d-none d-sm-block">
-      <div className="stick">
-        <h4>目次</h4>
-        <p className="mt-3"><a href="#1">1.自己紹介</a></p>
-        <p className="mt-3"><a href="#2">2.経歴</a></p>
-        <p className="mt-3"><a href="#3">3.資格・スキル</a></p>
-        <p className="mt-3"><a href="#4">4.読書記録</a></p>
+
+
+      {/* PC用目次 */}
+      <div className="col-sm-3 d-none d-sm-block">
+        <div className="stick">
+          <h4>目次</h4>
+
+          <p className="mt-3">
+            <a href="#profile">1. 自己紹介</a>
+          </p>
+
+          <p className="mt-3">
+            <a href="#skills">2. 技術・経験</a>
+          </p>
+
+          <p className="mt-3">
+            <a href="#certifications">3. 資格</a>
+          </p>
+
+          <p className="mt-3">
+            <a href="#development">4. 個人開発</a>
+          </p>
+
+          <p className="mt-3">
+            <a href="#books">5. 読書記録</a>
+          </p>
+        </div>
       </div>
-    </div>
     </>
-    );
+  );
 }
 
 export default Profile;
