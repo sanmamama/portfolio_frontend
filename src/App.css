@@ -734,11 +734,8 @@ a {
     overflow: hidden;
 
     line-height: 1.6;
-    min-height: 6.4em;
-    max-height: 6.4em;
 }
 
 .blog-card-labels {
-    min-height: 68px;
     align-content: flex-start;
 }
