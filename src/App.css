@@ -725,3 +725,20 @@ a {
     display: inline-flex;
     align-items: center;
 }
+
+.blog-card-excerpt {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 4;
+    line-clamp: 4;
+    overflow: hidden;
+
+    line-height: 1.6;
+    min-height: 6.4em;
+    max-height: 6.4em;
+}
+
+.blog-card-labels {
+    min-height: 68px;
+    align-content: flex-start;
+}

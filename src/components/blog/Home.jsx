@@ -179,7 +179,7 @@ const BlogItem = ({ item, isSmallScreen }) => (
                 </span>
             </div>
 
-            <div className="d-flex flex-wrap gap-2 mb-3">
+            <div className="d-flex flex-wrap gap-2 mb-3 blog-card-labels">
                 <Link
                     className="article-label article-category"
                     to={`/?category=${encodeURIComponent(item.category.name)}`}
@@ -198,7 +198,7 @@ const BlogItem = ({ item, isSmallScreen }) => (
                 ))}
             </div>
 
-            <p className="text-secondary mb-0">
+            <p className="text-secondary mb-0 blog-card-excerpt">
                 {truncateTo100Chars(item.content_html)}
             </p>
         </article>
