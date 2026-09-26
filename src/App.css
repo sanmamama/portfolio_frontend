@@ -1,41 +1,6 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
+/* =========================
+   Header / Layout
+========================= */
 
 .jumbotron {
   background-image: url("../public/header.webp");
@@ -45,6 +10,10 @@
   padding: 0;
   margin: 3.5rem 0 1.5rem;
 }
+
+/* =========================
+   Utilities / Common
+========================= */
 
 .no-link-style {
   color: inherit; /* テキストの色を継承 */
@@ -77,7 +46,7 @@
   right: 0;
   bottom: 0;
   left: 0;
-  padding:0;
+  padding: 0;
 }
 
 .custom-mark {
@@ -88,7 +57,7 @@ a {
   text-decoration: none; /* 下線を削除 */
 }
 
-.toast{
+.toast {
   --bs-toast-font-size: 1rem;
 }
 
@@ -101,8 +70,8 @@ a {
 .custom-link-style:focus {
   color: inherit; /* ホバー時の色を継承 */
   text-decoration: none; /* ホバー時の下線を削除 */
-  opacity:0.6;
-	transition:0.1s;
+  opacity: 0.6;
+  transition: 0.1s;
 }
 
 .anchor {
@@ -111,367 +80,16 @@ a {
   margin-top: -10px !important;
   }
 
-.stick{
+.stick {
   position: -webkit-sticky; /* Safari */
   position: sticky;
   top: 60px; /* ナビゲーションバーの高さに合わせて調整 */
 }
 
+/* =========================
+   Images / Layout helpers
+========================= */
+
 .image-container img {
   width: 100%;
   height: 150px;
-  object-fit: cover; /* 画像をコンテナに合わせる */
-  object-position: center; /* 画像を中央に配置 */
-}
-
-.right-sidebar-toc{
-  font-size: 15px;
-}
-.right-sidebar-toc li {
-  list-style-type: none;
-}
-
-.right-sidebar-toc ul{
-  padding-inline-start:1em;
-}
-
-.body-toc li {
-  list-style-type: none;
-}
-
-.body-toc ul{
-  padding-inline-start:1em;
-}
-
-.col-fix{
-  width: 8.5%;
-  min-width: 40px;
-  padding-right: 0px;
-  padding-left:0px;
-}
-
-.container-body {
-  margin-top: 70px;
-}
-/* 
-@media (min-width: 768px) {
-  .container-body {
-    margin-top: 3px;
-  }
-} */
-
-.max-width-400 {
-  max-width: 400px;
-}
-
-.no-wrap-button {
-  white-space: nowrap;
-}
-
-.body-toc {
-  overflow-x: hidden;
-}
-
-.toc a {
-  display: block;
-  word-wrap: break-word;
-  overflow-wrap: break-word;
-  white-space: normal;
-}
-
-.markdownx-preview {
-  overflow-x: auto; /* 水平方向にスクロールを許可 */
-  word-wrap: break-word; /* 単語の途中でも改行 */
-  overflow-wrap: break-word; /* 長い単語を折り返し */
-  white-space: normal; /* テキストを折り返し */
-  max-width: 100%; /* 親要素からはみ出さない */
-}
-
-/* ページネーションのアクティブ色を灰色に変更 */
-.page-item.active .page-link {
-  background-color: #6c757d; /* Bootstrapのsecondary色 */
-  border-color: #6c757d;
-  color: #fff;
-}
-
-.markdownx-preview table {
-  width: 100%;
-  border-collapse: collapse;
-  margin: 1rem 0;
-}
-
-.markdownx-preview th,
-.markdownx-preview td {
-  border: 1px solid #ccc;
-  padding: 0.75rem;
-  vertical-align: top;
-  overflow-wrap: anywhere;
-}
-
-.markdownx-preview th {
-  background-color: #f2f4f6;
-  font-weight: bold;
-}
-
-.markdownx-preview tbody tr:nth-child(even) {
-  background-color: #fafafa;
-}
-
-/* 本文の段落 */
-.markdownx .markdownx-preview p {
-  line-height: 1.85;
-  margin-bottom: 1em;
-}
-
-/* 箇条書き・番号付きリスト */
-.markdownx .markdownx-preview li {
-  line-height: 1.85;
-}
-
-.markdownx .markdownx-preview li + li {
-  margin-top: 0.4em;
-}
-
-.markdownx .markdownx-preview ul,
-.markdownx .markdownx-preview ol {
-  margin-bottom: 1.25em;
-}
-
-/* リスト内の段落は余白を控えめにする */
-.markdownx .markdownx-preview li > p {
-  margin-bottom: 0.4em;
-}
-
-.header-nav-spacer {
-  height: 3.5rem;
-  margin-bottom: 1.5rem;
-}
-
-.blog-article-title {
-  font-size: clamp(1.75rem, 3vw, 2.25rem);
-  font-weight: 700;
-  line-height: 1.4;
-  overflow-wrap: anywhere;
-}
-
-.article-label {
-  display: inline-block;
-  padding: 0.3rem 0.65rem;
-  border: 1px solid;
-  border-radius: 0.3rem;
-  font-size: 0.875rem;
-  line-height: 1.5;
-  text-decoration: none;
-}
-
-.article-category {
-  color: #664d03;
-  background-color: #fff3cd;
-  border-color: #e8ce80;
-}
-
-.article-tag {
-  color: #084298;
-  background-color: #e7f1ff;
-  border-color: #b6d4fe;
-}
-
-.article-label:hover {
-  text-decoration: underline;
-}
-
-.article-category:hover {
-  color: #664d03;
-}
-
-.article-tag:hover {
-  color: #084298;
-}
-
-.article-label:focus-visible {
-  outline: 2px solid #212529;
-  outline-offset: 2px;
-}
-
-.blog-card-title {
-  font-size: 1.25rem;
-  font-weight: 700;
-  line-height: 1.5;
-  overflow-wrap: anywhere;
-}
-
-.blog-card-title a:hover {
-  text-decoration: underline !important;
-}
-
-.blog-list-item {
-  width: 100%;
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
-  position: relative;
-
-  /* 既存の区切り線・余白 */
-  padding-bottom: 1.5rem;
-  margin-bottom: 2rem;
-  border-bottom: 1px solid #dee2e6;
-}
-
-/* 2列表示ではタイトルを最低2行分確保 */
-@media (min-width: 768px) {
-  .blog-card-title {
-    min-height: 3em;
-  }
-}
-
-/* カテゴリー・タグは記事リンクより手前に配置 */
-.blog-list-item .article-label {
-  position: relative;
-  z-index: 2;
-}
-
-/* 白い半透明の膜。クリック操作は妨げない */
-.blog-list-item::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 3;
-  background-color: rgba(255, 255, 255, 0.2);
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.15s ease;
-}
-
-@media (hover: hover) {
-  .blog-list-item:hover::after {
-    opacity: 1;
-  }
-}
-
-/* キーボード操作でも記事の選択位置を示す */
-.blog-card-title .stretched-link:focus-visible::after {
-  outline: 2px solid #084298;
-  outline-offset: 3px;
-}
-
-/* コピー操作用の領域をコードの上に確保 */
-.code-block-wrapper {
-  position: relative;
-  padding-top: 2.75rem;
-  margin-bottom: 1.25rem;
-  background-color: #282c34;
-  border: 1px solid #444b57;
-  border-radius: 0.375rem;
-  overflow: hidden;
-}
-
-.code-block-wrapper pre {
-  margin: 0;
-  overflow-x: auto;
-}
-
-.code-copy-button {
-  position: absolute;
-  top: 0.4rem;
-  right: 0.5rem;
-  padding: 0.3rem 0.65rem;
-  border: 1px solid #737d8c;
-  border-radius: 0.25rem;
-  background-color: #343b46;
-  color: #fff;
-  font: inherit;
-  font-size: 0.8rem;
-  line-height: 1.5;
-  cursor: pointer;
-}
-
-@media (hover: hover) {
-  .code-copy-button:hover {
-    background-color: #485261;
-  }
-}
-
-.code-copy-button:focus-visible {
-  outline: 2px solid #9ec5fe;
-  outline-offset: 2px;
-}
-
-.code-copy-button:disabled {
-  cursor: wait;
-}
-
-.article-pagination {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 1rem;
-  margin: 2rem 0;
-}
-
-.article-pagination-link {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  min-width: 0;
-  padding: 1rem;
-  border: 1px solid #dee2e6;
-  border-radius: 0.375rem;
-  color: #212529;
-  background-color: #fff;
-  text-decoration: none;
-}
-
-.article-pagination-previous {
-  grid-column: 1;
-}
-
-.article-pagination-next {
-  grid-column: 2;
-}
-
-.article-pagination-label {
-  color: #6c757d;
-  font-size: 0.875rem;
-}
-
-.article-pagination-next .article-pagination-label {
-  text-align: right;
-}
-
-.article-pagination-title {
-  font-weight: 600;
-  line-height: 1.5;
-  overflow-wrap: anywhere;
-}
-
-@media (hover: hover) {
-  .article-pagination-link:hover {
-    color: #084298;
-    background-color: #f4f8fc;
-    border-color: #b6d4fe;
-  }
-}
-
-.article-pagination-link:focus-visible {
-  outline: 2px solid #084298;
-  outline-offset: 3px;
-}
-
-@media (max-width: 575.98px) {
-  .article-pagination {
-    grid-template-columns: minmax(0, 1fr);
-  }
-
-  .article-pagination-next {
-    grid-column: 1;
-  }
-}
-
-.markdownx-preview iframe {
-    display: block;
-    width: 100%;
-    max-width: 560px;
-    aspect-ratio: 16 / 9;
-    height: unset;
-    margin: 1.5rem auto;
-    border: 0;
-}
