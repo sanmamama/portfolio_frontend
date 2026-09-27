@@ -170,7 +170,7 @@ const SidebarContent = () => {
                             />
                         </a>
                         <a
-                            href="./rss"
+                            href="/rss"
                             target="_blank"
                             rel="noopener noreferrer"
                             aria-label="RSS"
