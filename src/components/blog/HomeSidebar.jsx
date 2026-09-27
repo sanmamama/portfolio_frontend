@@ -169,6 +169,12 @@ const SidebarContent = () => {
                                 alt="GitHub"
                             />
                         </a>
+                            <img
+                                src={`${process.env.REACT_APP_BASE_URL}/media/icon/rss_logo.png`}
+                                width="30"
+                                height="30"
+                                alt="RSS"
+                            />
                     </div>
                 </div>
                 <hr/>
