@@ -169,12 +169,19 @@ const SidebarContent = () => {
                                 alt="GitHub"
                             />
                         </a>
+                        <a
+                            href="https://github.com/sanmamama/rss"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            aria-label="RSS"
+                        >
                             <img
                                 src={`${process.env.REACT_APP_BASE_URL}/media/icon/rss_logo.png`}
                                 width="30"
                                 height="30"
                                 alt="RSS"
                             />
+                        </a>
                     </div>
                 </div>
                 <hr/>
