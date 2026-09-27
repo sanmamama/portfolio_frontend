@@ -170,7 +170,7 @@ const SidebarContent = () => {
                             />
                         </a>
                         <a
-                            href="https://github.com/sanmamama/rss"
+                            href="./rss"
                             target="_blank"
                             rel="noopener noreferrer"
                             aria-label="RSS"
