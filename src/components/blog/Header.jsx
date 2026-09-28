@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 const apiUrl = process.env.REACT_APP_API_URL;
 
 function Header() {
-  const isBlogDetail = useMatch('/detail/:id');
+  const isBlogDetail = useMatch('/blog/:id');
   const {myBlogDataGlobal,setMyBlogDataGlobal} = useContext(BlogDataContext);
   const [query, setQuery] = useState('');
   const navigate = useNavigate();

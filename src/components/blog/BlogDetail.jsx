@@ -315,7 +315,7 @@ const BlogDetail = () => {
 					{previousArticle && (
 					<Link
 						className="article-pagination-link article-pagination-previous"
-						to={`/detail/${previousArticle.id}`}
+						to={`/blog/${previousArticle.id}`}
 						rel="prev"
 					>
 						<span className="article-pagination-label">
@@ -330,7 +330,7 @@ const BlogDetail = () => {
 					{nextArticle && (
 					<Link
 						className="article-pagination-link article-pagination-next"
-						to={`/detail/${nextArticle.id}`}
+						to={`/blog/${nextArticle.id}`}
 						rel="next"
 					>
 						<span className="article-pagination-label">
@@ -354,7 +354,7 @@ const BlogDetail = () => {
 						{relatedPosts.map(post => (
 							<div className="col-12 col-md-4" key={post.id}>
 								<Link
-									to={`/detail/${post.id}`}
+									to={`/blog/${post.id}`}
 									className="card h-100 text-dark text-decoration-none"
 								>
 									<img

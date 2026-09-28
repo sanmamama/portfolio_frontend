@@ -10,6 +10,7 @@ import {FollowDataProvider} from "./components/postter/providers/FollowDataProvi
 import {NotificationProvider} from "./components/postter/providers/NotificationProvider"
 import {BlogDataProvider} from "./components/blog/providers/BlogDataProvider"
 
+
 // 画面を初めて開いたときに読み込む。
 // 待機表示は、その画面の部分だけに表示する。
 const lazyPage = (loader) => {
@@ -61,7 +62,7 @@ const router = createBrowserRouter([
       { path: "portfolio", element: <Portfolio /> },
       { path: "privacypolicy", element: <PrivacyPolicy /> },
       { path: "contact", element: <Contact /> },
-      { path: "detail/:id", element: <BlogDetail /> },
+      { path: "blog/:id", element: <BlogDetail /> },
       { path: "*", element: <NotFound />,},
     ],
   },

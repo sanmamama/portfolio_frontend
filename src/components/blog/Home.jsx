@@ -147,7 +147,7 @@ const BlogItem = ({ item, isSmallScreen }) => (
             <h2 className="blog-card-title mb-2">
                 <Link
                     className="text-dark text-decoration-none stretched-link"
-                    to={`/detail/${item.id}`}
+                    to={`/blog/${item.id}`}
                 >
                     {item.title}
                 </Link>
