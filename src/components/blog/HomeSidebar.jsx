@@ -1,7 +1,7 @@
 // src/components/Sidebar.js
-import React, { useEffect, useState, useContext } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import {BlogDataContext} from "./providers/BlogDataProvider"
+import {useBlogResource} from "./providers/BlogDataProvider"
 //const apiUrl = process.env.REACT_APP_API_URL;
 
 // サイドバーの一覧用スケルトン
@@ -24,86 +24,11 @@ const SidebarListSkeleton = ({ rows }) => (
 );
 
 const SidebarContent = () => {
-    const [categories, setCategories] = useState([]);
-    const [tags, setTags] = useState([]);
-    const [archives, setArchives] = useState([]);
-    const [isSidebarReady, setIsSidebarReady] = useState(false);
-
-    const {myBlogDataGlobal} = useContext(BlogDataContext);
-
-    const isLoading = myBlogDataGlobal == null || !isSidebarReady;
-    
-    
-
-    
-
-    // useEffect(() => {
-    //     fetch(`${apiUrl}/blog/all/`)
-    //         .then(response => response.json())
-    //         .then(data => {
-    //             calculateCategories(data);
-    //             calculateTags(data);
-    //             calculateArchives(data);
-
-    //         })
-    //         .catch(error => console.error('Error fetching posts:', error));
-    // }, []);
-
-    useEffect(() => {
-        if (myBlogDataGlobal == null) {
-            setIsSidebarReady(false);
-            return;
-        }
-
-        calculateCategories(myBlogDataGlobal);
-        calculateTags(myBlogDataGlobal);
-        calculateArchives(myBlogDataGlobal);
-        setIsSidebarReady(true);
-    }, [myBlogDataGlobal]);
-
-
-
-    const calculateCategories = (posts) => {
-        const categoryCount = {};
-        posts.forEach(post => {
-            const category = post.category;
-            if (categoryCount[category.id]) {
-                categoryCount[category.id].count++;
-            } else {
-                categoryCount[category.id] = { name: category.name, count: 1 };
-            }
-        });
-        setCategories(Object.entries(categoryCount));
-    };
-
-    const calculateTags = (posts) => {
-        const tagCount = {};
-        posts.forEach(post => {
-            post.tag.forEach(tag => {
-                if (tagCount[tag.id]) {
-                    tagCount[tag.id].count++;
-                } else {
-                    tagCount[tag.id] = { name: tag.name, count: 1 };
-                }
-            });
-        });
-        setTags(Object.entries(tagCount));
-    };
-
-    const calculateArchives = (posts) => {
-        const archiveCount = {};
-        posts.forEach(post => {
-            //const month = new Date(post.created_at).toISOString().slice(0, 7); // "2024-06" の形式
-            const month = new Date(post.created_at);
-            const formattedMonth = month.getFullYear().toString() + ('0' + (month.getMonth() + 1)).slice(-2); // "202406" の形式
-            if (archiveCount[formattedMonth]) {
-                archiveCount[formattedMonth]++;
-            } else {
-                archiveCount[formattedMonth] = 1;
-            }
-        });
-        setArchives(Object.entries(archiveCount));
-    };
+    const { data: summary, error } = useBlogResource('blog/summary/');
+    const categories = summary?.categories || [];
+    const tags = summary?.tags || [];
+    const archives = summary?.archives || [];
+    const isLoading = !summary && !error;
 
     const formatMonth = (month) => {
         const year = month.slice(0, 4);
@@ -186,6 +111,7 @@ const SidebarContent = () => {
                 </div>
                 <hr/>
                 <div aria-busy={isLoading}>
+                    {error && <p role="alert">一覧を取得できませんでした。再読み込みしてください。</p>}
                     {isLoading && (
                         <span role="status" className="visually-hidden">
                             カテゴリー・タグ・アーカイブを読み込んでいます。

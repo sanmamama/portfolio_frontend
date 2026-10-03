@@ -1,13 +1,10 @@
-import React, { useEffect , useState, useContext } from 'react';
+import React, { useEffect , useState } from 'react';
 import { NavLink ,Link, useMatch } from 'react-router-dom';
-import {BlogDataContext} from "./providers/BlogDataProvider"
 import { useNavigate } from 'react-router-dom';
 
-const apiUrl = process.env.REACT_APP_API_URL;
 
 function Header() {
   const isBlogDetail = useMatch('/blog/:id');
-  const {myBlogDataGlobal,setMyBlogDataGlobal} = useContext(BlogDataContext);
   const [query, setQuery] = useState('');
   const navigate = useNavigate();
   
@@ -29,18 +26,6 @@ function Header() {
     
     
   }, []);
-
-  useEffect(() => {
-    if(!myBlogDataGlobal){
-      fetch(`${apiUrl}/blog/all/`)
-          .then(response => response.json())
-          .then(data => {
-            setMyBlogDataGlobal(data)
-
-          })
-          .catch(error => console.error('Error fetching posts:', error));
-      }
-}, [myBlogDataGlobal,setMyBlogDataGlobal]);
 
 const handleSubmit = (event) => {
   event.preventDefault();

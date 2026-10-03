@@ -3,7 +3,7 @@ import React, { useState, useEffect, useContext, useRef, useMemo  } from 'react'
 import { useParams} from 'react-router-dom';
 import DOMPurify from 'dompurify';
 import { Link } from 'react-router-dom';
-import {BlogDataContext} from "./providers/BlogDataProvider"
+import {BlogDataContext, useBlogResource} from "./providers/BlogDataProvider"
 import NotFound from '../NotFound'
 const apiUrl = process.env.REACT_APP_API_URL;
 
@@ -11,19 +11,12 @@ const apiUrl = process.env.REACT_APP_API_URL;
 
 const BlogDetail = () => {
 	const { id } = useParams();
-	const [data, setData] = useState(null);
-	const {myBlogDataGlobal,setMyBlogDataGlobal} = useContext(BlogDataContext);
+	const [likeOverride, setLikeOverride] = useState(null);
+    const { data: article, error } = useBlogResource(`blog/${id}/`);
+    const data = useMemo(() => article && likeOverride?.id === id
+        ? { ...article, likes: likeOverride.likes } : article, [article, likeOverride, id]);
+	const { updateLikes } = useContext(BlogDataContext);
 	const contentRef = useRef(null);
-
-	useEffect(() => {
-		try{
-			const index = myBlogDataGlobal.findIndex(obj => obj.id === Number(id));
-			setData(myBlogDataGlobal[index])
-		}catch{
-			return
-		}
-		
-	}, [myBlogDataGlobal,id]);
 
 	useEffect(() => {
 		const container = contentRef.current;
@@ -166,46 +159,18 @@ const BlogDetail = () => {
         const response = await fetch(`${apiUrl}/blog/${id}/like/`, {
             method: 'PATCH'
         });
+        if (!response.ok) return;
         const res = await response.json();
-        //setData({ ...data, likes: res.likes });
-		
-		const index = myBlogDataGlobal.findIndex(obj => obj.id === Number(id));
-		setMyBlogDataGlobal((prevData) => 
-			prevData.map((item, idx) => 
-				idx === index ? { ...item, likes: res.likes } : item
-			)
-		);
-	}
+        updateLikes(id, res.likes);
+        setLikeOverride({ id, likes: res.likes });
+    };
 
-	const { previousArticle, nextArticle } = useMemo(() => {
-		if (!Array.isArray(myBlogDataGlobal)) {
-			return { previousArticle: null, nextArticle: null };
-		}
+    const previousArticle = data?.previous_article;
+    const nextArticle = data?.next_article;
+    const relatedPosts = data?.related_posts || [];
 
-		// 古い記事 → 新しい記事の順。同日時の場合はID順
-		const sortedArticles = [...myBlogDataGlobal]
-			.filter((article) => !article.is_draft)
-			.sort((a, b) => {
-			const dateDifference =
-				new Date(a.created_at).getTime() -
-				new Date(b.created_at).getTime();
-
-			return dateDifference || Number(a.id) - Number(b.id);
-			});
-
-		const index = sortedArticles.findIndex(
-			(article) => Number(article.id) === Number(id)
-		);
-
-		if (index === -1) {
-			return { previousArticle: null, nextArticle: null };
-		}
-
-		return {
-			previousArticle: sortedArticles[index - 1] || null,
-			nextArticle: sortedArticles[index + 1] || null,
-		};
-		}, [myBlogDataGlobal, id]);
+    if (error?.status === 404) return <NotFound />;
+    if (error) return <div role="alert">記事を取得できませんでした。再読み込みしてください。</div>;
 
 	if (data === null) {
 		return <div>記事を読み込んでいます。しばらくお待ち下さい。</div>;
@@ -214,28 +179,6 @@ const BlogDetail = () => {
 	if (!data) {
 		return <NotFound />;
 	}
-
-	const currentTagIds = new Set(
-    	(data.tag || []).map(tag => tag.id)
-	);
-
-	const relatedPosts = (myBlogDataGlobal || [])
-		.filter(post => post.id !== data.id && !post.is_draft)
-		.map(post => ({
-			post,
-			sharedTagCount: (post.tag || []).filter(
-				tag => currentTagIds.has(tag.id)
-			).length,
-			sameCategory: post.category?.id === data.category?.id,
-		}))
-		.filter(item => item.sharedTagCount > 0 || item.sameCategory)
-		.sort((a, b) =>
-			b.sharedTagCount - a.sharedTagCount ||
-			Number(b.sameCategory) - Number(a.sameCategory) ||
-			new Date(b.post.created_at) - new Date(a.post.created_at)
-		)
-		.slice(0, 3)
-		.map(item => item.post);
 
 
 	return (

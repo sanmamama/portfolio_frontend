@@ -1,7 +1,7 @@
-import React, { useEffect, useState ,useContext } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link,useLocation } from 'react-router-dom';
 import SidebarContent from './HomeSidebar';
-import {BlogDataContext} from "./providers/BlogDataProvider"
+import {useBlogResource} from "./providers/BlogDataProvider"
 
 const baseUrl = process.env.REACT_APP_BASE_URL;
 const PAGE_SIZE = 12; // ★ 1ページあたりの記事数
@@ -32,16 +32,6 @@ const formatDateToJapanese = (dateString) => {
 
     return `${year}年${month}月${day}日`;
 };
-
-// テキストを100文字までトリム
-const truncateTo100Chars = (value) => {
-    const clean = /<.*?>/g;
-    value = (value || '').replace(clean, '').replace(/&[A-Za-z0-9#]+;/g, '');
-    return value.length > 100 ? `${value.slice(0, 100)}.....` : value;
-};
-
-// カスタムフック: URLクエリパラメータを取得
-const useQuery = () => new URLSearchParams(window.location.search);
 
 // ページネーションリンクの作成
 const Pagination = ({
@@ -199,7 +189,7 @@ const BlogItem = ({ item, isSmallScreen }) => (
             </div>
 
             <p className="text-secondary mb-0 blog-card-excerpt">
-                {truncateTo100Chars(item.content_html)}
+                {item.excerpt}
             </p>
         </article>
 
@@ -296,83 +286,25 @@ const BlogListSkeleton = ({ isSmallScreen }) => (
 );
 
 const App = () => {
-    const {myBlogDataGlobal} = useContext(BlogDataContext);
-    const [blog, setBlog] = useState(null);              // 表示用（スライス済み）
-    const [pageCount, setPageCount] = useState(0);       // 総ページ数
-    const [currentPage, setCurrentPage] = useState(1);   // 現在ページ（補正後）
-    const [articleCount,setArticleCount] = useState("");
-
     const isSmallScreen = useIsSmallScreen();
 
 	//ページ遷移
 	const location = useLocation();
 
     // URLパラメータからフィルタ状態を取得
-    const query = useQuery();
-    const selectedPage = parseInt(query.get('page') || 1, 10);
+    const query = new URLSearchParams(location.search);
     const selectedCategory = query.get('category') || '';
     const selectedTag = query.get('tag') || '';
     const selectedYearMonth = query.get('date') || '';
     const q = query.get('q') || '';
 
-    useEffect(() => {
-        try{
-            // まずは「全件のフィルタ結果」を作る
-            const filteredBlogsAll = myBlogDataGlobal.filter((item) => {
-                const createdAtDate = new Date(item.created_at);
-                const year = createdAtDate.getFullYear();
-                const month = String(createdAtDate.getMonth() + 1).padStart(2, '0'); 
-                const yearMonth = `${year}${month}`;
+    const { data: result, error } = useBlogResource(`blog/${location.search}`);
+    const blog = result?.results.length ? result.results : null;
+    const articleCount = result ? result.count : "";
+    const currentPage = result?.page || 1;
+    const pageCount = result?.page_count || 0;
 
-                // ★ 検索（q）：本文/タイトル/カテゴリ/タグ名
-                if(q){
-                    return (
-                        (item.content_html || '').includes(q) ||
-                        (item.title || '').includes(q) ||
-                        (item.category?.name || '').includes(q) ||
-                        (item.tag || []).some(t => (t.name || '').includes(q))
-                    );
-                }
-
-                // ★ 絞り込み（カテゴリ/タグ/年月）
-                if(selectedCategory || selectedTag || selectedYearMonth){
-                    return (
-                        item.category?.name === selectedCategory ||
-                        (item.tag || []).some((tag) => selectedTag.includes(tag.name)) ||
-                        yearMonth === selectedYearMonth
-                    );
-                }
-
-                return true;
-            });
-
-            const total = filteredBlogsAll.length;
-
-            if(total){
-                // ★ 総ページ数と現在ページを確定（範囲外なら補正）
-                const pages = Math.ceil(total / PAGE_SIZE);
-                const safePage = Math.min(Math.max(selectedPage, 1), pages);
-
-                // ★ 表示用スライス
-                const start = (safePage - 1) * PAGE_SIZE;
-                const end = start + PAGE_SIZE;
-                const pageSlice = filteredBlogsAll.slice(start, end);
-
-                setBlog(pageSlice);
-                setArticleCount(total);
-                setPageCount(pages);
-                setCurrentPage(safePage);
-            }else{
-                setBlog(null);
-                setArticleCount(0);
-                setPageCount(0);
-                setCurrentPage(1);
-            }
-        }catch{
-            return;
-        }
-    // 依存：検索条件・元データ・URLの変化
-    }, [location.search, selectedPage, selectedCategory, selectedTag, selectedYearMonth, myBlogDataGlobal, q]);
+    if (error) return <><div className="col-sm-9" role="alert">記事を取得できませんでした。再読み込みしてください。</div><SidebarContent /></>;
 
     if (!blog) {
         if (articleCount === "") {
