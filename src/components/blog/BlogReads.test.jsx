@@ -4,6 +4,7 @@ import { MemoryRouter, Routes, Route, Link } from 'react-router-dom';
 import Home from './Home';
 import BlogDetail from './BlogDetail';
 import Header from './Header';
+import Contact from './Contact';
 import { BlogDataProvider } from './providers/BlogDataProvider';
 
 const article = {
@@ -91,4 +92,78 @@ test('プロフィールなどのHeader表示では記事を取得しない', as
     render(<MemoryRouter><Header /></MemoryRouter>);
     await waitFor(() => expect(screen.getByText('さんまの技術ブログ')).toBeInTheDocument());
     expect(fetch).not.toHaveBeenCalled();
+});
+
+test('キャッシュの期限後はフォーカス復帰時に記事を再取得する', async () => {
+    const clock = jest.spyOn(Date, 'now').mockReturnValue(100000);
+    try {
+        mount('/blog/1');
+        await screen.findByText('詳細の本文');
+        fireEvent(window, new Event('focus'));
+        expect(fetch).toHaveBeenCalledTimes(1);
+        fetch.mockImplementation(() => response({ ...article, title: '編集後の記事', content_html: '<p>編集後の本文</p>', toc_html: '' }));
+        clock.mockReturnValue(131000);
+        fireEvent(window, new Event('focus'));
+        await screen.findByText('編集後の本文');
+        expect(fetch).toHaveBeenCalledTimes(2);
+    } finally { clock.mockRestore(); }
+});
+
+test('再取得で削除済みの記事は404に切り替わる', async () => {
+    const clock = jest.spyOn(Date, 'now').mockReturnValue(100000);
+    try {
+        mount('/blog/1');
+        await screen.findByText('詳細の本文');
+        fetch.mockImplementation(() => Promise.resolve({ ok: false, status: 404 }));
+        clock.mockReturnValue(131000);
+        fireEvent(window, new Event('focus'));
+        await screen.findByText('指定したページが見つかりませんでした');
+    } finally { clock.mockRestore(); }
+});
+
+test('いいねの通信失敗を表示し、再試行できる', async () => {
+    mount('/blog/1');
+    const button = await screen.findByRole('button', { name: 'いいね！ (2)' });
+    fetch.mockRejectedValueOnce(new Error('offline'));
+    fireEvent.click(button);
+    expect(await screen.findByRole('alert')).toHaveTextContent('いいねを送信できませんでした');
+    expect(button).toBeEnabled();
+    fireEvent.click(button);
+    await screen.findByRole('button', { name: 'いいね！ (3)' });
+    expect(screen.queryByRole('alert')).not.toBeInTheDocument();
+});
+
+test('いいね更新で記事埋め込みを再初期化しない', async () => {
+    window.twttr = { widgets: { load: jest.fn() } };
+    try {
+        mount('/blog/1');
+        const button = await screen.findByRole('button', { name: 'いいね！ (2)' });
+        await waitFor(() => expect(window.twttr.widgets.load).toHaveBeenCalledTimes(1));
+        fireEvent.click(button);
+        await screen.findByRole('button', { name: 'いいね！ (3)' });
+        expect(window.twttr.widgets.load).toHaveBeenCalledTimes(1);
+    } finally { delete window.twttr; }
+});
+
+test('お問い合わせの重複送信を防ぎ、失敗しても入力を保持する', async () => {
+    render(<Contact />);
+    const fields = screen.getAllByRole('textbox');
+    ['Test', 'test@example.com', 'Message'].forEach((value, index) => {
+        fireEvent.change(fields[index], { target: { value } });
+    });
+    let reject;
+    fetch.mockImplementation(() => new Promise((resolve, failure) => { reject = failure; }));
+    const button = screen.getByRole('button', { name: '送信' });
+    fireEvent.click(button);
+    fireEvent.click(button);
+    expect(fetch).toHaveBeenCalledTimes(1);
+    expect(button).toBeDisabled();
+    reject(new Error('offline'));
+    await screen.findByRole('alert');
+    expect(fields[2]).toHaveValue('Message');
+    expect(button).toBeEnabled();
+    fetch.mockImplementation(() => response({}));
+    fireEvent.click(button);
+    await screen.findByText('送信しました');
+    expect(fields[2]).toHaveValue('');
 });

@@ -12,15 +12,21 @@ const apiUrl = process.env.REACT_APP_API_URL;
 const BlogDetail = () => {
 	const { id } = useParams();
 	const [likeOverride, setLikeOverride] = useState(null);
+    const [liking, setLiking] = useState(false);
+    const [likeError, setLikeError] = useState('');
+    const likePending = useRef(false);
     const { data: article, error } = useBlogResource(`blog/${id}/`);
     const data = useMemo(() => article && likeOverride?.id === id
         ? { ...article, likes: likeOverride.likes } : article, [article, likeOverride, id]);
 	const { updateLikes } = useContext(BlogDataContext);
 	const contentRef = useRef(null);
+    const contentHtml = article?.content_html;
+    useEffect(() => { setLikeOverride(null); }, [article, id]);
+    useEffect(() => { setLikeError(''); }, [id]);
 
 	useEffect(() => {
 		const container = contentRef.current;
-		if (!container || !data?.content_html) return;
+		if (!container || !contentHtml) return;
 
 		let disposed = false;
 		const cleanups = [];
@@ -89,12 +95,12 @@ const BlogDetail = () => {
 			disposed = true;
 			cleanups.forEach((cleanup) => cleanup());
 		};
-		}, [data]);
+		}, [id, contentHtml]);
 
 	useEffect(() => {
-		if (!data) return;
+		if (!contentHtml) return;
 
-		if (data.content_html && window.twttr && window.twttr.widgets) {
+		if (window.twttr && window.twttr.widgets) {
 			window.twttr.widgets.load();
 		}
 
@@ -128,7 +134,7 @@ const BlogDetail = () => {
 		return () => {
 			cancelled = true;
 		};
-	}, [data]);
+	}, [id, contentHtml]);
 
 	const sanitizedContent = useMemo(() => {
 		if (!data?.content_html) {
@@ -155,14 +161,24 @@ const BlogDetail = () => {
 		return `${year}年${month}月${day}日`;
 	};
 
-	const handleLike = async () => {
-        const response = await fetch(`${apiUrl}/blog/${id}/like/`, {
-            method: 'PATCH'
-        });
-        if (!response.ok) return;
-        const res = await response.json();
-        updateLikes(id, res.likes);
-        setLikeOverride({ id, likes: res.likes });
+    const sanitizedToc = useMemo(() => DOMPurify.sanitize(data?.toc_html || ''), [data?.toc_html]);
+    const handleLike = async () => {
+        if (likePending.current) return;
+        likePending.current = true;
+        setLiking(true);
+        setLikeError('');
+        try {
+            const response = await fetch(`${apiUrl}/blog/${id}/like/`, { method: 'PATCH' });
+            if (!response.ok) throw new Error('Like failed');
+            const res = await response.json();
+            updateLikes(id, res.likes);
+            setLikeOverride({ id, likes: res.likes });
+        } catch (error) {
+            setLikeError('いいねを送信できませんでした。もう一度お試しください。');
+        } finally {
+            likePending.current = false;
+            setLiking(false);
+        }
     };
 
     const previousArticle = data?.previous_article;
@@ -235,7 +251,7 @@ const BlogDetail = () => {
     			<h4 className="mt-2 mb-2">目次</h4>
     				<div
         				className="pt-2 border body-toc" 
-        				dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(data.toc_html) }}
+        				dangerouslySetInnerHTML={{ __html: sanitizedToc }}
     				/>
 			</div> 
 
@@ -248,7 +264,8 @@ const BlogDetail = () => {
 						}}
 					/>
 					<div className="text-center mb-3">
-						<button className="btn btn-outline-primary  mt-3" onClick={handleLike}>いいね！ ({data.likes})</button>
+						<button className="btn btn-outline-primary  mt-3" onClick={handleLike} disabled={liking}>いいね！ ({data.likes})</button>
+                        {likeError && <p role="alert">{likeError}</p>}
 						
 					</div>
 			</div>
@@ -331,7 +348,7 @@ const BlogDetail = () => {
 		<div className="col-sm-3 order-2 order-sm-1 mb-3  d-none d-sm-block">
 			<div className="stick">
 				<h4 className="mb-3">目次</h4>
-				<div className="pt-2 border right-sidebar-toc" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(data.toc_html) }} />
+				<div className="pt-2 border right-sidebar-toc" dangerouslySetInnerHTML={{ __html: sanitizedToc }} />
 			</div>
 		</div>
 				

@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 const apiUrl = process.env.REACT_APP_API_URL;
 
 
@@ -26,6 +26,9 @@ const ContactForm = () => {
         message: ''
     });
     const [errors, setErrors] = useState({});
+    const [submitting, setSubmitting] = useState(false);
+    const [submitError, setSubmitError] = useState('');
+    const pending = useRef(false);
     const [messages, setMessages] = useState("");
 
     const validateForm = () => {
@@ -49,6 +52,7 @@ const ContactForm = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        if (pending.current) return;
 
         const formErrors = validateForm();
         if (Object.keys(formErrors).length > 0) {
@@ -56,6 +60,10 @@ const ContactForm = () => {
             return;
         }
 
+        pending.current = true;
+        setSubmitting(true);
+        setSubmitError('');
+        setMessages('');
         fetch(`${apiUrl}/contact/`, {
             method: 'POST',
             headers: {
@@ -78,7 +86,10 @@ const ContactForm = () => {
             });
         })
         .catch((error) => {
-            console.error('There was an error!', error);
+            setSubmitError('送信できませんでした。入力内容を確認して、もう一度お試しください。');
+        }).finally(() => {
+            pending.current = false;
+            setSubmitting(false);
         });
     };
 
@@ -96,11 +107,12 @@ const ContactForm = () => {
                 <textarea className="form-control" name="message" value={formData.message} onChange={handleChange}></textarea>
 				
             </div>
-            <div class="d-grid gap-2">
-                <button className="mt-2 btn btn-outline-primary" type="submit">送信</button>
+            <div className="d-grid gap-2">
+                <button className="mt-2 btn btn-outline-primary" type="submit" disabled={submitting}>送信</button>
             </div>
         </form>
-        <p>{messages}</p>
+        <p role="status">{messages}</p>
+        {submitError && <p role="alert">{submitError}</p>}
         </>
     );
 };
